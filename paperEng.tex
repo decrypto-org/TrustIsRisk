@@ -1,0 +1,164 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{graphicx}
+%\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{listings}
+\usepackage{relsize}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{ amssymb }
+\usepackage{xltxtra}
+\usepackage{xunicode}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{relsize}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{multirow}
+\usepackage{datetime}
+\usepackage{hyperref}
+\usepackage{courier}
+\usepackage{listings}
+
+%\setmainlanguage{english}
+\setcounter{tocdepth}{3}
+\setmainfont{Ubuntu Light}
+\setmonofont{Linux Libertine Mono}
+\tolerance=10000
+\definecolor{bootred}{RGB}{248,148,6}
+\definecolor{bootgreen}{RGB}{81,163,81}
+\definecolor{bootblue}{RGB}{73, 178, 205}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+% PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+    linkcolor=darkblue,urlcolor=darkblue,
+    anchorcolor=darkblue,citecolor=darkblue}
+
+\pagestyle{fancy}{ %
+    \fancyhf{} % remove everything
+        \renewcommand{\headrulewidth}{0pt} % remove lines as well
+        \renewcommand{\footrulewidth}{0.5pt}
+        \rhead{\leftmark}
+        \lhead{Decentralized financial reputation with multisig for lines-of-credit}
+        \rfoot{Page \thepage\ of \pageref{LastPage}}}
+        
+\begin{document}
+
+\begin{enumerate}
+  \item Abstract - Introduction
+  We propose a decentralized system that can replace the word-of-mouth, stars- and review-based systems.
+  The basic idea is that a member A trusts her friends with a certain value (with a 1/2 multisig), thus
+  risking to lose their value. When A wants to transfer value V to a (maybe previously unknown) member B,
+  A asks the system if she trusts B enough to transfer this value to B. The system will search throughout
+  the network for trust paths that begin from A and reach B and add up to V and will answer whether the
+  proposed transaction is within the trust capabilities of A towards B. If the answer is positive, it means
+  that transferring value V to B will not raise the risk for A to lose their value.
+  Note: we use Bitcoin terminology.
+
+%  \item Introduction
+
+  \item Related Work
+
+  \item Key points
+  \section*{Definitions}
+    \begin{itemize}
+      \item Direct trust from A to B DTr_{A->B}
+      Total amount of value that exists in 1/{A,B} multisigs in the utxo, where the money is deposited by A
+      \item B steals x from A
+      B steals value x from A when B reduces the direct trust from A to B by x. This makes sense when 
+      x <= DTr_{A->B}.
+      \item Honest (passive) strategy
+      A member A is said to follow the honest (passive) strategy if for any value x that is stolen from her, she
+      substitutes it by stealing exactly x from others that trust her if sum{B \in members}{DTr_{B,A}} >= x,
+      or by stealing exactly sum{B \in members}{DTr_{B,A}} if sum{B \in members}{DTr_{B,A}} < x.
+      \item Indirect trust from A to B Tr_{A->B}
+      Value that A will lose if B steals the maximum amount she can steal (all her incoming trust) and everyone
+      else follows the honest (passive) strategy.
+    \end{itemize}
+  \section*{Theorems}
+    \begin{itemize}
+    \item Tr_{A->B} = MaxFlow_{A->B} (Treating trusts as capacities)
+    
+    \item Trust transfer theorem (flow terminology)
+    Let s source, t sink, X_s = \{x_{s1}, ..., x_{sn}\} outgoing flows from s , X_t = \{x_{t1}, ..., x_{tm}\}
+    incoming flows to t, U_s = \{u_{s1}, ..., u_{sn}\} outgoing capacities from s, U_t = {u_{t1}, ..., u_{tm}\}
+    incoming capacities to t, V the value to be transferred. Nodes apart from s,t cannot create or consume flow.
+    Obviously maxFlow = F = sum{x_{ti}}.
+    
+         /                      ....                 \
+        / x_s1/u_s1                         x_t1/u_t1 \
+       /                                               \
+      /                                                 \
+     / x_s2/u_s2                               x_t2/u_t2 \
+    s-------------              ....          ------------t
+     \      .                                       .    /
+      \     .                                       .   /
+       \    .                                       .  /
+        \ x_sn/u_sn             ....        x_tm/u_tm /
+         \                                           /
+         
+    We create a new graph where
+    (i)  sum{u_{si}'} = F - V
+    (ii) u_{si}' <= x_{si}
+    
+    We will now prove that maxFlow' = F' = F - V.
+    
+    (i)  It is impossible to have F' > F - V because F' <= sum{u_{si}'} = F - V.
+    (ii) It is impossible to have F' < F - V.
+      Let i be a node such that x_{si} > 0 and I = \{(i,j) \in E\} the set of direct trusts outgoing from i.
+      In the initial graph we have x_{si} = sum{over j}{x_{ij}}, F = sum{over i}{x_{si}}
+      and in the new graph we have x_{si}' = u_{si}' <= x_{si}, F' = sum{over i}{x_{si}'},
+      x_{ij} <= u_{ij} = u_{ij}' for all j, for any i.
+      We can construct a set Xi' = \{x_{ij}'\} flows such that x_{ij}' =< x_{ij} and
+      sum{over j}{x_{ij}'} = x_{si}'. This shows that there is a possible flow such that F' = F - V, so the
+      maxFlow algorithm will not return a flow less than F - V.
+      Example construction:
+      x_{ij}' = x_{ij} for all j in \{1,...,k\} with k such that
+	      i)  sum{j=1 to k}{x_{ij}} <= x_{si}' and
+	      ii) sum{j=1 to k+1}{x_{ij}} > x_{si}',
+      x_{i(k+1)}' = x_{si}' - sim{j=1 to k}{x_{ij}'}
+      x_{ij}' = 0 for all j in \{k+2,...,|Xi'|\}
+    \end{itemize}
+  \item Further Research 
+
+  \item References
+
+  \item Tags/Keywords
+  decentralized, trust, reputation, web-of-trust,
+  bitcoin, multisig, line-of-credit, trust-as-risk, flow
+  
+\end{enumerate}
+\end{document}
