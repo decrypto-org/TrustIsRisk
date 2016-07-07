@@ -7,8 +7,6 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{amsfonts}
-\usepackage{listings}
-\usepackage{relsize}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{ amssymb }
@@ -18,7 +16,6 @@
 \usepackage{color}
 \usepackage[table]{xcolor}
 \usepackage{fancyvrb}
-\usepackage{listings}
 \usepackage{enumitem}
 \usepackage{framed}
 \usepackage{relsize}
@@ -105,7 +102,7 @@
       substitutes it by stealing from others that trust her:
       \begin{equation*}\begin{cases}
           x\:\: \text{if} \:\:\sum_{B \in members}{DTr_{B \rightarrow A}} \geq x \\
-         \sum_{B \in members}{DTr_{B \rightarrow A}} \text{if} \sum_{B \in members}{DTr_{B \rightarrow A}} < x
+         \sum_{B \in members}{DTr_{B \rightarrow A}}\:\: \text{if} \:\:\sum_{B \in members}{DTr_{B \rightarrow A}} < x
       \end{cases}\end{equation*}
       or simply $min(x,\sum_{B \in members}{DTr_{B \rightarrow A}})$.
       \item Indirect trust from A to B $Tr_{A \rightarrow B}$ \\
@@ -114,7 +111,20 @@
     \end{itemize}
   \section*{Theorems}
     \begin{itemize}
-    \item $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities)
+    \item $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities) 
+    \begin{enumerate}
+       \item $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because by the definition of $Tr_{A \rightarrow B}$,
+       B leaves taking with him all the incoming trust, so there is no trust flowing towards him after leaving.
+       $Tr_{A \rightarrow B} < MaxFlow_{A \rightarrow B}$ would imply that after B left, there would still remain trust
+       flowing from A to B.
+       \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
+       Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
+       see that there is a set of capacities $C= \{c_1,...,c_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
+       $\sum_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(c_i' = 0\:\:\forall i \in \{1,...,n\})$ the flow
+       from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No strategy
+       followed by B could reduce the value of A, so our supposition (1) cannot be true.
+    \end{enumerate}
+    Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
     
     \item Trust transfer theorem (flow terminology) \\
     Let $s$ source, $t$ sink, \\
@@ -124,7 +134,7 @@
     $U_t = \{u_{1 \rightarrow t}, ..., u_{m \rightarrow t}\}$ incoming capacities to $t$, \\
     $V$ the value to be transferred. \\
     Nodes apart from $s$, $t$ cannot create or consume flow. \\
-    Obviously $maxFlow = F = \sum_{i=1}^{n}{x_{t \rightarrow i}}$. \newpage
+    Obviously $maxFlow = F = \sum_{i=1}^{n}{x_{t \rightarrow i}}$.
     \begin{lstlisting}
          /                      ....                     \
         / x_s1/u_s1                         x_1t/u_1t \
