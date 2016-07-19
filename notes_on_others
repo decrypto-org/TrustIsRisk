@@ -16,6 +16,11 @@ v)	Reputery: intermediate between reputer and reputee (e.g. web service allowing
 vi)	Unclear definitions of direct and indirect reputation
 vii)	Public (blockchain) ledger for identities, reputations and relations
 
+A Computational Model of Trust and Reputation - Mui
+i)	Discussion of reputation & trust as distinct things
+ii)	computational model based on social and scientific disciplines
+iii)	Uses concept of social reciprocity (be nice to nice people and bad to bad ones)
+iv)	reputation->trust->reciprocity->reputation->... (trust-/>reputation directly)
 
 A Generic Framework for Modeling Decentralized Reputation-based Trust Models
 i)	4C: Content, Communication, Computation, Counteraction
