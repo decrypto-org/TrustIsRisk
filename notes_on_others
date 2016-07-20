@@ -21,6 +21,19 @@ i)	Discussion of reputation & trust as distinct things
 ii)	computational model based on social and scientific disciplines
 iii)	Uses concept of social reciprocity (be nice to nice people and bad to bad ones)
 iv)	reputation->trust->reciprocity->reputation->... (trust-/>reputation directly)
+v)	Static network (no new/leaving nodes), binary actions (defect, cooperate)
+vi)	The higher the trust level of a_j for agent a_i , the higher the expectation that a_i will reciprocate agent a_j ’s actions. That is a special-case trust.
+vii)	The math is simple statistics: if the other has been reciprocal p/n times, that is the expected reciprocity next time.
+viii)	Encounters are only pairwise, reciprocity increases only when both choose the same action in the same encounter.
+ix)	Reliability to intermediary nodes is augmented with each encounter, whether bad or good.
+
+An integrated trust and reputation model for open multi-agent systems, FIRE - Dong Huynh (not completely read, up to 12)
+i)	Open, decentralized, no global knowledge
+ii)	Reputation is societal trust
+iii)	No use of digital signatures. Explicitly avoids considering lying, inaccuracy and withholding of information.
+v)	Context-aware [-1,+1] ratings
+vi)	Trust for each of 4 sources of trust (personal experience, witnesses, role-based rules, certificates target provides) is calculated using weighted average.
+vii)	Several hand-tuned parameters and arbitrary (but sensible) function choices
 
 A Generic Framework for Modeling Decentralized Reputation-based Trust Models
 i)	4C: Content, Communication, Computation, Counteraction
@@ -32,7 +45,7 @@ vi)	Context of trust is considered, with sub-contexts as well.
 vii)	Communication protocols: initiated by subject or target. Hop counts are considered.
 viii)	"Degree of trust in unknowns", "Recent interaction weight", "Trust Threshold", Trust Value = w*P + (1-w)*R (limiting)
 ix)	Has an editor that produces an XML description of the trust model as output
-	No privacy considerations, trust and reputation are not clearly distinguished, cryptography is not used, peer hierarchy not present, offline peers implicitly ignored
+x)	No privacy considerations, trust and reputation are not clearly distinguished, cryptography is not used, peer hierarchy not present, offline peers implicitly ignored
 
 Bazaar
 Centralized marketplace (EBay server-side add-on) with a risk network
