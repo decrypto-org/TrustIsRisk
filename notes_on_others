@@ -35,6 +35,58 @@ v)	Context-aware [-1,+1] ratings
 vi)	Trust for each of 4 sources of trust (personal experience, witnesses, role-based rules, certificates target provides) is calculated using weighted average.
 vii)	Several hand-tuned parameters and arbitrary (but sensible) function choices
 
+A survey of trust and reputation systems for online service provision - Josang
+i)	Overview of existing and proposed systems
+ii)	Users rate each other - positive effect on market quality
+iii)	Extensive talk about trust categories, related concepts, (de)centralized architectures, computation engines
+iv)	Beta PDF, PageRank practical explanation
+v)	Concrete examples (e.g. Ebay) are mostly primitive and ad-hoc
+
+Beta Reputation System - Josang
+i)	Beta Density function - good statistical foundations, only binary rankings
+ii)	Only building blocks, not entire infrastructure
+iii)	Centralized edition, generalizable to decentralized version
+
+CORE - Michiardi
+i)	MANET reputation system
+ii)	Subjective (personal) and indirect reputation (time, function dependent) are considered functional reputation. Summation over all functions is the global reputation, r(s_i,s_j,t).
+iii)	Watchdog mechanism: occasionally (?) compares expected with received results to reduce reputation if misbehavior is detected.
+iv)	Only positive rating factors can be distributed among the entities while the negative rating factors are evaluated locally to protect from false damaging reports.
+v)	Assumption: No colluding parties.
+vi)	Reputation usage: DoS to nodes with negative reputation.
+vii)	Watchdog mechanism protects only from selfish, not malicious nodes (not even from selfish & malicious nodes)
+viii)	Currency to promote good node behavior is considered.
+
+Decentralized Reputation Management for cooperating Software Agents in open Multi-Agent Systems - Grunert
+i)	MAS reputation system for rating CPS (Cooperative Problem Solving) members.
+ii)	Each node saves its reputation locally. Colluding agents and white-washing not mitigated.
+iii)	Relies on (trusted) second entities to ensure identification and arbiter/intermediary services.
+iv)	After cooperation, everybody rates everybody.
+v)	No concrete reputation metric is proposed.
+vi)	Time-based leases.
+
+An Architectural Approach for Decentralized Trust Management, PACE - Suryanarayana
+i)	Thoroughly describes an architecture for p2p trusted communication
+ii)	No trust semantics - application dependent
+iii)	Rather serious approach
+iv)	Messages are the ones assigned trust values.
+
+Decentralized Trust Management for Ad-Hoc Peer-to-Peer Networks - Repantis
+i)	Same target as PACE and CORE
+ii)	Reputation = sum of ratings
+iii)	Content/Service providers are rated
+iv)	TTL-based flooding
+v)	Reputation is verified by comparing content provider neighbours' view of reputation.
+vi)	Various security holes, most notably Sybil-attackable
+vii)	Confidence concept introduced: More neighbours reporting same reputation for a peer means more confidence in the truth of their words
+vii)	Beautiful Related Work section
+
+Decentralized Trust Management in Peer-to-Peer Systems - Visan
+i)	Claims to improve on TrsutMe.
+ii)	Structured: Tree with higher (global) trust values closer to the root (SOPSys)
+iii)	New trust calculated with an exact formula, with ratings only in a specified time interval considered
+iv)	Trust communication and storage considered, not trust creation
+
 A Generic Framework for Modeling Decentralized Reputation-based Trust Models
 i)	4C: Content, Communication, Computation, Counteraction
 ii)	Subject (reputation evaluator of the target peer), Target, Recommender (informs subject peer): A subject asks a recommender how good a target is. Recommenders' recommendations are considered according to their reputation
