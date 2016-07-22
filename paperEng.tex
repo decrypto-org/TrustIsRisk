@@ -1,44 +1,35 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,top=2cm,bottom=2cm,left=1.5cm,right=1.5cm]{geometry}
 \usepackage{graphicx}
-%\usepackage{polyglossia}
-\usepackage{fontspec}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
-\usepackage{mathtools}
-\usepackage{amsfonts}
+%\usepackage{mathtools}
+\usepackage{amsthm}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{ amssymb }
-\usepackage{xltxtra}
-\usepackage{xunicode}
-\usepackage{graphicx}
-\usepackage{color}
-\usepackage[table]{xcolor}
+\usepackage{amssymb}
+%\usepackage{xltxtra}
+%\usepackage{xunicode}
+%\usepackage{color}
+%\usepackage[table]{xcolor}
 \usepackage{fancyvrb}
-\usepackage{enumitem}
-\usepackage{framed}
-\usepackage{relsize}
-\usepackage{float}
+%\usepackage{enumitem}
+%\usepackage{framed}
+%\usepackage{relsize}
+%\usepackage{float}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
-\usepackage{multirow}
-\usepackage{datetime}
 \usepackage{hyperref}
 \usepackage{courier}
 \usepackage{listings}
 
-%\setmainlanguage{english}
-\setcounter{tocdepth}{3}
-\setmainfont{Ubuntu Light}
-\setmonofont{Linux Libertine Mono}
-\tolerance=10000
-\definecolor{bootred}{RGB}{248,148,6}
-\definecolor{bootgreen}{RGB}{81,163,81}
-\definecolor{bootblue}{RGB}{73, 178, 205}
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{corollary}
+\newtheorem{corollary}{Corollary}[section]
 
 \lstset{frame=tb,
 %  language=Java,
@@ -74,115 +65,137 @@
         
 \begin{document}
 
-\begin{enumerate}
-  \item Abstract - Introduction
-  We propose a decentralized reputation system that can replace the word-of-mouth, stars- and review-based systems.
-  The basic idea is that a member A trusts her friends with a certain value (with a 1/2 multisig), thus
-  risking to lose their value. When A wants to transfer value V to a (maybe previously unknown) member B,
-  A asks the system if she trusts B enough to transfer this value to B. The system will search throughout
-  the network for trust paths that begin from A and reach B and add up to V and will answer whether the
-  proposed transaction is within the trust capabilities of A towards B. If the answer is positive, it means
-  that transferring value V to B will not raise the risk for A to lose their value.
-  Note: we use Bitcoin terminology.
+  \section{Abstract}
+      We propose a decentralized reputation system that can replace the word-of-mouth, stars- and review-based systems.
+      The basic idea is that a member A trusts her friends with a certain value (with a 1/2 multisig), thus
+      risking to lose their value. When A wants to transfer value V to a (maybe previously unknown) member B,
+      A asks the system if she trusts B enough to transfer this value to B. The system will search throughout
+      the network for trust paths that begin from A and reach B and add up to V and will answer whether the
+      proposed transaction is within the trust capabilities of A towards B. If the answer is positive, it means
+      that transferring value V to B will not raise the risk for A to lose their value.
+      Note: we use Bitcoin terminology.
 
-%  \item Introduction
+  \section{Introduction}
 
-  \item Related Work
+  \section{Tags/Keywords}
+      decentralized, trust, web-of-trust, bitcoin, multisig, line-of-credit, trust-as-risk, flow  
 
-  \item Key points
-  \section*{Definitions}
-    \begin{itemize}
-      \item Direct trust from A to B, $DTr_{A \rightarrow B}$ \\
-      Total amount of value that exists in 1/\{A,B\} multisigs in the utxo, where the money is deposited by A
-      \item B steals x from A \\
-      B steals value x from A when B reduces the $DTr_{A \rightarrow B}$ by x. This makes sense when 
-      $x \leq DTr_{A \rightarrow B}$.
-      \item Honest (passive) strategy \\
-      A member A is said to follow the honest (passive) strategy if for any value $x$ that is stolen from her, she
-      substitutes it by stealing from others that trust her:
-      \begin{equation*}\begin{cases}
-          x\:\: \text{if} \:\:\sum_{B \in members}{DTr_{B \rightarrow A}} \geq x \\
-         \sum_{B \in members}{DTr_{B \rightarrow A}}\:\: \text{if} \:\:\sum_{B \in members}{DTr_{B \rightarrow A}} < x
-      \end{cases}\end{equation*}
-      or simply $min(x,\sum_{B \in members}{DTr_{B \rightarrow A}})$.
-      \item Indirect trust from A to B $Tr_{A \rightarrow B}$ \\
-      Value that A will lose if B steals the maximum amount she can steal (all her incoming trust) and everyone
-      else follows the honest (passive) strategy.
-    \end{itemize}
-  \section*{Theorems}
-    \begin{itemize}
-    \item $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities) 
-    \begin{enumerate}
-       \item $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because by the definition of $Tr_{A \rightarrow B}$,
-       B leaves taking with him all the incoming trust, so there is no trust flowing towards him after leaving.
-       $Tr_{A \rightarrow B} < MaxFlow_{A \rightarrow B}$ would imply that after B left, there would still remain trust
-       flowing from A to B.
-       \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
-       Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
-       see that there is a set of capacities $C= \{c_1,...,c_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
-       $\sum_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(c_i' = 0\:\:\forall i \in \{1,...,n\})$ the flow
-       from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No strategy
-       followed by B could reduce the value of A, so our supposition (1) cannot be true.
-    \end{enumerate}
-    Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
-    
-    \item Trust transfer theorem (flow terminology) \\
-    Let $s$ source, $t$ sink, \\
-    $X_s = \{x_{s \rightarrow 1}, ..., x_{s \rightarrow n}\}$ outgoing flows from $s$, \\
-    $X_t = \{x_{1 \rightarrow t}, ..., x_{m \rightarrow t}\}$ incoming flows to $t$, \\
-    $U_s = \{u_{s \rightarrow 1}, ..., u_{s \rightarrow n}\}$ outgoing capacities from $s$, \\
-    $U_t = \{u_{1 \rightarrow t}, ..., u_{m \rightarrow t}\}$ incoming capacities to $t$, \\
-    $V$ the value to be transferred. \\
-    Nodes apart from $s$, $t$ cannot create or consume flow. \\
-    Obviously $maxFlow = F = \sum_{i=1}^{n}{x_{t \rightarrow i}}$.
-    \begin{lstlisting}
-         /                      ....                     \
-        / x_s1/u_s1                         x_1t/u_1t \
-       /                                                   \
-      /                                                     \
-     / x_s2/u_s2                               x_2t/u_2t \
-    s-------------              ....          ------------t
-     \      .                                           .    /
-      \     .                                           .   /
-       \    .                                           .  /
-        \ x_sn/u_sn             ....        x_mt/u_mt /
-         \                                               /
-    \end{lstlisting}
-    We create a new graph where
-    \begin{enumerate}
-      \item  $\sum_{i}{u_{s \rightarrow i}'} = F - V$
-      \item $u_{s \rightarrow i}' \leq x_{s \rightarrow i}$
-    \end{enumerate}
-    
-    We will now prove that $maxFlow' = F' = F - V$.
-    
-    \begin{enumerate}
-      \item  It is impossible to have $F' > F - V$ because $F' \leq \sum{u_{s \rightarrow i}'} = F - V$.
-      \item  It is impossible to have $F' < F - V$. \\
-      Let $i$ be a node such that $x_{s \rightarrow i} > 0$ and $I = \{(i,j) \in E\}$ the set of direct trusts outgoing from $i$.
-      In the initial graph we have $x_{s \rightarrow i} = \sum_{j}{x_{i \rightarrow j}}, F = \sum_{i}{x_{s \rightarrow i}}$
-      and in the new graph we have $x_{s \rightarrow i}' = u_{s \rightarrow i}' \leq x_{s \rightarrow i},
-      F' = \sum_{i}{x_{s \rightarrow i}'}, x_{i \rightarrow j} \leq u_{i \rightarrow j} = u_{i \rightarrow j}' \forall j, i$.
-      We can construct a set $X_i' = \{x_{i \rightarrow j}'\}$ of flows such that $x_{i \rightarrow j}' \leq x_{i \rightarrow j}$
-      and $\sum_{j}{x_{i \rightarrow j}'} = x_{s \rightarrow i}'$. This shows that there is a possible flow such that $F' = F - V$,
-      so the maxFlow algorithm will not return a flow less than $F - V$. \\
-      Example construction: \\
-      $x_{i \rightarrow j}' = x_{i \rightarrow j} \forall j \in \{1,...,k\}$ with $k$ such that
-         \begin{enumerate}
-	      \item $\sum_{j=1}^{k}{x_{i \rightarrow j}} \leq x_{s \rightarrow i}'$ and
-	      \item $\sum_{j=1}^{k+1}{x_{i \rightarrow j}} > x_{s \rightarrow i}'$
-         \end{enumerate}
-      $x_{i \rightarrow (k+1)}' = x_{s \rightarrow i}' - \sum_{j=1}^{k}{x_{i \rightarrow j}'}$ \\
-      $x_{i \rightarrow j}' = 0 \forall j \in \{k+2,...,|X_i'|\}$
-    \end{enumerate}
-    \end{itemize}
-  \item Further Research 
+  \section{Related Work}
 
-  \item References
+  \section{Key points}
 
-  \item Tags/Keywords
-  decentralized, trust, reputation, web-of-trust,
-  bitcoin, multisig, line-of-credit, trust-as-risk, flow
-  
-\end{enumerate}
+  \section{Definitions}
+      \begin{definition}[Direct Trust from A to B, $DTr_{A \rightarrow B}$] \ \\
+         Total amount of value that exists in 1/\{A,B\} multisigs in the utxo, where the money is deposited by A.
+      \end{definition}
+      \begin{definition}[B steals $x$ from A] \ \\
+         B steals value $x$ from A when B reduces the $DTr_{A \rightarrow B}$ by $x$. This makes sense when 
+         $x \leq DTr_{A \rightarrow B}$.
+      \end{definition}
+      \begin{definition}[Honest strategy] \ \\
+         A member A is said to follow the honest strategy if for any value $x$ that is stolen from her, she
+         substitutes it by stealing from others that trust her value equal to
+         $min(x,\sum_{B \in members}{DTr_{B \rightarrow A}})$ and she takes no other action.
+      \end{definition}
+      \begin{definition}[Indirect trust from A to B $Tr_{A \rightarrow B}$] \ \\
+         Value that A will lose if B steals the maximum amount she can steal (all her incoming trust) and everyone
+         else follows the honest strategy.
+      \end{definition}
+  \section{Theorems}
+    \begin{theorem}
+    $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities)
+    \end{theorem}
+    \begin{proof} \ 
+        \begin{enumerate}
+           \item $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because by the definition of $Tr_{A \rightarrow B}$,
+           B leaves taking with him all the incoming trust, so there is no trust flowing towards him after leaving.
+           $Tr_{A \rightarrow B} < MaxFlow_{A \rightarrow B}$ would imply that after B left, there would still remain trust
+           flowing from A to B.
+           \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
+           Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
+           see that there is a set of capacities $C= \{c_1,...,c_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
+           $\sum_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(c_i' = 0\:\forall i \in \{1,...,n\})$ the flow
+           from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No strategy
+           followed by B could reduce the value of A, so our supposition (1) cannot be true.
+        \end{enumerate}
+        Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+    \end{proof}
+
+    \begin{theorem}
+       If everybody follows the honest strategy, nobody steals any amount from anybody.
+    \end{theorem}
+    \begin{proof}
+       According to the definition of the honest strategy, a member steals a value only when he is stolen at least the same value.
+       Let A be a member of the network. Suppose that A steals value V from member B. Since A follows the honest strategy, she has
+       been stolen at least V from another member, C. The same argument holds for C. This reasoning cannot be repeated
+       \textit{ad infinitum} because the network has finite members and finite total value. Thus member A could not have stolen any value.
+    \end{proof}
+    \begin{theorem}[Trust transfer theorem (flow terminology)] \ \\
+    \label{trusttransfer}
+       Let $s$ source, $t$ sink, \\
+       $X_s = \{x_{s, 1}, ..., x_{s, n}\}$ outgoing flows from $s$, \\
+       $X_t = \{x_{1, t}, ..., x_{m, t}\}$ incoming flows to $t$, \\
+       $U_s = \{u_{s, 1}, ..., u_{s, n}\}$ outgoing capacities from $s$, \\
+       $U_t = \{u_{1, t}, ..., u_{m, t}\}$ incoming capacities to $t$, \\
+       $V$ the value to be transferred. \\
+       Nodes apart from $s$, $t$ cannot create or consume flow. \\
+       Obviously $maxFlow = F = \sum_{i=1}^{n}{x_{t \rightarrow i}}$.
+       {\em \begin{lstlisting}
+            /                      ....                     \
+           / x_s1/u_s1                         x_1t/u_1t     \
+          /                                                   \
+         /                                                     \
+        / x_s2/u_s2                               x_2t/u_2t     \
+       s-------------              ....          ------------t
+        \      .                                           .    /
+         \     .                                           .   /
+          \    .                                           .  /
+           \ x_sn/u_sn             ....        x_mt/u_mt     /
+            \                                               /
+       \end{lstlisting}}
+       We create a new graph where
+       \begin{enumerate}
+         \item  $\sum_{i}{u_{s, i}'} = F - V$
+         \item $u_{s, i}' \leq x_{s, i} \forall i \in \{1,...,n\}$
+       \end{enumerate}
+ 
+       It holds that $maxFlow' = F' = F - V$.
+    \end{theorem}
+    \begin{proof} \
+       \begin{enumerate}
+         \item  It is impossible to have $F' > F - V$ because $F' \leq \sum{u_{s, i}'} = F - V$.
+         \item  It is impossible to have $F' < F - V$. \\
+         Let $i$ be a node such that $x_{s, i} > 0$ and $I = \{(i,j) \in E\}$ the set of direct trusts outgoing from $i$.
+         In the initial graph we have $x_{s, i} = \sum_{j}{x_{i, j}}, F = \sum_{i}{x_{s, i}}$
+         and in the new graph we have $x_{s, i}' = u_{s, i}' \leq x_{s, i},
+         F' = \sum_{i}{x_{s, i}'}, x_{i, j} \leq u_{i, j} = u_{i, j}' \:\forall\: j, i$.
+         We can construct a set $X_i' = \{x_{i, j}'\}$ of flows such that $x_{i, j}' \leq x_{i, j}$
+         and $\sum_{j}{x_{i, j}'} = x_{s, i}'$. This shows that there is a possible flow such that $F' = F - V$,
+         so the maxFlow algorithm will not return a flow less than $F - V$. \\
+         Example construction: \\
+         $x_{i, j}' = x_{i, j} \:\forall \:j \in \{1,...,k\}$ with $k$ such that
+            \begin{enumerate}
+	      \item $\sum_{j=1}^{k}{x_{i, j}} \leq x_{s, i}'$ and
+	      \item $\sum_{j=1}^{k+1}{x_{i, j}} > x_{s, i}'$
+            \end{enumerate}
+         $x_{i, (k+1)}' = x_{s, i}' - \sum_{j=1}^{k}{x_{i, j}'}$ \\
+         $x_{i, j}' = 0 \:\forall \:j \in \{k+2,...,|X_i'|\}$
+       \end{enumerate}
+    \end{proof}
+
+    \begin{corollary}[Requirement for $\sum_{i}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
+       In the setting of \ref{trusttransfer}, it is impossible to have $maxFlow' = F - V$ if $\sum_{i}{u_{s, i}'} > F - V
+       \wedge u_{s, i}' \leq x_{s, i}\: \forall \:i \in \{1,...,n\}$.
+    \end{corollary}
+    \begin{proof}
+       Due to \ref{trusttransfer}, $maxFlow' = F - V$ if $\sum_{i}{u_{s, i}'} = F - V
+       \wedge u_{s, i}' \leq x_{s, i}\: \forall \:i \in \{1,...,n\}$. If we create new capacities such that
+       $u_{s,i}'' \leq x_{s,i}\:\forall\:i \in \{1,...,n\}$, then obviously $maxFlow'' = \sum_{i}{u_{s,i}''}$. If
+       additionally $\sum_{i}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
+    \end{proof}
+
+  \section{Further Research}
+
+  \section{References}
+
 \end{document}
