@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,top=2cm,bottom=2cm,left=1.5cm,right=1.5cm]{geometry}
 \usepackage{graphicx}
+\usepackage[linesnumbered,ruled,noend]{algorithm2e}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[normalem]{ulem}
@@ -101,7 +102,7 @@
          Value that A will lose if B steals the maximum amount she can steal (all her incoming trust) and everyone
          else follows the honest strategy.
       \end{definition}
-  \section{Theorems}
+  \section{Theorems-Algorithms}
     \begin{theorem}
     $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities)
     \end{theorem}
@@ -193,6 +194,62 @@
        $u_{s,i}'' \leq x_{s,i}\:\forall\:i \in \{1,...,n\}$, then obviously $maxFlow'' = \sum_{i}{u_{s,i}''}$. If
        additionally $\sum_{i}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
     \end{proof}
+
+    Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
+    a trusted party. \\
+    \begin{algorithm}[H]
+       \SetKwInOut{Input}{Input}
+       \SetKwInOut{Output}{Output}
+       \Input{$x_i$ flows, $n$ flows number, $V$ value}
+       \Output{$u_i'$ capacities}
+       $F \gets \sum_{i=1}^{n}x_i$ \\
+       \If{$F < V$}{\Return error}
+       $Fcur \gets F$ \\
+       \For{$i \gets 1$ to $n$}
+          {$u_i' \gets x_i$} 
+       $j \gets 1$ \\
+       \While{$Fcur > F - V$}
+          {$reduce \gets min(u_j', Fcur - V)$ \\
+           $Fcur \gets Fcur - reduce$ \\
+           $u_j' \gets u_j' - reduce$ \\
+           $j \gets j + 1$}
+       \caption{First-come, first-served trust transfer}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+       \SetKwInOut{Input}{Input}
+       \SetKwInOut{Output}{Output}
+       \Input{$x_i$ flows, $n$ flows number, $V$ value}
+       \Output{$u_i'$ capacities}
+       $F \gets \sum_{i=1}^{n}x_i$ \\
+       \If{$F < V$}{\Return error}
+       \For{$i \gets 1$ to $n$}
+          {$u_i' \gets x_i$}
+       \While{$\sum_{i=1}^{n}u_i' > F - V$}
+          {}
+       \caption{Absolute equality trust transfer TODO}
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+       \SetKwInOut{Input}{Input}
+       \SetKwInOut{Output}{Output}
+       \Input{$x_i$ flows, $n$ flows number, $V$ value}
+       \Output{$u_i'$ capacities}
+       $F \gets \sum_{i=1}^{n}x_i$ \\
+       \If{$F < V$}{\Return error}
+       \For{$i \gets 1$ to $n$}
+          {$u_i' \gets x_i - {{F - V} \over {\sum_{i=1}^{n}x_i}} \cdot x_i$}
+       \While{$\sum_{i=1}^{n}u_i' > F - V$}
+          {}
+       \caption{Proportional equality trust transfer}
+    \end{algorithm}
+    \begin{proof}[Proof of correctness]
+       In all three algorithms, we have $u_i' <= x_i$ because in the only case where $u_i'$ is altered after its
+       initialisation, it is reduced. Furthermore, a total of $V$ is subtracted from all the $u_i'$, thus
+       $\sum_{i=1}^{n}u_i' = F - V$.
+    \end{proof}
+
+    However, we need to minimize $\sum_{i=1}^{n}(u_i-u_i')$.
 
   \section{Further Research}
 
