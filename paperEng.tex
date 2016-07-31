@@ -195,6 +195,32 @@
        additionally $\sum_{i}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
     \end{proof}
 
+    \begin{theorem}[Trust-saving Theorem] \ \\
+       $u_i' = F_{A_i \rightarrow B} \Leftrightarrow u_i' = u_i \: \forall \: i$
+    \end{theorem}
+    \begin{proof}
+       We know that $x_i \leq F_{A_i \rightarrow B}$, thus we can see that any increase in $u_i'$ beyond
+       $F_{A_i \rightarrow B}$ will not influence $x_i$ and subsequently will not incur any change on the rest of the flows.
+    \end{proof}
+
+    \begin{theorem}[Invariable trust reduction with naive algorithms] \ \\
+       If $u_i' \leq x_i \: \forall \: i$, Trust Reduction (TrR) invariable $\: \forall \:$ configurations of $x_i$
+    \end{theorem}
+    \begin{proof}
+       $TrR = \sum_{i=1}^{n}TrR_i$ total Trust Reduction, $TrR_i = u_i - u_i'$, Trust Reduction on i.
+       Since $u_i' \leq x_i \: \forall \: i$ it is $x_i' = u_i'$, thus $TrR_i = u_i - x_i'$. We know that
+       $\sum_{i=1}^{n}x_i' = F - V$, so we have $TrR = \sum_{i=1}^{n}TrR_i = \sum_{i=1}^{n}(u_i - x_i') = 
+       \sum_{i=1}^{n}u_i - F + V$ independent of $x_i', u_i'$
+    \end{proof}
+
+    \begin{theorem}[Dependence impossibility theorem] \ \\
+       ${d x_j \over d x_i} = 0$ with $x_i$ the flow from MaxFlow $\Rightarrow {d x_j \over d x_i} = 0 \:
+       \forall \: x_i' < x_i$ ceteris paribus
+    \end{theorem}
+    \begin{proof}
+       TODO
+    \end{proof}
+
     Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
     a trusted party. \\
     \begin{algorithm}[H]
@@ -207,12 +233,12 @@
        $Fcur \gets F$ \\
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i$} 
-       $j \gets 1$ \\
+       $i \gets 1$ \\
        \While{$Fcur > F - V$}
-          {$reduce \gets min(u_j', Fcur - V)$ \\
+          {$reduce \gets min(u_i', Fcur - V)$ \\
            $Fcur \gets Fcur - reduce$ \\
-           $u_j' \gets u_j' - reduce$ \\
-           $j \gets j + 1$}
+           $u_i' \gets u_i' - reduce$ \\
+           $i \gets i + 1$}
        \caption{First-come, first-served trust transfer}
     \end{algorithm}
 
@@ -225,9 +251,20 @@
        \If{$F < V$}{\Return error}
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i$}
-       \While{$\sum_{i=1}^{n}u_i' > F - V$}
-          {}
-       \caption{Absolute equality trust transfer TODO}
+       $reduce \gets {V \over n}$ \\
+       $reduction \gets 0$ \\
+       $empty \gets 0$ \\
+       $i \gets 0$ \\
+       \While{$reduction < V$}
+          {\If{$u_i' > 0 \:AND \:x_i < reduce$}
+                {$empty \gets empty + 1$ \\
+                 $reduce = reduce + {{u_i'} \over {n - empty}}$ \\
+                 $reduction \gets reduction + u_i'$ \\
+                 $u_i' \gets 0$ \\}
+           \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \\
+                 $u_i' \gets x_i - reduce$}
+           $i \gets (i + 1) mod \:n$}
+       \caption{Absolute equality trust transfer}
     \end{algorithm}
 
     \begin{algorithm}[H]
@@ -239,8 +276,6 @@
        \If{$F < V$}{\Return error}
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i - {{F - V} \over {\sum_{i=1}^{n}x_i}} \cdot x_i$}
-       \While{$\sum_{i=1}^{n}u_i' > F - V$}
-          {}
        \caption{Proportional equality trust transfer}
     \end{algorithm}
     \begin{proof}[Proof of correctness]
