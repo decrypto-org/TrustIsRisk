@@ -1,0 +1,19 @@
+\section{Abstract}
+
+Reputation in centralized systems typically uses stars and review-based
+trust. These systems require extensive manual intervention and secrecy to
+avoid manipulation. In decentralized systems this luxury is not available
+as the reputation system should be autonomous and open source. Previous
+peer-to-peer reputation systems define trust abstractly and do not allow for
+financial arguments pertaining to reputation. We propose a concrete
+sybil-resilient decentralized reputation system in which direct trust is
+defined as lines-of-credit using bitcoin's 1-of-2 multisig. We introduce a new
+model for bitcoin wallets in which user coins are split among trusted friends.
+Indirect trust is subsequently defined using a transitive property. This
+enables formal game theoretic arguments pertaining to risk analysis. Using our
+reputation model, we prove that risk and max flows are equivalent and propose
+several algorithms for the redistribution of trust so that a decision can be
+made on whether an anonymous third party can be indirectly trusted. In such a
+setting, the risk incurred by making a purchase from an anonymous vendor
+remains invariant. Finally, we prove the correctness of our algorithms and
+provide optimality arguments for various norms.
