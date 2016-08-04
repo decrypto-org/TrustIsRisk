@@ -86,6 +86,26 @@
   \section{Key points}
 
   \section{Definitions}
+      \begin{definition}[Members] \ \\
+         The set $\mathcal{M} = V(G)$ is the set of all members in the network, otherwise understood as the set of all
+         pseudonymous identities.
+      \end{definition}
+      \begin{definition}[(In/Out) Neighbourhood of $A$, $N^{+}(A), N^{-}(A), N(A)$] \ 
+         \begin{enumerate}
+            \item Let $N^{+}(A)$ be the set of members B that A directly trusts with any positive value. More
+               formally, $N^{+}(A) = \{B \in \mathcal{M} : DTr_{A \rightarrow B} > 0\}$. $N^{+}(A)$ is called out
+               neighbourhood of A.
+            \item Let $N^{-}(A)$ be the set of members B that directly trust A with any positive value. More
+               formally, $N^{-}(A) = \{B \in \mathcal{M} : DTr_{B \rightarrow A} > 0\}$. $N^{-}(A)$ is called in
+               neighbourhood of A.
+            \item Let $N(A)$ be the set of members B that either directly trust or are directly trusted by A with
+               any positive value. More formally, $N(A) = N^{+}(A) \cup N^{-}(A)$. $N(A)$ is called
+               neighbourhood of A.
+            \item Let $N(A)_i$ (respectively $N^{+}(A)_i, N^{-}(A)_i$) be the $i$-th element of set $N(A)$
+               (respectively of $N^{+}(A), N^{-}(A)$), according to an arbitrary but constant enumeration of
+               the set members.
+         \end{enumerate}
+      \end{definition}
       \begin{definition}[Direct Trust from A to B, $DTr_{A \rightarrow B}$] \ \\
          Total amount of value that exists in 1-of-A,B multisigs in the utxo, where the money is deposited by A.
       \end{definition}
@@ -96,37 +116,60 @@
       \begin{definition}[Honest strategy] \ \\
          A member A is said to follow the honest strategy if for any value $x$ that is stolen from her, she
          substitutes it by stealing from others that trust her value equal to
-         $min(x,\sum_{B \in members}{DTr_{B \rightarrow A}})$ and she takes no other action.
+         $min(x,\sum\limits_{B \in \mathcal{M}}{DTr_{B \rightarrow A}})$ and she takes no other action.
       \end{definition}
       \begin{definition}[Indirect trust from A to B $Tr_{A \rightarrow B}$] \ \\
          Value that A will lose if B steals the maximum amount she can steal (all her incoming trust) and everyone
          else follows the honest strategy.
       \end{definition}
+      \begin{definition}[Trust Reduction] \ \\
+         Let $A, B \in \mathcal{M}, x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i$ current
+         $DTr_{A \rightarrow N^{+}(A)_i}, \\ u_i'$ new $DTr_{A \rightarrow N^{+}(A)_i}, i \in \{1,...,|N^{+}(A)|\}$.
+         \begin{enumerate}
+            \item The Trust Reduction on neighbour $i, \delta_i$ is defined as $\delta_i = u_i - u_i'$.
+            \item The Flow Reduction on neigbour $i, \Delta_i$ is defined as $\Delta_i = x_i - u_i'$.
+         \end{enumerate}
+         We will also use the standard notation for 1-norm and $\infty$-norm, that is:
+         \begin{enumerate}
+            \item $||\delta_i||_1 = \sum\limits_{i \in N^{+}(A)}\delta_i$
+            \item $||\delta_i||_\infty = \max\limits_{i \in N^{+}(A)}\delta_i$.
+         \end{enumerate}
+      \end{definition}
+      \begin{definition}[Restricted Flow] \ \\
+         Let $A, B \in \mathcal{M}, i \in \{1,...,|N^{+}(A)|\}$.
+         \begin{enumerate}
+            \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$
+               ($x_i'$) when $u_i' = u_i,$ \\ $u_j' = 0 \:\forall j \in \{1,...,|N^{+}(A)|\} \wedge j \neq i$.
+            \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as
+               calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S,
+               u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$.
+         \end{enumerate}
+      \end{definition}
   \section{Theorems-Algorithms}
     \begin{theorem}[Saturation theorem] \ \\ 
     \label{saturation}
-       Let $s$ source, $x_i, i \in \{1,...,|N(s)|\}$, flows to $s$'s neighbours as calculated by the maxFlow algorithm,
-       $u_i'$ new direct trusts to the $|N(s)|$ neighbours and $x_i'$ new flows to the neighbours as calculated by the
-       maxFlow algorithm with the new direct trusts, $u_i'$. It holds that $\forall i \in \{1,...,|N(s)|\},
-       u_i' \leq x_i \Rightarrow x_i' = u_i'$.
+       Let $s$ source, $n = |N^{+}(s)|, x_i, i \in \{1,...,n\}$, flows to $s$'s neighbours as calculated by the
+       maxFlow algorithm, $u_i'$ new direct trusts to the $n$ neighbours and $x_i'$ new flows to the neighbours
+       as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. It holds that
+       $\forall i \in \{1,...,n\}, u_i' \leq x_i \Rightarrow x_i' = u_i'$.
     \end{theorem}
     \begin{proof} \ 
        \begin{enumerate}
-          \item $\forall i \in \{1,...,|N(s)|\}, x_i' > u_i'$ is impossible because a flow cannot be higher than its
-                corresponding capacity. Thus $\forall i \in \{1,...,|N(s)|\}, x_i' \leq u_i'$.
+          \item $\forall i \in \{1,...,n\}, x_i' > u_i'$ is impossible because a flow cannot be higher than its
+                corresponding capacity. Thus $\forall i \in \{1,...,n\}, x_i' \leq u_i'$.
           \item In the initial configuration of $u_i$ and according to the flow problem setting, a combination of flows
-                $y_i$ such that $\forall i \in \{1,...,|N(s)|\}, y_i = u_i'$ is a valid, albeit not necessarily maximum,
-                configuration with a flow $\sum_{i=1}^{|N(s)|}y_i$. Suppose that $\exists j \in \{1,...,|N(s)|\} : x_j'
+                $y_i$ such that $\forall i \in \{1,...,n\}, y_i = u_i'$ is a valid, albeit not necessarily maximum,
+                configuration with a flow $\sum\limits_{i=1}^{n}y_i$. Suppose that $\exists j \in \{1,...,n\} : x_j'
                 < u_j'$ as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. Then for the new
-                maxFlow $F'$ it holds that $F' = \sum_{i=1}^{|N(s)|}x_i' < \sum_{i=1}^{|N(s)|}y_i$ since $x_j' < y_j$
-                which is impossible because the configuration $\forall i \in \{1,...,|N(s)|\}, x_i' = y_i$ is valid since
-                $\forall i \in \{1,...,|N(s)|\}, y_i = u_i'$ and also has a higher flow, thus the maxFlow algorithm will
-                prefer the configuration with the higher flow. Thus we deduce that $\forall i \in \{1,...,|N(s)|\},
+                maxFlow $F'$ it holds that $F' = \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_j' < y_j$
+                which is impossible because the configuration $\forall i \in \{1,...,n\}, x_i' = y_i$ is valid since
+                $\forall i \in \{1,...,n\}, y_i = u_i'$ and also has a higher flow, thus the maxFlow algorithm will
+                prefer the configuration with the higher flow. Thus we deduce that $\forall i \in \{1,...,n\},
                 x_i' \geq u_i'$.
        \end{enumerate}
-       From (1) and (2) we conclude that $\forall i \in \{1,...,|N(s)|\}, x_i' = u_i'$.
+       From (1) and (2) we conclude that $\forall i \in \{1,...,n\}, x_i' = u_i'$.
     \end{proof}
-    \begin{theorem}[Trust flow theorem] \ \\
+    \begin{theorem}[Trust flow theorem - TOFIX] \ \\
     \label{trustflow}
        $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities)
     \end{theorem}
@@ -139,9 +182,9 @@
            \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
            Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
            see that there is a set of capacities $U= \{u_1,...,u_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
-           $\sum_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(\forall i \in \{1,...,n\} u_i' = 0)$ the flow
-           from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No strategy
-           followed by B could reduce the value of A, so our supposition (1) cannot be true.
+           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(\forall i \in \{1,...,n\} \: u_i' = 0)$
+           the flow from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No
+           strategy followed by B could reduce the value of A, so our supposition (1) cannot be true.
         \end{enumerate}
         Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
     \end{proof}
@@ -156,16 +199,14 @@
        the honest strategy, thus somebody must have stolen from her as well, so member $1$ cannot be the initial element.
        We have a contradiction, thus there cannot exist a series of stealing actions when everybody is honest.
     \end{proof}
-    \begin{theorem}[Trust transfer theorem (flow terminology)] \ \\
+    \begin{theorem}[Trust transfer theorem (flow terminology) - TOFIX] \ \\
     \label{trusttransfer}
-       Let $s$ source, $t$ sink, \\
+       Let $s$ source, $t$ sink, $n = N^{+}(s)$ \\
        $X_s = \{x_{s, 1}, ..., x_{s, n}\}$ outgoing flows from $s$, \\
-       $X_t = \{x_{1, t}, ..., x_{m, t}\}$ incoming flows to $t$, \\
        $U_s = \{u_{s, 1}, ..., u_{s, n}\}$ outgoing capacities from $s$, \\
-       $U_t = \{u_{1, t}, ..., u_{m, t}\}$ incoming capacities to $t$, \\
        $V$ the value to be transferred. \\
-       Nodes apart from $s$, $t$ cannot create or consume flow. \\
-       Obviously $maxFlow = F = \sum_{i=1}^{n}{x_{s, i}}$.
+       Nodes apart from $s$, $t$ follow the honest strategy. \\
+       Obviously $maxFlow = F = \sum\limits_{i=1}^{n}{x_{s, i}}$.
        {\em \begin{lstlisting}
             /                      ....                     \
            / x_s1/u_s1                         x_1t/u_1t     \
@@ -181,48 +222,48 @@
        \end{lstlisting}}
        We create a new graph where
        \begin{enumerate}
-         \item  $\sum_{i}{u_{s, i}'} = F - V$
-         \item $\forall i \in \{1,...,n\} u_{s, i}' \leq x_{s, i}$
+         \item  $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$
+         \item $\forall i \in \{1,...,n\} \: u_{s, i}' \leq x_{s, i}$
        \end{enumerate}
  
        It holds that $maxFlow' = F' = F - V$.
     \end{theorem}
     \begin{proof} \
        \begin{enumerate}
-         \item  It is impossible to have $F' > F - V$ because $F' \leq \sum{u_{s, i}'} = F - V$.
+         \item  It is impossible to have $F' > F - V$ because $F' \leq \sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$.
          \item  It is impossible to have $F' < F - V$. \\
-         Let $i$ be a node such that $x_{s, i} > 0$ and $I = \{(i,j) \in E\}$ the set of direct trusts outgoing from $i$.
-         In the initial graph we have $x_{s, i} = \sum_{j}{x_{i, j}}, F = \sum_{i}{x_{s, i}}$
-         and in the new graph we have $x_{s, i}' = u_{s, i}' \leq x_{s, i},
-         F' = \sum_{i}{x_{s, i}'}, \forall j x_{i, j} \leq u_{i, j} = u_{i, j}'$.
-         We can construct a set $X_i' = \{x_{i, j}'\}$ of flows such that $x_{i, j}' \leq x_{i, j}$
-         and $\sum_{j}{x_{i, j}'} = x_{s, i}'$. This shows that there is a possible flow such that $F' = F - V$,
+         Let $i$ be a node such that $x_{s, i} > 0$ and $I = \{j \in \mathcal{M} : DTr_{i \rightarrow j} > 0\}$
+         the set of members that $i$ directly trusts with a positive value. Let $m = |I|$. In the initial graph
+         we have $x_{s, i} = \sum\limits_{j=1}^{m}{x_{i, j}}, F = \sum\limits_{i=1}^{n}{x_{s, i}}$ and in the new graph
+         we have $x_{s, i}' = u_{s, i}' \leq x_{s, i}, F' = \sum\limits_{i=1}^{n}{x_{s, i}'}, \forall j x_{i, j} \leq
+         u_{i, j} = u_{i, j}'$. We can construct a set $X_i' = \{x_{i, j}'\}$ of flows such that $x_{i, j}' \leq x_{i, j}$
+         and $\sum\limits_{j=1}^{m}{x_{i, j}'} = x_{s, i}'$. This shows that there is a possible flow such that $F' = F - V$,
          so the maxFlow algorithm will not return a flow less than $F - V$. \\
          Example construction: \\
          $\forall j \in \{1,...,k\}, x_{i, j}' = x_{i, j}$ with $k$ such that
             \begin{enumerate}
-	      \item $\sum_{j=1}^{k}{x_{i, j}} \leq x_{s, i}'$ and
-	      \item $\sum_{j=1}^{k+1}{x_{i, j}} > x_{s, i}'$
+	      \item $\sum\limits_{j=1}^{k}{x_{i, j}} \leq x_{s, i}'$ and
+	      \item $\sum\limits_{j=1}^{k+1}{x_{i, j}} > x_{s, i}'$
             \end{enumerate}
-         $x_{i, (k+1)}' = x_{s, i}' - \sum_{j=1}^{k}{x_{i, j}'}$ \\
+         $x_{i, (k+1)}' = x_{s, i}' - \sum\limits_{j=1}^{k}{x_{i, j}'}$ \\
          $\forall j \in \{k+2,...,|X_i'|\}, x_{i, j}' = 0$
        \end{enumerate}
     \end{proof}
 
-    \begin{corollary}[Requirement for $\sum_{i}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
-       In the setting of \ref{trusttransfer}, it is impossible to have $maxFlow' = F - V$ if $\sum_{i}{u_{s, i}'} > F - V
-       \wedge \forall i \in \{1,...,n\},u_{s, i}' \leq x_{s, i}$.
+    \begin{corollary}[Requirement for $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
+       In the setting of \ref{trusttransfer}, it is impossible to have $maxFlow' = F - V$ if
+       $\sum\limits_{i=1}^{n}{u_{s, i}'} > F - V \wedge \forall i \in \{1,...,n\},u_{s, i}' \leq x_{s, i}$.
     \end{corollary}
     \begin{proof}
-       Due to \ref{trusttransfer}, $maxFlow' = F - V$ if $\sum_{i}{u_{s, i}'} = F - V
+       Due to \ref{trusttransfer}, $maxFlow' = F - V$ if $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V
        \wedge \forall i \in \{1,...,n\}, u_{s, i}' \leq x_{s, i}$. If we create new capacities such that
-       $\forall i \in \{1,...,n\}, u_{s,i}'' \leq x_{s,i}$, then obviously $maxFlow'' = \sum_{i}{u_{s,i}''}$. If
-       additionally $\sum_{i}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
+       $\forall i \in \{1,...,n\}, u_{s,i}'' \leq x_{s,i}$, then obviously $maxFlow'' = \sum\limits_{i=1}^{n}{u_{s,i}''}$. If
+       additionally $\sum\limits_{i=1}^{n}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
     \end{proof}
 
     \begin{theorem}[Trust-saving Theorem] \ \\
     \label{trustsave}
-       $\forall i \in \{1,...,n\}, u_i' = F_{A_i \rightarrow B} \Leftrightarrow u_i' = u_i$
+       $\forall i \in \{1,...,|N^{+}(A)|\}, u_i' = F_{A_i \rightarrow B} \Leftrightarrow u_i' = u_i$
     \end{theorem}
     \begin{proof}
        We know that $x_i \leq F_{A_i \rightarrow B}$, thus we can see that any increase in $u_i'$ beyond
@@ -231,13 +272,13 @@
 
     \begin{theorem}[Invariable trust reduction with naive algorithms] \ \\
     \label{invariability}
-       If $\forall i \in \{1,...,n\},u_i' \leq x_i$, Trust Reduction (TrR) invariable $\: \forall \:$ configurations of $x_i$
+       Let $A$ source, $n = |N^{+}(A)|$ and $u_i'$ new direct trusts. If $\forall i \in \{1,...,n\},u_i' \leq x_i$,
+       Trust Reduction $||\delta_i||_1$ is independent of $x_i, u_i' $\newline $\forall$ configurations of $x_i$
     \end{theorem}
-    \begin{proof}
-       $TrR = \sum_{i=1}^{n}TrR_i$ total Trust Reduction, $TrR_i = u_i - u_i'$, Trust Reduction on i.
-       Since $\forall i \in \{1,...,n\},u_i' \leq x_i$ it is $x_i' = u_i'$, thus $TrR_i = u_i - x_i'$. We know that
-       $\sum_{i=1}^{n}x_i' = F - V$, so we have $TrR = \sum_{i=1}^{n}TrR_i = \sum_{i=1}^{n}(u_i - x_i') = 
-       \sum_{i=1}^{n}u_i - F + V$ independent of $x_i', u_i'$
+    \begin{proof} 
+       Since $\forall i \in \{1,...,n\},u_i' \leq x_i$ it is (according to \ref{saturation}) $x_i' = u_i'$, thus $\delta_i = u_i
+       - x_i'$. We know that $\sum\limits_{i=1}^{n}x_i' = F - V$, so we have $||\delta_i||_1 = \sum\limits_{i=1}^{n}\delta_i =
+       \sum\limits_{i=1}^{n}(u_i - x_i') = \sum\limits_{i=1}^{n}u_i - F + V$ independent of $x_i', u_i'$
     \end{proof}
 
     \begin{theorem}[Dependence impossibility theorem] \ \\
@@ -254,9 +295,9 @@
     \begin{algorithm}[H]
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
-       \Input{$x_i$ flows, $n$ flows number, $V$ value}
+       \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
-       $F \gets \sum_{i=1}^{n}x_i$ \\
+       $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
        $Fcur \gets F$ \\
        \For{$i \gets 1$ to $n$}
@@ -267,16 +308,16 @@
            $Fcur \gets Fcur - reduce$ \\
            $u_i' \gets u_i' - reduce$ \\
            $i \gets i + 1$}
-       \Return $U' = \bigcup_{i=1}^{n}\{u_i'\}$
+       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
        \caption{First-come, first-served trust transfer}
     \end{algorithm}
 
     \begin{algorithm}[H]
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
-       \Input{$x_i$ flows, $n$ flows number, $V$ value}
+       \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
-       $F \gets \sum_{i=1}^{n}x_i$ \\
+       $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i$}
@@ -293,29 +334,38 @@
            \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \\
                  $u_i' \gets x_i - reduce$}
            $i \gets (i + 1) mod \:n$}
-       \Return $U' = \bigcup_{i=1}^{n}\{u_i'\}$
-       \caption{Absolute equality trust transfer}
+       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
+       \caption{Absolute equality trust transfer($||\Delta_i||_\infty$ minimizer)}
     \end{algorithm}
 
     \begin{algorithm}[H]
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
-       \Input{$x_i$ flows, $n$ flows number, $V$ value}
+       \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
-       $F \gets \sum_{i=1}^{n}x_i$ \\
+       $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i - \frac{V}{F} x_i$}
-       \Return $U' = \bigcup_{i=1}^{n}\{u_i'\}$
+       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
        \caption{Proportional equality trust transfer}
+    \end{algorithm} \ \\
+
+    \begin{algorithm}[H]
+       \SetKwInOut{Input}{Input}
+       \SetKwInOut{Output}{Output}
+       \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
+       \Output{$u_i'$ capacities}
+       \caption{$||\delta_i||_\infty$ minimizer}
+       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
     \end{algorithm}
-    \begin{proof}[Proof of correctness]
+    \begin{proof}[Proof of correctness - TOEXPAND]
        In all three algorithms, we have $u_i' <= x_i$ because in the only case where $u_i'$ is altered after its
        initialisation, it is reduced. Furthermore, a total of $V$ is subtracted from all the $u_i'$, thus
-       $\sum_{i=1}^{n}u_i' = F - V$.
+       $\sum\limits_{i=1}^{n}u_i' = F - V$.
     \end{proof}
 
-    However, we need to minimize $\sum_{i=1}^{n}(u_i-u_i')$.
+    However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i')$.
 
   \section{Further Research}
 
