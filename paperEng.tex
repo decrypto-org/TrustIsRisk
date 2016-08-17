@@ -169,24 +169,46 @@
        \end{enumerate}
        From (1) and (2) we conclude that $\forall i \in \{1,...,n\}, x_i' = u_i'$.
     \end{proof}
-    \begin{theorem}[Trust flow theorem - TOFIX] \ \\
+    \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
     \label{trustflow}
        $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities)
     \end{theorem}
-    \begin{proof} \ 
+    \begin{proof} \
         \begin{enumerate}
-           \item $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because by the definition of $Tr_{A \rightarrow B}$,
-           B leaves taking with him all the incoming trust, so there is no trust flowing towards him after leaving.
-           $Tr_{A \rightarrow B} < MaxFlow_{A \rightarrow B}$ would imply that after B left, there would still remain trust
-           flowing from A to B.
-           \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
-           Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
-           see that there is a set of capacities $U= \{u_1,...,u_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
-           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(\forall i \in \{1,...,n\} \: u_i' = 0)$
-           the flow from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No
-           strategy followed by B could reduce the value of A, so our supposition (1) cannot be true.
+	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$.
+           We know that $MaxFlow_{A \rightarrow B} = MinCut_{A \rightarrow B}$. We will show that, if everybody except
+           A and B follows the honest strategy,  $Tr_{A \rightarrow B} \leq MinCut_{A \rightarrow B}$. Suppose that in
+           round $i$ all the members of the MinCut, $P$, have stolen the maximum value they can from members that belong
+           in the MaxFlow graph and nobody in the partition in which $A$ belongs has stolen yet any value. Let the total
+           stolen value from the MinCut members be $St$. It is obvious that $St_i \leq MinCut_{A \rightarrow B}$, because
+           otherwise there would exist $u \in P$ that doesn't follow the honest strategy, since they stole more than they
+           were stolen from. The same argument holds for any round $i' > i$ because in each round an honest player can
+           steal only up to the value she has been stolen. It is also impossible that the $St$ increase further due to
+           stolen value from members of the partition of $B$ since members of $P$ disconnect the two partitions and have
+           already played their turns, thus $\forall i' > i, St_{i'} \leq St_i$. There exists a round, $k$, when all the
+           honest players stop stealing, so in the worst case $A$ will have been stolen
+           $Tr_{A \rightarrow B} = St_k \leq MinCut_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+           \item We can see that $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because the strategy where each
+           one of the non-idle players steals value equal to the incoming flows from their respective friends is a valid
+           strategy that does not contradict with the honest strategy, since for every honest player $w$ it holds that
+           $\sum\limits_{v \in N^{-}(w)}x_{vw} = \sum\limits_{v \in N^{+}(w)}x_{wv}$ and according to the strategy each
+           honest player will have been stolen value equal to $\sum\limits_{v \in N^{+}(w)}x_{wv}$.
         \end{enumerate}
         Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+%        OLD PROOF START
+%        \begin{enumerate}
+%           \item $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because by the definition of $Tr_{A \rightarrow B}$,
+%           B leaves taking with him all the incoming trust, so there is no trust flowing towards him after leaving.
+%           $Tr_{A \rightarrow B} < MaxFlow_{A \rightarrow B}$ would imply that after B left, there would still remain trust
+%           flowing from A to B.
+%           \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
+%           Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
+%           see that there is a set of capacities $U= \{u_1,...,u_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
+%           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(\forall i \in \{1,...,n\} \: u_i' = 0)$
+%           the flow from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No
+%           strategy followed by B could reduce the value of A, so our supposition (1) cannot be true.
+%        \end{enumerate}
+%        OLD PROOF END
     \end{proof}
 
     \begin{theorem}[Honest world theorem] \ \\
@@ -199,7 +221,7 @@
        the honest strategy, thus somebody must have stolen from her as well, so member $1$ cannot be the initial element.
        We have a contradiction, thus there cannot exist a series of stealing actions when everybody is honest.
     \end{proof}
-    \begin{theorem}[Trust transfer theorem (flow terminology) - TOFIX] \ \\
+    \begin{theorem}[Trust transfer theorem (flow terminology) - TOCHECK] \ \\
     \label{trusttransfer}
        Let $s$ source, $t$ sink, $n = N^{+}(s)$ \\
        $X_s = \{x_{s, 1}, ..., x_{s, n}\}$ outgoing flows from $s$, \\
@@ -229,25 +251,27 @@
        It holds that $maxFlow' = F' = F - V$.
     \end{theorem}
     \begin{proof} \
-       \begin{enumerate}
-         \item  It is impossible to have $F' > F - V$ because $F' \leq \sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$.
-         \item  It is impossible to have $F' < F - V$. \\
-         Let $i$ be a node such that $x_{s, i} > 0$ and $I = \{j \in \mathcal{M} : DTr_{i \rightarrow j} > 0\}$
-         the set of members that $i$ directly trusts with a positive value. Let $m = |I|$. In the initial graph
-         we have $x_{s, i} = \sum\limits_{j=1}^{m}{x_{i, j}}, F = \sum\limits_{i=1}^{n}{x_{s, i}}$ and in the new graph
-         we have $x_{s, i}' = u_{s, i}' \leq x_{s, i}, F' = \sum\limits_{i=1}^{n}{x_{s, i}'}, \forall j x_{i, j} \leq
-         u_{i, j} = u_{i, j}'$. We can construct a set $X_i' = \{x_{i, j}'\}$ of flows such that $x_{i, j}' \leq x_{i, j}$
-         and $\sum\limits_{j=1}^{m}{x_{i, j}'} = x_{s, i}'$. This shows that there is a possible flow such that $F' = F - V$,
-         so the maxFlow algorithm will not return a flow less than $F - V$. \\
-         Example construction: \\
-         $\forall j \in \{1,...,k\}, x_{i, j}' = x_{i, j}$ with $k$ such that
-            \begin{enumerate}
-	      \item $\sum\limits_{j=1}^{k}{x_{i, j}} \leq x_{s, i}'$ and
-	      \item $\sum\limits_{j=1}^{k+1}{x_{i, j}} > x_{s, i}'$
-            \end{enumerate}
-         $x_{i, (k+1)}' = x_{s, i}' - \sum\limits_{j=1}^{k}{x_{i, j}'}$ \\
-         $\forall j \in \{k+2,...,|X_i'|\}, x_{i, j}' = 0$
-       \end{enumerate}
+        From theorem \ref{saturation} we can see that $x_i' = u_i'$. It holds that $F' = \sum\limits_{i=1}^nx_i' =
+        \sum\limits_{i=1}^nu_i' = F - V$.
+%       \begin{enumerate}
+%         \item  It is impossible to have $F' > F - V$ because $F' \leq \sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$.
+%         \item  It is impossible to have $F' < F - V$. \\
+%         Let $i$ be a node such that $x_{s, i} > 0$ and $I = \{j \in \mathcal{M} : DTr_{i \rightarrow j} > 0\}$
+%         the set of members that $i$ directly trusts with a positive value. Let $m = |I|$. In the initial graph
+%         we have $x_{s, i} = \sum\limits_{j=1}^{m}{x_{i, j}}, F = \sum\limits_{i=1}^{n}{x_{s, i}}$ and in the new graph
+%         we have $x_{s, i}' = u_{s, i}' \leq x_{s, i}, F' = \sum\limits_{i=1}^{n}{x_{s, i}'}, \forall j x_{i, j} \leq
+%         u_{i, j} = u_{i, j}'$. We can construct a set $X_i' = \{x_{i, j}'\}$ of flows such that $x_{i, j}' \leq x_{i, j}$
+%         and $\sum\limits_{j=1}^{m}{x_{i, j}'} = x_{s, i}'$. This shows that there is a possible flow such that $F' = F - V$,
+%         so the maxFlow algorithm will not return a flow less than $F - V$. \\
+%         Example construction: \\
+%         $\forall j \in \{1,...,k\}, x_{i, j}' = x_{i, j}$ with $k$ such that
+%            \begin{enumerate}
+%	      \item $\sum\limits_{j=1}^{k}{x_{i, j}} \leq x_{s, i}'$ and
+%	      \item $\sum\limits_{j=1}^{k+1}{x_{i, j}} > x_{s, i}'$
+%            \end{enumerate}
+%         $x_{i, (k+1)}' = x_{s, i}' - \sum\limits_{j=1}^{k}{x_{i, j}'}$ \\
+%         $\forall j \in \{k+2,...,|X_i'|\}, x_{i, j}' = 0$
+%       \end{enumerate}
     \end{proof}
 
     \begin{corollary}[Requirement for $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
@@ -354,10 +378,32 @@
     \begin{algorithm}[H]
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
-       \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
+       \SetKwFunction{BinSearch}{BinSearch}
+       \Input{$X = \{x_i\}$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
        \caption{$||\delta_i||_\infty$ minimizer}
+       $F \gets \sum\limits_{i=1}^{n}x_i$ \\
+       $\delta \gets \BinSearch{0,V,F,n,X}$ \\
+       \For{$i \gets 1$ to $n$}
+          {$u_i' \gets max(u_i - \delta, 0)$}
        \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
+    \end{algorithm}
+    \begin{algorithm}[H]
+       \SetKwFunction{BinSearch}{BinSearch}
+       \SetKwInOut{Input}{Input}
+       \SetKwInOut{Output}{Output}
+       \Input{$bot$, $top$, $F$, $n$, $X$}
+       \Output{$\delta$}
+       \If{$bot = top$}{\Return $bot$}
+       \Else{
+          \For{$i \gets 1$ to $n$}
+              {$u_i' \gets u_i - \frac{top + bot}{2}$}       
+          \If{$maxFlow < F$}
+	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$n$,$X$,$F$}}
+          \Else
+	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$n$,$X$,$F$}}
+       }
+       \caption{BinSearch function}
     \end{algorithm}
     \begin{proof}[Proof of correctness - TOEXPAND]
        In all three algorithms, we have $u_i' <= x_i$ because in the only case where $u_i'$ is altered after its
