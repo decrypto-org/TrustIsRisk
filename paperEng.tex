@@ -330,7 +330,7 @@
     \begin{theorem}[Invariable trust reduction with naive algorithms] \ \\
     \label{invariability}
        Let $A$ source, $n = |N^{+}(A)|$ and $u_i'$ new direct trusts. If $\forall i \in \{1,...,n\},u_i' \leq x_i$,
-       Trust Reduction $||\delta_i||_1$ is independent of $x_i, u_i' $\newline $\forall$ configurations of $x_i$
+       Trust Reduction $||\delta_i||_1$ is independent of $x_i, u_i' \:\: \forall$ valid configurations of $x_i$
     \end{theorem}
     \begin{proof} 
        Since $\forall i \in \{1,...,n\},u_i' \leq x_i$ it is (according to \ref{saturation}) $x_i' = u_i'$, thus $\delta_i = u_i
@@ -348,13 +348,15 @@
     \end{proof}
 
     Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
-    a trusted party. \\
+    a trusted party. To prove the correctness of the algorithms, it suffices to prove that $\forall i \in \{1,...,n\} \:
+    u_i' \leq x_i$ and that $\sum\limits_{i=1}^{n}u_i' = F - V$ where $F = \sum\limits_{i=1}^{n}x_i$. \\
     \begin{algorithm}[H]
        \label{fcfs}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
+       \caption{First-come, first-served trust transfer}
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
        $Fcur \gets F$ \\
@@ -366,18 +368,16 @@
            $Fcur \gets Fcur - reduce$ \\
            $u_i' \gets x_i - reduce$ \\
            $i \gets i + 1$}
-       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
-       \caption{First-come, first-served trust transfer}
+       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
-    \begin{proof}[Proof of correctness for algorithm \ref{fcfs}] \ \\
-       We want to prove that $\forall i \in \{1,...,n\} u_i' \leq x_i$ and that $\sum\limits_{i=1}^{n}u_i' = F - V$
-       where $F = \sum\limits_{i=1}^{n}x_i$.
+    \begin{proof}[Proof of correctness for algorithm \ref{fcfs}] \
        \begin{itemize}
-          \item Let $i \in \{1,...,n\}$. In line 6 we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
+          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
+          Let $i \in \{1,...,n\}$. In line 6 we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
           is in line 11 where it is never increased $(reduce \geq 0)$, thus we see that, when returned, $u_i' \leq x_i$.
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
           $F_{cur,0} = F$ \\
-          If $F_{cur,i} = F - V$, then $F_{cur,i+1}$ does not exist because the $while$ loop breaks after calculating
+          If $F_{cur,i} = F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
           $F_{cur,i}$. \\
           Else $F_{cur,i+1} = F_{cur,i} - min(x_{i+1}, F_{cur,i} - F + V)$. \\
           If for some $i, min(x_{i+1}, F_{cur,i} - F + V) = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
@@ -391,13 +391,22 @@
        \end{itemize}
     \end{proof}
     \begin{proof}[Complexity of algorithm \ref{fcfs}] \ \\
+       First we will prove that on line 13 $i \leq n+1$. Suppose that $i > n+1$ on line 13. This means that $F_{cur,n}$
+       exists and $F_{cur,n} = F - \sum\limits_{i=1}^{n}x_i = 0 \leq F - V$ since, according to the condition on line 2,
+       $F - V \geq 0$. This means however that the \emph{while} loop on line 8 will break, thus $F_{cur,n+1}$ cannot exist
+       and $i = n + 1$ on line 13, which is a contradiction, thus $i \leq n+1$ on line 13. Since $i$ is incremented by 1
+       on every iteration of the \emph{while} loop (line 12), the complexity of the \emph{while} loop is $O(n)$ in the
+       worst case. The complexity of lines 2-4 and 7 is $O(1)$ and the complexity of lines 1, 5-6 and 13 is $O(n)$, thus
+       the total complexity of algorithm \ref{fcfs} is $O(n)$.
     \end{proof}
 
     \begin{algorithm}[H]
+       \label{abs}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
+       \caption{Absolute equality trust transfer ($||\Delta_i||_\infty$ minimizer)}
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
        \For{$i \gets 1$ to $n$}
@@ -409,30 +418,97 @@
        \While{$reduction < V$}
           {\If{$u_i' > 0 \: \wedge \:x_i < reduce$}
                 {$empty \gets empty + 1$ \\
-                 $reduce = reduce + \frac{x_i - reduce -u_i'}{n - empty}$ \\
+                 \If{$empty < n$}
+                    {$reduce \gets reduce + \frac{reduce - x_i}{n - empty}$}
                  $reduction \gets reduction + u_i'$ \\
                  $u_i' \gets 0$ \\}
            \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \\
                  $u_i' \gets x_i - reduce$}
            $i \gets (i + 1) mod \:n$}
-       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
-       \caption{Absolute equality trust transfer($||\Delta_i||_\infty$ minimizer)}
+       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
-
+    \begin{proof}[Proof of correctness for algorithm \ref{abs}] \
+       \begin{itemize}
+          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
+          First we will show that $empty \leq n$. $empty$ is only modified on line 12 where it is incremented by 1.
+          This happens only when $u_i' > 0$ (line 11), which is assigned the value 0 on line 16. We can see that the
+          incrementation of $empty$ can happen at most $n$ times. Since $empty = 0$ initially, $empty \leq n$
+          at all times of the execution. \\
+          On line 9, $\forall i \in \{1,...,n\} \: u_i' = x_i$. Subsequently $u_i'$ is modified on line 16, where
+          it becomes equal to 0 and on line 19, where it is assigned $x_i - reduce$. It holds that $x_i - reduce \leq x_i$
+          because initially $reduce = \frac{V}{n} \geq 0$ and subsequently $reduce$ is modified only on line 14 where it
+          is increased ($n > empty$ because of line 13 and $reduce > x_i$ because of line 11, thus
+          $\frac{reduce - x_i}{n - empty} > 0$). We see that $\forall i \in \{1,...,n\}, u_i' \leq x_i$.
+          \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
+          The variable $reduction$ keeps track of the total reduction that has happened and breaks the \textbf{while} loop
+          when $reduction \geq V$. We will first show that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times and
+          then we will prove that $reduction = V$ at the end of the execution.
+          \begin{itemize}
+             \item On line 9, $u_i' = x_i \Rightarrow \sum\limits_{i=1}^{n}(x_i- u_i') = 0$ and $reduction = 0$. \\
+             On line 16, $u_i'$ is reduced to 0 thus $\sum\limits_{i=1}^{n}(x_i- u_i')$ is increased by $u_i'$.
+             Similarly, on line 15 $reduction$ is increased by $u_i'$, the same as the increase in
+             $\sum\limits_{i=1}^{n}(x_i- u_i')$. \\
+             On line 19, $u_i'$ is reduced by $u_i' - x_i + reduce$ thus $\sum\limits_{i=1}^{n}(x_i- u_i')$ is increased
+             by $u_i' - x_i + reduce$. On line 18, $reduction$ is increased by $u_i' - x_i + reduce$, which is equal
+             to the increase in $\sum\limits_{i=1}^{n}(x_i- u_i')$. \\
+             We also have to note that neither $u_i'$ nor $reduction$ is modified in any other way from line 10 and on,
+             thus we conclude that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times.
+             \item Suppose that $reduction_j > V$ on the line 21, where $j$ is the number of iterations of the \textbf{while}
+             loop (think of $i$ from line 20 without the $mod \: n$). Since $reduction_j$ exists, $reduction_{j-1} < V$.
+             If $x_{j \: mod \: n} < reduce_{j-1}$ then $reduction_j = reduction_{j-1} + u_{j \: mod \:n}'$.
+             Since $reduction_j > V$, $u_{j \: mod \:n}' > V - reduction_{j-1}$. \\
+             If $x_{j \: mod \: n} \geq reduce_{j-1}$ then $reduction_j = reduction_{j-1} + u_{j \: mod \:n}'
+             - (x_{j \: mod \: n} - reduce_{j-1})$
+             
+          \end{itemize}
+       \end{itemize}
+    \end{proof}
+    \begin{proof}[Complexity of algorithm \ref{abs}] \ \\
+       In the worst case scenario, each time we iterate over all capacities only the last non-zero capacity will become zero
+       and every non-zero capacity must be recalculated. This means that every $n$ steps exactly 1 capacity becomes zero
+       and eventually all capacities (maybe except for one) become zero. Thus we need $O(n^2)$ steps in the worst case.
+    \end{proof}
+    A variation of this algorithm using a Fibonacci heap with complexity $O(n)$ can be created, but that is part of 
+    further research.
+    \begin{proof}[Proof that algorithm \ref{abs} minimizes the $||\Delta_i||_\infty$ norm] \ \\
+       Suppose that $U'$ is the result of an execution of algorithm \ref{abs} that does not minimize the $||\Delta_i||_\infty$
+       norm. Suppose that $W$ is a valid solution that minimizes the $||\Delta_i||_\infty$ norm. Let $\delta$ be the minimum
+       value of this norm. There exists $i \in \{1,...,n\}$ such that $x_i - w_i = \delta$ and $u_i' < w_i$. Because both $U'$
+       and $W$ are valid solutions ($\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}w_i = F - V$), there must exist a set
+       $S \subset U'$ such that $\forall u_j' \in S, u_j' > w_j$.
+    \end{proof}
     \begin{algorithm}[H]
+       \label{prop}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
+       \caption{Proportional equality trust transfer}
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i - \frac{V}{F} x_i$}
-       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
-       \caption{Proportional equality trust transfer}
+       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm} \ \\
-
+    \begin{proof}[Proof of correctness for algorithm \ref{prop}] \
+       \begin{itemize}
+          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
+          According to line 5, which is the only line where $u_i'$ is changed, $u_i' = x_i - \frac{V}{F}x_i \leq x_i$
+          since $x_i, V, F > 0$ and $V \leq F$.
+          \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
+          With $F = \sum\limits_{i=1}^{n}x_i$, on line 6 it holds that $\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}
+          (x_i - \frac{V}{F}x_i) = \sum\limits_{i=1}^{n}x_i - \frac{V}{F}\sum\limits_{i=1}^{n}x_i = F - V$.
+       \end{itemize}
+    \end{proof}
+    \begin{proof}[Complexity of algorithm \ref{prop}] \ \\
+       The complexity of lines 1, 4-5 and 6 is $O(n)$ and the complexity of lines 2-3 is $O(1)$, thus the total complexity
+       of algorithm \ref{prop} is $O(n)$.
+    \end{proof}
+    Naive algorithms result in $u_i' \leq x_i$, thus according to \ref{invariability}, $||\delta_i||_1$ is invariable for
+    any of the possible solutions $U'$, which is not necessarily the minimum (usually it will be the maximum). The following
+    algorithms concentrate on minimizing two $\delta_i$ norms, $||\delta_i||_\infty$ and $||\delta_i||_1$. \\
     \begin{algorithm}[H]
+       \label{dinf}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \SetKwFunction{BinSearch}{BinSearch}
@@ -443,14 +519,25 @@
        $\delta \gets \BinSearch{0,V,F,n,X}$ \\
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets max(u_i - \delta, 0)$}
-       \Return $U' = \bigcup\limits_{i=1}^{n}\{u_i'\}$
+       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
+    \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \
+       \begin{itemize}
+          \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
+          \item We will show that the assignment $U'$ achieves minimization of the $||\delta_i||_\infty$ norm. \\
+       \end{itemize}
+    \end{proof}
+    \begin{proof}[Complexity of algorithm \ref{dinf}] \ \\
+    \end{proof}
+
     \begin{algorithm}[H]
+       \label{binsearch}
        \SetKwFunction{BinSearch}{BinSearch}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \Input{$bot$, $top$, $F$, $n$, $X$}
        \Output{$\delta$}
+       \caption*{\textbf{function} \texttt{BinSearch} }
        \If{$bot = top$}{\Return $bot$}
        \Else{
           \For{$i \gets 1$ to $n$}
@@ -460,14 +547,16 @@
           \Else
 	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$n$,$X$,$F$}}
        }
-       \caption{BinSearch function}
     \end{algorithm}
-    \begin{proof}[Proof of correctness - TOEXPAND]
-       In all three algorithms, we have $u_i' <= x_i$ because in the only case where $u_i'$ is altered after its
-       initialisation, it is reduced. Furthermore, a total of $V$ is subtracted from all the $u_i'$, thus
-       $\sum\limits_{i=1}^{n}u_i' = F - V$.
+    \begin{proof}[Proof of correctness for function \ref{binsearch}] \
+       \begin{itemize}
+          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
+          \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
+       \end{itemize}
     \end{proof}
-
+    \begin{proof}[Complexity of function \ref{binsearch}] \ \\
+    \end{proof}
+    
     However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i') = ||\delta_i||_1$.
 
   \section{Further Research}
