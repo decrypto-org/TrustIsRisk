@@ -416,24 +416,52 @@
        $empty \gets 0$ \\
        $i \gets 0$ \\
        \While{$reduction < V$}
-          {\If{$u_i' > 0 \: \wedge \:x_i < reduce$}
+          {\If{$u_i' > 0$}{\If{$x_i < reduce$}
                 {$empty \gets empty + 1$ \\
                  \If{$empty < n$}
                     {$reduce \gets reduce + \frac{reduce - x_i}{n - empty}$}
                  $reduction \gets reduction + u_i'$ \\
                  $u_i' \gets 0$ \\}
            \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \\
-                 $u_i' \gets x_i - reduce$}
+                 $u_i' \gets x_i - reduce$}}
            $i \gets (i + 1) mod \:n$}
        \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
+       \noindent
+       We will start by showing some results useful for the following proofs. Let $j$ be the number of iterations of the
+       \textbf{while} loop for the rest of the proofs for algorithm \ref{abs} (think of $i$ from line 20 without the
+       $mod\:n$).\\
+       First we will show that $empty \leq n$. $empty$ is only modified on line 12 where it is incremented by 1. This
+       happens only when $u_i' > 0$ (line 11), which is assigned the value 0 on line 16. We can see that the
+       incrementation of $empty$ can happen at most $n$ times because $|U'| = n$. Since $empty_0 = 0$, $empty \leq n$
+       at all times of the execution. \\
+       Next we will derive the recursive formulas for the various variables. \\
+       $empty_0 = 0$ \\
+       $empty_{j+1} = 
+          \begin{cases}
+             empty_j, & u_{(j+1)\:mod\:n}' = 0 \\
+             empty_j+1, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} < reduce_j \\
+             empty_j, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} \geq reduce_j
+          \end{cases}$ \\ \ \\
+       $reduce_0 = \frac{V}{n}$ \\
+       $reduce_{j+1} =
+          \begin{cases}
+             reduce_j, & u_{(j+1)\:mod\:n}' = 0 \\
+             reduce_j + \frac{reduce_j-x_{(j+1)\:mod\:n}}{n-empty_{j+1}}, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \:
+                x_{(j+1) \:mod\:n} < reduce_j \\
+             reduce_j, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} \geq reduce_j
+          \end{cases}$ \\ \ \\
+       $reduction_0 = 0$ \\
+       $reduction_{j+1} =
+          \begin{cases}
+             reduction_j, & u_{(j+1)\:mod\:n}' = 0 \\
+             reduction_j + u_{(j+1)\:mod\:n}', & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} < reduce_j \\
+             reduction_j + u_{(j+1)\:mod\:n}' - x_{(j+1)\:mod\:n} + reduce_{j+1}, &
+                u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} \geq reduce_j
+          \end{cases}$
     \begin{proof}[Proof of correctness for algorithm \ref{abs}] \
        \begin{itemize}
           \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
-          First we will show that $empty \leq n$. $empty$ is only modified on line 12 where it is incremented by 1.
-          This happens only when $u_i' > 0$ (line 11), which is assigned the value 0 on line 16. We can see that the
-          incrementation of $empty$ can happen at most $n$ times. Since $empty = 0$ initially, $empty \leq n$
-          at all times of the execution. \\
           On line 9, $\forall i \in \{1,...,n\} \: u_i' = x_i$. Subsequently $u_i'$ is modified on line 16, where
           it becomes equal to 0 and on line 19, where it is assigned $x_i - reduce$. It holds that $x_i - reduce \leq x_i$
           because initially $reduce = \frac{V}{n} \geq 0$ and subsequently $reduce$ is modified only on line 14 where it
@@ -442,7 +470,8 @@
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
           The variable $reduction$ keeps track of the total reduction that has happened and breaks the \textbf{while} loop
           when $reduction \geq V$. We will first show that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times and
-          then we will prove that $reduction = V$ at the end of the execution.
+          then we will prove that $reduction = V$ at the end of the execution. Thus we will have proven that
+          $\sum\limits_{i=1}^{n}u_i'= \sum\limits_{i=1}^{n}x_i - V = F - V$.
           \begin{itemize}
              \item On line 9, $u_i' = x_i \Rightarrow \sum\limits_{i=1}^{n}(x_i- u_i') = 0$ and $reduction = 0$. \\
              On line 16, $u_i'$ is reduced to 0 thus $\sum\limits_{i=1}^{n}(x_i- u_i')$ is increased by $u_i'$.
@@ -453,12 +482,9 @@
              to the increase in $\sum\limits_{i=1}^{n}(x_i- u_i')$. \\
              We also have to note that neither $u_i'$ nor $reduction$ is modified in any other way from line 10 and on,
              thus we conclude that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times.
-             \item Suppose that $reduction_j > V$ on the line 21, where $j$ is the number of iterations of the \textbf{while}
-             loop (think of $i$ from line 20 without the $mod \: n$). Since $reduction_j$ exists, $reduction_{j-1} < V$.
+             \item Suppose that $reduction_j > V$ on the line 21. Since $reduction_j$ exists, $reduction_{j-1} < V$.
              If $x_{j \: mod \: n} < reduce_{j-1}$ then $reduction_j = reduction_{j-1} + u_{j \: mod \:n}'$.
              Since $reduction_j > V$, $u_{j \: mod \:n}' > V - reduction_{j-1}$. \\
-             If $x_{j \: mod \: n} \geq reduce_{j-1}$ then $reduction_j = reduction_{j-1} + u_{j \: mod \:n}'
-             - (x_{j \: mod \: n} - reduce_{j-1})$
              
           \end{itemize}
        \end{itemize}
@@ -521,11 +547,8 @@
           {$u_i' \gets max(u_i - \delta, 0)$}
        \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
-    \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \
-       \begin{itemize}
-          \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
-          \item We will show that the assignment $U'$ achieves minimization of the $||\delta_i||_\infty$ norm. \\
-       \end{itemize}
+    \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \ \\
+       We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
     \end{proof}
     \begin{proof}[Complexity of algorithm \ref{dinf}] \ \\
     \end{proof}
@@ -548,11 +571,8 @@
 	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$n$,$X$,$F$}}
        }
     \end{algorithm}
-    \begin{proof}[Proof of correctness for function \ref{binsearch}] \
-       \begin{itemize}
-          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
-          \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
-       \end{itemize}
+    \begin{proof}[Proof of correctness for function \ref{binsearch}] \ \\
+       We will show that the assignment $U'$ achieves minimization of the $||\delta_i||_\infty$ norm. \\
     \end{proof}
     \begin{proof}[Complexity of function \ref{binsearch}] \ \\
     \end{proof}
