@@ -560,7 +560,8 @@
        The complexity of lines 1,2 and 4-6 is $O(n)$ and the complexity of line 3 is $O(BinSearch) = O((maxFlow + n)
        log(\delta_{max}))$, thus the total complexity of algorithm \ref{dinf} is $O((maxFlow + n)log(\delta_{max}))$.
     \end{proof}
-
+    For this function, we suppose that trust is a discrete quantity and that
+    $\frac{a}{b}$ rounds to the nearest valid value.
     \begin{algorithm}[H]
        \label{binsearch}
        \SetKwFunction{BinSearch}{BinSearch}
@@ -572,7 +573,7 @@
        \If{$bot = top$}{\Return $bot$}
        \Else{
           \For{$i \gets 1$ to $n$}
-              {$u_i' \gets u_i - \frac{top + bot}{2}$}       
+              {$u_i' \gets \max{(0,u_i - \frac{top + bot}{2})}$}
           \If{$maxFlow < F'$}
 	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$F'$,$n$,$X$}}
           \ElseIf{$maxFlow > F'$}
@@ -582,16 +583,28 @@
        }
     \end{algorithm}
     \begin{proof}[Proof of correctness for function \ref{binsearch}] \ \\
-       We will show that the output of \ref{binsearch} is the minimum $\delta \in [bot_0, top_0]$ such that
+       We will show that the output of \ref{binsearch}, $\delta \in [bot_0, top_0]$, is such that
        $\sum\limits_{i=1}^{n}\max{(u_i - \delta, 0)} = F' = F - V$. \\
        We can easily see that $\delta_1 < \delta_2 \Rightarrow \sum\limits_{i=1}^{n}\max{(u_i - \delta_1, 0)} >
-       \sum\limits_{i=1}^{n}\max{(u_i - \delta_2, 0)} \Rightarrow maxFlow_{\delta_1} \geq maxFlow_{\delta_2}$ (1).
+       \sum\limits_{i=1}^{n}\max{(u_i - \delta_2, 0)} \Rightarrow maxFlow_{\delta_1} \geq maxFlow_{\delta_2} (1)$.
        The recursive function starts backtracking either on line 11, where $maxFlow = F'$, or on line 2 where $bot_j=top_j$.
-       In the latter case, it is $bot_{j-1} < bot_j \wedge top_{j-1} = top_j$ or $bot_{j-1} = bot_j \wedge top_{j-1} >top_j$.
+       In the latter case, it is $round(\frac{bot_{j-1}+top_{j-1}}{2}) = bot_j$ and we have either $bot_{j-1} = bot_j$ or $top_{j-1} = top_j$.
        \begin{itemize}
-          \item If $bot_{j-1} < bot_j \wedge top_{j-1} = top_j, maxFlow_{\frac{top_{j-1}+bot_{j-1}}{2}} >F'
-          \xRightarrow{(1)} maxFlow_{bot_j}$
+          \item $bot_{j-1} = bot_j \Rightarrow round(\frac{bot_j + top_{j-1}}{2}) = bot_j \xRightarrow{top_{j-1} > bot_j}
+          bot_j < \frac{bot_j + top_{j-1}}{2} < bot_j + 0.5 \Rightarrow bot_j < top_{j-1} < bot_j + 1$ impossible.
+          \item $top_{j-1} = top_j \Rightarrow round(\frac{bot_{j-1} + top_j}{2}) = top_j \xRightarrow{top_j > bot_{j-1}}
+          top_j - 0.5 \leq \frac{bot_{j-1} + top_j}{2} < top_j \Rightarrow top_j - 1 \leq bot_{j-1} < top_j
+          \Rightarrow bot_{j-1} = top_j - 1$. In this case $round(\frac{bot_{j-1} + top_{j-1}}{2}) =
+          round(\frac{top_j - 1 + top_j}{2}) = round(top_j - 0.5) = top_j \Rightarrow
+          maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} = maxFlow_{bot_j}$. Since $bot_j$ exists, \\
+          $maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} \neq F'$.
        \end{itemize}
+%$bot_{j-1} = bot_j - 1 \wedge top_{j-1} = top_j$ or $bot_{j-1} = bot_j \wedge
+%       top_{j-1} = top_j + 1$.
+%       \begin{itemize}
+%          \item If $bot_{j-1} = bot_j - 1 \wedge top_{j-1} = top_j, maxFlow_{\frac{top_{j-1}+bot_{j-1}}{2}} >F',
+%          (1) \Rightarrow maxFlow_{bot_j} \leq maxFlow_{\frac{top_{j-1}+bot_{j-1}}{2}}$
+%       \end{itemize}
 %$\forall \delta': 0 \leq \delta' < bot_j, maxFlow > F'$ because $\exists i \in [0,j):bot_i \leq \delta' \leq top_i$
        
     \end{proof}
