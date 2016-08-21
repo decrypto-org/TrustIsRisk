@@ -6,6 +6,7 @@
 \usepackage[english]{babel}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -168,7 +169,7 @@
       \begin{definition}[Honest strategy] \ \\
          A player $A$ is said to follow the honest strategy if for any value $x$ that has been stolen from her since
          the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
-         equal to $min(x,\sum\limits_{B \in \mathcal{M}}{DTr_{B \rightarrow A}})$ and she takes no other action.
+         equal to $\min{(x,\sum\limits_{B \in \mathcal{M}}{DTr_{B \rightarrow A}})}$ and she takes no other action.
       \end{definition}
       \begin{definition}[Idle strategy] \ \\
          A player $A$ is said to follow the idle strategy if she passes in her turn.
@@ -364,7 +365,7 @@
           {$u_i' \gets x_i$} 
        $i \gets 1$ \\
        \While{$Fcur > F - V$}
-          {$reduce \gets min(x_i, Fcur - F + V)$ \\
+          {$reduce \gets \min{(x_i, Fcur - F + V)}$ \\
            $Fcur \gets Fcur - reduce$ \\
            $u_i' \gets x_i - reduce$ \\
            $i \gets i + 1$}
@@ -379,8 +380,8 @@
           $F_{cur,0} = F$ \\
           If $F_{cur,i} = F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
           $F_{cur,i}$. \\
-          Else $F_{cur,i+1} = F_{cur,i} - min(x_{i+1}, F_{cur,i} - F + V)$. \\
-          If for some $i, min(x_{i+1}, F_{cur,i} - F + V) = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
+          Else $F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)}$. \\
+          If for some $i, \min{(x_{i+1}, F_{cur,i} - F + V)} = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
           $F_{cur,i+1}$ exists, then $\forall k < i, F_{cur,k} = F_{cur,k-1} - x_k \Rightarrow F_{cur,i} =
           F - \sum\limits_{j=1}^{i}x_j$ \\
           Furthermore, if $F_{cur,i+1} = F - V$ then $u_{i+1}' = x_{i+1} - F_{cur,i} + F - V =
@@ -458,7 +459,10 @@
              reduction_j + u_{(j+1)\:mod\:n}', & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} < reduce_j \\
              reduction_j + u_{(j+1)\:mod\:n}' - x_{(j+1)\:mod\:n} + reduce_{j+1}, &
                 u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} \geq reduce_j
-          \end{cases}$
+          \end{cases}$ \\
+       In the end, $r = reduce$ is such that $r = \frac{V - \sum\limits_{x \in S}x}{n - |S|}$ where
+       $S = \{\text{flows } y \text{ from } s \text{ to } N^{+}(s) \text{ according to } maxFlow : y < r\}$. Also,
+       $\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}\max{(0,x_i - r)}$. TOPROVE
     \begin{proof}[Proof of correctness for algorithm \ref{abs}] \
        \begin{itemize}
           \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
@@ -484,7 +488,7 @@
              thus we conclude that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times.
              \item Suppose that $reduction_j > V$ on the line 21. Since $reduction_j$ exists, $reduction_{j-1} < V$.
              If $x_{j \: mod \: n} < reduce_{j-1}$ then $reduction_j = reduction_{j-1} + u_{j \: mod \:n}'$.
-             Since $reduction_j > V$, $u_{j \: mod \:n}' > V - reduction_{j-1}$. \\
+             Since $reduction_j > V$, $u_{j \: mod \:n}' > V - reduction_{j-1}$. TOCOMPLETE\\
              
           \end{itemize}
        \end{itemize}
@@ -501,7 +505,7 @@
        norm. Suppose that $W$ is a valid solution that minimizes the $||\Delta_i||_\infty$ norm. Let $\delta$ be the minimum
        value of this norm. There exists $i \in \{1,...,n\}$ such that $x_i - w_i = \delta$ and $u_i' < w_i$. Because both $U'$
        and $W$ are valid solutions ($\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}w_i = F - V$), there must exist a set
-       $S \subset U'$ such that $\forall u_j' \in S, u_j' > w_j$.
+       $S \subset U'$ such that $\forall u_j' \in S, u_j' > w_j$ TOCOMPLETE.
     \end{proof}
     \begin{algorithm}[H]
        \label{prop}
@@ -542,15 +546,19 @@
        \Output{$u_i'$ capacities}
        \caption{$||\delta_i||_\infty$ minimizer}
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
-       $\delta \gets \BinSearch{0,V,F,n,X}$ \\
+       $\delta_{max} \gets \max\limits_{i \in \{1,...,n\}}{(u_i)}$ \\
+       $\delta \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X} \\
        \For{$i \gets 1$ to $n$}
-          {$u_i' \gets max(u_i - \delta, 0)$}
+          {$u_i' \gets \max{(u_i - \delta, 0)}$}
        \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
     \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \ \\
        We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
+       
     \end{proof}
     \begin{proof}[Complexity of algorithm \ref{dinf}] \ \\
+       The complexity of lines 1,2 and 4-6 is $O(n)$ and the complexity of line 3 is $O(BinSearch) = O((maxFlow + n)
+       log(\delta_{max}))$, thus the total complexity of algorithm \ref{dinf} is $O((maxFlow + n)log(\delta_{max}))$.
     \end{proof}
 
     \begin{algorithm}[H]
@@ -558,23 +566,39 @@
        \SetKwFunction{BinSearch}{BinSearch}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
-       \Input{$bot$, $top$, $F$, $n$, $X$}
+       \Input{$bot$, $top$, $F'$, $n$, $X$}
        \Output{$\delta$}
        \caption*{\textbf{function} \texttt{BinSearch} }
        \If{$bot = top$}{\Return $bot$}
        \Else{
           \For{$i \gets 1$ to $n$}
               {$u_i' \gets u_i - \frac{top + bot}{2}$}       
-          \If{$maxFlow < F$}
-	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$n$,$X$,$F$}}
+          \If{$maxFlow < F'$}
+	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$F'$,$n$,$X$}}
+          \ElseIf{$maxFlow > F'$}
+	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$F'$,$n$,$X$}}
           \Else
-	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$n$,$X$,$F$}}
+             {\Return $\frac{top + bot}{2}$}
        }
     \end{algorithm}
     \begin{proof}[Proof of correctness for function \ref{binsearch}] \ \\
-       We will show that the assignment $U'$ achieves minimization of the $||\delta_i||_\infty$ norm. \\
+       We will show that the output of \ref{binsearch} is the minimum $\delta \in [bot_0, top_0]$ such that
+       $\sum\limits_{i=1}^{n}\max{(u_i - \delta, 0)} = F' = F - V$. \\
+       We can easily see that $\delta_1 < \delta_2 \Rightarrow \sum\limits_{i=1}^{n}\max{(u_i - \delta_1, 0)} >
+       \sum\limits_{i=1}^{n}\max{(u_i - \delta_2, 0)} \Rightarrow maxFlow_{\delta_1} \geq maxFlow_{\delta_2}$ (1).
+       The recursive function starts backtracking either on line 11, where $maxFlow = F'$, or on line 2 where $bot_j=top_j$.
+       In the latter case, it is $bot_{j-1} < bot_j \wedge top_{j-1} = top_j$ or $bot_{j-1} = bot_j \wedge top_{j-1} >top_j$.
+       \begin{itemize}
+          \item If $bot_{j-1} < bot_j \wedge top_{j-1} = top_j, maxFlow_{\frac{top_{j-1}+bot_{j-1}}{2}} >F'
+          \xRightarrow{(1)} maxFlow_{bot_j}$
+       \end{itemize}
+%$\forall \delta': 0 \leq \delta' < bot_j, maxFlow > F'$ because $\exists i \in [0,j):bot_i \leq \delta' \leq top_i$
+       
     \end{proof}
     \begin{proof}[Complexity of function \ref{binsearch}] \ \\
+       Lines 1-2 have complexity $O(1)$, lines 4-5 have complexity $O(n)$, lines 6-11 have complexity
+       $O(maxFlow) + O(BinSearch)$. It is known that $O(BinSearch) = O(log(depth))O(constant)$, where $O(constant) =
+       O(maxFlow) + O(n) + O(1)$. Thus the function \ref{binsearch} has complexity $O((maxFlow +n)log(top-bot))$.
     \end{proof}
     
     However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i') = ||\delta_i||_1$.
