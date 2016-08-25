@@ -117,33 +117,6 @@
          $B$ steals value $x$ from $A$ when $B$ reduces the $DTr_{A \rightarrow B}$ by $x$ and increases $Cap_B$ by $x$.
          This makes sense when $x \leq DTr_{A \rightarrow B}$.
       \end{definition}
-      \begin{definition}[Indirect trust from $A$ to $B$ $Tr_{A \rightarrow B}$] \ \\
-         Value that $A$ will lose if $B$ steals the maximum amount she can steal (all her incoming trust) and everyone
-         else follows the honest strategy.
-      \end{definition}
-      \begin{definition}[Trust Reduction] \ \\
-         Let $A, B \in \mathcal{M}, x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i$ current
-         $DTr_{A \rightarrow N^{+}(A)_i}, \\ u_i'$ new $DTr_{A \rightarrow N^{+}(A)_i}, i \in \{1,...,|N^{+}(A)|\}$.
-         \begin{enumerate}
-            \item The Trust Reduction on neighbour $i, \delta_i$ is defined as $\delta_i = u_i - u_i'$.
-            \item The Flow Reduction on neigbour $i, \Delta_i$ is defined as $\Delta_i = x_i - u_i'$.
-         \end{enumerate}
-         We will also use the standard notation for 1-norm and $\infty$-norm, that is:
-         \begin{enumerate}
-            \item $||\delta_i||_1 = \sum\limits_{i \in N^{+}(A)}\delta_i$
-            \item $||\delta_i||_\infty = \max\limits_{i \in N^{+}(A)}\delta_i$.
-         \end{enumerate}
-      \end{definition}
-      \begin{definition}[Restricted Flow] \ \\
-         Let $A, B \in \mathcal{M}, i \in \{1,...,|N^{+}(A)|\}$.
-         \begin{enumerate}
-            \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$
-               ($x_i'$) when $u_i' = u_i,$ \\ $u_j' = 0 \:\forall j \in \{1,...,|N^{+}(A)|\} \wedge j \neq i$.
-            \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as
-               calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S,
-               u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$.
-         \end{enumerate}
-      \end{definition}
       \begin{definition}[Turns] \ \\
          The game we are describing is turn-based. In each turn $i$ exactly one player $A \in \mathcal{M}$ chooses
          an action (according to a certain strategy or at random) that can be one of the following, or a finite
@@ -178,6 +151,33 @@
          A player $A$ is said to follow the evil strategy if she steals value $y_B = DTr_{B \rightarrow A, i-1} \:
          \forall \: B \in N^{-}(A)$ (steals all incoming direct trust) and reduces her trust to $C$ by
          $DTr_{A \rightarrow C, i-1} \: \forall \: C \in N^{+}(A)$ (nullifies her outgoing direct trust) in her turn.
+      \end{definition}
+      \begin{definition}[Indirect trust from $A$ to $B$ $Tr_{A \rightarrow B}$] \ \\
+         Maximum possible value that can be stolen from $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy
+         and everyone else ($\mathcal{M} \setminus \{A,B\}$) follows the honest strategy.
+      \end{definition}
+      \begin{definition}[Trust Reduction] \ \\
+         Let $A, B \in \mathcal{M}, x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i$ current
+         $DTr_{A \rightarrow N^{+}(A)_i}, \\ u_i'$ new $DTr_{A \rightarrow N^{+}(A)_i}, i \in \{1,...,|N^{+}(A)|\}$.
+         \begin{enumerate}
+            \item The Trust Reduction on neighbour $i, \delta_i$ is defined as $\delta_i = u_i - u_i'$.
+            \item The Flow Reduction on neigbour $i, \Delta_i$ is defined as $\Delta_i = x_i - u_i'$.
+         \end{enumerate}
+         We will also use the standard notation for 1-norm and $\infty$-norm, that is:
+         \begin{enumerate}
+            \item $||\delta_i||_1 = \sum\limits_{i \in N^{+}(A)}\delta_i$
+            \item $||\delta_i||_\infty = \max\limits_{i \in N^{+}(A)}\delta_i$.
+         \end{enumerate}
+      \end{definition}
+      \begin{definition}[Restricted Flow] \ \\
+         Let $A, B \in \mathcal{M}, i \in \{1,...,|N^{+}(A)|\}$.
+         \begin{enumerate}
+            \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$
+               ($x_i'$) when $u_i' = u_i,$ \\ $u_j' = 0 \:\forall j \in \{1,...,|N^{+}(A)|\} \wedge j \neq i$.
+            \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as
+               calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S,
+               u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$.
+         \end{enumerate}
       \end{definition}
   \section{Theorems-Algorithms}
     \begin{theorem}[Saturation theorem] \ \\ 
@@ -542,12 +542,14 @@
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \SetKwFunction{BinSearch}{BinSearch}
-       \Input{$X = \{x_i\}$ flows, $n = |N^{+}(s)|$, $V$ value}
+       \Input{$X = \{x_i\}$ flows, $n = |N^{+}(s)|$, $V$ value, $\epsilon_1$, $\epsilon_2$}
        \Output{$u_i'$ capacities}
        \caption{$||\delta_i||_\infty$ minimizer}
+       \If{$\epsilon_1 < 0 \vee \epsilon_2 < 0$}
+          {\Return $\bot$}
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        $\delta_{max} \gets \max\limits_{i \in \{1,...,n\}}{(u_i)}$ \\
-       $\delta \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X} \\
+       $\delta \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \\
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets \max{(u_i - \delta, 0)}$}
        \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
@@ -567,17 +569,17 @@
        \SetKwFunction{BinSearch}{BinSearch}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
-       \Input{$bot$, $top$, $F'$, $n$, $X$}
+       \Input{$bot$, $top$, $F'$, $n$, $X$, $\epsilon_1$, $\epsilon_2$}
        \Output{$\delta$}
        \caption*{\textbf{function} \texttt{BinSearch} }
        \If{$bot = top$}{\Return $bot$}
        \Else{
           \For{$i \gets 1$ to $n$}
               {$u_i' \gets \max{(0,u_i - \frac{top + bot}{2})}$}
-          \If{$maxFlow < F'$}
-	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$F'$,$n$,$X$}}
-          \ElseIf{$maxFlow > F'$}
-	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$F'$,$n$,$X$}}
+          \If{$maxFlow < F' - \epsilon_1$}
+	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$F'$,$n$,$X$,$\epsilon_1$,$\epsilon_2$}}
+          \ElseIf{$maxFlow > F' + \epsilon_2$}
+	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$F'$,$n$,$X$.$\epsilon_1$,$\epsilon_2$}}
           \Else
              {\Return $\frac{top + bot}{2}$}
        }
