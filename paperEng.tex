@@ -548,29 +548,24 @@
        \If{$\epsilon_1 < 0 \vee \epsilon_2 < 0$}
           {\Return $\bot$}
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
-       $\delta_{max} \gets \max\limits_{i \in \{1,...,n\}}{(u_i)}$ \\
-       $\delta \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \\
+       \If{$F < V$}
+          {\Return $\bot$}
+       $\delta_{max} \gets \max\limits_{i \in \{1,...,n\}}\{u_i\}$ \\
+       $\delta^* \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \\
        \For{$i \gets 1$ to $n$}
-          {$u_i' \gets \max{(u_i - \delta, 0)}$}
+          {$u_i' \gets \max{(u_i - \delta^*, 0)}$}
        \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
-    \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \ \\
-       We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
-       
-    \end{proof}
-    \begin{proof}[Complexity of algorithm \ref{dinf}] \ \\
-       The complexity of lines 1,2 and 4-6 is $O(n)$ and the complexity of line 3 is $O(BinSearch) = O((maxFlow + n)
-       log(\delta_{max}))$, thus the total complexity of algorithm \ref{dinf} is $O((maxFlow + n)log(\delta_{max}))$.
-    \end{proof}
-    For this function, we suppose that trust is a discrete quantity and that
-    $\frac{a}{b}$ rounds to the nearest valid value.
+    Since trust should be considered as a continuous unit and binary search dissects the possible interval for the solution
+    on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
+    complete in a finite number of steps. \\
     \begin{algorithm}[H]
        \label{binsearch}
        \SetKwFunction{BinSearch}{BinSearch}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \Input{$bot$, $top$, $F'$, $n$, $X$, $\epsilon_1$, $\epsilon_2$}
-       \Output{$\delta$}
+       \Output{$\delta^*$}
        \caption*{\textbf{function} \texttt{BinSearch} }
        \If{$bot = top$}{\Return $bot$}
        \Else{
@@ -584,23 +579,74 @@
              {\Return $\frac{top + bot}{2}$}
        }
     \end{algorithm}
+    \begin{proof}[Proof that $maxFlow(\delta)$ is strictly decreasing for $\delta: maxflow(\delta) < F$] \ \\
+       Let $maxFlow(\delta)$ be the $maxFlow$ with $\forall i \in \{1,...,n\}, u_i' = max(0, u_i - \delta)$.
+       We will prove that the function $maxFlow(\delta)$ is strictly decreasing for all $\delta \leq \max\limits_{i \in
+       \{1,...,n\}}\{u_i\}$ such that $maxFlow(\delta) < F$. \\
+       Supppose that $\exists \delta_1, \delta_2 : \delta_1 < \delta_2 \wedge maxFlow(\delta_1) \leq maxFlow(\delta_2) < F$.
+       We will work with configurations of $x_{i,j}'$ such that $x_{i,j}' \leq x_i, j \in \{1,2\}$. \\
+       Let $S_j = \{i \in N^{+}(s) : i \in MinCut_j\}$. It holds that $S_1 \neq \emptyset$ because otherwise $MinCut_1 =
+       MinCut_{\delta = 0}$ which is a contradiction because then $maxFlow(\delta_1) = F$. Moreover, it holds that
+       $S_1 \subseteq S_2$, since $\forall u_{i,2}' > 0,u_{i,2}' < u_{i,1}'$. Every node in the $MinCut_j$ is saturated, thus
+       $\forall i \in S_1, x_{i,j}' = u_{i,j}'$. Thus $\sum\limits_{i \in S_1} x_{i,2} < \sum\limits_{i \in S_1}x_{i,1}$ and,
+       since $maxFlow(\delta_1) \leq maxFlow(\delta_2)$, we conclude that for the same configurations,
+       $\sum\limits_{i \in N^{+}(s) \setminus S_1} x_{i,2} > \sum\limits_{i \in N^{+}(s) \setminus S_1}x_{i,1}$.
+       However, since $x_{i,j}' \leq x_i, j \in \{1,2\}$, the configuration
+       $[x_{i,1}'' = x_{i,2}', i \in N^{+}(s) \setminus S_1], [x_{i,1}'' = x_{i,1}', i \in S_1]$ is valid for
+       $\delta = \delta_1$ and then $\sum\limits_{i \in S_1}x_{i,1}'' + \sum\limits_{i \in N^{+}(s) \setminus S_1}x_{i,1}'' =
+       \sum\limits_{i \in S_1}x_{i,1}' + \sum\limits_{i \in N^{+}(s) \setminus S_1}x_{i,2}' > maxFlow(\delta_1)$,
+       contradiction. Thus $maxFlow(\delta)$ is strictly decreasing.
+    \end{proof}
+       We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in (0, \max\limits_{i \in \{1,...,n\}}\{u_i\}]:
+       maxFlow(\delta)= F' \Rightarrow \delta = \min||\delta_i||_\infty : maxFlow(||\delta_i||_\infty) = F'$.
+       
     \begin{proof}[Proof of correctness for function \ref{binsearch}] \ \\
-       We will show that the output of \ref{binsearch}, $\delta \in [bot_0, top_0]$, is such that
-       $\sum\limits_{i=1}^{n}\max{(u_i - \delta, 0)} = F' = F - V$. \\
-       We can easily see that $\delta_1 < \delta_2 \Rightarrow \sum\limits_{i=1}^{n}\max{(u_i - \delta_1, 0)} >
-       \sum\limits_{i=1}^{n}\max{(u_i - \delta_2, 0)} \Rightarrow maxFlow_{\delta_1} \geq maxFlow_{\delta_2} (1)$.
-       The recursive function starts backtracking either on line 11, where $maxFlow = F'$, or on line 2 where $bot_j=top_j$.
-       In the latter case, it is $round(\frac{bot_{j-1}+top_{j-1}}{2}) = bot_j$ and we have either $bot_{j-1} = bot_j$ or $top_{j-1} = top_j$.
+       Supposing that $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$, or equivalently
+       $maxFlow(top) \leq F' - \epsilon_1 \wedge maxFlow(bot) \geq F' + \epsilon_2$, we will prove that
+       $maxFlow(\delta^*) \in [F' - \epsilon_1, F' + \epsilon_2]$. \\
+       First of all, we should note that if an invocation of \texttt{BinSearch} returns without calling
+       \texttt{BinSearch} again (line 2 or 11), its return value will be equal to the return value of the initial invocation
+       of \texttt{BinSearch}, as we can see on lines 7 and 9, where the return value of the invoked \texttt{BinSearch}
+       is returned without any modification. The case where \texttt{BinSearch} is called again is analyzed next:
        \begin{itemize}
-          \item $bot_{j-1} = bot_j \Rightarrow round(\frac{bot_j + top_{j-1}}{2}) = bot_j \xRightarrow{top_{j-1} > bot_j}
-          bot_j < \frac{bot_j + top_{j-1}}{2} < bot_j + 0.5 \Rightarrow bot_j < top_{j-1} < bot_j + 1$ impossible.
-          \item $top_{j-1} = top_j \Rightarrow round(\frac{bot_{j-1} + top_j}{2}) = top_j \xRightarrow{top_j > bot_{j-1}}
-          top_j - 0.5 \leq \frac{bot_{j-1} + top_j}{2} < top_j \Rightarrow top_j - 1 \leq bot_{j-1} < top_j
-          \Rightarrow bot_{j-1} = top_j - 1$. In this case $round(\frac{bot_{j-1} + top_{j-1}}{2}) =
-          round(\frac{top_j - 1 + top_j}{2}) = round(top_j - 0.5) = top_j \Rightarrow
-          maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} = maxFlow_{bot_j}$. Since $bot_j$ exists, \\
-          $maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} \neq F'$.
+          \item If $maxFlow(\frac{top+bot}{2}) < F' - \epsilon_1 < F'$ (line 6) then, since $maxFlow(\delta)$ is strictly
+          decreasing, $\delta^* \in [bot,\frac{top+bot}{2})$. As we see on line 7, the interval $(\frac{top+bot}{2}, top]$
+          is discarded when the next \texttt{BinSearch} is called. Since $F' + \epsilon_2 \leq maxFlow(bot)$, we have
+          $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(\frac{top+bot}{2}), maxFlow(bot)]$ and
+          the length of the available interval is divided by 2.
+          \item Similarly, if $maxFlow(\frac{top+bot}{2}) > F' + \epsilon_2 > F'$ (line 8) then $\delta^* \in
+          (\frac{top+bot}{2}, top]$. According to line 9, the interval $[bot, \frac{top+bot}{2})$ is discarded when the next
+          \texttt{BinSearch} is called. Since $F'- \epsilon_1 \geq maxFlow(top)$, we have $[F' - \epsilon_1, F' + \epsilon_2]
+          \subset (maxFlow(top),$ $maxFlow(\frac{top+bot}{2})]$ and the length of the available interval is divided by 2.
        \end{itemize}
+       As we saw, $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$ in every recursive call and
+       $top - bot$ is divided by 2 in every call. From topology we know that $A \subset B \Rightarrow |A| < |B|$, so the
+       recursive calls cannot continue infinitely. $|[F' - \epsilon_1, F' + \epsilon_2]| = \epsilon_1 + \epsilon_2$. Let
+       $bot_0, top_0$ the input values given to the initial invocation of \texttt{BinSearch}, $bot_j,top_j$ the input
+       values given to the $j$-th recursive call of \texttt{BinSearch} and $len_j =|[bot_j, top_j]| = top_j - bot_j$. We have
+       $\forall j > 0, len_j = top_j - bot_j = \frac{top_{j-1} - bot_{j-1}}{2} \Rightarrow \forall j >0, len_j =
+       \frac{top_0 - bot_0}{2^j}$. We understand that in the worst case $len_j = \epsilon_1 + \epsilon_2 \Rightarrow
+       2^j = \frac{top_0-bot_0}{\epsilon_1 + \epsilon_2} \Rightarrow j = \log_2(\frac{top_0-bot_0}{\epsilon_1+\epsilon_2})$.
+       Also, as we saw earlier, $\delta^*$ is always in the available interval, thus $maxFlow(\delta^*) \in [F' - \epsilon_1,
+       F' + \epsilon_2]$.
+%       We will show that the output of \ref{binsearch}, $\delta \in [bot_0, top_0]$, is such that
+%\subset [0, \max\limits_{i \in \{1,...,n\}}\{u_i\}]
+%       $\sum\limits_{i=1}^{n}\max{(u_i - \delta, 0)} = F' = F - V$. \\
+%       We can easily see that $\delta_1 < \delta_2 \Rightarrow \sum\limits_{i=1}^{n}\max{(u_i - \delta_1, 0)} >
+%       \sum\limits_{i=1}^{n}\max{(u_i - \delta_2, 0)} \Rightarrow maxFlow_{\delta_1} \geq maxFlow_{\delta_2} (1)$.
+%       The recursive function starts backtracking either on line 11, where $maxFlow = F'$, or on line 2 where $bot_j=top_j$.
+%       In the latter case, it is $round(\frac{bot_{j-1}+top_{j-1}}{2}) = bot_j$ and we have either $bot_{j-1} = bot_j$ or
+%       $top_{j-1} = top_j$.
+%       \begin{itemize}
+%          \item $bot_{j-1} = bot_j \Rightarrow round(\frac{bot_j + top_{j-1}}{2}) = bot_j \xRightarrow{top_{j-1} > bot_j}
+%          bot_j < \frac{bot_j + top_{j-1}}{2} < bot_j + 0.5 \Rightarrow bot_j < top_{j-1} < bot_j + 1$ impossible.
+%          \item $top_{j-1} = top_j \Rightarrow round(\frac{bot_{j-1} + top_j}{2}) = top_j \xRightarrow{top_j > bot_{j-1}}
+%          top_j - 0.5 \leq \frac{bot_{j-1} + top_j}{2} < top_j \Rightarrow top_j - 1 \leq bot_{j-1} < top_j
+%          \Rightarrow bot_{j-1} = top_j - 1$. In this case $round(\frac{bot_{j-1} + top_{j-1}}{2}) =
+%          round(\frac{top_j - 1 + top_j}{2}) = round(top_j - 0.5) = top_j \Rightarrow
+%          maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} = maxFlow_{bot_j}$. Since $bot_j$ exists, \\
+%          $maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} \neq F'$.
+%       \end{itemize}
 %$bot_{j-1} = bot_j - 1 \wedge top_{j-1} = top_j$ or $bot_{j-1} = bot_j \wedge
 %       top_{j-1} = top_j + 1$.
 %       \begin{itemize}
@@ -608,14 +654,27 @@
 %          (1) \Rightarrow maxFlow_{bot_j} \leq maxFlow_{\frac{top_{j-1}+bot_{j-1}}{2}}$
 %       \end{itemize}
 %$\forall \delta': 0 \leq \delta' < bot_j, maxFlow > F'$ because $\exists i \in [0,j):bot_i \leq \delta' \leq top_i$
-       
     \end{proof}
     \begin{proof}[Complexity of function \ref{binsearch}] \ \\
        Lines 1-2 have complexity $O(1)$, lines 4-5 have complexity $O(n)$, lines 6-11 have complexity
-       $O(maxFlow) + O(BinSearch)$. It is known that $O(BinSearch) = O(log(depth))O(constant)$, where $O(constant) =
-       O(maxFlow) + O(n) + O(1)$. Thus the function \ref{binsearch} has complexity $O((maxFlow +n)log(top-bot))$.
+       $O(maxFlow) + O(BinSearch)$. As we saw in the proof of correctness for function \ref{binsearch}, we need at most
+       $\log_2(\frac{top - bot}{\epsilon_1 + \epsilon_2})$ recursive calls of \texttt{BinSearch}. Thus the function
+       \ref{binsearch} has worst-case complexity $O((maxFlow + n)\log_2(\frac{top - bot}{\epsilon_1 + \epsilon_2}))$.
     \end{proof}
-    
+    \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \ \\
+       We will show that $maxFlow \in [F - V - \epsilon_1, F - V + \epsilon_2]$, with $u_i'$ decided by algorithm
+       \ref{dinf}. \\
+       Obviously $maxFlow(0) = F, maxFlow(\max\limits_{i \in \{1,...,n\}}\{u_i\}) = 0$, thus $\delta^* \in
+       \max\limits_{i \in \{1,...,n\}}\{u_i\}$. According to the proof of correctness for function \ref{binsearch},
+       we can directly see that $maxFlow(\delta^*) \in [F - V - \epsilon_1, F - V + \epsilon_2]$, given that
+       $\epsilon_1, \epsilon_2$ are chosen so that $F - V - \epsilon_1 \geq 0, F - V + \epsilon_2 \leq F$, so as to satisfy
+       the condition $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$.
+    \end{proof}
+    \begin{proof}[Complexity of algorithm \ref{dinf}] \ \\
+       The complexity of lines 1,2 and 4-6 is $O(n)$ and the complexity of line 3 is $O(BinSearch) = O((maxFlow + n)
+       \log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$, thus the total complexity of algorithm \ref{dinf} is
+       $O((maxFlow + n)\log(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$.
+    \end{proof}    
     However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i') = ||\delta_i||_1$.
 
   \section{Further Research}
