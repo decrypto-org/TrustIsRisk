@@ -334,15 +334,29 @@
        Trust Reduction $||\delta_i||_1$ is independent of $x_i, u_i' \:\: \forall$ valid configurations of $x_i$
     \end{theorem}
     \begin{proof} 
-       Since $\forall i \in \{1,...,n\},u_i' \leq x_i$ it is (according to \ref{saturation}) $x_i' = u_i'$, thus $\delta_i = u_i
-       - x_i'$. We know that $\sum\limits_{i=1}^{n}x_i' = F - V$, so we have $||\delta_i||_1 = \sum\limits_{i=1}^{n}\delta_i =
-       \sum\limits_{i=1}^{n}(u_i - x_i') = \sum\limits_{i=1}^{n}u_i - F + V$ independent of $x_i', u_i'$
+       Since $\forall i \in \{1,...,n\},u_i' \leq x_i$ it is (according to \ref{saturation}) $x_i' = u_i'$, thus
+       $\delta_i = u_i - x_i'$. We know that $\sum\limits_{i=1}^{n}x_i' = F - V$, so we have $||\delta_i||_1 =
+       \sum\limits_{i=1}^{n}\delta_i = \sum\limits_{i=1}^{n}(u_i - x_i') = \sum\limits_{i=1}^{n}u_i - F + V$ independent
+       from $x_i', u_i'$
     \end{proof}
 
     \begin{theorem}[Dependence impossibility theorem] \ \\
     \label{independence}
        ${\partial x_j \over \partial x_i} = 0$ with $x_i$ the flow from MaxFlow $\Rightarrow
          \forall x_i' \leq x_i, {\partial x_j \over \partial x_i} = 0$ ceteris paribus
+    \end{theorem}
+    \begin{proof}
+       TODO
+    \end{proof}
+
+    One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
+    autonomy. Let Eve be a possible attacker. Since participation in the network does not require any kind of registration,
+    Eve can create any number of players. We will call the set of these players $\mathcal{C}$. Moreover, Eve can invest any
+    amount she chooses, thus she can arbitrarily set the direct trusts of any player $C \in \mathcal{C}$ to any player $A \in
+    \mathcal{M}$ ($DTr_{C \rightarrow A}$). Moreover we give Eve a set of players $B \in \mathcal{B}$ that she has corrupted,
+    so she fully controls their direct trusts to any player $A \in \mathcal{M}$ ($DTr_{B \rightarrow A}$).
+    \begin{theorem}[Sybil resistance] \ \\
+    \label{sybil}
     \end{theorem}
     \begin{proof}
        TODO
@@ -673,7 +687,7 @@
     \begin{proof}[Complexity of algorithm \ref{dinf}] \ \\
        The complexity of lines 1,2 and 4-6 is $O(n)$ and the complexity of line 3 is $O(BinSearch) = O((maxFlow + n)
        \log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$, thus the total complexity of algorithm \ref{dinf} is
-       $O((maxFlow + n)\log(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$.
+       $O((maxFlow + n)\log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$.
     \end{proof}    
     However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i') = ||\delta_i||_1$.
 
