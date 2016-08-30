@@ -164,6 +164,9 @@
          \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j'} = x > 0$. If turns are not specified,
          we implicitly refer to the current and the previous turns.
       \end{definition}
+      \begin{definition}[History] \ \\
+         We define History, $\mathcal{H}$, as the sequence of all the sets of actions. $\mathcal{H}_j = Turn_j$.
+      \end{definition}
       \begin{definition}[Honest strategy] \ \\
          A player $A$ is said to follow the honest strategy if for any value $x$ that has been stolen from her since
          the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
@@ -207,26 +210,23 @@
   \section{Theorems-Algorithms}
     \begin{theorem}[Saturation theorem] \ \\ 
     \label{saturation}
-       Let $s$ source, $n = |N^{+}(s)|, x_i, i \in \{1,...,n\}$, flows to $s$'s neighbours as calculated by the
+       Let $s$ source, $n = |N^{+}(s)|, x_i, i \in [n]$, flows to $s$'s neighbours as calculated by the
        maxFlow algorithm, $u_i'$ new direct trusts to the $n$ neighbours and $x_i'$ new flows to the neighbours
        as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. It holds that
-       $\forall i \in \{1,...,n\}, u_i' \leq x_i \Rightarrow x_i' = u_i'$.
+       $\forall i \in [n], u_i' \leq x_i \Rightarrow x_i' = u_i'$.
     \end{theorem}
     \begin{proof} \ 
-       \begin{enumerate}
-          \item $\forall i \in \{1,...,n\}, x_i' > u_i'$ is impossible because a flow cannot be higher than its
-                corresponding capacity. Thus $\forall i \in \{1,...,n\}, x_i' \leq u_i'$.
-          \item In the initial configuration of $u_i$ and according to the flow problem setting, a combination of flows
-                $y_i$ such that $\forall i \in \{1,...,n\}, y_i = u_i'$ is a valid, albeit not necessarily maximum,
-                configuration with a flow $\sum\limits_{i=1}^{n}y_i$. Suppose that $\exists j \in \{1,...,n\} : x_j'
-                < u_j'$ as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. Then for the new
-                maxFlow $F'$ it holds that $F' = \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_j' < y_j$
-                which is impossible because the configuration $\forall i \in \{1,...,n\}, x_i' = y_i$ is valid since
-                $\forall i \in \{1,...,n\}, y_i = u_i'$ and also has a higher flow, thus the maxFlow algorithm will
-                prefer the configuration with the higher flow. Thus we deduce that $\forall i \in \{1,...,n\},
-                x_i' \geq u_i'$.
-       \end{enumerate}
-       From (1) and (2) we conclude that $\forall i \in \{1,...,n\}, x_i' = u_i'$.
+       $\forall i \in [n], x_i' > u_i'$ is impossible because a flow cannot be higher than its
+       corresponding capacity. Thus $\forall i \in [n], x_i' \leq u_i'$. (1) \\
+       In the initial configuration of $u_i$ and according to the flow problem setting, a combination of flows
+       $y_i$ such that $\forall i \in [n], y_i = u_i'$ is a valid, albeit not necessarily maximum,
+       configuration with a flow $\sum\limits_{i=1}^{n}y_i$. Suppose that $\exists j \in [n] : x_j'
+       < u_j'$ as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. Then for the new
+       maxFlow $F'$ it holds that $F' = \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_j' < y_j$
+       which is impossible because the configuration $\forall i \in [n], x_i' = y_i$ is valid since and (1)
+       $\forall i \in [n], y_i = u_i'$ and also has a higher flow, thus the maxFlow algorithm will
+       prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' \geq u_i'$. \\
+       From (1) and (2) we conclude that $\forall i \in [n], x_i' = u_i'$.
     \end{proof}
     \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
     \label{trustflow}
@@ -263,7 +263,7 @@
 %           \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
 %           Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
 %           see that there is a set of capacities $U= \{u_1,...,u_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
-%           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(\forall i \in \{1,...,n\} \: u_i' = 0)$
+%           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(\forall i \in [n] \: u_i' = 0)$
 %           the flow from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No
 %           strategy followed by B could reduce the value of A, so our supposition (1) cannot be true.
 %        \end{enumerate}
@@ -275,19 +275,20 @@
        If everybody follows the honest strategy, nobody steals any amount from anybody.
     \end{theorem}
     \begin{proof}
-       Suppose that there exists a series of stealing actions represented by a vector where $action_i = $"player $i$ steals
-       value V $>0$ from player $i+1$". This vector must have an initial element, $action_1$. However, player $1$ follows
-       the honest strategy, thus somebody must have stolen from her as well, so player $1$ cannot be the initial element.
-       We have a contradiction, thus there cannot exist a series of stealing actions when everybody is honest.
+       Suppose that there exists a subseries of History comprised by stealing actions represented by a vector where
+       $action_i = $"player $i$ steals value V $>0$ from player $i+1$". This vector must have an initial element, $action_1$.
+       However, player $1$ follows the honest strategy, thus somebody must have stolen from her as well, so player $1$ cannot
+       be the initial element. We have a contradiction, thus there cannot exist a series of stealing actions when everybody
+       is honest.
     \end{proof}
     \begin{theorem}[Trust transfer theorem (flow terminology) - TOCHECK] \ \\
     \label{trusttransfer}
        Let $s$ source, $t$ sink, $n = N^{+}(s)$ \\
-       $X_s = \{x_{s, 1}, ..., x_{s, n}\}$ outgoing flows from $s$, \\
-       $U_s = \{u_{s, 1}, ..., u_{s, n}\}$ outgoing capacities from $s$, \\
+       $X = \{x_1, ..., x_n\}$ outgoing flows from $s$, \\
+       $U = \{u_1, ..., u_n\}$ outgoing capacities from $s$, \\
        $V$ the value to be transferred. \\
        Nodes apart from $s$, $t$ follow the honest strategy. \\
-       Obviously $maxFlow = F = \sum\limits_{i=1}^{n}{x_{s, i}}$.
+       Obviously $maxFlow = F = \sum\limits_{i=1}^{n}{x_i}$.
        {\em \begin{lstlisting}
             /                      ....                     \
            / x_s1/u_s1                         x_1t/u_1t     \
@@ -303,8 +304,8 @@
        \end{lstlisting}}
        We create a new graph where
        \begin{enumerate}
-         \item  $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$
-         \item $\forall i \in \{1,...,n\} \: u_{s, i}' \leq x_{s, i}$
+         \item  $\sum\limits_{i=1}^{n}{u_i'} = F - V$
+         \item $\forall i \in [n] \: u_i' \leq x_i$
        \end{enumerate}
  
        It holds that $maxFlow' = F' = F - V$.
@@ -335,18 +336,19 @@
 
     \begin{corollary}[Requirement for $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
        In the setting of \ref{trusttransfer}, it is impossible to have $maxFlow' = F - V$ if
-       $\sum\limits_{i=1}^{n}{u_{s, i}'} > F - V \wedge \forall i \in \{1,...,n\},u_{s, i}' \leq x_{s, i}$.
+       $\sum\limits_{i=1}^{n}{u_{s, i}'} > F - V \wedge \forall i \in [n],u_{s, i}' \leq x_{s, i}$.
     \end{corollary}
     \begin{proof}
        Due to \ref{trusttransfer}, $maxFlow' = F - V$ if $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V
-       \wedge \forall i \in \{1,...,n\}, u_{s, i}' \leq x_{s, i}$. If we create new capacities such that
-       $\forall i \in \{1,...,n\}, u_{s,i}'' \leq x_{s,i}$, then obviously $maxFlow'' = \sum\limits_{i=1}^{n}{u_{s,i}''}$. If
+       \wedge \forall i \in [n], u_{s, i}' \leq x_{s, i}$. If we create new capacities such that
+       $\forall i \in [n], u_{s,i}'' \leq x_{s,i}$, then obviously $maxFlow'' = \sum\limits_{i=1}^{n}{u_{s,i}''}$. If
        additionally $\sum\limits_{i=1}^{n}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
     \end{proof}
 
     \begin{theorem}[Trust-saving Theorem] \ \\
     \label{trustsave}
-       $\forall i \in \{1,...,|N^{+}(A)|\}, u_i' = F_{A_i \rightarrow B} \Leftrightarrow u_i' = u_i$
+       A configuration $U' : u_i' = F_{A_i \rightarrow B}$ for some $i \in [|N^{+}(A)|]$ can yield the same $maxFlow$ with a
+       configuration $U'' : u_i'' = u_i, \forall j \in [|N^{+}(A)|], j \neq i u_j'' = u_j$.
     \end{theorem}
     \begin{proof}
        We know that $x_i \leq F_{A_i \rightarrow B}$, thus we can see that any increase in $u_i'$ beyond
@@ -355,11 +357,11 @@
 
     \begin{theorem}[Invariable trust reduction with naive algorithms] \ \\
     \label{invariability}
-       Let $A$ source, $n = |N^{+}(A)|$ and $u_i'$ new direct trusts. If $\forall i \in \{1,...,n\},u_i' \leq x_i$,
+       Let $A$ source, $n = |N^{+}(A)|$ and $u_i'$ new direct trusts. If $\forall i \in [n],u_i' \leq x_i$,
        Trust Reduction $||\delta_i||_1$ is independent of $x_i, u_i' \:\: \forall$ valid configurations of $x_i$
     \end{theorem}
     \begin{proof} 
-       Since $\forall i \in \{1,...,n\},u_i' \leq x_i$ it is (according to \ref{saturation}) $x_i' = u_i'$, thus
+       Since $\forall i \in [n],u_i' \leq x_i$ it is (according to \ref{saturation}) $x_i' = u_i'$, thus
        $\delta_i = u_i - x_i'$. We know that $\sum\limits_{i=1}^{n}x_i' = F - V$, so we have $||\delta_i||_1 =
        \sum\limits_{i=1}^{n}\delta_i = \sum\limits_{i=1}^{n}(u_i - x_i') = \sum\limits_{i=1}^{n}u_i - F + V$ independent
        from $x_i', u_i'$
@@ -377,9 +379,13 @@
     One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
     autonomy. Let Eve be a possible attacker. Since participation in the network does not require any kind of registration,
     Eve can create any number of players. We will call the set of these players $\mathcal{C}$. Moreover, Eve can invest any
-    amount she chooses, thus she can arbitrarily set the direct trusts of any player $C \in \mathcal{C}$ to any player $A \in
-    \mathcal{M}$ ($DTr_{C \rightarrow A}$). Moreover we give Eve a set of players $B \in \mathcal{B}$ that she has corrupted,
-    so she fully controls their direct trusts to any player $A \in \mathcal{M}$ ($DTr_{B \rightarrow A}$).
+    amount she chooses, thus she can arbitrarily set the direct trusts of any player $C \in \mathcal{C}$ to any player $P \in
+    \mathcal{M}$ ($DTr_{C \rightarrow P}$). Moreover we give Eve a set of players $B \in \mathcal{B}$ that she has corrupted,
+    so she fully controls their direct trusts to any player $P \in \mathcal{M}$ ($DTr_{B \rightarrow P}$). The players $B \in
+    \mathcal{B}$ are considered to be legitimate before the corruption, thus they can be directly trusted by any player $P
+    \in \mathcal{M}$ ($DTr_{P \rightarrow B} \geq 0$). However, players $C \in \mathcal{C}$ can be trusted only by players
+    $D \in \mathcal{B} \cup \mathcal{C}$ ($DTr_{D \rightarrow C} \geq 0$) and not by players $A \in \mathcal{M} \setminus
+    (\mathcal{B} \cup \mathcal{C})$ ($DTr_{A \rightarrow C} = 0$).
     \begin{theorem}[Sybil resistance] \ \\
     \label{sybil}
     \end{theorem}
@@ -388,7 +394,7 @@
     \end{proof}
 
     Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
-    a trusted party. To prove the correctness of the algorithms, it suffices to prove that $\forall i \in \{1,...,n\} \:
+    a trusted party. To prove the correctness of the algorithms, it suffices to prove that $\forall i \in [n] \:
     u_i' \leq x_i$ and that $\sum\limits_{i=1}^{n}u_i' = F - V$ where $F = \sum\limits_{i=1}^{n}x_i$. \\
     \begin{algorithm}[H]
        \label{fcfs}
@@ -399,25 +405,25 @@
        \caption{First-come, first-served trust transfer}
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
-       $Fcur \gets F$ \\
+       $F_{cur} \gets F$ \\
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i$} 
        $i \gets 1$ \\
-       \While{$Fcur > F - V$}
-          {$reduce \gets \min{(x_i, Fcur - F + V)}$ \\
-           $Fcur \gets Fcur - reduce$ \\
+       \While{$F_{cur} > F - V$}
+          {$reduce \gets \min{(x_i, F_{cur} - F + V)}$ \\
+           $F_{cur} \gets F_{cur} - reduce$ \\
            $u_i' \gets x_i - reduce$ \\
            $i \gets i + 1$}
        \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
     \end{algorithm}
     \begin{proof}[Proof of correctness for algorithm \ref{fcfs}] \
        \begin{itemize}
-          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
-          Let $i \in \{1,...,n\}$. In line 6 we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
+          \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
+          Let $i \in [n]$. In line 6 we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
           is in line 11 where it is never increased $(reduce \geq 0)$, thus we see that, when returned, $u_i' \leq x_i$.
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
           $F_{cur,0} = F$ \\
-          If $F_{cur,i} = F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
+          If $F_{cur,i} \geq F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
           $F_{cur,i}$. \\
           Else $F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)}$. \\
           If for some $i, \min{(x_{i+1}, F_{cur,i} - F + V)} = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
@@ -504,12 +510,12 @@
        $\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}\max{(0,x_i - r)}$. TOPROVE
     \begin{proof}[Proof of correctness for algorithm \ref{abs}] \
        \begin{itemize}
-          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
-          On line 9, $\forall i \in \{1,...,n\} \: u_i' = x_i$. Subsequently $u_i'$ is modified on line 16, where
+          \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
+          On line 9, $\forall i \in [n] \: u_i' = x_i$. Subsequently $u_i'$ is modified on line 16, where
           it becomes equal to 0 and on line 19, where it is assigned $x_i - reduce$. It holds that $x_i - reduce \leq x_i$
           because initially $reduce = \frac{V}{n} \geq 0$ and subsequently $reduce$ is modified only on line 14 where it
           is increased ($n > empty$ because of line 13 and $reduce > x_i$ because of line 11, thus
-          $\frac{reduce - x_i}{n - empty} > 0$). We see that $\forall i \in \{1,...,n\}, u_i' \leq x_i$.
+          $\frac{reduce - x_i}{n - empty} > 0$). We see that $\forall i \in [n], u_i' \leq x_i$.
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
           The variable $reduction$ keeps track of the total reduction that has happened and breaks the \textbf{while} loop
           when $reduction \geq V$. We will first show that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times and
@@ -542,7 +548,7 @@
     \begin{proof}[Proof that algorithm \ref{abs} minimizes the $||\Delta_i||_\infty$ norm] \ \\
        Suppose that $U'$ is the result of an execution of algorithm \ref{abs} that does not minimize the $||\Delta_i||_\infty$
        norm. Suppose that $W$ is a valid solution that minimizes the $||\Delta_i||_\infty$ norm. Let $\delta$ be the minimum
-       value of this norm. There exists $i \in \{1,...,n\}$ such that $x_i - w_i = \delta$ and $u_i' < w_i$. Because both $U'$
+       value of this norm. There exists $i \in [n]$ such that $x_i - w_i = \delta$ and $u_i' < w_i$. Because both $U'$
        and $W$ are valid solutions ($\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}w_i = F - V$), there must exist a set
        $S \subset U'$ such that $\forall u_j' \in S, u_j' > w_j$ TOCOMPLETE.
     \end{proof}
@@ -561,7 +567,7 @@
     \end{algorithm} \ \\
     \begin{proof}[Proof of correctness for algorithm \ref{prop}] \
        \begin{itemize}
-          \item We will show that $\forall i \in \{1,...,n\} \: u_i' \leq x_i$. \\
+          \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
           According to line 5, which is the only line where $u_i'$ is changed, $u_i' = x_i - \frac{V}{F}x_i \leq x_i$
           since $x_i, V, F > 0$ and $V \leq F$.
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
@@ -589,7 +595,7 @@
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}
           {\Return $\bot$}
-       $\delta_{max} \gets \max\limits_{i \in \{1,...,n\}}\{u_i\}$ \\
+       $\delta_{max} \gets \max\limits_{i \in [n]}\{u_i\}$ \\
        $\delta^* \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \\
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets \max{(u_i - \delta^*, 0)}$}
@@ -619,9 +625,9 @@
        }
     \end{algorithm}
     \begin{proof}[Proof that $maxFlow(\delta)$ is strictly decreasing for $\delta: maxflow(\delta) < F$] \ \\
-       Let $maxFlow(\delta)$ be the $maxFlow$ with $\forall i \in \{1,...,n\}, u_i' = max(0, u_i - \delta)$.
+       Let $maxFlow(\delta)$ be the $maxFlow$ with $\forall i \in [n], u_i' = max(0, u_i - \delta)$.
        We will prove that the function $maxFlow(\delta)$ is strictly decreasing for all $\delta \leq \max\limits_{i \in
-       \{1,...,n\}}\{u_i\}$ such that $maxFlow(\delta) < F$. \\
+       [n]}\{u_i\}$ such that $maxFlow(\delta) < F$. \\
        Supppose that $\exists \delta_1, \delta_2 : \delta_1 < \delta_2 \wedge maxFlow(\delta_1) \leq maxFlow(\delta_2) < F$.
        We will work with configurations of $x_{i,j}'$ such that $x_{i,j}' \leq x_i, j \in \{1,2\}$. \\
        Let $S_j = \{i \in N^{+}(s) : i \in MinCut_j\}$. It holds that $S_1 \neq \emptyset$ because otherwise $MinCut_1 =
@@ -636,7 +642,7 @@
        \sum\limits_{i \in S_1}x_{i,1}' + \sum\limits_{i \in N^{+}(s) \setminus S_1}x_{i,2}' > maxFlow(\delta_1)$,
        contradiction. Thus $maxFlow(\delta)$ is strictly decreasing.
     \end{proof}
-       We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in (0, \max\limits_{i \in \{1,...,n\}}\{u_i\}]:
+       We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in (0, \max\limits_{i \in [n]}\{u_i\}]:
        maxFlow(\delta)= F' \Rightarrow \delta = \min||\delta_i||_\infty : maxFlow(||\delta_i||_\infty) = F'$.
        
     \begin{proof}[Proof of correctness for function \ref{binsearch}] \ \\
@@ -669,7 +675,7 @@
        Also, as we saw earlier, $\delta^*$ is always in the available interval, thus $maxFlow(\delta^*) \in [F' - \epsilon_1,
        F' + \epsilon_2]$.
 %       We will show that the output of \ref{binsearch}, $\delta \in [bot_0, top_0]$, is such that
-%\subset [0, \max\limits_{i \in \{1,...,n\}}\{u_i\}]
+%\subset [0, \max\limits_{i \in [n]}\{u_i\}]
 %       $\sum\limits_{i=1}^{n}\max{(u_i - \delta, 0)} = F' = F - V$. \\
 %       We can easily see that $\delta_1 < \delta_2 \Rightarrow \sum\limits_{i=1}^{n}\max{(u_i - \delta_1, 0)} >
 %       \sum\limits_{i=1}^{n}\max{(u_i - \delta_2, 0)} \Rightarrow maxFlow_{\delta_1} \geq maxFlow_{\delta_2} (1)$.
@@ -703,8 +709,8 @@
     \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \ \\
        We will show that $maxFlow \in [F - V - \epsilon_1, F - V + \epsilon_2]$, with $u_i'$ decided by algorithm
        \ref{dinf}. \\
-       Obviously $maxFlow(0) = F, maxFlow(\max\limits_{i \in \{1,...,n\}}\{u_i\}) = 0$, thus $\delta^* \in
-       \max\limits_{i \in \{1,...,n\}}\{u_i\}$. According to the proof of correctness for function \ref{binsearch},
+       Obviously $maxFlow(0) = F, maxFlow(\max\limits_{i \in [n]}\{u_i\}) = 0$, thus $\delta^* \in
+       \max\limits_{i \in [n]}\{u_i\}$. According to the proof of correctness for function \ref{binsearch},
        we can directly see that $maxFlow(\delta^*) \in [F - V - \epsilon_1, F - V + \epsilon_2]$, given that
        $\epsilon_1, \epsilon_2$ are chosen so that $F - V - \epsilon_1 \geq 0, F - V + \epsilon_2 \leq F$, so as to satisfy
        the condition $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$.
