@@ -57,6 +57,25 @@
         \rfoot{Page \thepage\ of \pageref{LastPage}}}
         
 \begin{document}
+  \begin{centering}
+     \Large{\textbf{Trust Is Risk: Introducing a decentralized platform for financial trust}}
+  \end{centering}
+  \ \\ \ \\
+  \hspace*{\fill}
+  \begin{minipage}[t]{7cm}
+     \begin{flushleft}
+        Orfeas Stefanos Thyfronitis Litos \\
+        \textit{National Technical University of Athens}
+     \end{flushleft}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{7cm}
+     \begin{flushright}
+        Dionysis Zindros \\
+        \textit{University of Athens}
+     \end{flushright}
+  \end{minipage}
+  \hspace*{\fill}
 
   \section{Abstract}
   Reputation in centralized systems typically uses stars and review-based
@@ -91,7 +110,9 @@
          The set $\mathcal{M} = V(G)$ is the set of all players in the network, otherwise understood as the set of all
          pseudonymous identities.
       \end{definition}
-      \begin{definition}[(In/Out) Neighbourhood of $A$, $N^{+}(A), N^{-}(A), N(A)$] \ 
+      \begin{definition}[Direct Trust from $A$ to $B$, $DTr_{A \rightarrow B}$] \ \\
+         Total amount of value that exists in 1/$\{A,B\}$ multisigs in the utxo, where the money is deposited by $A$.
+       \begin{definition}[(In/Out) Neighbourhood of $A$, $N^{+}(A), N^{-}(A), N(A)$] \ 
          \begin{enumerate}
             \item Let $N^{+}(A)$ be the set of players $B$ that $A$ directly trusts with any positive value. More
                formally, $N^{+}(A) = \{B \in \mathcal{M} : DTr_{A \rightarrow B} > 0\}$. $N^{+}(A)$ is called out
@@ -107,9 +128,7 @@
                the set players.
          \end{enumerate}
       \end{definition}
-      \begin{definition}[Direct Trust from $A$ to $B$, $DTr_{A \rightarrow B}$] \ \\
-         Total amount of value that exists in 1-of-$A$,$B$ multisigs in the utxo, where the money is deposited by $A$.
-      \end{definition}
+     \end{definition}
       \begin{definition}[Capital of $A$, $Cap_A$] \ \\
          Total amount of value that exists in the utxo and can be spent by $A$.
       \end{definition}
@@ -139,6 +158,12 @@
          to steal $y_B \leq DTr_{B \rightarrow A, i-1}$ from $B$ and start directly trusting the same player $B$ by
          $w_B$ given that $B \in N^{-}(A) \wedge B \notin N^{+}(A)$.
       \end{definition}
+      \begin{definition}[$A$ is stolen $x$] \ \\
+         Let $j, j'$ be two consecutive turns of $A$. We say that $A$ has been stolen a value $x$ between $j$ and $j'$
+         if $\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j} -
+         \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j'} = x > 0$. If turns are not specified,
+         we implicitly refer to the current and the previous turns.
+      \end{definition}
       \begin{definition}[Honest strategy] \ \\
          A player $A$ is said to follow the honest strategy if for any value $x$ that has been stolen from her since
          the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
@@ -158,7 +183,7 @@
       \end{definition}
       \begin{definition}[Trust Reduction] \ \\
          Let $A, B \in \mathcal{M}, x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i$ current
-         $DTr_{A \rightarrow N^{+}(A)_i}, \\ u_i'$ new $DTr_{A \rightarrow N^{+}(A)_i}, i \in \{1,...,|N^{+}(A)|\}$.
+         $DTr_{A \rightarrow N^{+}(A)_i}$, \\ $u_i'$ new $DTr_{A \rightarrow N^{+}(A)_i}, i \in \{1,...,|N^{+}(A)|\}$.
          \begin{enumerate}
             \item The Trust Reduction on neighbour $i, \delta_i$ is defined as $\delta_i = u_i - u_i'$.
             \item The Flow Reduction on neigbour $i, \Delta_i$ is defined as $\Delta_i = x_i - u_i'$.
