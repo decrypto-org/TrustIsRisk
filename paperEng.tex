@@ -23,6 +23,8 @@
 \newtheorem{definition}{Definition}[section]
 \theoremstyle{corollary}
 \newtheorem{corollary}{Corollary}[section]
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}[section]
 
 \lstset{frame=tb,
 %  language=Java,
@@ -111,7 +113,8 @@
          pseudonymous identities.
       \end{definition}
       \begin{definition}[Capital of $A$, $Cap_A$] \ \\
-        Total amount of value that exists in p2pkh in the utxo and can be spent by $A$.
+        Total amount of value that exists in p2pkh in the utxo and can be spent by $A$. We also define $Cap_{A,j}$ as
+        the total amount of value that exists in p2pkh in the utxo and can be spent by $A$ in turn $j$.
       \end{definition}
       \begin{definition}[Direct Trust from $A$ to $B$, $DTr_{A \rightarrow B}$] \ \\
          Total amount of value that exists in 1/$\{A,B\}$ multisigs in the utxo, where the money is deposited by $A$.
@@ -143,13 +146,15 @@
          \begin{enumerate}
             \item Do nothing ($Pass()$).
             \item Steal value $y_B, 0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}(A)$.
-            $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B$. ($Steal(y_B, B)$)
+            $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \wedge Cap_{A,j} = Cap_{A,j-1} + y_B$.
+            ($Steal(y_B, B)$)
             \item Add value $y_B, -DTr_{A \rightarrow B, j-1} \leq y_B$ to $B \in N^{+}(A)$.
-            $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B$. When $y_B < 0$, we say that $A$ reduces
-            her trust to $B$ by $-y_B$, when $y_B > 0$, we say that $A$ increases her trust to $B$ by $y_B$. ($Add(y_B, B)$)
+            $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B \wedge Cap_{A,j} = Cap_{A,j-1} - y_B $. When
+            $y_B < 0$, we say that $A$ reduces her trust to $B$ by $-y_B$, when $y_B > 0$, we say that $A$ increases her
+            trust to $B$ by $y_B$. ($Add(y_B, B)$)
             \item Add value $y_B$ to $B \in \mathcal{M} \setminus N^{+}(A)$.
-            Obviously $DTr_{A \rightarrow B, j-1} = 0, DTr_{A \rightarrow B, j} = y_B$. We say that $A$ starts directly
-            trusting player $B$ by $y_B$. ($AddNew(y_B, B)$)
+            Obviously $DTr_{A \rightarrow B, j-1} = 0, DTr_{A \rightarrow B, j} = y_B \wedge Cap_{A,j} = Cap_{A,j-1} - y_B$.
+            We say that $A$ starts directly trusting player $B$ by $y_B$. ($AddNew(y_B, B)$)
          \end{enumerate}
          If player $A$ chooses to pass her turn, she may not choose any additional action in the same turn.
          Moreover, player $A$ is not allowed to choose two actions of the same kind against the same player in the same turn.
@@ -204,7 +209,7 @@
          and everyone else ($\mathcal{M} \setminus \{A,B\}$) follows the honest strategy. More formally,
          $$Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, configurations}{[\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A 
          \rightarrow N^{+}(A)_i,j}-\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i,j'}]}$$ where
-         $Strategy(A) = Idle, Strategy(E) = Evil, \forall C \in \mathcal{M} \setminus \{A,E\} Strategy(C) = Honest$.
+         $Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{M} \setminus \{A,B\} Strategy(C) = Honest$.
       \end{definition}
       \begin{definition}[Indirect trust from $A$ to $S \subset \mathcal{M}$, $Tr_{A \rightarrow S}$] \ \\
          Maximum possible value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows
@@ -232,7 +237,7 @@
          Let $A, B \in \mathcal{M}, i \in [|N^{+}(A)|]$.
          \begin{enumerate}
             \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$
-               ($x_i'$) when $u_i' = u_i,$ \\ $u_j' = 0 \:\forall j \in [|N^{+}(A)|] \wedge j \neq i$.
+               ($x_i'$) when $u_i' = u_i,$ \\ $u_k' = 0 \:\forall k \in [|N^{+}(A)|] \wedge k \neq i$.
             \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as
                calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S,
                u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$.
@@ -251,39 +256,105 @@
        corresponding capacity. Thus $\forall i \in [n], x_i' \leq u_i'$. (1) \\
        In the initial configuration of $u_i$ and according to the flow problem setting, a combination of flows
        $y_i$ such that $\forall i \in [n], y_i = u_i'$ is a valid, albeit not necessarily maximum,
-       configuration with a flow $\sum\limits_{i=1}^{n}y_i$. Suppose that $\exists j \in [n] : x_j'
-       < u_j'$ as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. Then for the new
-       maxFlow $F'$ it holds that $F' = \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_j' < y_j$
+       configuration with a flow $\sum\limits_{i=1}^{n}y_i$. Suppose that $\exists k \in [n] : x_k'
+       < u_k'$ as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. Then for the new
+       maxFlow $F'$ it holds that $F' = \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_k' < y_k$
        and (1) which is impossible because the configuration $\forall i \in [n], x_i' = y_i$ is valid since 
        $\forall i \in [n], y_i = u_i'$ and also has a higher flow, thus the maxFlow algorithm will
        prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' = u_i'$.
     \end{proof}
+
+    \begin{theorem}[Trust convergence theorem] \ \\
+    \label{convergence}
+       Let $A,B \in \mathcal{M} : Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{M} \setminus \{A,B\},
+       Strategy(C) = Honest$ and $j_0 \in \mathbb{N} : Player(j_0) = B$. Given that all players eventually play, there exists
+       a turn $j' > j_0 : \forall j \geq j', Turn_j = \{Pass()\}$.
+    \end{theorem}
+    \begin{proof}
+       First of all, $\forall j > j_0 : Player(j) = B, Turn_j = \{Pass()\}$ because $B$ has already nullified his incoming
+       and outgoing direct trusts in $Turn_{j_0}$ and the evil strategy does not contain any case where direct trust is
+       increased or where the evil player starts directly trusting another player, thus player $B$ can do nothing. Also
+       $\forall j > j_0 : Player(j) = A, Turn_j = \{Pass()\}$ because of the idle strategy that $A$ follows. As far as the
+       rest of the players are concerned, consider the following algorithm, where $RandomMember(Set)$ returns a randomly
+       chosen member of the input set. \\
+       \begin{algorithm}[H]
+          \label{convergencealgo}
+          \SetKwInOut{Input}{Input}
+          \SetKwInOut{Output}{Output}
+          \Input{$G$ graph, $A$ idle player, $B$ evil player, $U$ capacities, $j_0$ $B$'s turn}
+          \Output{$\mathcal{H}$ history}
+          \caption{Convergence}
+          $Turn_{j_0} \gets \{Steal(DTr_{N^{-}(B)_1 \rightarrow B, j_0-1}, N^{-}(B)_1), ...,
+           Steal(DTr_{N^{-}(B)_{|N^{-}(B)|} \rightarrow B, j_0-1}, N^{-}(B)_{|N^{-}(B)|}),$
+          $Add(-DTr_{B \rightarrow N^{+}(B)_1, j_0-1}, N^{+}(B)_1), ...,
+           Add(-DTr_{B \rightarrow N^{+}(B)_{|N^{+}(B)|}, j_0-1},N^{+}(B)_{|N^{+}(B)|})\}$ \\
+          $Angry \gets N^{-}(B) \setminus \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
+          $Sad \gets \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
+          $\forall v \in (Sad \cup Angry), Loss_v \gets DTr_{v \rightarrow B, j_0}$ \\
+          $Waiting \gets V(G) \setminus (Angry \cup Sad \cup\{A, B\})$ \\
+          $\forall v \in Waiting, Loss_v \gets 0$ \\
+          $Happy \gets \emptyset$ \\
+          $j \gets j_0$ \\
+          \While{$Angry \neq \emptyset$}
+             {$v \gets RandomMember(Angry)$ \\
+              $w \gets RandomMember(\{w \in N^{-}(v) : DTr_{w \rightarrow v,j} > 0\})$ \\
+              $exchange = \min(DTr_{w \rightarrow v,j}, Loss_v)$ \\
+              $Turn_j \gets \{Steal(exchange, w)\}$ \\
+              \If{$w \in Waiting$}
+                 {$Waiting \gets Waiting \setminus \{w\}$ \\
+                 \If{$\sum\limits_{w' \in N^{-}(w)}DTr_{w' \rightarrow w, j} = 0$}
+                    {$Sad \gets Sad \cup \{w\}$}
+                 \Else{$Angry \gets Angry \cup \{w\}$}}
+              $Loss_v \gets Loss_v - exchange$ \\
+              $Loss_w \gets Loss_w + exchange$ \\
+              \If{$Loss_v = 0$}
+                 {$Angry \gets Angry \setminus {v}$ \\
+                  $Happy \gets Happy \cup {v}$}
+              $j \gets j + 1$}
+          \Return $\{Turn_{j_0},...,Turn_j\}$
+       \end{algorithm}
+       As we can see from lines 4, 6 and 20-21, $\forall j, \sum\limits_{v \in V(G) \setminus \{A,B\}}Loss_v =
+       \sum\limits_{v \in N^{-}(B)}DTr_{v \rightarrow B, j_0}$, that is the total loss is constant and equal to the total
+       value stolen by $B$.
+       
+    \end{proof}
+
     \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
     \label{trustflow}
        $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating trusts as capacities)
     \end{theorem}
-    \begin{proof} \
-        \begin{enumerate}
+    \begin{proof} \ \\
+       Suppose that the flow graph $FG$ is composed of $V(FG)$ nodes and $E(FG)$ edges. Each edge $e_{vw}$ has a
+       corresponding capacity $u_{vw}$ which is constant and a corresponding flow $x_{vw}$ which can change depending to the
+       flow assignment $X$ we choose. In flow context, for an assignment $X$ to be valid, two properties must hold:
+       \begin{enumerate}
+          \item $\forall e_{vw} \in E(FG), x_{vw} \leq u_{vw}$
+          \item $\forall v \in V(FG), \sum\limits_{v_1 \in N^{+}(v)}x_{v_1v} = \sum\limits_{v_2 \in N^{-}(v)}x_{vv_2}$
+       \end{enumerate}
+       First we will show that each valid  corresponds 
+\ \\ OLD
+       \begin{enumerate}
 	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$.
-           We know that $MaxFlow_{A \rightarrow B} = MinCut_{A \rightarrow B}$. We will show that, if everybody except
-           A and B follows the honest strategy,  $Tr_{A \rightarrow B} \leq MinCut_{A \rightarrow B}$. Suppose that in
-           round $i$ all the members of the MinCut, $P$, have stolen the maximum value they can from members that belong
-           in the MaxFlow graph and nobody in the partition in which $A$ belongs has stolen yet any value. Let the total
-           stolen value from the MinCut members be $St$. It is obvious that $St_i \leq MinCut_{A \rightarrow B}$, because
-           otherwise there would exist $u \in P$ that doesn't follow the honest strategy, since they stole more than they
-           were stolen from. The same argument holds for any round $i' > i$ because in each round an honest player can
-           steal only up to the value she has been stolen. It is also impossible that the $St$ increase further due to
-           stolen value from members of the partition of $B$ since members of $P$ disconnect the two partitions and have
-           already played their turns, thus $\forall i' > i, St_{i'} \leq St_i$. There exists a round, $k$, when all the
-           honest players stop stealing, so in the worst case $A$ will have been stolen
-           $Tr_{A \rightarrow B} = St_k \leq MinCut_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
-           \item We can see that $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because the strategy where each
-           one of the non-idle players steals value equal to the incoming flows from their respective friends is a valid
-           strategy that does not contradict with the honest strategy, since for every honest player $w$ it holds that
-           $\sum\limits_{v \in N^{-}(w)}x_{vw} = \sum\limits_{v \in N^{+}(w)}x_{wv}$ and according to the strategy each
-           honest player will have been stolen value equal to $\sum\limits_{v \in N^{+}(w)}x_{wv}$.
-        \end{enumerate}
-        Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+          We know that $MaxFlow_{A \rightarrow B} = MinCut_{A \rightarrow B}$. We will show that, if everybody except
+          A and B follows the honest strategy,  $Tr_{A \rightarrow B} \leq MinCut_{A \rightarrow B}$. Suppose that in
+          round $i$ all the members of the MinCut, $P$, have stolen the maximum value they can from members that belong
+          in the MaxFlow graph and nobody in the partition in which $A$ belongs has stolen yet any value. Let the total
+          stolen value from the MinCut members be $St$. It is obvious that $St_i \leq MinCut_{A \rightarrow B}$, because
+          otherwise there would exist $u \in P$ that doesn't follow the honest strategy, since they stole more than they
+          were stolen from. The same argument holds for any round $i' > i$ because in each round an honest player can
+          steal only up to the value she has been stolen. It is also impossible that the $St$ increase further due to
+          stolen value from members of the partition of $B$ since members of $P$ disconnect the two partitions and have
+          already played their turns, thus $\forall i' > i, St_{i'} \leq St_i$. There exists a round, $k$, when all the
+          honest players stop stealing, so in the worst case $A$ will have been stolen
+          $Tr_{A \rightarrow B} = St_k \leq MinCut_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+          \item We can see that $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because the strategy where each
+          one of the non-idle players steals value equal to the incoming flows from their respective friends is a valid
+          strategy that does not contradict with the honest strategy, since for every honest player $w$ it holds that
+          $\sum\limits_{v \in N^{-}(w)}x_{vw} = \sum\limits_{v \in N^{+}(w)}x_{wv}$ and according to the strategy each
+          honest player will have been stolen value equal to $\sum\limits_{v \in N^{+}(w)}x_{wv}$. More concretely,
+          let $Player(j) = B$ and $Player(j+d) = C :$
+       \end{enumerate}
+       Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
 %        OLD PROOF START
 %        \begin{enumerate}
 %           \item $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because by the definition of $Tr_{A \rightarrow B}$,
@@ -323,9 +394,6 @@
            / x_s1/u_s1                         x_1t/u_1t     \
           /                                                   \
          /                                                     \
-         $$Tr_{A \rightarrow E, j} = \max\limits_{j' : j' > j, configurations}{[\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A 
-         \rightarrow N^{+}(A)_i,j}-\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i,j'}]}$$ where
-         $Strategy(A) = Idle, Strategy(E) = Evil, \forall C \in \mathcal{M} \setminus \{A,E\} Strategy(C) = Honest$.
         / x_s2/u_s2                               x_2t/u_2t     \
        s-------------              ....          ------------t
         \      .                                           .    /
@@ -345,25 +413,6 @@
     \begin{proof} \
         From theorem \ref{saturation} we can see that $x_i' = u_i'$. It holds that $F' = \sum\limits_{i=1}^nx_i' =
         \sum\limits_{i=1}^nu_i' = F - V$.
-%       \begin{enumerate}
-%         \item  It is impossible to have $F' > F - V$ because $F' \leq \sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$.
-%         \item  It is impossible to have $F' < F - V$. \\
-%         Let $i$ be a node such that $x_{s, i} > 0$ and $I = \{j \in \mathcal{M} : DTr_{i \rightarrow j} > 0\}$
-%         the set of members that $i$ directly trusts with a positive value. Let $m = |I|$. In the initial graph
-%         we have $x_{s, i} = \sum\limits_{j=1}^{m}{x_{i, j}}, F = \sum\limits_{i=1}^{n}{x_{s, i}}$ and in the new graph
-%         we have $x_{s, i}' = u_{s, i}' \leq x_{s, i}, F' = \sum\limits_{i=1}^{n}{x_{s, i}'}, \forall j x_{i, j} \leq
-%         u_{i, j} = u_{i, j}'$. We can construct a set $X_i' = \{x_{i, j}'\}$ of flows such that $x_{i, j}' \leq x_{i, j}$
-%         and $\sum\limits_{j=1}^{m}{x_{i, j}'} = x_{s, i}'$. This shows that there is a possible flow such that $F' = F - V$,
-%         so the maxFlow algorithm will not return a flow less than $F - V$. \\
-%         Example construction: \\
-%         $\forall j \in \{1,...,k\}, x_{i, j}' = x_{i, j}$ with $k$ such that
-%            \begin{enumerate}
-%	      \item $\sum\limits_{j=1}^{k}{x_{i, j}} \leq x_{s, i}'$ and
-%	      \item $\sum\limits_{j=1}^{k+1}{x_{i, j}} > x_{s, i}'$
-%            \end{enumerate}
-%         $x_{i, (k+1)}' = x_{s, i}' - \sum\limits_{j=1}^{k}{x_{i, j}'}$ \\
-%         $\forall j \in \{k+2,...,|X_i'|\}, x_{i, j}' = 0$
-%       \end{enumerate}
     \end{proof}
 
     \begin{corollary}[Requirement for $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
@@ -377,14 +426,28 @@
        additionally $\sum\limits_{i=1}^{n}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
     \end{proof}
 
+    \begin{lemma}[Flow limit lemma] \ \\
+       \label{flowlimit}
+       It is impossible for the outgoing flow $x_i$ from $A$ to an out neighbour of $A$ to be greater than
+       $F_{A_i \rightarrow B}$. More formally, $x_i \leq F_{A_i \rightarrow B}$.
+    \end{lemma}
+    \begin{proof}
+       Suppose a configuration where $\exists i : x_i > F_{A_i \rightarrow B}$. If we reduce the capacities $u_k, k \neq i$
+       the flow that passes from $i$ in no case has to be reduced. Thus we can set $\forall k \neq i, u_k' = 0$ and $u_i' =
+       u_i$. Then $\forall k \neq i,x_k' = 0, x_i' = x_i$ is a valid configuration and thus by definition $F_{A_i \rightarrow
+       B} = x_i' = x_i > F_{A_i \rightarrow B}$, which is a contradiction. Thus $\forall i \in [|N^{+}(A)|], x_i \leq
+       F_{A_i \rightarrow B}$.
+    \end{proof}
+
     \begin{theorem}[Trust-saving Theorem] \ \\
     \label{trustsave}
        A configuration $U' : u_i' = F_{A_i \rightarrow B}$ for some $i \in [|N^{+}(A)|]$ can yield the same $maxFlow$ with a
-       configuration $U'' : u_i'' = u_i, \forall j \in [|N^{+}(A)|], j \neq i u_j'' = u_j$.
+       configuration $U'' : u_i'' = u_i, \forall k \in [|N^{+}(A)|], k \neq i, u_k'' = u_k'$.
     \end{theorem}
     \begin{proof}
-       We know that $x_i \leq F_{A_i \rightarrow B}$, thus we can see that any increase in $u_i'$ beyond
-       $F_{A_i \rightarrow B}$ will not influence $x_i$ and subsequently will not incur any change on the rest of the flows.
+       We know that $x_i \leq F_{A_i \rightarrow B}$ (lemma \ref{flowlimit}), thus we can see that any increase in $u_i'$
+       beyond $F_{A_i \rightarrow B}$ will not influence $x_i$ and subsequently will not incur any change on the rest of the
+       flows.
     \end{proof}
 
     \begin{theorem}[Invariable trust reduction with naive algorithms] \ \\
@@ -401,14 +464,14 @@
 
     \begin{theorem}[Dependence impossibility theorem] \ \\
     \label{independence}
-       ${\partial x_j \over \partial x_i} = 0$ with $x_i$ the flow from MaxFlow $\Rightarrow
-         \forall x_i' \leq x_i, {\partial x_j \over \partial x_i} = 0$ ceteris paribus
+       ${\partial x_k \over \partial x_i} = 0$ with $x_i$ the flow from MaxFlow $\Rightarrow
+         \forall x_i' \leq x_i, {\partial x_k \over \partial x_i} = 0$ ceteris paribus
     \end{theorem}
     \begin{proof}
        TODO
     \end{proof}
     Note: The maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the same
-    player chooses the evil strategy, but without nullifying her outgoing direct trust.
+    player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
     \begin{theorem}[Trust to multiple players] \ \\
     \label{trustmany}
        Let $S \subset \mathcal{M}, T$ auxiliary player such that $\forall B \in S, DTr_{B \rightarrow T} = \infty$.
@@ -451,8 +514,6 @@
        |\mathcal{C}|$, but players $C \in \mathcal{C}$ are not directly trusted by players outside the collusion, contrary
        to players $B \in \mathcal{B}$ who may be directly trusted by any player in $\mathcal{M}$. It holds that
        $Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
-%the maximum value that
-%       Eve can steal from a player $A \in \mathcal{M} \setminus (\mathcal{B} \cup \mathcal{C})$ is $Tr_{A \rightarrow T}$.
     \end{theorem}
     \begin{proof}
        Suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns during which all the colluding players
@@ -464,10 +525,18 @@
        \mathcal{C}, DTr_{D \rightarrow T'} = \infty$. According to \ref{trustmany}, $Tr_{A \rightarrow \mathcal{B}} =
        maxFlow(A, T), Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow(A, T')$. Consider the partition of
        $\mathcal{M}, \mathcal{P} = \{\mathcal{B} \cup \mathcal{C}, \mathcal{M} \setminus (\mathcal{B} \cup \mathcal{C})\} =
-       \{P_1, P_2\}$. The edges from $P_2$ to $P_1$ will carry a flow $X_P, X_{P'}$ and the edges inside of $P_2$ will carry
+       \{P_1, P_2\}$. The edges from $P_2$ to $P_1$ will carry a flow $X_P, X_{P'}$ and the edges inside of $P_1$ will carry
        a flow $X_T, X_{T'}$ from the calculation of $maxFlow(A, T), maxFlow(A, T')$ respectively. $maxFlow(A, T) \leq
        maxFlow(A, T')$ because the maximal configuration of $X_T$ can be part of a valid configuration of $X_{T'}$ since
-       $x_{B, T'}$
+       edges in $\mathcal{B}$ are edges in $\mathcal{B} \cup \mathcal{C}$. If both maxFlows are not infinite, then their
+       MinCut is either entirely in $P_2$ or in $P_2$ and the edges from $P_2$ to $P_1$, because otherwise $minCut = \infty$
+       since it contains saturated infinite edges. However, then in both cases the minCut is the same, thus $maxFlow(A, T) =
+       maxFlow(A, T')$. Finally, we will show that if $maxFlow(A, T') = \infty$, then $maxFlow(A, T) = \infty$. If
+       $maxFlow(A, T') = \infty$, then there is infinite flow entering $P_1$ and, because all endpoints of flows entering
+       $P_1$ are in $\mathcal{B}$, the same infinite flow can be assigned in the case of $maxFlow(A, T)$, thus
+       $maxFlow(A, T) = \infty$. Thus we conclude that $Tr_{A \rightarrow \mathcal{B}} =
+       Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
+       
        
     \end{proof}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless. \\
@@ -493,7 +562,7 @@
            $F_{cur} \gets F_{cur} - reduce$ \\
            $u_i' \gets x_i - reduce$ \\
            $i \gets i + 1$}
-       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
     \end{algorithm}
     \begin{proof}[Proof of correctness for algorithm \ref{fcfs}] \
        \begin{itemize}
@@ -507,12 +576,12 @@
           Else $F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)}$. \\
           If for some $i, \min{(x_{i+1}, F_{cur,i} - F + V)} = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
           $F_{cur,i+1}$ exists, then $\forall k < i, F_{cur,k} = F_{cur,k-1} - x_k \Rightarrow F_{cur,i} =
-          F - \sum\limits_{j=1}^{i}x_j$ \\
+          F - \sum\limits_{k=1}^{i}x_k$ \\
           Furthermore, if $F_{cur,i+1} = F - V$ then $u_{i+1}' = x_{i+1} - F_{cur,i} + F - V =
-          x_i - F + \sum\limits_{j=1}^{i-1}x_j + F - V = \sum\limits_{j=1}^{i}x_j - V$, $\forall k \leq i, u_k' = 0$
+          x_i - F + \sum\limits_{k=1}^{i-1}x_k + F - V = \sum\limits_{k=1}^{i}x_k - V$, $\forall k \leq i, u_k' = 0$
           and $\forall k > i+1, u_k' = x_k$. \\
-          In total, we have $\sum\limits_{j=1}^{n}u_j' = \sum\limits_{j=1}^{i}x_j - V + \sum\limits_{j=i+1}^{n}x_j =
-          \sum\limits_{j=1}^{n}x_j - V \Rightarrow \sum\limits_{j=1}^{n}u_j' = F - V$.
+          In total, we have $\sum\limits_{k=1}^{n}u_k' = \sum\limits_{k=1}^{i}x_k - V + \sum\limits_{k=i+1}^{n}x_k =
+          \sum\limits_{k=1}^{n}x_k - V \Rightarrow \sum\limits_{k=1}^{n}u_k' = F - V$.
        \end{itemize}
     \end{proof}
     \begin{proof}[Complexity of algorithm \ref{fcfs}] \ \\
@@ -550,7 +619,7 @@
            \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \\
                  $u_i' \gets x_i - reduce$}}
            $i \gets (i + 1) mod \:n$}
-       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
     \end{algorithm}
        \noindent
        We will start by showing some results useful for the following proofs. Let $j$ be the number of iterations of the
@@ -642,7 +711,7 @@
        \If{$F < V$}{\Return $\bot$}
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets x_i - \frac{V}{F} x_i$}
-       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
     \end{algorithm} \ \\
     \begin{proof}[Proof of correctness for algorithm \ref{prop}] \
        \begin{itemize}
@@ -678,7 +747,7 @@
        $\delta^* \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \\
        \For{$i \gets 1$ to $n$}
           {$u_i' \gets \max{(u_i - \delta^*, 0)}$}
-       \Return $U' = \bigcup\limits_{j=1}^{n}\{u_j'\}$
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
     \end{algorithm}
     Since trust should be considered as a continuous unit and binary search dissects the possible interval for the solution
     on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
