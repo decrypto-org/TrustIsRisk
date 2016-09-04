@@ -281,6 +281,7 @@
           \label{convergencealgo}
           \SetKwInOut{Input}{Input}
           \SetKwInOut{Output}{Output}
+          \SetKwFunction{RandomMember}{RandomMember}
           \Input{$G$ graph, $A$ idle player, $B$ evil player, $U$ capacities, $j_0$ $B$'s turn}
           \Output{$\mathcal{H}$ history}
           \caption{Convergence}
@@ -291,20 +292,26 @@
           $Angry \gets N^{-}(B) \setminus \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
           $Sad \gets \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
           $\forall v \in (Sad \cup Angry), Loss_v \gets DTr_{v \rightarrow B, j_0}$ \\
-          $Waiting \gets V(G) \setminus (Angry \cup Sad \cup\{A, B\})$ \\
-          $\forall v \in Waiting, Loss_v \gets 0$ \\
+          $Ignorant \gets V(G) \setminus (Angry \cup Sad \cup\{A, B\})$ \\
+          $\forall v \in Ignorant, Loss_v \gets 0$ \\
           $Happy \gets \emptyset$ \\
           $j \gets j_0$ \\
           \While{$Angry \neq \emptyset$}
-             {$v \gets RandomMember(Angry)$ \\
-              $w \gets RandomMember(\{w \in N^{-}(v) : DTr_{w \rightarrow v,j} > 0\})$ \\
+             {$v \gets \RandomMember(Angry)$ \\
+              $w \gets \RandomMember(\{w \in N^{-}(v) : DTr_{w \rightarrow v,j} > 0\})$ \\
               $exchange = \min(DTr_{w \rightarrow v,j}, Loss_v)$ \\
               $Turn_j \gets \{Steal(exchange, w)\}$ \\
-              \If{$w \in Waiting$}
-                 {$Waiting \gets Waiting \setminus \{w\}$ \\
-                 \If{$\sum\limits_{w' \in N^{-}(w)}DTr_{w' \rightarrow w, j} = 0$}
-                    {$Sad \gets Sad \cup \{w\}$}
-                 \Else{$Angry \gets Angry \cup \{w\}$}}
+              $DTr_{w \rightarrow v, j+1} = DTr_{w \rightarrow v, j} - exchange$ \\
+              \If{$w \in Ignorant$}
+                 {$Ignorant \gets Ignorant \setminus \{w\}$}
+              \If{$w \in Happy$}
+                 {$Happy \gets Happy \setminus \{w\}$}
+              \If{$\sum\limits_{w' \in N^{-}(w)}DTr_{w' \rightarrow w, j} = 0$}
+                 {$Sad \gets Sad \cup \{w\}$}
+              \Else{$Angry \gets Angry \cup \{w\}$}
+              \If{$v \in Angry \wedge \sum\limits_{v' \in N^{-}(v)}DTr_{v' \rightarrow v, j} = 0$}
+                 {$Angry \gets Angry \setminus \{v\}$ \\
+                  $Sad \gets Sad \cup \{v\}$}
               $Loss_v \gets Loss_v - exchange$ \\
               $Loss_w \gets Loss_w + exchange$ \\
               \If{$Loss_v = 0$}
