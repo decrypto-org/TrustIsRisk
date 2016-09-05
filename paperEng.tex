@@ -113,11 +113,11 @@
          pseudonymous identities.
       \end{definition}
       \begin{definition}[Capital of $A$, $Cap_A$] \ \\
-        Total amount of value that exists in p2pkh in the utxo and can be spent by $A$. We also define $Cap_{A,j}$ as
-        the total amount of value that exists in p2pkh in the utxo and can be spent by $A$ in turn $j$.
+        Total amount of value that exists in P2PKH in the UTXO and can be spent by $A$. We also define $Cap_{A,j}$ as
+        the total amount of value that exists in P2PKH in the UTXO and can be spent by $A$ in turn $j$.
       \end{definition}
       \begin{definition}[Direct Trust from $A$ to $B$, $DTr_{A \rightarrow B}$] \ \\
-         Total amount of value that exists in 1/$\{A,B\}$ multisigs in the utxo, where the money is deposited by $A$.
+         Total amount of value that exists in 1/$\{A,B\}$ multisigs in the UTXO, where the money is deposited by $A$.
       \end{definition}
       \begin{definition}[(In/Out) Neighbourhood of $A$, $N^{+}(A), N^{-}(A), N(A)$] \ 
          \begin{enumerate}
@@ -135,41 +135,40 @@
                the set players.
          \end{enumerate}
       \end{definition}
-      \begin{definition}[$B$ steals $x$ from $A$] \ \\
-         $B$ steals value $x$ from $A$ when $B$ reduces the $DTr_{A \rightarrow B}$ by $x$ and increases $Cap_B$ by $x$.
-         This makes sense when $x \leq DTr_{A \rightarrow B}$.
-      \end{definition}
+%      \begin{definition}[$B$ steals $x$ from $A$] \ \\
+%         $B$ steals value $x$ from $A$ when $B$ reduces the $DTr_{A \rightarrow B}$ by $x$ and increases $Cap_B$ by $x$.
+%         This makes sense when $x \leq DTr_{A \rightarrow B}$.
+%      \end{definition}
       \begin{definition}[Turns] \ \\
          The game we are describing is turn-based. Let $DTr_{B \rightarrow A, j}$ be $B$'s direct trust to $A$ in turn $j$.
          In each turn $j$ exactly one player $A \in \mathcal{M}, A = Player(j)$, chooses an action (according to a certain
          strategy) that can be one of the following, or a finite combination thereof:
          \begin{enumerate}
-            \item Do nothing ($Pass()$).
+            \item Do nothing ($\emptyset$).
             \item Steal value $y_B, 0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}(A)$.
-            $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \wedge Cap_{A,j} = Cap_{A,j-1} + y_B$.
+            $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B, Cap_{A,j} = Cap_{A,j-1} + y_B$.
             ($Steal(y_B, B)$)
-            \item Add value $y_B, -DTr_{A \rightarrow B, j-1} \leq y_B$ to $B \in N^{+}(A)$.
-            $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B \wedge Cap_{A,j} = Cap_{A,j-1} - y_B $. When
+            \item Add value $y_B, -DTr_{A \rightarrow B, j-1} \leq y_B$ to $B \in \mathcal{M}$.
+            $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B, Cap_{A,j} = Cap_{A,j-1} - y_B $. When
             $y_B < 0$, we say that $A$ reduces her trust to $B$ by $-y_B$, when $y_B > 0$, we say that $A$ increases her
-            trust to $B$ by $y_B$. ($Add(y_B, B)$)
-            \item Add value $y_B$ to $B \in \mathcal{M} \setminus N^{+}(A)$.
-            Obviously $DTr_{A \rightarrow B, j-1} = 0, DTr_{A \rightarrow B, j} = y_B \wedge Cap_{A,j} = Cap_{A,j-1} - y_B$.
-            We say that $A$ starts directly trusting player $B$ by $y_B$. ($AddNew(y_B, B)$)
+            trust to $B$ by $y_B$. If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$.
+            ($Add(y_B, B)$)
          \end{enumerate}
          If player $A$ chooses to pass her turn, she may not choose any additional action in the same turn.
-         Moreover, player $A$ is not allowed to choose two actions of the same kind against the same player in the same turn.
-         For example, $A$ cannot steal $y_{B,1} \leq DTr_{B \rightarrow A, j-1}$ and
-         $y_{B,2} \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}(A)$ in the same turn, but can instead steal
-         $y_{B,1} + y_{B,2}$ given that $y_{B,1} + y_{B,2} \leq DTr_{B \rightarrow A, j-1}$. Also $A$ is allowed
-         to steal $y_B \leq DTr_{B \rightarrow A, j-1}$ from $B$ and start directly trusting the same player $B$ by
-         $w_B$ given that $B \in N^{-}(A) \wedge B \notin N^{+}(A)$. \\
+         Also, let $Y_{st}, Y_{add}$ be the total value to be stolen and added respectively by $A$ in her turn, $j$. For a
+         turn to be feasible, it must hold that $Y_{st} - Y_{add} \leq Cap_{A,j-1}$. Moreover, player $A$ is not allowed to
+         choose two actions of the same kind against the same player in the same turn. \\
          The set of actions a player makes in turn $j$ is $Turn_j$. Examples:
          \begin{itemize}
-            \item $Turn_{j_1} = \{Pass()\}$
-            \item $Turn_{j_2} = \{Steal(y, B), AddNew(w, B)\}$ (given that $DTr_{B \rightarrow A, j_2 - 1} \leq y,
-            DTr_{A \rightarrow B, j_2 - 1} = 0$, where $A = Player(j)$)
-            \item $Turn_{j_3} = \{Steal(x, B), Add(y, C), AddNew(w, D)\}$ (given that $DTr_{B \rightarrow A, j_3 - 1} \leq x,
-            DTr_{A \rightarrow C, j_3 - 1} \geq -y, DTr_{A \rightarrow D, j_3 - 1} = 0$, where $A = Player(j)$)
+            \item $Turn_{j_1} = \emptyset$
+            \item $Turn_{j_2} = \{Steal(y, B), Add(w, B)\}$ (given that $DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge
+            -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq Cap_{A, j_2-1}$, where $A = Player(j_2)$)
+            \item $Turn_{j_3} = \{Steal(x, B), Add(y, C), Add(w, D)\}$ (given that $DTr_{B \rightarrow A, j_3 - 1} \leq x
+            \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge
+            x - y - w \leq Cap_{A, j_3-1}$, where $A = Player(j_3)$)
+            \item $Turn_{j_4} = \{Steal(x, B), Steal(y, B)\}$ is not a valid turn because it contains two $Steal()$ actions
+            against the same player. If $x + y \leq DTr_{B \rightarrow A}$, the correct alternative would be $Turn_{j_4} =
+            \{Steal(x+y, B)\}$, where $A = Player(j_4)$.
          \end{itemize}
       \end{definition}
       \begin{definition}[$A$ is stolen $x$] \ \\
@@ -180,20 +179,21 @@
          we implicitly refer to the current and the previous turns.
       \end{definition}
       \begin{definition}[History] \ \\
-         We define History, $\mathcal{H}$, as the sequence of all the sets of actions. $\mathcal{H}_j = Turn_j$.
+         We define History, $\mathcal{H}$, as the sequence of all the tuples containing the sets of actions and the
+         corresponding player. $\mathcal{H}_j = (Player(j), Turn_j)$.
       \end{definition}
-      \begin{definition}[Honest strategy] \ \\
-         A player $A$ is said to follow the honest strategy if for any value $x$ that has been stolen from her since
+      \begin{definition}[Conservative strategy] \ \\
+         A player $A$ is said to follow the conservative strategy if for any value $x$ that has been stolen from her since
          the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
          equal to $\min{(x,\sum\limits_{B \in \mathcal{M}}{DTr_{B \rightarrow A}})}$ and she takes no other action.
-         More formally, if $Strategy(A) = Honest$, then $\forall j \in \mathbb{N}: Player(j) = A$ it is $Turn_j =
+         More formally, if $Strategy(A) = Conservative$, then $\forall j \in \mathbb{N}: Player(j) = A$ it is $Turn_j =
          \{Steal(y_1,B_1),...,Steal(y_m,B_m)\}$ where $\sum\limits_{i=1}^{m}Steal(y_i,B_i) = \max(0,
          \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j'} - \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A
          \rightarrow N^{+}(A)_i, j}), j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) = Player(j)\}$.
       \end{definition}
       \begin{definition}[Idle strategy] \ \\
          A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, if $Strategy(A) =
-         Idle$, then $\forall j \in \mathbb{N} : Player(j) = A$ it is $Turn_j = \{Pass()\}$.
+         Idle$, then $\forall j \in \mathbb{N} : Player(j) = A$ it is $Turn_j = \emptyset$.
       \end{definition}
       \begin{definition}[Evil strategy] \ \\
          A player $A$ is said to follow the evil strategy if she steals value $y_B = DTr_{B \rightarrow A, i-1} \:
@@ -206,18 +206,18 @@
       \end{definition}
       \begin{definition}[Indirect trust from $A$ to $B$, $Tr_{A \rightarrow B}$] \ \\
          Maximum possible value that can be stolen from $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy
-         and everyone else ($\mathcal{M} \setminus \{A,B\}$) follows the honest strategy. More formally,
+         and everyone else ($\mathcal{M} \setminus \{A,B\}$) follows the conservative strategy. More formally,
          $$Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, configurations}{[\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A 
          \rightarrow N^{+}(A)_i,j}-\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i,j'}]}$$ where
-         $Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{M} \setminus \{A,B\} Strategy(C) = Honest$.
+         $Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{M} \setminus \{A,B\} Strategy(C) = Conservative$.
       \end{definition}
       \begin{definition}[Indirect trust from $A$ to $S \subset \mathcal{M}$, $Tr_{A \rightarrow S}$] \ \\
          Maximum possible value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows
-         the idle strategy and everyone else ($\mathcal{M} \setminus (S \cup \{A\}$) follows the honest strategy. More
+         the idle strategy and everyone else ($\mathcal{M} \setminus (S \cup \{A\}$) follows the conservative strategy. More
          formally, $$Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{[\sum\limits_{i=1}^{|N^{+}(A)|}
          DTr_{A \rightarrow N^{+}(A)_i,j}-\sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i,j'}]}$$ where
          $Strategy(A) = Idle, \forall E \in S, Strategy(E) = Evil,
-         \forall C \in \mathcal{M} \setminus \{A,E\} Strategy(C) = Honest$.
+         \forall C \in \mathcal{M} \setminus \{A,E\} Strategy(C) = Conservative$.
       \end{definition}
       \begin{definition}[Trust Reduction] \ \\
          Let $A, B \in \mathcal{M}, x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i =
@@ -267,58 +267,65 @@
     \begin{theorem}[Trust convergence theorem] \ \\
     \label{convergence}
        Let $A,B \in \mathcal{M} : Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{M} \setminus \{A,B\},
-       Strategy(C) = Honest$ and $j_0 \in \mathbb{N} : Player(j_0) = B$. Given that all players eventually play, there exists
-       a turn $j' > j_0 : \forall j \geq j', Turn_j = \{Pass()\}$.
+       Strategy(C) = Conservative$ and $j_0 \in \mathbb{N} : Player(j_0) = B$. Given that all players eventually play, there exists
+       a turn $j' > j_0 : \forall j \geq j', Turn_j = \emptyset$.
     \end{theorem}
     \begin{proof}
-       First of all, $\forall j > j_0 : Player(j) = B, Turn_j = \{Pass()\}$ because $B$ has already nullified his incoming
+       First of all, $\forall j > j_0 : Player(j) = B, Turn_j = \emptyset$ because $B$ has already nullified his incoming
        and outgoing direct trusts in $Turn_{j_0}$ and the evil strategy does not contain any case where direct trust is
        increased or where the evil player starts directly trusting another player, thus player $B$ can do nothing. Also
-       $\forall j > j_0 : Player(j) = A, Turn_j = \{Pass()\}$ because of the idle strategy that $A$ follows. As far as the
-       rest of the players are concerned, consider the following algorithm, where $RandomMember(Set)$ returns a randomly
-       chosen member of the input set. \\
+       $\forall j > j_0 : Player(j) = A, Turn_j = \emptyset$ because of the idle strategy that $A$ follows. As far as the
+       rest of the players are concerned, consider the following algorithm, where \texttt{RandomMember(}$Set$\texttt{)}
+       returns a randomly chosen member of the input set and \texttt{CalculateFlow(}$v, Loss_v$\texttt{)} returns a
+       configuration of $Steal()$ actions from $N^{-}(v)$ that comply with the conservative strategy, that is it returns
+       $\{Steal(y_1, N^{-}(v)_1),...,Steal(y_{|N^{-}(v)|}, N^{-}(v)_{|N^{-}(v)|})\} : \forall i \in [|N^{-}(v)|], y_i \leq
+       DTr_{N^{-}(v)_i \rightarrow v,j-1} \wedge \sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{
+       N^{-}(v)_i \rightarrow v,j-1}, Loss_{v,j-1})$. \\
        \begin{algorithm}[H]
-          \label{convergencealgo}
+          \label{transitivestealalgo}
           \SetKwInOut{Input}{Input}
           \SetKwInOut{Output}{Output}
           \SetKwFunction{RandomMember}{RandomMember}
+          \SetKwFunction{Init}{Init}
+          \SetKwFunction{CalculateFlow}{CalculateFlow}
           \Input{$G$ graph, $A$ idle player, $B$ evil player, $U$ capacities, $j_0$ $B$'s turn}
           \Output{$\mathcal{H}$ history}
-          \caption{Convergence}
+          \caption{Transitive Steal}
+          \Init{} \\
+          \While{$Angry \neq \emptyset$}
+             {$v \gets$ \RandomMember{$Angry$} \\
+              $j \gets j + 1$ \\
+              $Turn_j \gets$ \CalculateFlow{$v$,$Loss_v$} \\
+%              $w \gets$ \RandomMember{$\{w \in N^{-}(v) : DTr_{w \rightarrow v,j} > 0\}$} \\
+              \For{$i \gets 1$ to $|N^{-}(v)|$}
+                 {$exchange \gets y_i : Steal(y_i, N^{-}(v)_i) \in Turn_j$ \\
+                 $DTr_{N^{-}(v)_i \rightarrow v, j} = DTr_{N^{-}(v)_i \rightarrow v, j-1} - exchange$ \\
+                 $Loss_{N^{-}(v)_i} \gets Loss_{N^{-}(v)_i} + exchange$ \\
+                 $Loss_v \gets Loss_v - exchange$ \\
+                 \If{$N^{-}(v)_i \in Happy$}
+                    {$Happy \gets Happy \setminus \{N^{-}(v)_i\}$}
+                 \If{$\sum\limits_{w \in N^{-}(N^{-}(v)_i)}DTr_{w \rightarrow N^{-}(v)_i, j} = 0$}
+                    {$Sad \gets Sad \cup \{N^{-}(v)_i\}$}
+                 \Else{$Angry \gets Angry \cup \{N^{-}(v)_i\}$}}
+              \If{$\sum\limits_{v' \in N^{-}(v)}DTr_{v' \rightarrow v, j} = 0$}
+                 {$Angry \gets Angry \setminus \{v\}$ \\
+                  $Sad \gets Sad \cup \{v\}$}
+              \If{$Loss_v = 0$}
+                 {$Angry \gets Angry \setminus {v}$ \\
+                  $Happy \gets Happy \cup {v}$}}
+          \Return $\{Turn_{j_0},...,Turn_j\}$ \\ \ \\
+          \Init{} 
           $Turn_{j_0} \gets \{Steal(DTr_{N^{-}(B)_1 \rightarrow B, j_0-1}, N^{-}(B)_1), ...,
            Steal(DTr_{N^{-}(B)_{|N^{-}(B)|} \rightarrow B, j_0-1}, N^{-}(B)_{|N^{-}(B)|}),$
           $Add(-DTr_{B \rightarrow N^{+}(B)_1, j_0-1}, N^{+}(B)_1), ...,
-           Add(-DTr_{B \rightarrow N^{+}(B)_{|N^{+}(B)|}, j_0-1},N^{+}(B)_{|N^{+}(B)|})\}$ \\
-          $Angry \gets N^{-}(B) \setminus \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
+           Add(-DTr_{B \rightarrow N^{+}(B)_{|N^{+}(B)|}, j_0-1},N^{+}(B)_{|N^{+}(B)|})\}$
+          $Angry \gets N^{-}(B) \setminus \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$
           $Sad \gets \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
           $\forall v \in (Sad \cup Angry), Loss_v \gets DTr_{v \rightarrow B, j_0}$ \\
-          $Ignorant \gets V(G) \setminus (Angry \cup Sad \cup\{A, B\})$ \\
-          $\forall v \in Ignorant, Loss_v \gets 0$ \\
+          $Happy \gets V(G) \setminus (Angry \cup Sad \cup\{A, B\})$ \\
+          $\forall v \in Happy, Loss_v \gets 0$ \\
           $Happy \gets \emptyset$ \\
-          $j \gets j_0$ \\
-          \While{$Angry \neq \emptyset$}
-             {$v \gets \RandomMember(Angry)$ \\
-              $w \gets \RandomMember(\{w \in N^{-}(v) : DTr_{w \rightarrow v,j} > 0\})$ \\
-              $exchange = \min(DTr_{w \rightarrow v,j}, Loss_v)$ \\
-              $Turn_j \gets \{Steal(exchange, w)\}$ \\
-              $DTr_{w \rightarrow v, j+1} = DTr_{w \rightarrow v, j} - exchange$ \\
-              \If{$w \in Ignorant$}
-                 {$Ignorant \gets Ignorant \setminus \{w\}$}
-              \If{$w \in Happy$}
-                 {$Happy \gets Happy \setminus \{w\}$}
-              \If{$\sum\limits_{w' \in N^{-}(w)}DTr_{w' \rightarrow w, j} = 0$}
-                 {$Sad \gets Sad \cup \{w\}$}
-              \Else{$Angry \gets Angry \cup \{w\}$}
-              \If{$v \in Angry \wedge \sum\limits_{v' \in N^{-}(v)}DTr_{v' \rightarrow v, j} = 0$}
-                 {$Angry \gets Angry \setminus \{v\}$ \\
-                  $Sad \gets Sad \cup \{v\}$}
-              $Loss_v \gets Loss_v - exchange$ \\
-              $Loss_w \gets Loss_w + exchange$ \\
-              \If{$Loss_v = 0$}
-                 {$Angry \gets Angry \setminus {v}$ \\
-                  $Happy \gets Happy \cup {v}$}
-              $j \gets j + 1$}
-          \Return $\{Turn_{j_0},...,Turn_j\}$
+          $j \gets j_0$
        \end{algorithm}
        As we can see from lines 4, 6 and 20-21, $\forall j, \sum\limits_{v \in V(G) \setminus \{A,B\}}Loss_v =
        \sum\limits_{v \in N^{-}(B)}DTr_{v \rightarrow B, j_0}$, that is the total loss is constant and equal to the total
@@ -343,22 +350,22 @@
        \begin{enumerate}
 	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$.
           We know that $MaxFlow_{A \rightarrow B} = MinCut_{A \rightarrow B}$. We will show that, if everybody except
-          A and B follows the honest strategy,  $Tr_{A \rightarrow B} \leq MinCut_{A \rightarrow B}$. Suppose that in
+          A and B follows the conservative strategy,  $Tr_{A \rightarrow B} \leq MinCut_{A \rightarrow B}$. Suppose that in
           round $i$ all the members of the MinCut, $P$, have stolen the maximum value they can from members that belong
           in the MaxFlow graph and nobody in the partition in which $A$ belongs has stolen yet any value. Let the total
           stolen value from the MinCut members be $St$. It is obvious that $St_i \leq MinCut_{A \rightarrow B}$, because
-          otherwise there would exist $u \in P$ that doesn't follow the honest strategy, since they stole more than they
-          were stolen from. The same argument holds for any round $i' > i$ because in each round an honest player can
+          otherwise there would exist $u \in P$ that doesn't follow the conservative strategy, since they stole more than they
+          were stolen from. The same argument holds for any round $i' > i$ because in each round an conservative player can
           steal only up to the value she has been stolen. It is also impossible that the $St$ increase further due to
           stolen value from members of the partition of $B$ since members of $P$ disconnect the two partitions and have
           already played their turns, thus $\forall i' > i, St_{i'} \leq St_i$. There exists a round, $k$, when all the
-          honest players stop stealing, so in the worst case $A$ will have been stolen
+          conservative players stop stealing, so in the worst case $A$ will have been stolen
           $Tr_{A \rightarrow B} = St_k \leq MinCut_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
           \item We can see that $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because the strategy where each
           one of the non-idle players steals value equal to the incoming flows from their respective friends is a valid
-          strategy that does not contradict with the honest strategy, since for every honest player $w$ it holds that
+          strategy that does not contradict with the conservative strategy, since for every conservative player $w$ it holds that
           $\sum\limits_{v \in N^{-}(w)}x_{vw} = \sum\limits_{v \in N^{+}(w)}x_{wv}$ and according to the strategy each
-          honest player will have been stolen value equal to $\sum\limits_{v \in N^{+}(w)}x_{wv}$. More concretely,
+          conservative player will have been stolen value equal to $\sum\limits_{v \in N^{+}(w)}x_{wv}$. More concretely,
           let $Player(j) = B$ and $Player(j+d) = C :$
        \end{enumerate}
        Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
@@ -378,15 +385,15 @@
 %        OLD PROOF END
     \end{proof}
 
-    \begin{theorem}[Honest world theorem] \ \\
-    \label{honestworld}
-       If everybody follows the honest strategy, nobody steals any amount from anybody.
+    \begin{theorem}[Conservative world theorem] \ \\
+    \label{conservativeworld}
+       If everybody follows the conservative strategy, nobody steals any amount from anybody.
     \end{theorem}
     \begin{proof} \ \\
        Suppose that there exists a subseries of History, $(Turn_{j_k})$, where $Turn_{j_k} = \{Steal(y_1,B_1),...,
-       Steal(y_m,B_m)\}$. This subseries must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the honest
+       Steal(y_m,B_m)\}$. This subseries must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative
        strategy, thus somebody must have stolen from her as well, so $Player(j_1)$ cannot be the initial element. We have a
-       contradiction, thus there cannot exist a series of stealing actions when everybody is honest.
+       contradiction, thus there cannot exist a series of stealing actions when everybody is conservative.
     \end{proof}
     \begin{theorem}[Trust transfer theorem (flow terminology) - TOCHECK] \ \\
     \label{trusttransfer}
@@ -394,7 +401,7 @@
        $X = \{x_1, ..., x_n\}$ outgoing flows from $s$, \\
        $U = \{u_1, ..., u_n\}$ outgoing capacities from $s$, \\
        $V$ the value to be transferred. \\
-       Nodes apart from $s$, $t$ follow the honest strategy. \\
+       Nodes apart from $s$, $t$ follow the conservative strategy. \\
        Obviously $maxFlow = F = \sum\limits_{i=1}^{n}{x_i}$.
        {\em \begin{lstlisting}
             /                      ....                     \
@@ -422,16 +429,16 @@
         \sum\limits_{i=1}^nu_i' = F - V$.
     \end{proof}
 
-    \begin{corollary}[Requirement for $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
-       In the setting of \ref{trusttransfer}, it is impossible to have $maxFlow' = F - V$ if
-       $\sum\limits_{i=1}^{n}{u_{s, i}'} > F - V \wedge \forall i \in [n],u_{s, i}' \leq x_{s, i}$.
-    \end{corollary}
-    \begin{proof}
-       Due to \ref{trusttransfer}, $maxFlow' = F - V$ if $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V
-       \wedge \forall i \in [n], u_{s, i}' \leq x_{s, i}$. If we create new capacities such that
-       $\forall i \in [n], u_{s,i}'' \leq x_{s,i}$, then obviously $maxFlow'' = \sum\limits_{i=1}^{n}{u_{s,i}''}$. If
-       additionally $\sum\limits_{i=1}^{n}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
-    \end{proof}
+%    \begin{corollary}[Requirement for $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
+%       In the setting of \ref{trusttransfer}, it is impossible to have $maxFlow' = F - V$ if
+%       $\sum\limits_{i=1}^{n}{u_{s, i}'} > F - V \wedge \forall i \in [n],u_{s, i}' \leq x_{s, i}$.
+%    \end{corollary}
+%    \begin{proof}
+%       Due to \ref{trusttransfer}, $maxFlow' = F - V$ if $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V
+%       \wedge \forall i \in [n], u_{s, i}' \leq x_{s, i}$. If we create new capacities such that
+%       $\forall i \in [n], u_{s,i}'' \leq x_{s,i}$, then obviously $maxFlow'' = \sum\limits_{i=1}^{n}{u_{s,i}''}$. If
+%       additionally $\sum\limits_{i=1}^{n}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
+%    \end{proof}
 
     \begin{lemma}[Flow limit lemma] \ \\
        \label{flowlimit}
@@ -485,7 +492,7 @@
        It holds that $\forall A \in \mathcal{M} \setminus S, Tr_{A \rightarrow S} = maxFlow(A, T)$.
     \end{theorem}       
     \begin{proof}
-       If $T$ chooses the evil strategy and all players in $S$ play according to the honest strategy, they will have to steal
+       If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to steal
        all their incoming direct trust, thus they will act in a way identical to following the evil strategy as far as
        maxFlow is concerned, thus, by \ref{trustflow}, $Tr_{A \rightarrow T} = maxFlow(A, T) = Tr_{A \rightarrow S}$.
 %       We will prove theorem \ref{trustmany} by induction.
