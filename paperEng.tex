@@ -156,7 +156,7 @@
          \end{enumerate}
          If player $A$ chooses to pass her turn, she may not choose any additional action in the same turn.
          Also, let $Y_{st}, Y_{add}$ be the total value to be stolen and added respectively by $A$ in her turn, $j$. For a
-         turn to be feasible, it must hold that $Y_{st} - Y_{add} \leq Cap_{A,j-1}$. Moreover, player $A$ is not allowed to
+         turn to be feasible, it must hold that $Y_{add} - Y_{st} \leq Cap_{A,j-1}$. Moreover, player $A$ is not allowed to
          choose two actions of the same kind against the same player in the same turn. \\
          The set of actions a player makes in turn $j$ is $Turn_j$. Examples:
          \begin{itemize}
@@ -186,10 +186,19 @@
          A player $A$ is said to follow the conservative strategy if for any value $x$ that has been stolen from her since
          the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
          equal to $\min{(x,\sum\limits_{B \in \mathcal{M}}{DTr_{B \rightarrow A}})}$ and she takes no other action.
-         More formally, if $Strategy(A) = Conservative$, then $\forall j \in \mathbb{N}: Player(j) = A$ it is $Turn_j =
-         \{Steal(y_1,B_1),...,Steal(y_m,B_m)\}$ where $\sum\limits_{i=1}^{m}Steal(y_i,B_i) = \max(0,
-         \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j'} - \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A
-         \rightarrow N^{+}(A)_i, j}), j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) = Player(j)\}$.
+         More formally, let $j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) = Player(j)\}, Damage = \sum\limits_{i=1}
+         ^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j'} - \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i,j-1}$.
+         If $Strategy(A) = Conservative$, then $\forall j \in \mathbb{N}: Player(j) = A$ it is $$Turn_j =
+         \begin{cases}
+            \emptyset, & Damage \leq 0 \\
+            \{Steal(y_1,N^{-}(A)_1),...,Steal(y_{|N^{-}(A)|},N^{-}(A)_{|N^{-}(A)|})\}, & Damage > 0
+         \end{cases}$$
+         In the second case, it is $\sum\limits_{i=1}^{|N^{-}(A)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(A)|}DTr_{A \rightarrow
+         N^{-}(A)_i, j-1}, Damage)$. \\
+         As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage <
+         \sum\limits_{i=1}^{|N^{-}(A)|}DTr_{A \rightarrow N^{-}(A)_i, j-1}$ she can choose to distribute the $Steal(s)()$
+         in any way she chooses, as far as $\forall i, y_i \leq DTr_{N^{-}(A)_i \rightarrow A, j-1} \wedge \sum\limits_{i=1}^
+         {|N^{-}(A)|}y_i = Damage$.
       \end{definition}
       \begin{definition}[Idle strategy] \ \\
          A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, if $Strategy(A) =
@@ -280,7 +289,7 @@
        configuration of $Steal()$ actions from $N^{-}(v)$ that comply with the conservative strategy, that is it returns
        $\{Steal(y_1, N^{-}(v)_1),...,Steal(y_{|N^{-}(v)|}, N^{-}(v)_{|N^{-}(v)|})\} : \forall i \in [|N^{-}(v)|], y_i \leq
        DTr_{N^{-}(v)_i \rightarrow v,j-1} \wedge \sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{
-       N^{-}(v)_i \rightarrow v,j-1}, Loss_{v,j-1})$. \\
+       N^{-}(v)_i \rightarrow v,j-1}, )$. $\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{N^{-}(v)_i \rightarrow v,j-1}, Loss_{v,j-1})$\\
        \begin{algorithm}[H]
           \label{transitivestealalgo}
           \SetKwInOut{Input}{Input}
@@ -314,12 +323,12 @@
                  {$Angry \gets Angry \setminus {v}$ \\
                   $Happy \gets Happy \cup {v}$}}
           \Return $\{Turn_{j_0},...,Turn_j\}$ \\ \ \\
-          \Init{} 
+          \Init{} : \\
           $Turn_{j_0} \gets \{Steal(DTr_{N^{-}(B)_1 \rightarrow B, j_0-1}, N^{-}(B)_1), ...,
            Steal(DTr_{N^{-}(B)_{|N^{-}(B)|} \rightarrow B, j_0-1}, N^{-}(B)_{|N^{-}(B)|}),$
           $Add(-DTr_{B \rightarrow N^{+}(B)_1, j_0-1}, N^{+}(B)_1), ...,
-           Add(-DTr_{B \rightarrow N^{+}(B)_{|N^{+}(B)|}, j_0-1},N^{+}(B)_{|N^{+}(B)|})\}$
-          $Angry \gets N^{-}(B) \setminus \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$
+           Add(-DTr_{B \rightarrow N^{+}(B)_{|N^{+}(B)|}, j_0-1},N^{+}(B)_{|N^{+}(B)|})\}$ \\
+          $Angry \gets N^{-}(B) \setminus \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
           $Sad \gets \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
           $\forall v \in (Sad \cup Angry), Loss_v \gets DTr_{v \rightarrow B, j_0}$ \\
           $Happy \gets V(G) \setminus (Angry \cup Sad \cup\{A, B\})$ \\

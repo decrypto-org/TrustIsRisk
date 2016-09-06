@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2016.8.17)  6 SEP 2016 12:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2016.8.17)  6 SEP 2016 15:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -957,7 +957,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2]
-Overfull \hbox (10.84756pt too wide) in paragraph at lines 222--226
+Overfull \hbox (10.84756pt too wide) in paragraph at lines 231--235
 \OT1/cmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 A; B \OMS/cmsy/m/n/10.95 2 M\OML/cm
 m/m/it/10.95 ; x[]$ \OT1/cmr/m/n/10.95 flow to $\OML/cmm/m/it/10.95 N[]\OT1/cmr
 /m/n/10.95 (\OML/cmm/m/it/10.95 A\OT1/cmr/m/n/10.95 )[]$ re-sult-ing from $\OML
@@ -973,7 +973,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [3]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 278.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 287.
 
  (/usr/share/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
@@ -992,7 +992,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [5]
-Overfull \hbox (4.058pt too wide) in paragraph at lines 392--397
+Overfull \hbox (4.058pt too wide) in paragraph at lines 401--406
 \OT1/cmr/m/n/10.95 Suppose that there ex-ists a sub-series of His-tory, $(\OML/
 cmm/m/it/10.95 Turn[]\OT1/cmr/m/n/10.95 )$, where $\OML/cmm/m/it/10.95 Turn[] \
 OT1/cmr/m/n/10.95 = \OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 Steal\OT1/cmr/m/n/
@@ -1011,7 +1011,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 481.
+(amsmath)                 on input line 490.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1020,7 +1020,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 556--557
+Underfull \hbox (badness 10000) in paragraph at lines 565--566
 
  []
 
@@ -1038,22 +1038,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 638--673
+Underfull \hbox (badness 10000) in paragraph at lines 647--682
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 638--673
+Underfull \hbox (badness 10000) in paragraph at lines 647--682
 
  []
 
 
-Overfull \hbox (28.43985pt too wide) in paragraph at lines 638--673
+Overfull \hbox (28.43985pt too wide) in paragraph at lines 647--682
 \OML/cmm/m/it/10.95 reduction[] \OT1/cmr/m/n/10.95 = []$ 
  []
 
 
-Overfull \hbox (2.08275pt too wide) in paragraph at lines 638--673
+Overfull \hbox (2.08275pt too wide) in paragraph at lines 647--682
 \OT1/cmr/m/n/10.95 In the end, $\OML/cmm/m/it/10.95 r \OT1/cmr/m/n/10.95 = \OML
 /cmm/m/it/10.95 reduce$ \OT1/cmr/m/n/10.95 is such that $\OML/cmm/m/it/10.95 r 
 \OT1/cmr/m/n/10.95 = []$ where $\OML/cmm/m/it/10.95 S \OT1/cmr/m/n/10.95 = \OMS
@@ -1069,7 +1069,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 696--699
+Underfull \hbox (badness 10000) in paragraph at lines 705--708
 
  []
 
@@ -1080,7 +1080,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 729--730
+Underfull \hbox (badness 10000) in paragraph at lines 738--739
 
  []
 
@@ -1102,7 +1102,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.864     \end{proof}
+l.873     \end{proof}
                      ] 
 AED: lastpage setting LastPage
 
@@ -1112,22 +1112,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 891.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 891.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 900.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 900.
  (./paperEng.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 891.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 891.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 900.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 900.
 Package rerunfilecheck Info: File `paperEng.out' has not changed.
 (rerunfilecheck)             Checksum: 6DBD1089C9CEC411C86B0B42C350B47B;426.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 891.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 900.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 12212 strings out of 493013
- 176242 string characters out of 6139317
+ 12215 strings out of 493013
+ 176281 string characters out of 6139317
  319176 words of memory out of 5000000
  15406 multiletter control sequences out of 15000+600000
  10992 words of font info for 42 fonts, out of 8000000 for 9000
@@ -1148,10 +1148,10 @@ ts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 </usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on paperEng.pdf (14 pages, 272652 bytes).
+Output written on paperEng.pdf (14 pages, 273604 bytes).
 PDF statistics:
- 413 PDF objects out of 1000 (max. 8388607)
- 376 compressed objects within 4 object streams
- 183 named destinations out of 1000 (max. 500000)
+ 416 PDF objects out of 1000 (max. 8388607)
+ 379 compressed objects within 4 object streams
+ 186 named destinations out of 1000 (max. 500000)
  73 words of extra memory for PDF output out of 10000 (max. 10000000)
 
