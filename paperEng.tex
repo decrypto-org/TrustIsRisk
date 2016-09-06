@@ -195,6 +195,8 @@
          \end{cases}$$
          In the second case, it is $\sum\limits_{i=1}^{|N^{-}(A)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(A)|}DTr_{A \rightarrow
          N^{-}(A)_i, j-1}, Damage)$. \\
+         If $j$ is the first turn in which $A$ plays, $j'$ is not well defined. In this case, we choose $Turn_j = \emptyset$,
+         except if it is otherwise denoted in some special cases. \\
          As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage <
          \sum\limits_{i=1}^{|N^{-}(A)|}DTr_{A \rightarrow N^{-}(A)_i, j-1}$ she can choose to distribute the $Steal(s)()$
          in any way she chooses, as far as $\forall i, y_i \leq DTr_{N^{-}(A)_i \rightarrow A, j-1} \wedge \sum\limits_{i=1}^
@@ -276,8 +278,8 @@
     \begin{theorem}[Trust convergence theorem] \ \\
     \label{convergence}
        Let $A,B \in \mathcal{M} : Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{M} \setminus \{A,B\},
-       Strategy(C) = Conservative$ and $j_0 \in \mathbb{N} : Player(j_0) = B$. Given that all players eventually play, there exists
-       a turn $j' > j_0 : \forall j \geq j', Turn_j = \emptyset$.
+       Strategy(C) = Conservative$ and $j_0 \in \mathbb{N} : Player(j_0) = B$. Given that all players eventually play, there
+       exists a turn $j' > j_0 : \forall j \geq j', Turn_j = \emptyset$.
     \end{theorem}
     \begin{proof}
        First of all, $\forall j > j_0 : Player(j) = B, Turn_j = \emptyset$ because $B$ has already nullified his incoming
@@ -286,10 +288,21 @@
        $\forall j > j_0 : Player(j) = A, Turn_j = \emptyset$ because of the idle strategy that $A$ follows. As far as the
        rest of the players are concerned, consider the following algorithm, where \texttt{RandomMember(}$Set$\texttt{)}
        returns a randomly chosen member of the input set and \texttt{CalculateFlow(}$v, Loss_v$\texttt{)} returns a
-       configuration of $Steal()$ actions from $N^{-}(v)$ that comply with the conservative strategy, that is it returns
-       $\{Steal(y_1, N^{-}(v)_1),...,Steal(y_{|N^{-}(v)|}, N^{-}(v)_{|N^{-}(v)|})\} : \forall i \in [|N^{-}(v)|], y_i \leq
-       DTr_{N^{-}(v)_i \rightarrow v,j-1} \wedge \sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{
-       N^{-}(v)_i \rightarrow v,j-1}, )$. $\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{N^{-}(v)_i \rightarrow v,j-1}, Loss_{v,j-1})$\\
+       configuration of $Steal()$ actions from $N^{-}(v)$ that comply with the conservative strategy. Given that
+       $Damage_{A,j-1} = \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j'} - \sum\limits_{i=1}^{|N^{+}(A)|}
+       DTr_{A \rightarrow N^{+}(A)_i,j-1} \wedge j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) = Player(j)\}$, or
+       $j' = j_0$ if $j$ is the first turn in which $Player(j) = A$, the algorithm returns:
+       $$Turn_j =
+         \begin{cases}
+            \emptyset, & Damage_{A,j-1} \leq 0 \\
+            \{Steal(y_1,N^{-}(A)_1),...,Steal(y_{|N^{-}(A)|},N^{-}(A)_{|N^{-}(A)|})\}, & Damage_{A,j-1} > 0
+         \end{cases}$$
+       In the second case, it is $\sum\limits_{i=1}^{|N^{-}(A)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(A)|}DTr_{A \rightarrow
+       N^{-}(A)_i, j-1}, Damage_{A,j-1})$. \\
+
+%       $\{Steal(y_1, N^{-}(v)_1),...,Steal(y_{|N^{-}(v)|}, N^{-}(v)_{|N^{-}(v)|})\} : \forall i \in [|N^{-}(v)|], y_i \leq
+%       DTr_{N^{-}(v)_i \rightarrow v,j-1} \wedge \sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{
+%       N^{-}(v)_i \rightarrow v,j-1}, )$. $\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{N^{-}(v)_i \rightarrow v,j-1}, Loss_{v,j-1})$\\
        \begin{algorithm}[H]
           \label{transitivestealalgo}
           \SetKwInOut{Input}{Input}
@@ -338,7 +351,21 @@
        \end{algorithm}
        As we can see from lines 4, 6 and 20-21, $\forall j, \sum\limits_{v \in V(G) \setminus \{A,B\}}Loss_v =
        \sum\limits_{v \in N^{-}(B)}DTr_{v \rightarrow B, j_0}$, that is the total loss is constant and equal to the total
-       value stolen by $B$.
+       value stolen by $B$. Also, we can see in lines 14, 19 and 28, which are the only lines where the $Sad$ set is changed,
+       that once a player enters the $Sad$ set, it is impossible to exit from this set. Also, we can see that players in
+       $Sad \cup Happy$ are not chosen to play, which is equivalent to passing their turn. We will now show that eventually
+       the $Angry$ set will be empty, or equivalently that eventually every player will pass their turn. Suppose that it is
+       possible to have an infinite amount of turns that players do not choose to pass. We know that the number of nodes is
+       finite, thus this is possible only if $\exists j_1: \forall j \geq j_1, |Angry_j \cup Happy_j| = c > 0 \wedge
+       |Angry_j| > 0$ (the total number of angry and happy players cannot increase because no player leaves the $Sad$ set
+       and if it were to be decreased, it would eventually reach 0). Since $Angry_j \neq \emptyset$, a player $A$ will be
+       chosen to play that will not pass her turn. According to algorithm \ref{transitivestealalgo}, $A$ will either deplete
+       her incoming trust and enter the $Sad$ set, which is contradicting $|Angry_j \cup Happy_j| = c$, or will steal
+       enough value to become enter the $Happy$ set, that is $A$ will make $Loss_j = 0$. Suppose that she has stolen $m$
+       players. They, in their turn, will steal total value at least equal to the value stolen by $A$ (since they cannot go
+       sad). However, this means that, since the total value being stolen will never be reduced and the turns this will
+       happen are infinite, the players must steal an infinite amount of value, which is impossible because the direct trusts
+       are finite in number and in value. We have a contradiction, thus eventually $Angry = \emptyset$ and everybody passes.
        
     \end{proof}
 
@@ -354,7 +381,9 @@
           \item $\forall e_{vw} \in E(FG), x_{vw} \leq u_{vw}$
           \item $\forall v \in V(FG), \sum\limits_{v_1 \in N^{+}(v)}x_{v_1v} = \sum\limits_{v_2 \in N^{-}(v)}x_{vv_2}$
        \end{enumerate}
-       First we will show that each valid  corresponds 
+       First we will show that each valid execution of algorithm \ref{transitivestealalgo} corresponds to a valid flow and
+       afterwards we will show that the MaxFlow can be a result of a valid execution of \ref{transitivestealalgo}. Thus
+       we will have proven that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
 \ \\ OLD
        \begin{enumerate}
 	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$.
