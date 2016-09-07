@@ -304,7 +304,7 @@
 %       DTr_{N^{-}(v)_i \rightarrow v,j-1} \wedge \sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{
 %       N^{-}(v)_i \rightarrow v,j-1}, )$. $\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{N^{-}(v)_i \rightarrow v,j-1}, Loss_{v,j-1})$\\
        \begin{algorithm}[H]
-          \label{transitivestealalgo}
+          \label{transitivesteal}
           \SetKwInOut{Input}{Input}
           \SetKwInOut{Output}{Output}
           \SetKwFunction{RandomMember}{RandomMember}
@@ -359,7 +359,7 @@
        finite, thus this is possible only if $\exists j_1: \forall j \geq j_1, |Angry_j \cup Happy_j| = c > 0 \wedge
        |Angry_j| > 0$ (the total number of angry and happy players cannot increase because no player leaves the $Sad$ set
        and if it were to be decreased, it would eventually reach 0). Since $Angry_j \neq \emptyset$, a player $A$ will be
-       chosen to play that will not pass her turn. According to algorithm \ref{transitivestealalgo}, $A$ will either deplete
+       chosen to play that will not pass her turn. According to algorithm \ref{transitivesteal}, $A$ will either deplete
        her incoming trust and enter the $Sad$ set, which is contradicting $|Angry_j \cup Happy_j| = c$, or will steal
        enough value to become enter the $Happy$ set, that is $A$ will make $Loss_j = 0$. Suppose that she has stolen $m$
        players. They, in their turn, will steal total value at least equal to the value stolen by $A$ (since they cannot go
@@ -379,11 +379,24 @@
        flow assignment $X$ we choose. In flow context, for an assignment $X$ to be valid, two properties must hold:
        \begin{enumerate}
           \item $\forall e_{vw} \in E(FG), x_{vw} \leq u_{vw}$
-          \item $\forall v \in V(FG), \sum\limits_{v_1 \in N^{+}(v)}x_{v_1v} = \sum\limits_{v_2 \in N^{-}(v)}x_{vv_2}$
-       \end{enumerate}
-       First we will show that each valid execution of algorithm \ref{transitivestealalgo} corresponds to a valid flow and
-       afterwards we will show that the MaxFlow can be a result of a valid execution of \ref{transitivestealalgo}. Thus
-       we will have proven that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+          \item $\forall v \in V(FG), \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}$
+       \end{enumerate} (p.709 Introduction to algorithms (CLRS), third edition)
+       First we will show that each valid execution of algorithm \ref{transitivesteal} corresponds to a valid flow to $A$ and
+       afterwards we will show that the MaxFlow can be a result of a valid execution of \ref{transitivesteal}. Thus we will
+       have proven that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+       \begin{itemize}
+          \item The flow to $A$ is the flow that results from the following process: After the execution of
+          \ref{transitivesteal}, for each sad player iteratively reduce the $DTr$ stolen from the sad player to the one that
+          stole from him and so on until reaching the evil player. Thus $A$ will have been stolen the exact same value that
+          the modified evil player has stolen, the direct trusts will all be $\geq 0$ (1st requirement for flows) and there
+          would be no node that gets more flow than it pushes, except for $A$ and $B$ (2nd requirement for flows), thus it
+          is a valid flow.
+          \item Let $X$ be the flows as returned by an execution of the $maxFlow$ algorithm. The evil player can steal
+          the value denoted by $X$ and every other player can steal exactly as much as the $X$ flows denote, since they
+          have the 1st property and thus are stealable in any strategy and also hold the 2nd property, thus they comply with
+          the conservative strategy.
+       \end{itemize}
+       Thus the maximum value $A$ can lose if $B$ is evil is $Tr_{A \rightarrow B} = maxFlow_{A \rightarrow B}$.
 \ \\ OLD
        \begin{enumerate}
 	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$.
