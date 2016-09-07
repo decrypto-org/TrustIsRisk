@@ -91,19 +91,18 @@
   model for bitcoin wallets in which user coins are split among trusted friends.
   Indirect trust is subsequently defined using a transitive property. This
   enables formal game theoretic arguments pertaining to risk analysis. Using our
-  reputation model, we prove that risk and max flows are equivalent and propose
-  several algorithms for the redistribution of trust so that a decision can be
-  made on whether an anonymous third party can be indirectly trusted. In such a
-  setting, the risk incurred by making a purchase from an anonymous vendor
-  remains invariant. Finally, we prove the correctness of our algorithms and
-  provide optimality arguments for various norms.
+  reputation model, we define financial risk and prove that risk and max flows
+  are equivalent. We then propose several algorithms for the redistribution of
+  trust so that a decision can be made on whether an anonymous third party can
+  be indirectly trusted. In such a setting, the risk incurred by making a
+  purchase from an anonymous vendor remains invariant. Finally, we prove the
+  correctness of our algorithms and provide optimality arguments for various
+  norms.
 
   \section{Introduction}
 
-  \section{Tags/Keywords}
+  \section{Keywords}
       decentralized, trust, web-of-trust, bitcoin, multisig, line-of-credit, trust-as-risk, flow  
-
-  \section{Related Work}
 
   \section{Key points}
 
@@ -935,7 +934,28 @@
     \end{proof}    
     However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i') = ||\delta_i||_1$.
 
+  \section{Related Work}
+
   \section{Further Research}
+
+  While our trust network can form a basis for risk-invariant transactions in
+  the anonymous and decentralized setting, more research is required to achieve
+  other desirable properties. Some directions for future research are outlined
+  below.
+
+  \subsection{Zero knowledge}
+
+  Our network evaluates indirect trust by computing the max flow in the graph
+  of lines-of-credit. In order to do that, complete information about the
+  network is required. However, disclosing the network topology may be
+  undesirable, as it subverts the identity of the participants even when
+  participants are treated pseudonymously, as deanonymization techniques can be
+  used. To avoid such issues, exploring the ability to calculate flows in a
+  zero knowledge fashion may be desirable. However, performing network queries
+  in zero knowledge may allow an adversary to extract topological information.
+  More research is required to establish how flows can be calculated
+  effectively in zero knowledge and what bounds exist in regards to information
+  revealed in such fashion.
 
   \section{References}
 
