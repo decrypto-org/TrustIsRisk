@@ -621,6 +621,25 @@
 
   \section{Further Research}
 
+  While our trust network can form a basis for risk-invariant transactions in
+  the anonymous and decentralized setting, more research is required to achieve
+  other desirable properties. Some directions for future research are outlined
+  below.
+
+  \subsection{Zero knowledge}
+
+  Our network evaluates indirect trust by computing the max flow in the graph
+  of lines-of-credit. In order to do that, complete information about the
+  network is required. However, disclosing the network topology may be
+  undesirable, as it subverts the identity of the participants even when
+  participants are treated pseudonymously, as deanonymization techniques can be
+  used. To avoid such issues, exploring the ability to calculate flows in a
+  zero knowledge fashion may be desirable. However, performing network queries
+  in zero knowledge may allow an adversary to extract topological information.
+  More research is required to establish how flows can be calculated
+  effectively in zero knowledge and what bounds exist in regards to information
+  revealed in such fashion.
+
   \section{References}
 
 \end{document}
