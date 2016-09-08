@@ -122,16 +122,18 @@
          \begin{enumerate}
             \item Let $N^{+}(A)$ be the set of players $B$ that $A$ directly trusts with any positive value. More
                formally, $N^{+}(A) = \{B \in \mathcal{M} : DTr_{A \rightarrow B} > 0\}$. $N^{+}(A)$ is called out
-               neighbourhood of $A$.
+               neighbourhood of $A$. Let also $S \subset \mathcal{M}$. $N^{+}(S) = \{B \in \mathcal{M} : \exists C \in S :
+               DTr_{C \rightarrow B} > 0\}$.
             \item Let $N^{-}(A)$ be the set of players $B$ that directly trust $A$ with any positive value. More
                formally, $N^{-}(A) = \{B \in \mathcal{M} : DTr_{B \rightarrow A} > 0\}$. $N^{-}(A)$ is called in
-               neighbourhood of $A$.
+               neighbourhood of $A$. Let also $S \subset \mathcal{M}$. $N^{-}(S) = \{B \in \mathcal{M} : \exists C \in S :
+               DTr_{B \rightarrow C} > 0\}$.
             \item Let $N(A)$ be the set of players $B$ that either directly trust or are directly trusted by $A$ with
                any positive value. More formally, $N(A) = N^{+}(A) \cup N^{-}(A)$. $N(A)$ is called
-               neighbourhood of $A$.
-            \item Let $N(A)_i$ (respectively $N^{+}(A)_i, N^{-}(A)_i$) be the $i$-th element of set $N(A)$
-               (respectively of $N^{+}(A), N^{-}(A)$), according to an arbitrary but constant enumeration of
-               the set players.
+               neighbourhood of $A$. Let also $S \subset \mathcal{M}$. $N(S) = N^{+}(S) \cup N^{-}(S)$.
+            \item Let $N(A)_i$ (respectively $N^{+}(A)_i, N^{-}(A)_i, N(S)_i, N^{+}(S)_i, N^{-}(S)_i, S \subset \mathcal{M}$)
+               be the $i$-th element of set $N(A)$ (respectively of $N^{+}(A), N^{-}(A), N(S), N^{+}(S), N^{-}(S)$),
+               according to an arbitrary but constant enumeration of the set players.
          \end{enumerate}
       \end{definition}
 %      \begin{definition}[$B$ steals $x$ from $A$] \ \\
@@ -282,23 +284,49 @@
     \end{theorem}
     \begin{proof}
        First of all, $\forall j > j_0 : Player(j) = B, Turn_j = \emptyset$ because $B$ has already nullified his incoming
-       and outgoing direct trusts in $Turn_{j_0}$ and the evil strategy does not contain any case where direct trust is
-       increased or where the evil player starts directly trusting another player, thus player $B$ can do nothing. Also
+       and outgoing direct trusts in $Turn_{j_0}$, the evil strategy does not contain any case where direct trust is
+       increased or where the evil player starts directly trusting another player and the other players do not follow a
+       strategy in which they can choose to $Add()$ trust to $B$, thus player $B$ can do nothing. Also
        $\forall j > j_0 : Player(j) = A, Turn_j = \emptyset$ because of the idle strategy that $A$ follows. As far as the
        rest of the players are concerned, consider the following algorithm, where \texttt{RandomMember(}$Set$\texttt{)}
        returns a randomly chosen member of the input set and \texttt{CalculateFlow(}$v, Loss_v$\texttt{)} returns a
        configuration of $Steal()$ actions from $N^{-}(v)$ that comply with the conservative strategy. Given that
-       $Damage_{A,j-1} = \sum\limits_{i=1}^{|N^{+}(A)|}DTr_{A \rightarrow N^{+}(A)_i, j'} - \sum\limits_{i=1}^{|N^{+}(A)|}
-       DTr_{A \rightarrow N^{+}(A)_i,j-1} \wedge j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) = Player(j)\}$, or
-       $j' = j_0$ if $j$ is the first turn in which $Player(j) = A$, the algorithm returns:
+       $Damage_{v,j} = \sum\limits_{i=1}^{|N^{+}(v)|}DTr_{v \rightarrow N^{+}(v)_i, j'} - \sum\limits_{i=1}^{|N^{+}(v)|}
+       DTr_{v \rightarrow N^{+}(v)_i,j}, j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) = Player(j)\}$, or
+       $j' = j_0 - 1$ if $j$ is the first turn in which $Player(j) = v$, the algorithm returns:
        $$Turn_j =
          \begin{cases}
-            \emptyset, & Damage_{A,j-1} \leq 0 \\
-            \{Steal(y_1,N^{-}(A)_1),...,Steal(y_{|N^{-}(A)|},N^{-}(A)_{|N^{-}(A)|})\}, & Damage_{A,j-1} > 0
+            \emptyset, & Damage_{v,j-1} = 0 \\
+            \{Steal(y_1,N^{-}(v)_1),...,Steal(y_{|N^{-}(v)|},N^{-}(v)_{|N^{-}(v)|})\}, & Damage_{v,j-1} > 0
          \end{cases}$$
-       In the second case, it is $\sum\limits_{i=1}^{|N^{-}(A)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(A)|}DTr_{A \rightarrow
-       N^{-}(A)_i, j-1}, Damage_{A,j-1})$. \\
-
+       In the second case, it is $\sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow
+       N^{-}(v)_i, j-1}, Damage_{v,j-1})$. From the definition of $Damage_{v,j}$ and knowing that no strategy in this case
+       can increase any direct trust, it is obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$
+       because if $Loss_{v,j} < 0$, then $v$ has stolen more value than she has been stolen, thus she would not follow the
+       conservative strategy. We will show that $$\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i, j},
+       Damage_{v,j}) = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i, j}, Loss_{v,j})$$ using induction.
+       \begin{itemize}
+          \item $j = j_0$ \\  $Damage_{v,j_0} = \sum\limits_{i=1}^{|N^{+}(v)|}DTr_{v \rightarrow N^{+}(v)_i, j_0 - 1} -
+          \sum\limits_{i=1}^{|N^{+}(v)|}DTr_{v \rightarrow N^{+}(v)_i,j_0} = DTr_{v \rightarrow B, j_0 - 1}$ \\
+          $Loss_{v,j_0} = DTr_{v \rightarrow B, j_0 - 1}$ (lines 29, 31). Thus $\forall v \in \mathcal{M \setminus \{A,B\}},
+          Damage_{v,j_0} = Loss_{v,j_0} \Rightarrow$ \\ $\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i,
+          j_0}, Damage_{v,j_0}) = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i, j_0}, Loss_{v,j_0})$.
+          \item Let $j = j_1 > j_0$. We suppose that \\
+          $\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i, j_1}, Damage_{v,j_1})
+          = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i, j_1}, Loss_{v,j_1})$ 
+          \item $j = j_1' : j_1' = \min\{k \in \mathbb{N} : k > j_1 \wedge Player(k) = Player(j_1)\}$ \\ 
+          \begin{itemize}
+             \item $v_{j_1'-1} \in Happy$. Then $v_{j_1'} \in Happy$, thus $Loss_{v, j_1'} = 0$ (line 22), $Damage_{v, j_1'}
+             = 0$, or else any reduction in direct trust to $v$ would increase equally $Loss_{v, j_1'}$
+             (line 9), which cannot be decreased but during $v$'s turn (line 10). Thus the zhtoumeno holds.
+             \item $v_{j_1'-1} \in Sad$. Then $v_{j_1'} \in Sad, \sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i,
+             j_1'} = 0$ (lines 17-19, 28). Since $Damage_{v, j_1'} \geq 0, Loss_{v, j_1'} \geq 0$, $\min(\sum\limits_{i=1}^
+             {|N^{-}(v)|}DTr_{v \rightarrow N^{-}(v)_i, j_1'}, Damage_{v,j_1'}) = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{v
+             \rightarrow N^{-}(v)_i, j_1'}, Loss_{v,j_1'}) = 0$.
+             \item $v_{j_1'-1} \in Angry \wedge v_{j_1'} \in Sad$. Then the same argument as in the second case holds.
+             \item $v_{j_1'-1} \in Angry \wedge v_{j_1'} \in Happy$. Then the same argument as in the first case holds.
+          \end{itemize}
+       \end{itemize}
 %       $\{Steal(y_1, N^{-}(v)_1),...,Steal(y_{|N^{-}(v)|}, N^{-}(v)_{|N^{-}(v)|})\} : \forall i \in [|N^{-}(v)|], y_i \leq
 %       DTr_{N^{-}(v)_i \rightarrow v,j-1} \wedge \sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{
 %       N^{-}(v)_i \rightarrow v,j-1}, )$. $\min(\sum\limits_{i=1}^{|N^{-}(v)|}DTr_{N^{-}(v)_i \rightarrow v,j-1}, Loss_{v,j-1})$\\
@@ -328,7 +356,7 @@
                  \If{$\sum\limits_{w \in N^{-}(N^{-}(v)_i)}DTr_{w \rightarrow N^{-}(v)_i, j} = 0$}
                     {$Sad \gets Sad \cup \{N^{-}(v)_i\}$}
                  \Else{$Angry \gets Angry \cup \{N^{-}(v)_i\}$}}
-              \If{$\sum\limits_{v' \in N^{-}(v)}DTr_{v' \rightarrow v, j} = 0$}
+              \If{$\sum\limits_{v' \in N^{-}(v)}DTr_{v' \rightarrow v, j} = 0 \wedge Loss_v > 0$}
                  {$Angry \gets Angry \setminus \{v\}$ \\
                   $Sad \gets Sad \cup \{v\}$}
               \If{$Loss_v = 0$}
@@ -342,7 +370,7 @@
            Add(-DTr_{B \rightarrow N^{+}(B)_{|N^{+}(B)|}, j_0-1},N^{+}(B)_{|N^{+}(B)|})\}$ \\
           $Angry \gets N^{-}(B) \setminus \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
           $Sad \gets \{v \in N^{-}(B) : \sum\limits_{w \in N^{-}(v)}DTr_{w \rightarrow v, j_0} = 0\}$ \\
-          $\forall v \in (Sad \cup Angry), Loss_v \gets DTr_{v \rightarrow B, j_0}$ \\
+          $\forall v \in (Sad \cup Angry), Loss_v \gets DTr_{v \rightarrow B, j_0 - 1}$ \\
           $Happy \gets V(G) \setminus (Angry \cup Sad \cup\{A, B\})$ \\
           $\forall v \in Happy, Loss_v \gets 0$ \\
           $Happy \gets \emptyset$ \\
@@ -357,14 +385,21 @@
        possible to have an infinite amount of turns that players do not choose to pass. We know that the number of nodes is
        finite, thus this is possible only if $\exists j_1: \forall j \geq j_1, |Angry_j \cup Happy_j| = c > 0 \wedge
        |Angry_j| > 0$ (the total number of angry and happy players cannot increase because no player leaves the $Sad$ set
-       and if it were to be decreased, it would eventually reach 0). Since $Angry_j \neq \emptyset$, a player $A$ will be
-       chosen to play that will not pass her turn. According to algorithm \ref{transitivesteal}, $A$ will either deplete
+       and if it were to be decreased, it would eventually reach 0). Since $Angry_j \neq \emptyset$, a player $v$ will be
+       chosen to play that will not pass her turn. According to algorithm \ref{transitivesteal}, $v$ will either deplete
        her incoming trust and enter the $Sad$ set, which is contradicting $|Angry_j \cup Happy_j| = c$, or will steal
-       enough value to become enter the $Happy$ set, that is $A$ will make $Loss_j = 0$. Suppose that she has stolen $m$
-       players. They, in their turn, will steal total value at least equal to the value stolen by $A$ (since they cannot go
-       sad). However, this means that, since the total value being stolen will never be reduced and the turns this will
-       happen are infinite, the players must steal an infinite amount of value, which is impossible because the direct trusts
-       are finite in number and in value. We have a contradiction, thus eventually $Angry = \emptyset$ and everybody passes.
+       enough value to enter the $Happy$ set, that is $v$ will make $Loss_{v,j}=0$. Suppose that she has stolen $m$ players.
+       They, in their turn, will steal total value at least equal to the value stolen by $v$ (since they cannot go sad).
+       However, this means that, since the total value being stolen will never be reduced and the turns this will happen are
+       infinite, the players must steal an infinite amount of value, which is impossible because the direct trusts are finite
+       in number and in value. More precisely, suppose that in $Turn_{j_1-1}, \sum\limits_{w,w' \in \mathcal{M}}DTr_{w
+       \rightarrow w'} = S_{j_1-1}$. In $Turn_{j_1}$, $v$ steals $St_{j_1} = \sum\limits_{i=1}^{m}y_i$. Thus $S_{j_1} =
+       S_{j_1-1} - St_{j_1}$. Eventually there is a turn $j_2$ when every player in $N^{-}(v)$ will have played. Then
+       $S_{j_2} \leq S_{j_1} - St_{j_1} = S_{j_1-1} - 2St_{j_1}$. Eventually there is a turn $j_3$ when every player in
+       $N^{-}(N^{-}(v))$ will have played. By repeating this reasoning $n$ times, we see that $S_{j_n} \leq S_{j_1-1} -
+       nSt_{j_1}$. However $S_{j_1-1}, St_{j_1} \in \mathbb{N}$, thus $\exists n \in \mathbb{N} : nSt_{j_1} > S_{j_1-1}
+       \Rightarrow S_{j_n} < 0$. We have a contradiction because $\forall w,w' \in \mathcal{M}, DTr_{w \rightarrow w'}
+       \geq 0$, thus eventually $Angry = \emptyset$ and everybody passes.
        
     \end{proof}
 
