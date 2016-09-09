@@ -413,7 +413,8 @@
        flow assignment $X$ we choose. In flow context, for an assignment $X$ to be valid, two properties must hold:
        \begin{enumerate}
           \item $\forall e_{vw} \in E(FG), x_{vw} \leq u_{vw}$
-          \item $\forall v \in V(FG), \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}$
+          \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} =
+                \sum\limits_{w \in N^{-}(v)}x_{vw}$
        \end{enumerate} (p.709 Introduction to algorithms (CLRS), third edition)
        First we will show that each valid execution of algorithm \ref{transitivesteal} corresponds to a valid flow to $A$ and
        afterwards we will show that the MaxFlow can be a result of a valid execution of \ref{transitivesteal}. Thus we will
@@ -421,14 +422,24 @@
        \begin{itemize}
           \item The flow to $A$ is the flow that results from the following process: After the execution of
           \ref{transitivesteal}, for each sad player iteratively reduce the $DTr$ stolen from the sad player to the one that
-          stole from him and so on until reaching the evil player. Thus $A$ will have been stolen the exact same value that
-          the modified evil player has stolen, the direct trusts will all be $\geq 0$ (1st requirement for flows) and there
-          would be no node that gets more flow than it pushes, except for $A$ and $B$ (2nd requirement for flows), thus it
-          is a valid flow.
+          stole from her and so on until reaching the evil player. This is always possible because if there is no player who
+          stole from her, then the $Steal()$ she did in the first place was not according to the conservative strategy.
+          Thus $A$ will have been stolen the exact same value that the modified evil player has stolen, $\forall w,v \in
+          V(FG), DTr_{v \rightarrow w} \geq x_{vw}$ (1st requirement for flows) and there would be no node that gets more
+          flow than it pushes, except for $A$ and $B$ (2nd requirement for flows), thus it is a valid flow.
           \item Let $X$ be the flows as returned by an execution of the $maxFlow$ algorithm. The evil player can steal
-          the value denoted by $X$ and every other player can steal exactly as much as the $X$ flows denote, since they
+          the values denoted by $X$ and every other player can steal exactly as much as the $X$ flows denote, since they
           have the 1st property and thus are stealable in any strategy and also hold the 2nd property, thus they comply with
-          the conservative strategy.
+          the conservative strategy. More concretely, $\forall v,w \in V(FG), DTr_{v \rightarrow w}' = x_{vw}$. Then the two
+          properties of flows hold:
+          \begin{itemize}
+             \item $\forall v,w \in V(FG),x_{vw} \leq DTr_{v \rightarrow w}$ and thus any set of strategies that include only
+             $Steal()$ actions such that $\sum\limits_{y : Steal(y,w) \in Turn_j, Player(j) = v}y = DTr_{v \rightarrow w} -
+             x_{vw}$ is feasible.
+             \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} =
+             \sum\limits_{w \in N^{-}(v)}x_{vw}$ thus $\forall v \in V(FG) \setminus \{A,B\}, Strategy(v) = Conservative$.
+          \end{itemize}
+             
        \end{itemize}
        Thus the maximum value $A$ can lose if $B$ is evil is $Tr_{A \rightarrow B} = maxFlow_{A \rightarrow B}$.
 \ \\ OLD
