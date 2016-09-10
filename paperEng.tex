@@ -421,12 +421,17 @@
        have proven that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
        \begin{itemize}
           \item The flow to $A$ is the flow that results from the following process: After the execution of
-          \ref{transitivesteal}, for each sad player iteratively reduce the $DTr$ stolen from the sad player to the one that
-          stole from her and so on until reaching the evil player. This is always possible because if there is no player who
-          stole from her, then the $Steal()$ she did in the first place was not according to the conservative strategy.
-          Thus $A$ will have been stolen the exact same value that the modified evil player has stolen, $\forall w,v \in
-          V(FG), DTr_{v \rightarrow w} \geq x_{vw}$ (1st requirement for flows) and there would be no node that gets more
-          flow than it pushes, except for $A$ and $B$ (2nd requirement for flows), thus it is a valid flow.
+          \ref{transitivesteal}, for each sad player iteratively replenish the $DTr$ stolen from the sad player by the one
+          that stole from her (if multiple players stole from the sad player, then replenish all the stolen $DTr$). Repeat
+          the process until the evil player replenishes the initially stolen $DTr$. This is always possible because if there
+          is no player who stole from each one who is replenished, then the $Steal()$ she did in the first place would not be
+          according to the conservative strategy. Also this process will end with the evil player replenishing $DTr$ equal
+          to the sum of $DTr$ that was stolen from sad players because the conservative players cannot avoid replenishing,
+          or else they do not follow the conservative strategy. The $DTr$ stolen from $A$ will not be replenished, since
+          the player(s) that have stolen from $A$ will not replenish the stolen value and, inductively, this value will not
+          be replenished. Thus $A$ will have been stolen the exact same value that the modified evil player has stolen,
+          $\forall w,v \in V(FG), DTr_{v \rightarrow w} \geq x_{vw}$ (1st requirement for flows) and there would be no node
+          that gets more flow than it pushes, except for $A$ and $B$ (2nd requirement for flows), thus it is a valid flow.
           \item Let $X$ be the flows as returned by an execution of the $maxFlow$ algorithm. The evil player can steal
           the values denoted by $X$ and every other player can steal exactly as much as the $X$ flows denote, since they
           have the 1st property and thus are stealable in any strategy and also hold the 2nd property, thus they comply with
