@@ -591,6 +591,21 @@
        afterwards we will show that the MaxFlow can be a result of a valid execution of \ref{transitivesteal}. Thus we will
        have proven that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
        \begin{itemize}
+          \item We will now show that there exists an execution of algorithm \ref{transitivesteal} such that $Loss_A =
+          maxFlow_{A \rightarrow B}$. Let $X$ be the flows as returned by an execution of the $maxFlow_{A \rightarrow B}$
+          algorithm. It is known that all flows are DAGs [citation needed] and that all DAGs have a maximal element [citation
+          needed] based on the partial ordering $x_{vw} > 0 \Rightarrow v < w$. The maximal element is a node that does not
+          have any outgoing flow. It is obvious that removing any node from a DAG cannot create a cycle, thus the graph that
+          remains after removing a node from a DAG is also a DAG, thus is has a maximal node as well. If a player represented
+          in turn $j > j_0$ by a maximal node $v$ is chosen to play for the first time by \ref{transitivesteal}, she is able
+          to steal value equal at least to her outgoing flow on turn $j_0$, since she has already been stolen at least
+          $\sum\limits_{w \in N^{+}(v)}x_{vw}$ (since she is maximal on turn $j$ she has no outgoing flow) and conform with
+          the conservative strategy. Furthermore, she will pass her turn on all subequent turns she plays, since no
+          additional value can be stolen from her because of her maximal status on turn $j$ (wrong). Thus if the algorithm
+          chooses only maximal nodes, after exactly $|V(FG)| - 1$ turns (we do not count idle player $A$) every evil and
+          conservative player will have stolen at least value equal to the flow passing through them in turn $j_0$ and player
+          $A$ will have been stolen value exactly equal to $maxFlow_{A \rightarrow B}$.
+OLD
           \item The flow to $A$ is the flow that results from the following process: After the execution of
           \ref{transitivesteal}, for each sad player iteratively replenish the $DTr$ stolen from the sad player by the one
           that stole from her (if multiple players stole from the sad player, then replenish all the stolen $DTr$). Repeat
