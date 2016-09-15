@@ -350,7 +350,16 @@
        \caption{Execute Turn}
        \executeTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn$} : \\ {
           $(Turn_j, NewCap) \gets$ \validateTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn$} \\
-          \Return{\commitTurn{$A$, $mathcal{G}_{j-1}$, $NewCap$, $Turn_j$}}} \\ \ \\
+          \Return{\commitTurn{$A$, $mathcal{G}_{j-1}$, $NewCap$, $Turn_j$}}} 
+    \end{algorithm}
+    \begin{algorithm}[H]
+       \label{validateturn}
+       \SetKwInOut{Input}{Input}
+       \SetKwInOut{Output}{Output}
+       \SetKwFunction{validateTurn}{validateTurn}
+       \Input{player $A$, old graph $\mathcal{G}_{j-1}$, old capital $Cap_{A, j-1}$, $ProvisionalTurn$}
+       \Output{$Turn_j$, new capital $Cap_{A, j}$}
+       \caption{Validate Turn}
        \validateTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn$} : { \\
           $Y_{st} \gets 0$ \\
           $Y_{add} \gets 0$ \\
@@ -366,7 +375,16 @@
                    \Else{$Y_{add} \gets Y_{add} + y$}}}}
           \If{$Y_{add} - Y_{st} > Cap_{A, j-1}$}{
              \Return{$\emptyset$, $Cap_{A, j-1}$}}
-          \Else{\Return{$ProvisionalTurn$, $Cap_{A, j-1} + Y_{st} - Y_{add}$}}} \ \\
+          \Else{\Return{$ProvisionalTurn$, $Cap_{A, j-1} + Y_{st} - Y_{add}$}}}
+    \end{algorithm}
+    \begin{algorithm}[H]
+       \label{committurn}
+       \SetKwInOut{Input}{Input}
+       \SetKwInOut{Output}{Output}
+       \SetKwFunction{commitTurn}{commitTurn}
+       \Input{player $A$, old graph $\mathcal{G}_{j-1}$, old capital $Cap_{A, j-1}$, $ProvisionalTurn$}
+       \Output{new graph $\mathcal{G}_j$, new capital $Cap_{A, j}$, new history $\mathcal{H}_j$}
+       \caption{Commit Turn}
        \commitTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $Turn_j$} : { \\
           \For{$(v, w) \in \mathcal{E}_j$}{
                 $DTr_{v \rightarrow w, j} \gets DTr_{v \rightarrow w, j-1}$}
