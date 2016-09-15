@@ -85,7 +85,7 @@
      \begin{flushright}
         Dionysis Zindros \\
         \textit{University of Athens} \\
-        \texttt{dionyziz@gmail.com}
+        \texttt{dionyziz@di.uoa.gr}
      \end{flushright}
   \end{minipage}
   \hspace*{\fill}
@@ -141,6 +141,9 @@
                c_j(A, B), & if (A, B) \in \mathcal{E}_j \\
                0, & if (A, B) \notin \mathcal{E}_j
             \end{cases}$$
+         A function or algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts
+         of this graph. The exception are the oracles, which in this case have access only to their incoming and outgoing
+         direct trusts.
       \end{definition}
       \begin{definition}[(In/Out) Neighbourhood of $A$ on turn $j$, $N^{+}(A)_j, N^{-}(A)_j, N(A)_j$] \ 
          \begin{enumerate}
@@ -231,11 +234,13 @@
       $N(A)_{j-1} = N(A)_j$. \\
       \begin{algorithm}[H]
          \label{conservativeoracle}
+         \SetKwInOut{Input}{Input}
          \SetKwInOut{Output}{Output}
          \SetKwFunction{SelectSteal}{SelectSteal}
+         \Input{previous graph $\mathcal{G}_{j-1}$}
          \Output{$Turn_j$}
          \caption{Conservative Oracle}
-         $\mathcal{O}_{cons}()$ : \\ {
+         $\mathcal{O}_{cons}(\mathcal{G}_{j-1})$ : \\ {
             $NewOutTrust \gets \sum\limits_{v \in N^{+}(A)_{j-1}}DTr_{A \rightarrow v, j-1}$ \\
             $NewInTrust \gets \sum\limits_{v \in N^{-}(A)_{j-1}}DTr_{v \rightarrow A, j-1}$ \\
             $Damage \gets PrevOutTrust - NewOutTrust$ \\
@@ -261,10 +266,12 @@
       \end{definition}
       \begin{algorithm}[H]
          \label{idleoracle}
+         \SetKwInOut{Input}{Input}
          \SetKwInOut{Output}{Output}
+         \Input{previous graph $\mathcal{G}_{j-1}$}
          \Output{$Turn_j$}
          \caption{Idle Oracle}
-         $\mathcal{O}_{idle}()$ : \\ {
+         $\mathcal{O}_{idle}(\mathcal{G}_{j-1})$ : \\ {
             \Return{$\emptyset$}}
       \end{algorithm}
       \begin{definition}[Evil strategy] \ \\
@@ -278,10 +285,12 @@
       \end{definition}
       \begin{algorithm}[H]
          \label{eviloracle}
+         \SetKwInOut{Input}{Input}
          \SetKwInOut{Output}{Output}
+         \Input{previous graph $\mathcal{G}_{j-1}$}
          \Output{$Turn_j$}
          \caption{Evil Oracle}
-         $\mathcal{O}_{evil}()$ : \\ {
+         $\mathcal{O}_{evil}(\mathcal{G}_{j-1})$ : \\ {
             $Turn_j \gets \emptyset$ \\
             \For{$v \in N^{-}(A)_{j-1}$}{
                $Turn_j \gets Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$}
