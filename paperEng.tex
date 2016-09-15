@@ -121,8 +121,9 @@
       \begin{definition}[Graph] \ \\
          TrustIsRisk is represented by a sequence of wheighted directed graphs $(\mathcal{G}_j)$ where $\mathcal{G}_j =
          (\mathcal{V}_j, \mathcal{E}_j), j \in \mathbb{N}$. Members of $\mathcal{E}_j$ are tuples of two nodes from
-         $\mathcal{V}_j$ and a positive real number. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in
-         \mathcal{V}_j, w > 0 : e = (A,B,w)$.
+         $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = (A,B)$.
+         Also, since the graphs are wheighted, there exists a sequence of functions $(c_j)$ with $c_j : \mathcal{E}_j
+         \rightarrow \mathbb{R}^{+}$.
       \end{definition}
       \begin{definition}[Players] \ \\
          The set $\mathcal{V}_j = V(\mathcal{G}_j)$ is the set of all players in the network, otherwise understood as the
@@ -134,9 +135,12 @@
       \end{definition}
       \begin{definition}[Direct Trust from $A$ to $B$ after turn $j$, $DTr_{A \rightarrow B, j}$] \ \\
          Total amount of value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is
-         deposited by $A$. When $DTr_{A \rightarrow B, j} > 0, (A,B,DTr_{A \rightarrow B, j}) \in \mathcal{E}_j$. When
-         $DTr_{A \rightarrow B, j} = 0, (A,B,0) \in \mathcal{E}_j$ or equivalently $\nexists w \in \mathbb{R} : (A,B,w) \in
-         \mathcal{E}_j$.
+         deposited by $A$.
+         $$DTr_{A \rightarrow B, j} =
+            \begin{cases}
+               c_j(A, B), & if (A, B) \in \mathcal{E}_j \\
+               0, & if (A, B) \notin \mathcal{E}_j
+            \end{cases}$$
       \end{definition}
       \begin{definition}[(In/Out) Neighbourhood of $A$ on turn $j$, $N^{+}(A)_j, N^{-}(A)_j, N(A)_j$] \ 
          \begin{enumerate}
