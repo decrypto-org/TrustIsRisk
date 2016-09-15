@@ -335,24 +335,26 @@
                u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$.
          \end{enumerate}
       \end{definition}
+  The following algorithm has read access to direct trusts in $\mathcal{G}_{j-1}$ and write access to direct trusts in
+  $\mathcal{G}_j$.
   \section{Theorems-Algorithms}
     \begin{algorithm}[H]
        \label{executeturn}
        \SetKwInOut{Input}{Input}
-%       \SetKwInOut{Output}{Output}
+       \SetKwInOut{Output}{Output}
        \SetKwFunction{validateTurn}{validateTurn}
        \SetKwFunction{commitTurn}{commitTurn}
        \SetKwFunction{executeTurn}{executeTurn}
-       \Input{old graph $\mathcal{G}_{j-1}$, old capital $Cap_{A, j-1}$, $ProvisionalTurn_j$}
-%       \Output{new graph $\mathcal{G}_j$, new capital $Cap_{A, j}$, new history $\mathcal{H}_j$}
+       \Input{player $A$, old graph $\mathcal{G}_{j-1}$, old capital $Cap_{A, j-1}$, $ProvisionalTurn$}
+       \Output{new graph $\mathcal{G}_j$, new capital $Cap_{A, j}$, new history $\mathcal{H}_j$}
        \caption{Execute Turn}
-       \executeTurn{$\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn_j$} : \\ {
-          $(Turn_j, NewCap) \gets$ \validateTurn{$\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn_j$} \\
-          \commitTurn{$mathcal{G}_{j-1}$, $NewCap$, $Turn_j$}} \\ \ \\
-       \validateTurn{$\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn_j$} : { \\
+       \executeTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn$} : \\ {
+          $(Turn_j, NewCap) \gets$ \validateTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn$} \\
+          \Return{\commitTurn{$A$, $mathcal{G}_{j-1}$, $NewCap$, $Turn_j$}}} \\ \ \\
+       \validateTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $ProvisionalTurn$} : { \\
           $Y_{st} \gets 0$ \\
           $Y_{add} \gets 0$ \\
-          \For{$action \in ProvisionalTurn_j$}{
+          \For{$action \in ProvisionalTurn$}{
              $action$ \textbf{match do} \\ {
                 \textbf{case} $Steal(y,w)$ \textbf{do} \\ {
                    \If{$y > DTr_{w \rightarrow A,j-1} \vee y < 0$}{
@@ -364,9 +366,9 @@
                    \Else{$Y_{add} \gets Y_{add} + y$}}}}
           \If{$Y_{add} - Y_{st} > Cap_{A, j-1}$}{
              \Return{$\emptyset$, $Cap_{A, j-1}$}}
-          \Else{\Return{$ProvisionalTurn_j$, $Cap_{A, j-1} + Y_{st} - Y_{add}$}}} \ \\
-       \commitTurn{$\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $Turn_j$} : { \\
-          \For{$(v, w) \in \mathcal{E}$}{
+          \Else{\Return{$ProvisionalTurn$, $Cap_{A, j-1} + Y_{st} - Y_{add}$}}} \ \\
+       \commitTurn{$A$, $\mathcal{G}_{j-1}$, $Cap_{A, j-1}$, $Turn_j$} : { \\
+          \For{$(v, w) \in \mathcal{E}_j$}{
                 $DTr_{v \rightarrow w, j} \gets DTr_{v \rightarrow w, j-1}$}
           \For{$action \in Turn_j$}{
              $action$ \textbf{match do} \\ {
@@ -375,8 +377,8 @@
                \textbf{case} $Add(y,w)$ \textbf{do} \\ {
                   $DTr_{A \rightarrow w, j} \gets DTr_{A \rightarrow w, j} + y$}}}
           $Cap_{A, j} \gets NewCap$ \\
-          $\mathcal{H}_j \gets (Player(j), Turn_j)$}
-%          \Return{$\mathcal{G}_j$, $Cap_{A, j}$, $\mathcal{H}_j$}}
+          $\mathcal{H}_j \gets (Player(j), Turn_j)$} \\
+          \Return{$\mathcal{G}_j$, $Cap_{A, j}$, $\mathcal{H}_j$}
     \end{algorithm}
     \begin{algorithm}[H]
        \label{trustisriskgame}
@@ -388,8 +390,8 @@
        \While{True}{
           $j \gets j + 1$ \\
           $v \overset{\$}{\gets} \mathcal{V}_j$ \\
-          $ProvisionalTurn_j \gets \mathcal{O}_v()$ \\
-          \executeTurn{$\mathcal{G}_{j-1}$,$Cap_{A, j-1}$,$ProvisionalTurn_j$}}
+          $ProvisionalTurn \gets \mathcal{O}_v(\mathcal{G}_{j-1})$ \\
+          $(G_j, Cap_{v, j}, H_j) \gets$ \executeTurn{$v$, $\mathcal{G}_{j-1}$, $Cap_{v, j-1}$, $ProvisionalTurn$}}
     \end{algorithm} \ \\
 
 %       \begin{algorithm}[H]
