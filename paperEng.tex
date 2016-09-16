@@ -206,14 +206,19 @@
       \end{definition}
       \begin{definition}[Previous/Next turn of a player] \ \\
          Let $j \in \mathbb{N}$ a turn with $Player(j) = A$. We define $prev(j), next(j)$ as the previous and next turn
-         that $A$ is chosen to play respectively. More formally, $$prev(j) = \max{\{k \in \mathbb{N} : k < j \wedge Player(k)
-         = A\}}$$ $$next(j) = \min{\{k \in \mathbb{N} : k > j \wedge Player(k) = A\}}$$
+         that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays, $prev(j) = 0$. More formally,
+         $$prev(j) = \begin{cases}
+            \max{\{k \in \mathbb{N} : k < j \wedge Player(k) = A\}}, & \{k \in \mathbb{N} : k < j \wedge Player(k) = A\}
+            \neq \emptyset \\
+            0, & \{k \in \mathbb{N} : k < j \wedge Player(k) = A\} = \emptyset
+         \end{cases}$$
+         $$next(j) = \min{\{k \in \mathbb{N} : k > j \wedge Player(k) = A\}}$$
+         $next(j)$ is always well defined with the assumption that eventually everybody plays.
       \end{definition}
       \begin{definition}[$A$ is stolen $x$] \ \\
-         Let $j, j'$ be two consecutive turns of $A$ ($j, j' : Player(j) = Player(j') = A \wedge j < j' \wedge \nexists j''
-         \in \mathbb{N} \cap (j, j') : Player(j'') = A$). We say that $A$ has been stolen a value $x$ between $j$ and $j'$
-         if $out_{A,j} - out_{A,j'} = x > 0$. If turns are not specified, we implicitly refer to the current and the
-         previous turns.
+         Let $j, j'$ be two consecutive turns of $A$ ($next(j) = j'$). We say that $A$ has been stolen a value $x$ between
+         $j$ and $j'$ if $out_{A,j} - out_{A,j'} = x > 0$. If turns are not specified, we implicitly refer to the current
+         and the previous turns.
       \end{definition}
       \begin{definition}[History] \ \\
          We define History, $\mathcal{H} = (\mathcal{H}_j)$, as the sequence of all the tuples containing the sets of actions
@@ -223,23 +228,22 @@
          A player $A$ is said to follow the conservative strategy in turn $j$ if for any value $x$ that has been stolen from
          her since the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
          equal to $\min{(x,in_{A,j})}$ and she takes no other action.
-         More formally, let $j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) = Player(j)\}, Damage_j = out_{A,j'} -
-         out_{A,j-1}$. If $Strategy(A) = Conservative$, then $\forall j \in \mathbb{N}: Player(j) = A$ it is $$Turn_j =
+         More formally, let $j' = prev(j), Damage_j = out_{A,j'} - out_{A,j-1}$. If $Strategy(A) = Conservative$, then
+         $\forall j \in \mathbb{N}: Player(j) = A$ it is $$Turn_j =
          \begin{cases}
             \emptyset, & Damage_j \leq 0 \\
-            \{Steal(y_1,N^{-}(A)_1),...,Steal(y_{|N^{-}(A)|},N^{-}(A)_{|N^{-}(A)|})\}, & Damage_j > 0
+            \bigcup\limits_{i=1}^{k}\{Steal(y_i,v_i)\}, & Damage_j > 0, N^{-}(A)_j = \{v_1,...,v_k\}
          \end{cases}$$
-         In the second case, it is $\sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = \min(in_{A,j-1}, Damage_j)$. \\
-         If $j$ is the first turn in which $A$ plays, $j'$ is not well defined. In this case, we choose $Turn_j = \emptyset$,
-         except if it is otherwise denoted in some special cases. \\
+         In the second case, it is $\sum\limits_{i=1}^{k}y_i = \min(in_{A,j-1}, Damage_j)$. \\
+%         If $j$ is the first turn in which $A$ plays, $j'$ is not well defined. In this case, we choose $Turn_j = \emptyset$,
+%         except if it is otherwise denoted in some special cases. \\
       \end{definition}
       As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_j <
       in_{A,j-1}$ she can choose to distribute the $Steal(s)()$ in any way she chooses, as long as $\forall i, y_i \leq
       DTr_{N^{-}(A)_{j,i} \rightarrow A, j-1} \wedge \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage_j$.
-      The oracle remembers $PrevOutTrust = out_{A, j'}$ for  $j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) =
-      Player(j)\}$ and can observe all incoming and outgoing direct trusts of player $A$, $\forall v \in N^{-}(A)_{j-1},
-      DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1}, DTr_{A \rightarrow v, j-1}$. We note that
-      $N(A)_{j-1} = N(A)_j$. \\
+      The oracle remembers $PrevOutTrust = out_{A, j'}$ for  $j' = prev(j)$ and can observe all incoming and outgoing direct
+      trusts of player $A$, $\forall v \in N^{-}(A)_{j-1}, DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1},
+      DTr_{A \rightarrow v, j-1}$. We note that $N(A)_{j-1} = N(A)_j$. \\
       \begin{algorithm}[H]
          \label{conservativeoracle}
          \SetKwInOut{Input}{Input}
@@ -461,14 +465,13 @@
     \end{algorithm}
     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, according to theorem \ref{conservativeworld},
     all players will pass their turn.
-    Given that $Damage_{v,j} = out_{v,j'} - out_{v,j}$ where $j' = \max\{k \in \mathbb{N} : k < j \wedge Player(k) =
-    Player(j)\}$, or $j' = 0$ if $j$ is the first turn in which $Player(j) = v$, the algorithm generates turns:
+    Given that $Damage_{v,j} = out_{v,j'} - out_{v,j}$ where $j' = prev(j)$, the algorithm generates turns:
     $$Turn_j =
       \begin{cases}
          \emptyset, & Damage_{v,j-1} = 0 \\
-         \{Steal(y_1,N^{-}(v)_1),...,Steal(y_{|N^{-}(v)|},N^{-}(v)_{|N^{-}(v)|})\}, & Damage_{v,j-1} > 0
+         \bigcup\limits_{i=1}^{k}\{Steal(y_i,v_i)\}, & Damage_j > 0, N^{-}(A)_j = \{v_1,...,v_k\}
       \end{cases}$$
-    In the second case, it is $\sum\limits_{i=1}^{|N^{-}(v)|}y_i = \min(in_{v, j-1}, Damage_{v, j-1})$. From the
+    In the second case, it is $\sum\limits_{i=1}^{k}y_i = \min(in_{v, j-1}, Damage_{v, j-1})$. From the
     definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is obvious
     that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$
     because if $Loss_{v,j} < 0$, then $v$ has stolen more value than she has been stolen, thus she would not be following the
