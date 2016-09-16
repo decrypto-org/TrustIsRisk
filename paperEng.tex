@@ -481,28 +481,28 @@
        \min(in_{v, j}, Damage_{v, j})$.
     \end{lemma}
     \begin{proof} \ 
-       $j \in \mathbb{N}: j > j_0$. $v = Player(j)$.
+       $j \in \mathbb{N}: v = Player(j)$.
        \begin{itemize}
           \item $v \in Happy_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Happy_j$ because $Turn_{j} = \emptyset$,
              \item $Loss_{v, j} = 0$ because otherwise $v \notin Happy_j$,
              \item $Damage_{v, j} = 0$, or else any reduction in direct trust to $v$ would increase equally
-             $Loss_{v, j}$ (line 26), which cannot be decreased but during an Angry player's turn (line 27).
+             $Loss_{v, j}$ (line 18), which cannot be decreased again but during an Angry player's turn (line 20).
              \item $in_{v, j} \geq 0$
           \end{enumerate}
           Thus $\min(in_{v, j}, Damage_{v,j}) = \min(in_{v, j}, Loss_{v,j}) = 0$.
           \item $v \in Sad_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Sad_j$ because $Turn_{j} = \emptyset$, 
-             \item $in_{v, j} = 0$ (lines 13-14, 31-32),
+             \item $in_{v, j} = 0$ (lines 28-29),
              \item $Damage_{v, j} \geq 0 \wedge Loss_{v, j} \geq 0$.
           \end{enumerate}
           Thus $\min(in_{v, j}, Damage_{v,j}) = \min(in_{v, j}, Loss_{v,j}) = 0$.
           \item $v \in Angry_{j-1} \wedge v \in Happy_j$. Then the same argument as in the first case holds, if
-          we ignore the 1st argument.
+          we ignore the argument (1).
           \item $v \in Angry_j \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
-          we ignore the 1st argument.
+          we ignore the argument (1).
        \end{itemize}
     \end{proof}
 
