@@ -204,6 +204,11 @@
             \{Steal(x+y, B)\}$, where $A = Player(j_4)$.
          \end{itemize}
       \end{definition}
+      \begin{definition}[Previous/Next turn of a player] \ \\
+         Let $j \in \mathbb{N}$ a turn with $Player(j) = A$. We define $prev(j), next(j)$ as the previous and next turn
+         that $A$ is chosen to play respectively. More formally, $$prev(j) = \max{\{k \in \mathbb{N} : k < j \wedge Player(k)
+         = A\}}$$ $$next(j) = \min{\{k \in \mathbb{N} : k > j \wedge Player(k) = A\}}$$
+      \end{definition}
       \begin{definition}[$A$ is stolen $x$] \ \\
          Let $j, j'$ be two consecutive turns of $A$ ($j, j' : Player(j) = Player(j') = A \wedge j < j' \wedge \nexists j''
          \in \mathbb{N} \cap (j, j') : Player(j'') = A$). We say that $A$ has been stolen a value $x$ between $j$ and $j'$
