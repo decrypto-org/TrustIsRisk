@@ -530,8 +530,8 @@
        as the rest of the players are concerned, consider the algorithm \ref{transitivesteal}, which is a variation of the
        TrustIsRisk Game. \\
        As we can see from lines 5 and 18-20, $\forall j, \sum\limits_{v \in \mathcal{V}_j}Loss_v = in_{E, j_0-1}$, that is
-       the total loss is constant and equal to the total value stolen by $E$. Also, we can see in lines 3 and 29, which are
-       the only lines where the $Sad$ set is modified, that once a player enters the $Sad$ set, it is impossible to exit from
+       the total loss is constant and equal to the total value stolen by $E$. Also, as we can see in lines 3 and 29, which
+       are the only lines where the $Sad$ set is modified, once a player enters the $Sad$ set, it is impossible to exit from
        this set. Also, we can see that players in $Sad \cup Happy$ always pass their turn. We will now show that eventually
        the $Angry$ set will be empty, or equivalently that eventually every player will pass their turn. Suppose that it is
        possible to have an infinite amount of turns that players do not choose to pass. We know that the number of nodes is
@@ -546,7 +546,7 @@
        and the turns this will happen are infinite, the players must steal an infinite amount of value, which is impossible
        because the direct trusts are finite in number and in value. More precisely, let $\forall j \in \mathbb{N}, DTr_j =
        \sum\limits_{w,w' \in \mathcal{V}}DTr_{w \rightarrow w', j}$. Also, without loss of generality, suppose that $\forall
-       j \geq j_1, out_{A, j} = out_{A, j_0}$. \\ In $Turn_{j_1}$, $v$ steals $St_{j_1} = \sum\limits_{i=1}^{m}y_i$. Thus
+       j \geq j_1, out_{A, j} = out_{A, j_1}$. \\ In $Turn_{j_1}$, $v$ steals $St_{j_1} = \sum\limits_{i=1}^{m}y_i$. Thus
        $DTr_{j_1} = DTr_{j_1-1} - St_{j_1}$. Eventually there is a turn $j_2$ when every player in $N^{-}(v)$ will have
        played. Then $S_{j_2} \leq DTr_{j_1} - St_{j_1} = DTr_{j_1-1} - 2St_{j_1}$, since all players in $N^{-}(v)$ follow the
        conservative strategy, except maybe for $A$, who will not have been stolen anything due to the supposition. \\
