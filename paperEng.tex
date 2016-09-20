@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage[linesnumbered,ruled,noend]{algorithm2e}
 %\usepackage{algorithm}
+\usepackage{lipsum}
 %\usepackage{algpseudocode}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -68,7 +69,13 @@
 %  \addtolength{\algorithmicindent}{\myindent}
 %}
 %\newcommand{\endgroup}
-        
+\makeatletter
+\def\blfootnotemark{\xdef\@thefnmark{}\@footnotemark}
+\makeatother
+\makeatletter
+\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+\makeatother
+ 
 \begin{document}
   \begin{centering}
      \Large{\textbf{Trust Is Risk: Introducing a decentralized platform for financial trust}}
@@ -85,13 +92,14 @@
   \hfill
   \begin{minipage}[t]{7cm}
      \begin{flushright}
-        Dionysis Zindros \textdagger \\
+        Dionysis Zindros\textsuperscript{\textdagger}\blfootnotemark \\
         \textit{University of Athens} \\
         \texttt{dionyziz@di.uoa.gr}
      \end{flushright}
   \end{minipage}
   \hspace*{\fill} \\ \ \\
-  \textdagger Research supported by ERC project CODAMODA, project \#259152.
+  \blfootnote{\textsuperscript{\textdagger}Research supported by ERC project CODAMODA, project \#259152}
+%  \textdagger Research supported by ERC project CODAMODA, project \#259152.
 
   \section{Abstract}
   Reputation in centralized systems typically uses stars and review-based
