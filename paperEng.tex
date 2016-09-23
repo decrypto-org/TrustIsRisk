@@ -630,18 +630,33 @@
           \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
           valid flow from $A$ to $B$, $X$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)}x_{Av}$. Let $j$ be a turn where
           \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
-          out_{A, 0} - out_{A, j}$. Let $\forall v \in N^{+}(A)_0, x_{Av} = DTr_{A \rightarrow v, 0} - DTr_{A \rightarrow
-          v, j}$. For any conservative player $v \in N^{+}(A)_0$, let $\forall w \in N^{+}(v)_0, x_{vw} \leq DTr_{v
-          \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \sum\limits_{w \in N^{+}(A)_0}x_{vw} = x_{Av}$. This is possible
-          because $v$ is conservative, thus the value she stole from $A$ must have been stolen previously from her. More
-          generally, $\forall v \in \mathcal{V}_0 \setminus \{A,B\}, \forall w \in N^{+}(v)_0, x_{vw} \leq
-          DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \sum\limits_{w \in N^{+}(v)_0}x_{vw} = \sum\limits_{w \in
-          N^{-}(v)_0}x_{wv}$. Since the graph we build is a DAG in every step, which corresponds to a partial order, there
-          always exists a total order that we can get using an algorithm such as topoSort [citation needed]. Thus, by
-          choosing to calculate the outgoing flows only of the minimum element of this total order, it is possible to create
-          a valid flow network from $A$ to $B$ in exactly $|V(FG)| - 1$ iterations of the above steps.
+          out_{A, 0} - out_{A, j}$. We create a new graph $FG'$ such that $V(FG') = V(FG), E(FG') = E(FG), \forall (v, w) 
+          \in V(FG'), c'(v,w) = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}$. We execute the $maxFlow(A,B)$ algorithm
+          on $FG'$ and we get a flow $X'$. We will show that flow $X=X'$ is also valid for the initial graph $FG$ and that
+          $\sum\limits_{v \in N{+}(A)}x_{Av} = Loss_{A,j}$.
+          \begin{itemize}
+             \item The flow $X$ is obviously valid for the initial graph because $\forall (v,w) \in E(FG), c(v,w) = DTr_{v
+             \rightarrow w, 0} \geq DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j} = c'(v,w) \geq x_{vw}$ and it
+             already holds that $\forall v \in V(FG'), \sum\limits_{w \in N^{-}(v)}x'_{wv} = \sum\limits_{w \in N^{+}(v)}
+             x'_{vw}$, thus it also holds for the flows of $X$.
+             \item 
+          \end{itemize}
        \end{itemize}
     \end{proof}
+%2nd bullet
+%          \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
+%          valid flow from $A$ to $B$, $X$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)}x_{Av}$. Let $j$ be a turn where
+%          \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
+%          out_{A, 0} - out_{A, j}$. Let $\forall v \in N^{+}(A)_0, x_{Av} = DTr_{A \rightarrow v, 0} - DTr_{A \rightarrow
+%          v, j}$. For any conservative player $v \in N^{+}(A)_0$, let $\forall w \in N^{+}(v)_0, x_{vw} \leq DTr_{v
+%          \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \sum\limits_{w \in N^{+}(A)_0}x_{vw} = x_{Av}$. This is possible
+%          because $v$ is conservative, thus the value she stole from $A$ must have been stolen previously from her. More
+%          generally, $\forall v \in \mathcal{V}_0 \setminus \{A,B\}, \forall w \in N^{+}(v)_0, x_{vw} \leq
+%          DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \sum\limits_{w \in N^{+}(v)_0}x_{vw} = \sum\limits_{w \in
+%          N^{-}(v)_0}x_{wv}$. Since the graph we build is a DAG in every step, which corresponds to a partial order, there
+%          always exists a total order that we can get using an algorithm such as topoSort [citation needed]. Thus, by
+%          choosing to calculate the outgoing flows only of the minimum element of this total order, it is possible to create
+%          a valid flow network from $A$ to $B$ in exactly $|V(FG)| - 1$ iterations of the above steps.
 %OLD
 %          \item The flow to $A$ is the flow that results from the following process: After the execution of
 %          \ref{transitivesteal}, for each sad player iteratively replenish the $DTr$ stolen from the sad player by the one
