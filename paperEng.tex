@@ -639,7 +639,13 @@
              \rightarrow w, 0} \geq DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j} = c'(v,w) \geq x_{vw}$ and it
              already holds that $\forall v \in V(FG'), \sum\limits_{w \in N^{-}(v)}x'_{wv} = \sum\limits_{w \in N^{+}(v)}
              x'_{vw}$, thus it also holds for the flows of $X$.
-             \item 
+             \item We can easily see that $Loss_{A,j} \geq \sum\limits_{v \in N{+}(A)}x_{Av}$ because $Loss_{A,j} =
+             out_{A,0} - out_{A,j} = \sum\limits_{v \in N^{+}(A)}c'(A,v)$. To show that $Loss_{A,j} \leq
+             \sum\limits_{v \in N{+}(A)}x_{Av}$, we first suppose that $Loss_{A,j} > \sum\limits_{v \in N{+}(A)}x_{Av}$. We
+             will now prove that there exists a residual path from $A$ to $B$. 
+             We have proved that there exists a residual path from $A$ to $B$, thus $X'$ is not a maximum flow, which is a contradiction.
+             Thus $Loss_{A,j} \leq \sum\limits_{v \in N{+}(A)}x_{Av}$ and, since also $Loss_{A,j} \geq \sum\limits_{v \in
+             N{+}(A)}x_{Av}$, we deduce that $Loss_{A,j} = \sum\limits_{v \in N{+}(A)}x_{Av}$.
           \end{itemize}
        \end{itemize}
     \end{proof}
