@@ -898,10 +898,10 @@
     \begin{theorem}[Sybil resilience] \ \\
     \label{sybil}
        Let $\mathcal{B} \cup \mathcal{C} \subset \mathcal{V} (\mathcal{B} \cap \mathcal{C} = \emptyset)$ be a collusion of
-       players who are controlled by an adversary, Eve. Eve also controls the number of players in $\mathcal{C},
-       |\mathcal{C}|$, but players $C \in \mathcal{C}$ are not directly trusted by players outside the collusion, contrary
-       to players $B \in \mathcal{B}$ who may be directly trusted by any player in $\mathcal{V}$. It holds that
-       $Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
+       players who are controlled by an adversary, Eve. Eve also controls the number of players in the Sybil set
+       $\mathcal{C}, |\mathcal{C}|$, but players $C \in \mathcal{C}$ are not directly trusted by players outside the
+       collusion, contrary to players $B \in \mathcal{B}$, the corrupted set, who may be directly trusted by any player in
+       $\mathcal{V}$. It holds that $Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
     \end{theorem}
     \begin{proof}
        Suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns during which all the colluding players
