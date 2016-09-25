@@ -637,7 +637,7 @@
           valid flow from $A$ to $B$, $X$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)}x_{Av}$. Let $j$ be a turn where
           \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
           out_{A, 0} - out_{A, j}$. We create a new graph $FG'$ such that $V(FG') = V(FG), E(FG') = E(FG), \forall (v, w) 
-          \in V(FG'), c'(v,w) = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}$. We execute the $MaxFlow_{A \rightarrow
+          \in E(FG'), c'(v,w) = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}$. We execute the $MaxFlow_{A \rightarrow
           B}$ algorithm on $FG'$ and we get a flow $X'$. We will show that flow $X=X'$ is also valid for the initial graph
           $FG$ and that $\sum\limits_{v \in N{+}(A)}x_{Av} = Loss_{A,j}$.
           \begin{itemize}
@@ -651,7 +651,12 @@
              will now prove that there exists a residual path from $A$ to $B$. $Loss_{A,j} = \sum\limits_{v \in N^{+}(A)}
              (DTr_{A \rightarrow v, 0} - DTr_{A \rightarrow v, j}) = \sum\limits_{v \in N^{+}(A)}c_{Av}$. From the
              supposition we can see that $\sum\limits_{v \in N^{+}(A)}c_{Av} > \sum\limits_{v \in N^{+}(A)}x_{Av}
-             \Rightarrow \exists v \in N^{+}(A) : c_{Av} > x_{Av}$. \\ We will now show that $\forall v \in V(FG) \setminus
+             \Rightarrow \exists v \in N^{+}(A) : c_{Av} > x_{Av}$. \\
+             Since $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{-}(v)}c_{wv} \overset{conservative}{=}
+             \sum\limits_{w \in N^{+}(v)}c_{vw} \wedge \sum\limits_{w \in N^{-}(v)}x_{wv} \overset{flow}{=}
+             \sum\limits_{w \in N^{+}(v)}x_{vw}$, it holds that $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in
+             N^{-}(v)}(c_{wv} - x_{wv}) = \sum\limits_{w \in N^{+}(v)}(c_{vw} - x_{vw})$. \\
+             We will now show that $\forall v \in V(FG) \setminus
              \{A,B\}, (\exists w \in V(FG) : c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. Suppose
              that the previous statement is false. Then it would hold that $\exists v \in V(FG) \setminus \{A,B\} :
              (\exists w \in V(FG) : c_{wv} > x_{wv} \wedge \forall u \in V(FG), c_{vu} = x_{vu})$ (1). But then we have
