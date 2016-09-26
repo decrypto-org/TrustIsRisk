@@ -874,19 +874,6 @@
        If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to steal
        all their incoming direct trust, thus they will act in a way identical to following the evil strategy as far as
        maxFlow is concerned, thus, by \ref{trustflow}, $Tr_{A \rightarrow T} = maxFlow(A, T) = Tr_{A \rightarrow S}$.
-%       We will prove theorem \ref{trustmany} by induction.
-%       \begin{itemize}
-%          \item $|S| = 1, S = \{B\}, DTr_{B \rightarrow T_0} = \infty$. Obviously $maxFlow(A, T_0) = maxFlow(A, B) =
-%          Tr_{A \rightarrow B} = Tr_{A \rightarrow S}$, since all the flow that reaches $B$ can also reach $T_0$ due to the
-%          unbounded direct trust from $B$ to $T_0$.
-%          \item Suppose that for any $S \subset \mathcal{V}, \forall B \in S, DTr_{B \rightarrow T} = \infty$ it holds that
-%          $maxFlow(A, T) = Tr_{A \rightarrow S}$.
-%          \item We will show that for $S' = S \cup \{C\}, \forall B \in S, DTr_{B \rightarrow T} = \infty,
-%          DTr_{T \rightarrow T'} = \infty, DTr_{C \rightarrow T'} = \infty$ it holds that $maxFlow(A, T') =
-%          Tr_{A \rightarrow S'}$. \\
-%          From the inductive ypothesis we know that $Tr_{A \rightarrow S} = maxFlow(A, T)$. If $T'$ chooses the evil strategy,
-%          $T$ and $C$ will have to steal all their incoming direct trust, thus they will act  
-%       \end{itemize}
     \end{proof}
 
     One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
@@ -901,6 +888,7 @@
     $C \in \mathcal{C}$ can be trusted only by players $D \in \mathcal{B} \cup \mathcal{C}$ ($DTr_{D \rightarrow C} \geq 0$)
     and not by players $A \in \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$ ($DTr_{A \rightarrow C} = 0$).
     \begin{lemma}[$\forall S \subset \mathcal{V}, v \in S \Rightarrow \forall w \in \mathcal{V}, (v,w) \notin MinCut$] \ \\
+    \label{mincutmany}
        Let $S \subset \mathcal{V}$. When calculating $maxFlow_{A \rightarrow S}$, it is impossible to have an edge $(v,w) \in
        MinCut : v \in S$.
     \end{lemma}
@@ -935,13 +923,10 @@
        \{P_1, P_2\}$. The edges from $P_2$ to $P_1$ will carry a flow $X_P, X_{P'}$ and the edges inside of $P_1$ will carry
        a flow $X_T, X_{T'}$ from the calculation of $maxFlow(A, T), maxFlow(A, T')$ respectively. $maxFlow(A, T) \leq
        maxFlow(A, T')$ because the maximal configuration of $X_T$ can be part of a valid configuration of $X_{T'}$ since
-       edges in $\mathcal{B}$ are edges in $\mathcal{B} \cup \mathcal{C}$. If both maxFlows are not infinite, then their
-       MinCut is either entirely in $P_2$ or in $P_2$ and the edges from $P_2$ to $P_1$, because otherwise $minCut = \infty$
-       since it contains saturated infinite edges. However, then in both cases the minCut is the same, thus $maxFlow(A, T) =
-       maxFlow(A, T')$. Finally, we will show that if $maxFlow(A, T') = \infty$, then $maxFlow(A, T) = \infty$. If
-       $maxFlow(A, T') = \infty$, then there is infinite flow entering $P_1$ and, because all endpoints of flows entering
-       $P_1$ are in $\mathcal{B}$, the same infinite flow can be assigned in the case of $maxFlow(A, T)$, thus
-       $maxFlow(A, T) = \infty$. Thus we conclude that $Tr_{A \rightarrow \mathcal{B}} =
+       edges in $\mathcal{B}$ are edges in $\mathcal{B} \cup \mathcal{C}$. Both maxFlows are not infinite, because $out_A <
+       \infty$ and according to \ref{mincutmany} all the edges in both $MinCut$s have their starting point outside
+       $\mathcal{B} \cup \mathcal{C}$. However, then in both cases the minCut is the same, thus $maxFlow(A, T) =
+       maxFlow(A, T')$. MISSING Thus we conclude that $Tr_{A \rightarrow \mathcal{B}} =
        Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
     \end{proof}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless. \\
