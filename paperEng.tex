@@ -588,7 +588,7 @@
 
     \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
     \label{trustflow}
-       $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$ (Treating direct trusts as capacities)
+       $Tr_{A \rightarrow B} = MaxFlow(A, B)$ (Treating direct trusts as capacities)
     \end{theorem}
     \begin{proof} \ \\
        Suppose that the flow graph $FG$ is composed of $V(FG)$ nodes and $E(FG)$ edges. Each edge $e_{vw}$ has a
@@ -602,10 +602,10 @@
        \end{enumerate} (p.709 Introduction to algorithms (CLRS), third edition)
        First we will show that the MaxFlow can be a result of a valid execution of \ref{transitivesteal} and afterwards we
        will show that each valid execution of algorithm \ref{transitivesteal} corresponds to a valid flow from $A$ to $B$.
-       Thus we will have proven that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+       Thus we will have proven that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
        \begin{itemize}
           \item We will first show that there exists an execution of algorithm \ref{transitivesteal} such that $Loss_A =
-          maxFlow_{A \rightarrow B}$. Let $X$ be the flows as returned by an execution of the $maxFlow_{A \rightarrow B}$
+          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $maxFlow(A, B)$
           algorithm on $\mathcal{G}_0$. It is known that all flows are DAGs [citation needed] and that all DAGs are a partial
           order of their nodes based on the partial ordering $x_{vw} > 0 \Rightarrow v < w$ [citation needed]. From this
           partial order, we can create a total order with an algorithm such as topoSort [citation needed]. The maximum
@@ -615,7 +615,7 @@
           for the removed node. If the removed node was maximum or minimum, the new total order is obvious. \\
           Player $B$ is the maximum node in turn 0 because she is the sink of the MaxFlow algorithm, thus she is the first to
           be chosen to play and steals all her incoming and outgoing trust. $\forall v \in N^{-}(B)_0, x_{vB} \leq
-          DTr_{v \rightarrow B, 0}$ and $\sum\limits_{v \in N^{-}(B)_0}x_{vB} = maxFlow_{A \rightarrow B}$. The graph
+          DTr_{v \rightarrow B, 0}$ and $\sum\limits_{v \in N^{-}(B)_0}x_{vB} = maxFlow(A, B)$. The graph
           $FG_1 = FG_0 \setminus \{B\}$ is also a DAG and corresponds to the previous total order if we remove
           the maximum element, $B$. \\
           Suppose that $\forall j \in [k], k > 0$, the player $v$ corresponding to the maximum element is chosen to play for
@@ -632,13 +632,13 @@
           We have proven using induction that if the algorithm chooses only maximum nodes, after exactly $|V(FG)| - 1$
           turns (we do not count idle player $A$) every evil and conservative player will have stolen at least value equal
           to the flow passing through them and player $A$ will have been stolen value exactly equal to
-          $maxFlow_{A \rightarrow B} \Rightarrow Loss_A = maxFlow_{A \rightarrow B}$.
+          $maxFlow(A, B) \Rightarrow Loss_A = maxFlow(A, B)$.
           \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
           valid flow from $A$ to $B$, $X$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)}x_{Av}$. Let $j$ be a turn where
           \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
           out_{A, 0} - out_{A, j}$. We create a new graph $FG'$ such that $V(FG') = V(FG), E(FG') = E(FG), \forall (v, w) 
-          \in E(FG'), c'(v,w) = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}$. We execute the $MaxFlow_{A \rightarrow
-          B}$ algorithm on $FG'$ and we get a flow $X'$. We will show that flow $X=X'$ is also valid for the initial graph
+          \in E(FG'), c'(v,w) = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}$. We execute the $MaxFlow(A, B)$
+          algorithm on $FG'$ and we get a flow $X'$. We will show that flow $X=X'$ is also valid for the initial graph
           $FG$ and that $\sum\limits_{v \in N{+}(A)}x_{Av} = Loss_{A,j}$.
           \begin{itemize}
              \item The flow $X$ is obviously valid for the initial graph because $\forall (v,w) \in E(FG), c(v,w) = DTr_{v
@@ -666,7 +666,7 @@
              which is a contradiction. Thus we showed that $\forall v \in V(FG) \setminus \{A,B\}, (\exists w \in V(FG) :
              c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. \\
 %             The flow graph that resulted from
-%             $MaxFlow_{A \rightarrow B}$ is a DAG, thus there exists a corresponding total ordering, as we saw before.
+%             $MaxFlow(A, B)$ is a DAG, thus there exists a corresponding total ordering, as we saw before.
 %             Obviously $A = v_0$ and $B = v_{|V(FG)|}$. When an element $v_k$ is in the $k$-th position in this total
 %             ordering, it has incoming flow only from smaller elements and outgoing flow only to bigger elements, that is
 %             $\forall l < k, x_{kl} = 0 \wedge \forall m > k, x_{mk} = 0$.
@@ -680,7 +680,7 @@
              deduce that $Loss_{A,j} = \sum\limits_{v \in N{+}(A)}x_{Av}$.
           \end{itemize}
        \end{itemize}
-       We finally conclude that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+       We finally conclude that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
     \end{proof}
 %2nd bullet
 %          \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
@@ -723,11 +723,11 @@
 %          \end{itemize}
 %             
 %       \end{itemize}
-%       Thus the maximum value $A$ can lose if $B$ is evil is $Tr_{A \rightarrow B} = maxFlow_{A \rightarrow B}$.
+%       Thus the maximum value $A$ can lose if $B$ is evil is $Tr_{A \rightarrow B} = maxFlow(A, B)$.
 %\ \\ OLDER
 %       \begin{enumerate}
-%	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$.
-%          We know that $MaxFlow_{A \rightarrow B} = MinCut_{A \rightarrow B}$. We will show that, if everybody except
+%	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow(A, B)$.
+%          We know that $MaxFlow(A, B) = MinCut_{A \rightarrow B}$. We will show that, if everybody except
 %          A and B follows the conservative strategy,  $Tr_{A \rightarrow B} \leq MinCut_{A \rightarrow B}$. Suppose that in
 %          round $i$ all the members of the MinCut, $P$, have stolen the maximum value they can from members that belong
 %          in the MaxFlow graph and nobody in the partition in which $A$ belongs has stolen yet any value. Let the total
@@ -738,25 +738,25 @@
 %          stolen value from members of the partition of $B$ since members of $P$ disconnect the two partitions and have
 %          already played their turns, thus $\forall i' > i, St_{i'} \leq St_i$. There exists a round, $k$, when all the
 %          conservative players stop stealing, so in the worst case $A$ will have been stolen
-%          $Tr_{A \rightarrow B} = St_k \leq MinCut_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
-%          \item We can see that $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because the strategy where each
+%          $Tr_{A \rightarrow B} = St_k \leq MinCut_{A \rightarrow B} = MaxFlow(A, B)$.
+%          \item We can see that $Tr_{A \rightarrow B} \geq MaxFlow(A, B)$ because the strategy where each
 %          one of the non-idle players steals value equal to the incoming flows from their respective friends is a valid
 %          strategy that does not contradict with the conservative strategy, since for every conservative player $w$ it holds that
 %          $\sum\limits_{v \in N^{-}(w)}x_{vw} = \sum\limits_{v \in N^{+}(w)}x_{wv}$ and according to the strategy each
 %          conservative player will have been stolen value equal to $\sum\limits_{v \in N^{+}(w)}x_{wv}$. More concretely,
 %          let $Player(j) = B$ and $Player(j+d) = C :$
 %       \end{enumerate}
-%       Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow_{A \rightarrow B}$.
+%       Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
 %        OLD PROOF START
 %        \begin{enumerate}
-%           \item $Tr_{A \rightarrow B} \geq MaxFlow_{A \rightarrow B}$ because by the definition of $Tr_{A \rightarrow B}$,
+%           \item $Tr_{A \rightarrow B} \geq MaxFlow(A, B)$ because by the definition of $Tr_{A \rightarrow B}$,
 %           B leaves taking with him all the incoming trust, so there is no trust flowing towards him after leaving.
-%           $Tr_{A \rightarrow B} < MaxFlow_{A \rightarrow B}$ would imply that after B left, there would still remain trust
+%           $Tr_{A \rightarrow B} < MaxFlow(A, B)$ would imply that after B left, there would still remain trust
 %           flowing from A to B.
-%           \item $Tr_{A \rightarrow B} \leq MaxFlow_{A \rightarrow B}$ \\
-%           Suppose that $Tr_{A \rightarrow B} > MaxFlow_{A \rightarrow B}$ (1). Then, using the min cut - max flow theorem we
+%           \item $Tr_{A \rightarrow B} \leq MaxFlow(A, B)$ \\
+%           Suppose that $Tr_{A \rightarrow B} > MaxFlow(A, B)$ (1). Then, using the min cut - max flow theorem we
 %           see that there is a set of capacities $U= \{u_1,...,u_n\}$ with flows $X = \{x_1,...,x_n\}$ such that
-%           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow_{A \rightarrow B}$ and, if severed $(\forall i \in [n] \: u_i' = 0)$
+%           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow(A, B)$ and, if severed $(\forall i \in [n] \: u_i' = 0)$
 %           the flow from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No
 %           strategy followed by B could reduce the value of A, so our supposition (1) cannot be true.
 %        \end{enumerate}
@@ -868,7 +868,7 @@
     \begin{theorem}[Trust to multiple players] \ \\
     \label{trustmany}
        Let $S \subset \mathcal{V}, T$ auxiliary player such that $\forall B \in S, DTr_{B \rightarrow T} = \infty$.
-       It holds that $\forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow_{A \rightarrow T}$.
+       It holds that $\forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow(A, T)$.
     \end{theorem}       
     \begin{proof}
        If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to steal
@@ -889,13 +889,13 @@
     and not by players $A \in \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$ ($DTr_{A \rightarrow C} = 0$).
     \begin{lemma}[$\forall S \subset \mathcal{V}, v \in S \Rightarrow \forall w \in \mathcal{V}, (v,w) \notin MinCut$] \ \\
     \label{mincutmany}
-       Let $S \subset \mathcal{V}$. When calculating $maxFlow_{A \rightarrow S}$, it is impossible to have an edge $(v,w) \in
+       Let $S \subset \mathcal{V}$. When calculating $maxFlow(A, S)$, it is impossible to have an edge $(v,w) \in
        MinCut : v \in S$.
     \end{lemma}
     \begin{proof}
-       Let $T$ be the auxiliary node ($\forall v \in S, c_{vT} = \infty$). Since $out_A < \infty$, $maxFlow_{A \rightarrow S}
+       Let $T$ be the auxiliary node ($\forall v \in S, c_{vT} = \infty$). Since $out_A < \infty$, $maxFlow(A, S)
        < \infty$. All edges in the $MinCut$ are saturated, thus $\nexists v \in S : (v,T) \in MinCut$, or else
-       $maxFlow_{A \rightarrow S} = \infty$. Suppose that $\exists v \in S, w \in \mathcal{V} : (v,w) \in MinCut$. Then this
+       $maxFlow(A, S) = \infty$. Suppose that $\exists v \in S, w \in \mathcal{V} : (v,w) \in MinCut$. Then this
        edge must be saturated, that is $x_{vw} = c_{vw} > 0$. However, there exists an alternative flow configuration $X'$
        where $\forall (u,u') \in \mathcal{E} \setminus \{(v,w), (v,T)\}, x_{u,u'}' = x_{u,u'}, x_{vw}' = 0, x_{vT}' = x_{vT}
        + x_{vw}$, which is valid because $\sum\limits_{w \in N^{+}(v)}x_{vw} = \sum\limits_{w \in N^{+}(v)}x_{vw}' \wedge
@@ -918,16 +918,24 @@
        \mathcal{C}|], Strategy(Player(j+d)) = Evil$. Let $T$ be an auxiliary player such that $\forall B \in \mathcal{B},
        DTr_{B \rightarrow T} = \infty$ and $T'$ be another auxiliary player such that $\forall D \in \mathcal{B} \cup
        \mathcal{C}, DTr_{D \rightarrow T'} = \infty$. According to \ref{trustmany}, $Tr_{A \rightarrow \mathcal{B}} =
-       maxFlow(A, T), Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow(A, T')$. Consider the partition of
-       $\mathcal{V}, \mathcal{P} = \{\mathcal{B} \cup \mathcal{C}, \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})\} =
-       \{P_1, P_2\}$. The edges from $P_2$ to $P_1$ will carry a flow $X_P, X_{P'}$ and the edges inside of $P_1$ will carry
-       a flow $X_T, X_{T'}$ from the calculation of $maxFlow(A, T), maxFlow(A, T')$ respectively. $maxFlow(A, T) \leq
-       maxFlow(A, T')$ because the maximal configuration of $X_T$ can be part of a valid configuration of $X_{T'}$ since
-       edges in $\mathcal{B}$ are edges in $\mathcal{B} \cup \mathcal{C}$. Both maxFlows are not infinite, because $out_A <
-       \infty$ and according to \ref{mincutmany} all the edges in both $MinCut$s have their starting point outside
-       $\mathcal{B} \cup \mathcal{C}$. However, then in both cases the minCut is the same, thus $maxFlow(A, T) =
-       maxFlow(A, T')$. MISSING Thus we conclude that $Tr_{A \rightarrow \mathcal{B}} =
-       Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
+       maxFlow(A, T), Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow(A, T')$. From lemma \ref{mincutmany}, we know
+       that the initial nodes of all edges in both $MinCut$s are outside $\mathcal{B} \cup \mathcal{C}$ and thus all edges in
+       both $MinCut$s exist and have the same capacities in either case. Thus the flow $X$ resulting from $maxFlow(A, T)$ is
+       a valid flow for the second case if we set $\forall v,w \in \mathcal{V} : v \in \mathcal{C} \vee w \in \mathcal{C},
+       x_{vw} = 0$ and the flow $X'$ resulting from $maxFlow(A, T')$ is a valid flow for the first case if we exclude the
+       flows of all the edges that have at least one end in $\mathcal{C}$. In both cases the $MinCut$ will be the same, thus
+       $maxFlow(A, T) = maxFlow(A, T') \Rightarrow Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup
+       \mathcal{C}}$.
+%       Consider the partition of
+%       $\mathcal{V}, \mathcal{P} = \{\mathcal{B} \cup \mathcal{C}, \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})\} =
+%       \{P_1, P_2\}$. The edges from $P_2$ to $P_1$ will carry a flow $X_P, X_{P'}$ and the edges inside of $P_1$ will carry
+%       a flow $X_T, X_{T'}$ from the calculation of $maxFlow(A, T), maxFlow(A, T')$ respectively. $maxFlow(A, T) \leq
+%       maxFlow(A, T')$ because the maximal configuration of $X_T$ can be part of a valid configuration of $X_{T'}$ since
+%       edges in $\mathcal{B}$ are edges in $\mathcal{B} \cup \mathcal{C}$. Both maxFlows are not infinite, because $out_A <
+%       \infty$ and according to \ref{mincutmany} all the edges in both $MinCut$s have their starting point outside
+%       $\mathcal{B} \cup \mathcal{C}$. However, then in both cases the minCut is the same, thus $maxFlow(A, T) =
+%       maxFlow(A, T')$. MISSING Thus we conclude that $Tr_{A \rightarrow \mathcal{B}} =
+%       Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
     \end{proof}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless. \\
 
