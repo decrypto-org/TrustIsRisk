@@ -868,7 +868,7 @@
     \begin{theorem}[Trust to multiple players] \ \\
     \label{trustmany}
        Let $S \subset \mathcal{V}, T$ auxiliary player such that $\forall B \in S, DTr_{B \rightarrow T} = \infty$.
-       It holds that $\forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow(A, T)$.
+       It holds that $\forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow_{A \rightarrow T}$.
     \end{theorem}       
     \begin{proof}
        If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to steal
