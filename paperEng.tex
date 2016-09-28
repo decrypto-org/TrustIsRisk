@@ -911,21 +911,27 @@
        $\mathcal{V}$. It holds that $Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
     \end{theorem}
     \begin{proof}
-       Suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns during which all the colluding players
-       choose actions according to the evil strategy. More formally, suppose that $\exists j: \forall d \in [|\mathcal{B}
-       \cup \mathcal{C}|], Player(j+d) \in \mathcal{B} \cup \mathcal{C} \wedge \forall d_1, d_2 \in [|\mathcal{B} \cup
-       \mathcal{C}|], d_1 \neq d_2, Player(j + d_1) \neq Player(j + d_2) \wedge \forall d \in [|\mathcal{B} \cup
-       \mathcal{C}|], Strategy(Player(j+d)) = Evil$. Let $T$ be an auxiliary player such that $\forall B \in \mathcal{B},
-       DTr_{B \rightarrow T} = \infty$ and $T'$ be another auxiliary player such that $\forall D \in \mathcal{B} \cup
-       \mathcal{C}, DTr_{D \rightarrow T'} = \infty$. According to \ref{trustmany}, $Tr_{A \rightarrow \mathcal{B}} =
-       maxFlow(A, T), Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow(A, T')$. From lemma \ref{mincutmany}, we know
-       that the initial nodes of all edges in both $MinCut$s are outside $\mathcal{B} \cup \mathcal{C}$ and thus all edges in
-       both $MinCut$s exist and have the same capacities in either case. Thus the flow $X$ resulting from $maxFlow(A, T)$ is
-       a valid flow for the second case if we set $\forall v,w \in \mathcal{V} : v \in \mathcal{C} \vee w \in \mathcal{C},
-       x_{vw} = 0$ and the flow $X'$ resulting from $maxFlow(A, T')$ is a valid flow for the first case if we exclude the
-       flows of all the edges that have at least one end in $\mathcal{C}$. In both cases the $MinCut$ will be the same, thus
-       $maxFlow(A, T) = maxFlow(A, T') \Rightarrow Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup
-       \mathcal{C}}$.
+       Suppose two separate games $\mathcal{G}_1 = (\mathcal{V}_1,\mathcal{E}_1), \mathcal{G}_2 = (\mathcal{V}_2,
+       \mathcal{E}_2)$ with $(\mathcal{B} \subset \mathcal{V(G)}_1 \wedge \mathcal{B} \subset \mathcal{V(G)}_2) \wedge
+       (\mathcal{C} \subset \mathcal{V}_1 \wedge \mathcal{C} \cap \mathcal{V}_2 = \emptyset$. Suppose also that there exist
+       $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game and $|\mathcal{B}|$ consecutive turns for the
+       second game during which all the colluding players choose actions according to the evil strategy. More formally,
+       suppose that $\exists j \in \mathbb{N} : \forall d_1 \in [|\mathcal{B} \cup \mathcal{C}|], Player(j+d) \in
+       \mathcal{B} \cup \mathcal{C} \wedge \forall d_1, d_2 \in [|\mathcal{B} \cup \mathcal{C}|], d_1 \neq d_2, Player(j +
+       d_1) \neq Player(j + d_2) \wedge \forall d \in [|\mathcal{B} \cup \mathcal{C}|], Strategy(Player(j+d)) = Evil$ for the
+       first and likewise for the second game. Let $T_1$ be an auxiliary player such that $\forall B \in \mathcal{B} \cup
+       \mathcal{C}, DTr_{B \rightarrow T_1} = \infty$ and $T_2$ be another auxiliary player such that $\forall D \in
+       \mathcal{B}, DTr_{D \rightarrow T_2} = \infty$. According to \ref{trustmany}, $Tr_{A \rightarrow \mathcal{B} \cup
+       \mathcal{C}} = maxFlow(A, T_1), Tr_{A \rightarrow \mathcal{B}} = maxFlow(A, T_2)$. From lemma \ref{mincutmany}, we
+       know that $\forall (v,w) \in MinCut, v \notin \mathcal{B} \cup \mathcal{C}$ and thus $e \in MinCut_1 \Rightarrow e \in
+       \mathcal{E}_2 \wedge e \in MinCut_2 \Rightarrow e \in \mathcal{E}_1 \wedge \forall e \in MinCut_1 \cup MinCut_2,
+       c_1(e) = c_2(e)$. Thus the flow $X_1$ resulting from $maxFlow(A, T_1)$ is a valid flow for the second case if we set
+       $\forall e \in \mathcal{E}_2, x_{e,2} = x_{e,1}$ and the flow $X_2$ resulting from $maxFlow(A, T_2)$ is a valid
+       flow for the first case if we set $\forall e \in \mathcal{E}_2 \setminus \mathcal{C}, x_{e,1} = x_{e,2} \wedge
+       \forall e \in \mathcal{C}, x_{e,1} = 0$. From these two observations, we deduce that the two $maxFlow$s are equal,
+       because otherwise the lower $maxFlow$ of the two could be exchanged with the flow from the higher, thus it would not
+       have been $maxFlow$. Thus $maxFlow(A, T_1) = maxFlow(A, T_2) \Rightarrow Tr_{A \rightarrow \mathcal{B}} = Tr_{A
+       \rightarrow \mathcal{B} \cup \mathcal{C}}$.
 %       Consider the partition of
 %       $\mathcal{V}, \mathcal{P} = \{\mathcal{B} \cup \mathcal{C}, \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})\} =
 %       \{P_1, P_2\}$. The edges from $P_2$ to $P_1$ will carry a flow $X_P, X_{P'}$ and the edges inside of $P_1$ will carry
