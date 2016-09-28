@@ -634,37 +634,48 @@
           to the flow passing through them and player $A$ will have been stolen value exactly equal to
           $maxFlow(A, B) \Rightarrow Loss_A = maxFlow(A, B)$.
           \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
-          valid flow from $A$ to $B$, $X$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)}x_{Av}$. Let $j$ be a turn where
+          valid flow from $A$ to $B$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)_0}x_{Av}$. Let $j$ be a turn where
           \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
-          out_{A, 0} - out_{A, j}$. We create a new graph $FG'$ such that $V(FG') = V(FG), E(FG') = E(FG), \forall (v, w) 
-          \in E(FG'), c'(v,w) = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}$. We execute the $MaxFlow(A, B)$
-          algorithm on $FG'$ and we get a flow $X'$. We will show that flow $X=X'$ is also valid for the initial graph
-          $FG$ and that $\sum\limits_{v \in N{+}(A)}x_{Av} = Loss_{A,j}$.
-          \begin{itemize}
-             \item The flow $X$ is obviously valid for the initial graph because $\forall (v,w) \in E(FG), c(v,w) = DTr_{v
-             \rightarrow w, 0} \geq DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j} = c'(v,w) \geq x_{vw}$ and it
-             already holds that $\forall v \in V(FG'), \sum\limits_{w \in N^{-}(v)}x'_{wv} = \sum\limits_{w \in N^{+}(v)}
-             x'_{vw}$, thus it also holds for the flows of $X$.
-             \item We can easily see that $Loss_{A,j} \geq \sum\limits_{v \in N{+}(A)}x_{Av}$ because $Loss_{A,j} =
-             out_{A,0} - out_{A,j} = \sum\limits_{v \in N^{+}(A)}c'(A,v)$. To show that $Loss_{A,j} \leq
-             \sum\limits_{v \in N{+}(A)}x_{Av}$, we first suppose that $Loss_{A,j} > \sum\limits_{v \in N{+}(A)}x_{Av}$. We
-             will now prove that there exists a residual path from $A$ to $B$. $Loss_{A,j} = \sum\limits_{v \in N^{+}(A)}
-             (DTr_{A \rightarrow v, 0} - DTr_{A \rightarrow v, j}) = \sum\limits_{v \in N^{+}(A)}c_{Av}$. From the
-             supposition we can see that $\sum\limits_{v \in N^{+}(A)}c_{Av} > \sum\limits_{v \in N^{+}(A)}x_{Av}
-             \Rightarrow \exists v \in N^{+}(A) : c_{Av} > x_{Av}$. \\
-             Since $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{-}(v)}c_{wv} \overset{conservative}{=}
-             \sum\limits_{w \in N^{+}(v)}c_{vw} \wedge \sum\limits_{w \in N^{-}(v)}x_{wv} \overset{flow}{=}
-             \sum\limits_{w \in N^{+}(v)}x_{vw}$, it holds that $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in
-             N^{-}(v)}(c_{wv} - x_{wv}) = \sum\limits_{w \in N^{+}(v)}(c_{vw} - x_{vw})$. \\
-             We will now show that $\forall v \in V(FG) \setminus
-             \{A,B\}, (\exists w \in V(FG) : c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. Suppose
-             that the previous statement is false. Then it would hold that $\exists v \in V(FG) \setminus \{A,B\} :
-             (\exists w \in V(FG) : c_{wv} > x_{wv} \wedge \forall u \in V(FG), c_{vu} = x_{vu})$ (1). But then we have
-             $\sum\limits_{w \in V(FG)}c_{wv} \overset{(1)}{>} \sum\limits_{w \in V(FG)}x_{wv} \overset{flow}{=}
-             \sum\limits_{w \in V(FG)}x_{vw} \overset{(1)}{=} \sum\limits_{w \in V(FG)}c_{vw} \overset{conservative}{=}
-             \sum\limits_{w \in V(FG)}c_{wv} \Rightarrow \sum\limits_{w \in V(FG)}c_{wv} > \sum\limits_{w \in V(FG)}c_{wv}$
-             which is a contradiction. Thus we showed that $\forall v \in V(FG) \setminus \{A,B\}, (\exists w \in V(FG) :
-             c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. \\
+          out_{A, 0} - out_{A, j}$. We create a new graph $FG'$ such that $V(FG') = V(FG) \cup T, E(FG') = E(FG) \cup
+          \{(T, v) : v \in Sad_j\} \cup (T, A), \forall (v, w) \in E(FG), c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v
+          \rightarrow w, j}, \forall v \in Sad_j, c'_{Tv} = c'_{TA} = \infty$ ($T$ is an auxiliary source). We execute the
+          $MaxFlow(T, B)$ algorithm on $FG'$ and we get a flow $X' : \forall v,w \in V(FG), x'_{vw} = c'_{vw}$ (with all the
+          edges, except for the auxiliary ones, saturated). Thus $\sum\limits_{v \in N^{+}(A)_0}x_{Av} = Loss_{A, j}$.
+          If we create a new graph $FG''$ with $V(FG'') = V(FG'), E(FG'') = E(FG'), \forall v \in Sad_j, c''_{Tv} = 0,
+          c''_{TA} = \infty, \forall v,w \in V(FG), c''_{vw} = c_{vw}$ and execute the $MaxFlow(T, B) = X''$ algorithm on
+          $FG''$, $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} = \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$ (the outgoing flow from
+          $A$ will remain the same as in $FG'$) since no capacity accesible from $A$ has been modified (the only changed
+          capacities are those that begin from $T$ and there is no incoming flow to $T$) and the outgoing flow from $A$ was
+          already saturated. Thus the resulting flow is equal to $Loss_{A, j}$, or $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} =
+          \sum\limits_{v \in N^{+}(A)_0}c_{Av} = Loss_{A, j}$.
+       \end{itemize}
+       We finally conclude that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
+    \end{proof}
+%          \begin{itemize}
+%             \item The flow $X$ is obviously valid for the initial graph because $\forall (v,w) \in E(FG), c(v,w) = DTr_{v
+%             \rightarrow w, 0} \geq DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j} = c'(v,w) \geq x_{vw}$ and it
+%             already holds that $\forall v \in V(FG'), \sum\limits_{w \in N^{-}(v)}x'_{wv} = \sum\limits_{w \in N^{+}(v)}
+%             x'_{vw}$, thus it also holds for the flows of $X$.
+%             \item We can easily see that $Loss_{A,j} \geq \sum\limits_{v \in N{+}(A)}x_{Av}$ because $Loss_{A,j} =
+%             out_{A,0} - out_{A,j} = \sum\limits_{v \in N^{+}(A)}c'(A,v)$. To show that $Loss_{A,j} \leq
+%             \sum\limits_{v \in N{+}(A)}x_{Av}$, we first suppose that $Loss_{A,j} > \sum\limits_{v \in N{+}(A)}x_{Av}$. We
+%             will now prove that there exists a residual path from $A$ to $B$. $Loss_{A,j} = \sum\limits_{v \in N^{+}(A)}
+%             (DTr_{A \rightarrow v, 0} - DTr_{A \rightarrow v, j}) = \sum\limits_{v \in N^{+}(A)}c_{Av}$. From the
+%             supposition we can see that $\sum\limits_{v \in N^{+}(A)}c_{Av} > \sum\limits_{v \in N^{+}(A)}x_{Av}
+%             \Rightarrow \exists v \in N^{+}(A) : c_{Av} > x_{Av}$. \\
+%             Since $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{-}(v)}c_{wv} \overset{conservative}{=}
+%             \sum\limits_{w \in N^{+}(v)}c_{vw} \wedge \sum\limits_{w \in N^{-}(v)}x_{wv} \overset{flow}{=}
+%             \sum\limits_{w \in N^{+}(v)}x_{vw}$, it holds that $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in
+%             N^{-}(v)}(c_{wv} - x_{wv}) = \sum\limits_{w \in N^{+}(v)}(c_{vw} - x_{vw})$. \\
+%             We will now show that $\forall v \in V(FG) \setminus
+%             \{A,B\}, (\exists w \in V(FG) : c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. Suppose
+%             that the previous statement is false. Then it would hold that $\exists v \in V(FG) \setminus \{A,B\} :
+%             (\exists w \in V(FG) : c_{wv} > x_{wv} \wedge \forall u \in V(FG), c_{vu} = x_{vu})$ (1). But then we have
+%             $\sum\limits_{w \in V(FG)}c_{wv} \overset{(1)}{>} \sum\limits_{w \in V(FG)}x_{wv} \overset{flow}{=}
+%             \sum\limits_{w \in V(FG)}x_{vw} \overset{(1)}{=} \sum\limits_{w \in V(FG)}c_{vw} \overset{conservative}{=}
+%             \sum\limits_{w \in V(FG)}c_{wv} \Rightarrow \sum\limits_{w \in V(FG)}c_{wv} > \sum\limits_{w \in V(FG)}c_{wv}$
+%             which is a contradiction. Thus we showed that $\forall v \in V(FG) \setminus \{A,B\}, (\exists w \in V(FG) :
+%             c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. \\
 %             The flow graph that resulted from
 %             $MaxFlow(A, B)$ is a DAG, thus there exists a corresponding total ordering, as we saw before.
 %             Obviously $A = v_0$ and $B = v_{|V(FG)|}$. When an element $v_k$ is in the $k$-th position in this total
@@ -672,16 +683,13 @@
 %             $\forall l < k, x_{kl} = 0 \wedge \forall m > k, x_{mk} = 0$.
 %             Thus the previous result can be rewritten this way: $\forall k \in [|V(FG)|],
 %             (\exists l < k : c_{v_lv_k} > x_{v_lv_k} \Rightarrow \exists m > k : c_{v_kv_m} > x_{v_kv_m})$.
-             Thus, the supposition $Loss_{A, j} > \sum\limits_{v \in N^{+}(A)}x_{Av}$ combined with the previous result shows
-             that there exists a residual path from $A$ to $B$ since we can start from $A$ and find a series of sequential
-             edges that all have flows smaller than the corresponding capacities and eventually reach $B$ in at most
-             $|E(FG)|$ steps, thus $X'$ is not a maximum flow, which is a contradiction. Thus $Loss_{A,j} \leq
-             \sum\limits_{v \in N{+}(A)}x_{Av}$ and, since also $Loss_{A,j} \geq \sum\limits_{v \in N{+}(A)}x_{Av}$, we
-             deduce that $Loss_{A,j} = \sum\limits_{v \in N{+}(A)}x_{Av}$.
-          \end{itemize}
-       \end{itemize}
-       We finally conclude that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
-    \end{proof}
+%             Thus, the supposition $Loss_{A, j} > \sum\limits_{v \in N^{+}(A)}x_{Av}$ combined with the previous result shows
+%             that there exists a residual path from $A$ to $B$ since we can start from $A$ and find a series of sequential
+%             edges that all have flows smaller than the corresponding capacities and eventually reach $B$ in at most
+%             $|E(FG)|$ steps, thus $X'$ is not a maximum flow, which is a contradiction. Thus $Loss_{A,j} \leq
+%             \sum\limits_{v \in N{+}(A)}x_{Av}$ and, since also $Loss_{A,j} \geq \sum\limits_{v \in N{+}(A)}x_{Av}$, we
+%             deduce that $Loss_{A,j} = \sum\limits_{v \in N{+}(A)}x_{Av}$.
+%          \end{itemize}
 %2nd bullet
 %          \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
 %          valid flow from $A$ to $B$, $X$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)}x_{Av}$. Let $j$ be a turn where
