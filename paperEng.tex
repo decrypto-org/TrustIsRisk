@@ -586,68 +586,76 @@
        prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' = u_i'$.
     \end{proof}
 
+    Let $G$ be a weighted directed graph. According to (p.709 Introduction to algorithms (CLRS), third edition), if we
+    consider each edge's capacity as its weight ($\forall e \in E(G), c_e = c(e)$), we say that a flow assignment
+    $X = [x_{vw}]_{V(FG) \times V(FG)}$ with a source $A$ and a sink $B$ is valid when:
+    \begin{enumerate}
+       \item $\forall (v, w) \in E(FG), x_{vw} \leq c_{vw}$
+       \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}$
+       \item $\sum\limits_{v \in N^{+}(A)}x_{Av} = \sum\limits_{v \in N^{-}(B)}x_{vB}$
+    \end{enumerate}
     \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
     \label{trustflow}
-       $Tr_{A \rightarrow B} = MaxFlow(A, B)$ (Treating direct trusts as capacities)
+       Let $\mathcal{G}$ be a game graph at a specific turn and $A,B \in V(\mathcal{G})$. It holds that
+       $Tr_{A \rightarrow B} = MaxFlow(A, B)$
     \end{theorem}
     \begin{proof} \ \\
-       Suppose that the flow graph $FG$ is composed of $V(FG)$ nodes and $E(FG)$ edges. Each edge $e_{vw}$ has a
-       corresponding capacity $u_{vw}$ which is constant and a corresponding flow $x_{vw}$ which can change depending on the
-       flow assignment $X = [x_{vw}]_{V(FG) \times V(FG)}$ we choose. In flow context, for an assignment $X$ to be valid, two
-       properties must hold:
-       \begin{enumerate}
-          \item $\forall e_{vw} \in E(FG), x_{vw} \leq u_{vw}$
-          \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} =
-                \sum\limits_{w \in N^{-}(v)}x_{vw}$
-       \end{enumerate} (p.709 Introduction to algorithms (CLRS), third edition)
-       First we will show that the MaxFlow can be a result of a valid execution of \ref{transitivesteal} and afterwards we
-       will show that each valid execution of algorithm \ref{transitivesteal} corresponds to a valid flow from $A$ to $B$.
-       Thus we will have proven that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
+       Without loss of generality, we can suppose that the turn in which we are interested is 0 ($\mathcal{G} =
+       \mathcal{G}_0$). First we will show that the $MaxFlow$ can be a result of a valid execution of algorithm
+       \ref{transitivesteal} and afterwards we will show that each valid execution of algorithm \ref{transitivesteal}
+       corresponds to a valid flow from $A$ to $B$. Thus we will have proven that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
        \begin{itemize}
           \item We will first show that there exists an execution of algorithm \ref{transitivesteal} such that $Loss_A =
-          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $maxFlow(A, B)$
-          algorithm on $\mathcal{G}_0$. It is known that all flows are DAGs [citation needed] and that all DAGs are a partial
-          order of their nodes based on the partial ordering $x_{vw} > 0 \Rightarrow v < w$ [citation needed]. From this
-          partial order, we can create a total order with an algorithm such as topoSort [citation needed]. The maximum
-          element of the total order is a node that does not have any outgoing flow. It is obvious that removing any node
-          from a DAG cannot create a cycle, thus the graph that remains after removing a node from a DAG is also a DAG, thus
-          it has a total order as well, which can be chosen to be the same total order as before removing the node, except
-          for the removed node. If the removed node was maximum or minimum, the new total order is obvious. \\
-          Player $B$ is the maximum node in turn 0 because she is the sink of the MaxFlow algorithm, thus she is the first to
-          be chosen to play and steals all her incoming and outgoing trust. $\forall v \in N^{-}(B)_0, x_{vB} \leq
-          DTr_{v \rightarrow B, 0}$ and $\sum\limits_{v \in N^{-}(B)_0}x_{vB} = maxFlow(A, B)$. The graph
-          $FG_1 = FG_0 \setminus \{B\}$ is also a DAG and corresponds to the previous total order if we remove
-          the maximum element, $B$. \\
-          Suppose that $\forall j \in [k], k > 0$, the player $v$ corresponding to the maximum element is chosen to play for
-          the first time, that $\forall w \in N^{-}(v)_{j-1} (= N^{-}(v)_0), x_{wv} \leq y$ where $Steal(y,w) \in Turn_k
-          \wedge \sum\limits_{w \in N^{-}(v)_0}x_{wv} = \sum\limits_{w \in N^{+}(v)_0}x_{vw}$. \\
-          For $j = k+1$, $Player(k+1) = v'$ corresponds to the maximum element of the previous total order with the element
-          $v$ removed and it is the first time player $v'$ plays, since $v > v'$ in all previous steps thus $v'$ was not
-          maximum. It also holds that $\forall w \in N^{-}(v)_0, x_{wv'} \leq DTr_{w \rightarrow v', 0}$ since the
-          $x_{wv'}$ are chosen by the maxFlow algorithm with corresponding capacities the direct trusts and, since
-          $\sum\limits_{w \in N^{-}(v')_0}x_{wv'} = \sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ and player $v'$ has already been
-          stolen value equal to $\sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ (since she has no outgoing flow in turn $j$), player
-          $v'$ can choose to steal from each player $w \in N^{-}(v')_0$ value at least equal to $x_{wv'}$ without violating
-          the conservative strategy. \\
-          We have proven using induction that if the algorithm chooses only maximum nodes, after exactly $|V(FG)| - 1$
-          turns (we do not count idle player $A$) every evil and conservative player will have stolen at least value equal
-          to the flow passing through them and player $A$ will have been stolen value exactly equal to
-          $maxFlow(A, B) \Rightarrow Loss_A = maxFlow(A, B)$.
+          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $maxFlow(A, B)$ algorithm on $\mathcal{G}$.
+          It is known that all flows are DAGs [citation needed] and that all DAGs are a partial order of their nodes based on
+          the partial ordering $x_{vw} > 0 \Rightarrow v < w$ [citation needed]. From this partial order, we can create a
+          total order with an algorithm such as topoSort [citation needed]. The maximum element of the total order is a node
+          that does not have any outgoing flow. Removing any node from a DAG cannot create a cycle, thus the graph that
+          remains after removing a node from a DAG is also a DAG, thus it has a total order as well, which can be chosen to
+          be the same total order as before removing the node, except for the removed node. If the removed node was maximum
+          or minimum, the new total order is obvious. We will prove our claim using induction.\\
+          \begin{itemize}
+             \item Player $B$ is the maximum node in turn 0 because she is the sink of the MaxFlow algorithm, thus she is the
+             first to be chosen to play and steals all her incoming and outgoing trust. $\forall v \in N^{-}(B)_0, x_{vB}
+             \leq DTr_{v \rightarrow B, 0}$ and $\sum\limits_{v \in N^{-}(B)_0}x_{vB} = maxFlow(A, B)$. The graph
+             $\mathcal{G}_1 = \mathcal{G}_0 \setminus \{B\}$ is also a DAG and corresponds to the previous total order if we
+             remove the maximum element, $B$.
+             \item Suppose that $\forall j \in [k], k > 0$, the player $v$ corresponding to the maximum element is chosen to
+             play for the first time, that $\forall w \in N^{-}(v)_{j-1} (= N^{-}(v)_0), x_{wv} \leq y$ where $Steal(y,w) \in
+             Turn_k \wedge \sum\limits_{w \in N^{-}(v)_0}x_{wv} = \sum\limits_{w \in N^{+}(v)_0}x_{vw}$.
+             \item For $j = k+1$, $Player(k+1) = v'$ corresponds to the maximum element of the previous total order with the
+             element $v$ removed and it is the first time player $v'$ plays, since $v > v'$ in all previous steps thus $v'$
+             was not maximum. It also holds that $\forall w \in N^{-}(v)_0, x_{wv'} \leq DTr_{w \rightarrow v', 0}$ since the
+             $x_{wv'}$ are chosen by the maxFlow algorithm with corresponding capacities the direct trusts and, since
+             $\sum\limits_{w \in N^{-}(v')_0}x_{wv'} = \sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ and player $v'$ has already
+             been stolen value equal to $\sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ (since she has no outgoing flow in turn
+             $j$), player $v'$ can choose to steal from each player $w \in N^{-}(v')_0$ value at least equal to $x_{wv'}$
+             without violating the conservative strategy.
+          \end{itemize}
+          We have proven using induction that if the algorithm chooses only maximum nodes, after exactly $|V(\mathcal{G}_0)|-
+          1$ turns (we do not count idle player $A$) every player except for $A$ will have stolen at least value equal to the
+          flow passing through them and player $A$ will have been stolen value exactly equal to $maxFlow(A, B) \Rightarrow
+          Loss_A = maxFlow(A, B)$.
           \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
           valid flow from $A$ to $B$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)_0}x_{Av}$. Let $j$ be a turn where
           \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
-          out_{A, 0} - out_{A, j}$. We create a new graph $FG'$ such that $V(FG') = V(FG) \cup T, E(FG') = E(FG) \cup
-          \{(T, v) : v \in Sad_j\} \cup (T, A), \forall (v, w) \in E(FG), c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v
-          \rightarrow w, j}, \forall v \in Sad_j, c'_{Tv} = c'_{TA} = \infty$ ($T$ is an auxiliary source). We execute the
-          $MaxFlow(T, B)$ algorithm on $FG'$ and we get a flow $X' : \forall v,w \in V(FG), x'_{vw} = c'_{vw}$ (with all the
+          out_{A, 0} - out_{A, j}$. We create a new graph $\mathcal{G}'$ such that $V(\mathcal{G}') = V(\mathcal{G}) \cup T,
+          E(\mathcal{G}') = E(\mathcal{G}) \cup \{(T, v) : v \in Sad_j\} \cup (T, A), \forall (v, w) \in E(\mathcal{G}),
+          c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \forall v \in Sad_j, c'_{Tv} = c'_{TA} = \infty$
+          ($T$ is an auxiliary source that trusts infinitely $A$ and all the $Sad$ nodes). We execute the $MaxFlow(T, B)$
+          algorithm on $\mathcal{G}'$ and we get a flow $X' : \forall v,w \in V(\mathcal{G}), x'_{vw} = c'_{vw}$ (all the
           edges, except for the auxiliary ones, saturated). Thus $\sum\limits_{v \in N^{+}(A)_0}x_{Av} = Loss_{A, j}$.
-          If we create a new graph $FG''$ with $V(FG'') = V(FG'), E(FG'') = E(FG'), \forall v \in Sad_j, c''_{Tv} = 0,
-          c''_{TA} = \infty, \forall v,w \in V(FG), c''_{vw} = c_{vw}$ and execute the $MaxFlow(T, B) = X''$ algorithm on
-          $FG''$, $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} = \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$ (the outgoing flow from
-          $A$ will remain the same as in $FG'$) since no capacity accesible from $A$ has been modified (the only changed
-          capacities are those that begin from $T$ and there is no incoming flow to $T$) and the outgoing flow from $A$ was
-          already saturated. Thus the resulting flow is equal to $Loss_{A, j}$, or $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} =
-          \sum\limits_{v \in N^{+}(A)_0}c_{Av} = Loss_{A, j}$.
+          If we create a new graph $\mathcal{G}''$ with $V(\mathcal{G}'') = V(\mathcal{G}'), E(\mathcal{G}'') =
+          E(\mathcal{G}'), \forall v \in Sad_j, c''_{Tv} = 0, c''_{TA} = \infty, \forall v,w \in V(\mathcal{G}), c''_{vw} =
+          c_{vw}$ (the auxiliary node trusts only $A$) and execute the $MaxFlow(T, B) = X''$ algorithm on $\mathcal{G}''$,
+          $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} = \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$ (the outgoing flow from
+          $A$ will remain the same as in $\mathcal{G}'$) since no capacity accesible from $A$ has been modified (the only
+          changed capacities are those that begin from $T$ and there is no incoming flow to $T$) thus $\sum\limits_{v \in
+          N^{+}(A)_0}x''_{Av} \geq \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$ and $\sum\limits_{v \in N^{+}(A)_0}x'_{Av} =
+          \sum\limits_{v \in N^{+}(A)_0}c'_{Av} = \sum\limits_{v \in N^{+}(A)_0}c''_{Av}$ (the outgoing edges from $A$ were
+          already saturated) thus $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} \leq \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$. Thus
+          the resulting flow is equal to $Loss_{A, j}$, or $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} = \sum\limits_{v \in
+          N^{+}(A)_0}c_{Av} = Loss_{A, j}$.
        \end{itemize}
        We finally conclude that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
     \end{proof}
