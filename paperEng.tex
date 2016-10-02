@@ -124,243 +124,243 @@
   \section{Introduction}
 
   \section{Keywords}
-      decentralized, trust, web-of-trust, bitcoin, multisig, line-of-credit, trust-as-risk, flow  
+     decentralized, trust, web-of-trust, bitcoin, multisig, line-of-credit, trust-as-risk, flow  
 
   \section{Key points}
 
   \section{Definitions}
-      \begin{definition}[Graph] \ \\
-         TrustIsRisk is represented by a sequence of wheighted directed graphs $(\mathcal{G}_j)$ where $\mathcal{G}_j =
-         (\mathcal{V}_j, \mathcal{E}_j), j \in \mathbb{N}$. Members of $\mathcal{E}_j$ are tuples of two nodes from
-         $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = (A,B)$.
-         Also, since the graphs are wheighted, there exists a sequence of functions $(c_j)$ with $c_j : \mathcal{E}_j
-         \rightarrow \mathbb{R}^{+}$.
-      \end{definition}
-      \begin{definition}[Players] \ \\
-         The set $\mathcal{V}_j = V(\mathcal{G}_j)$ is the set of all players in the network, otherwise understood as the
-         set of all pseudonymous identities.
-      \end{definition}
-      \begin{definition}[Capital of $A$, $Cap_A$] \ \\
-        Total amount of value that exists in P2PKH in the UTXO and can be spent by $A$. We also define $Cap_{A,j}$ as
-        the total amount of value that exists in P2PKH in the UTXO and can be spent by $A$ during turn $j$.
-      \end{definition}
-      \begin{definition}[Direct Trust from $A$ to $B$ after turn $j$, $DTr_{A \rightarrow B, j}$] \ \\
-         Total amount of value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is
-         deposited by $A$.
-         $$DTr_{A \rightarrow B, j} =
-            \begin{cases}
-               c_j(A, B), & if (A, B) \in \mathcal{E}_j \\
-               0, & if (A, B) \notin \mathcal{E}_j
-            \end{cases}$$
-         A function or algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts
-         of this graph. The exception are the oracles, which in this case have access only to their incoming and outgoing
-         direct trusts.
-      \end{definition}
-      \begin{definition}[(In/Out) Neighbourhood of $A$ on turn $j$, $N^{+}(A)_j, N^{-}(A)_j, N(A)_j$] \ 
-         \begin{enumerate}
-            \item Let $N^{+}(A)_j$ be the set of players $B$ that $A$ directly trusts with any positive value at the end of
-               turn $j$. More formally, $N^{+}(A)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\}$. $N^{+}(A)_j$
-               is called out neighbourhood of $A$ on turn $j$. Let also $S \subset \mathcal{V}_j$. $N^{+}(S)_j =
-               \bigcup\limits_{A \in S}N^{+}(A)_j$.
-            \item Let $N^{-}(A)_j$ be the set of players $B$ that directly trust $A$ with any positive value at the end of
-               turn $j$. More formally, $N^{-}(A)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\}$. $N^{-}(A)_j$
-               is called in neighbourhood of $A$ on turn $j$. Let also $S \subset \mathcal{V}_j$. $N^{-}(S)_j =
-               \bigcup\limits_{A \in S}N^{-}(A)_j$.
-            \item Let $N(A)_j$ be the set of players $B$ that either directly trust or are directly trusted by $A$ with
-               any positive value at the end of turn $j$. More formally, $N(A)_j = N^{+}(A)_j \cup N^{-}(A)_j$. $N(A)_j$ is
-               called neighbourhood of $A$ on turn $j$. Let also $S \subset \mathcal{V}_j$.
-               $N(S)_j = N^{+}(S)_j \cup N^{-}(S)_j$.
-            \item Let $N(A)_{j,i}$ (respectively $N^{+}(A)_{j,i}, N^{-}(A)_{j,i}, N(S)_{j,i}, N^{+}(S)_{j,i}, N^{-}(S)_{j,i},
-               S \subset \mathcal{V}_j$) be the $i$-th element of set $N(A)_j$ (respectively of $N^{+}(A)_j, N^{-}(A)_j,
-               N(S)_j, N^{+}(S)_j, N^{-}(S)_j$), according to an arbitrary but fixed enumeration of the set players.
-         \end{enumerate}
-      \end{definition}
-      \begin{definition}[Total incoming/outgoing trust of $A$ in turn $j$, $in_{A, j}, out_{A, j}$] \ \\
-         $$in_{A, j} = \sum\limits_{v \in N^{-}(A)_j}DTr_{v \rightarrow A, j}$$
-         $$out_{A, j} = \sum\limits_{v \in N^{+}(A)_j}DTr_{A \rightarrow v, j}$$
-      \end{definition}
+     \begin{definition}[Graph] \ \\
+        TrustIsRisk is represented by a sequence of wheighted directed graphs $(\mathcal{G}_j)$ where $\mathcal{G}_j =
+        (\mathcal{V}_j, \mathcal{E}_j), j \in \mathbb{N}$. Members of $\mathcal{E}_j$ are tuples of two nodes from
+        $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = (A,B)$.
+        Also, since the graphs are wheighted, there exists a sequence of functions $(c_j)$ with $c_j : \mathcal{E}_j
+        \rightarrow \mathbb{R}^{+}$.
+     \end{definition}
+     \begin{definition}[Players] \ \\
+        The set $\mathcal{V}_j = V(\mathcal{G}_j)$ is the set of all players in the network, otherwise understood as the
+        set of all pseudonymous identities.
+     \end{definition}
+     \begin{definition}[Capital of $A$, $Cap_A$] \ \\
+       Total amount of value that exists in P2PKH in the UTXO and can be spent by $A$. We also define $Cap_{A,j}$ as
+       the total amount of value that exists in P2PKH in the UTXO and can be spent by $A$ during turn $j$.
+     \end{definition}
+     \begin{definition}[Direct Trust from $A$ to $B$ after turn $j$, $DTr_{A \rightarrow B, j}$] \ \\
+        Total amount of value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is
+        deposited by $A$.
+        $$DTr_{A \rightarrow B, j} =
+           \begin{cases}
+              c_j(A, B), & if (A, B) \in \mathcal{E}_j \\
+              0, & if (A, B) \notin \mathcal{E}_j
+           \end{cases}$$
+        A function or algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts
+        of this graph. The exception are the oracles, which in this case have access only to their incoming and outgoing
+        direct trusts.
+     \end{definition}
+     \begin{definition}[(In/Out) Neighbourhood of $A$ on turn $j$, $N^{+}(A)_j, N^{-}(A)_j, N(A)_j$] \ 
+        \begin{enumerate}
+           \item Let $N^{+}(A)_j$ be the set of players $B$ that $A$ directly trusts with any positive value at the end of
+              turn $j$. More formally, $N^{+}(A)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\}$. $N^{+}(A)_j$
+              is called out neighbourhood of $A$ on turn $j$. Let also $S \subset \mathcal{V}_j$. $N^{+}(S)_j =
+              \bigcup\limits_{A \in S}N^{+}(A)_j$.
+           \item Let $N^{-}(A)_j$ be the set of players $B$ that directly trust $A$ with any positive value at the end of
+              turn $j$. More formally, $N^{-}(A)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\}$. $N^{-}(A)_j$
+              is called in neighbourhood of $A$ on turn $j$. Let also $S \subset \mathcal{V}_j$. $N^{-}(S)_j =
+              \bigcup\limits_{A \in S}N^{-}(A)_j$.
+           \item Let $N(A)_j$ be the set of players $B$ that either directly trust or are directly trusted by $A$ with
+              any positive value at the end of turn $j$. More formally, $N(A)_j = N^{+}(A)_j \cup N^{-}(A)_j$. $N(A)_j$ is
+              called neighbourhood of $A$ on turn $j$. Let also $S \subset \mathcal{V}_j$.
+              $N(S)_j = N^{+}(S)_j \cup N^{-}(S)_j$.
+           \item Let $N(A)_{j,i}$ (respectively $N^{+}(A)_{j,i}, N^{-}(A)_{j,i}, N(S)_{j,i}, N^{+}(S)_{j,i}, N^{-}(S)_{j,i},
+              S \subset \mathcal{V}_j$) be the $i$-th element of set $N(A)_j$ (respectively of $N^{+}(A)_j, N^{-}(A)_j,
+              N(S)_j, N^{+}(S)_j, N^{-}(S)_j$), according to an arbitrary but fixed enumeration of the set players.
+        \end{enumerate}
+     \end{definition}
+     \begin{definition}[Total incoming/outgoing trust of $A$ in turn $j$, $in_{A, j}, out_{A, j}$] \ \\
+        $$in_{A, j} = \sum\limits_{v \in N^{-}(A)_j}DTr_{v \rightarrow A, j}$$
+        $$out_{A, j} = \sum\limits_{v \in N^{+}(A)_j}DTr_{A \rightarrow v, j}$$
+     \end{definition}
 %      \begin{definition}[$B$ steals $x$ from $A$] \ \\
 %         $B$ steals value $x$ from $A$ when $B$ reduces the $DTr_{A \rightarrow B}$ by $x$ and increases $Cap_B$ by $x$.
 %         This makes sense when $x \leq DTr_{A \rightarrow B}$.
 %      \end{definition}
-      \begin{definition}[Turns] \ \\
-         The game we are describing is turn-based. Let $DTr_{B \rightarrow A, j}$ be $B$'s direct trust to $A$ in turn $j$.
-         In each turn $j$ exactly one player $A \in \mathcal{V}, A = Player(j)$, chooses an action (according to a certain
-         strategy) that can be one of the following, or a finite combination thereof:
-         \begin{enumerate}
-            \item Steal value $y_B, 0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}(A)$.
-            $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B$. ($Steal(y_B, B)$)
-            \item Add value $y_B, -DTr_{A \rightarrow B, j-1} \leq y_B$ to $B \in \mathcal{V}$.
-            $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B$. When $y_B < 0$, we say that $A$ reduces her trust
-            to $B$ by $-y_B$, when $y_B > 0$, we say that $A$ increases her trust to $B$ by $y_B$.
-            If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$. ($Add(y_B, B)$)
-         \end{enumerate}
-         If player $A$ chooses no action in her turn, we say that she passes her turn. Also, let $Y_{st}, Y_{add}$ be the
-         total value to be stolen and added respectively by $A$ in her turn, $j$. For a turn to be feasible, it must hold
-         that $Y_{add} - Y_{st} \leq Cap_{A, j-1}$. We set $Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add}$. Moreover, player
-         $A$ is not allowed to choose two actions of the same kind against the same player in the same turn. \\
-         The set of actions a player makes in turn $j$ is $Turn_j$. Examples:
-         \begin{itemize}
-            \item $Turn_{j_1} = \emptyset$
-            \item $Turn_{j_2} = \{Steal(y, B), Add(w, B)\}$ (given that $DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge
-            -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq Cap_{A, j_2-1}$, where $A = Player(j_2)$)
-            \item $Turn_{j_3} = \{Steal(x, B), Add(y, C), Add(w, D)\}$ (given that $DTr_{B \rightarrow A, j_3 - 1} \leq x
-            \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge
-            x - y - w \leq Cap_{A, j_3-1}$, where $A = Player(j_3)$)
-            \item $Turn_{j_4} = \{Steal(x, B), Steal(y, B)\}$ is not a valid turn because it contains two $Steal()$ actions
-            against the same player. If $x + y \leq DTr_{B \rightarrow A}$, the correct alternative would be $Turn_{j_4} =
-            \{Steal(x+y, B)\}$, where $A = Player(j_4)$.
-         \end{itemize}
-      \end{definition}
-      \begin{definition}[Previous/Next turn of a player] \ \\
-         Let $j \in \mathbb{N}$ a turn with $Player(j) = A$. We define $prev(j), next(j)$ as the previous and next turn
-         that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays, $prev(j) = 0$. More formally,
-         $$prev(j) = \begin{cases}
-            \max{\{k \in \mathbb{N} : k < j \wedge Player(k) = A\}}, & \{k \in \mathbb{N} : k < j \wedge Player(k) = A\}
-            \neq \emptyset \\
-            0, & \{k \in \mathbb{N} : k < j \wedge Player(k) = A\} = \emptyset
-         \end{cases}$$
-         $$next(j) = \min{\{k \in \mathbb{N} : k > j \wedge Player(k) = A\}}$$
-         $next(j)$ is always well defined with the assumption that eventually everybody plays.
-      \end{definition}
-      \begin{definition}[$A$ is stolen $x$] \ \\
-         Let $j, j'$ be two consecutive turns of $A$ ($next(j) = j'$). We say that $A$ has been stolen a value $x$ between
-         $j$ and $j'$ if $out_{A,j} - out_{A,j'} = x > 0$. If turns are not specified, we implicitly refer to the current
-         and the previous turns.
-      \end{definition}
-      \begin{definition}[History] \ \\
-         We define History, $\mathcal{H} = (\mathcal{H}_j)$, as the sequence of all the tuples containing the sets of actions
-         and the corresponding player. $\mathcal{H}_j = (Player(j), Turn_j)$.
-      \end{definition}
-      \begin{definition}[Conservative strategy] \ \\
-         A player $A$ is said to follow the conservative strategy in turn $j$ if for any value $x$ that has been stolen from
-         her since the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
-         equal to $\min{(x,in_{A,j})}$ and she takes no other action.
-         More formally, let $j' = prev(j), Damage_j = out_{A,j'} - out_{A,j-1}$. If $Strategy(A) = Conservative$, then
-         $\forall j \in \mathbb{N}: Player(j) = A$ it is $$Turn_j =
-         \begin{cases}
-            \emptyset, & Damage_j \leq 0 \\
-            \bigcup\limits_{i=1}^{k}\{Steal(y_i,v_i)\}, & Damage_j > 0, N^{-}(A)_j = \{v_1,...,v_k\}
-         \end{cases}$$
-         In the second case, it is $\sum\limits_{i=1}^{k}y_i = \min(in_{A,j-1}, Damage_j)$. \\
+     \begin{definition}[Turns] \ \\
+        The game we are describing is turn-based. Let $DTr_{B \rightarrow A, j}$ be $B$'s direct trust to $A$ in turn $j$.
+        In each turn $j$ exactly one player $A \in \mathcal{V}, A = Player(j)$, chooses an action (according to a certain
+        strategy) that can be one of the following, or a finite combination thereof:
+        \begin{enumerate}
+           \item Steal value $y_B, 0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}(A)$.
+           $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B$. ($Steal(y_B, B)$)
+           \item Add value $y_B, -DTr_{A \rightarrow B, j-1} \leq y_B$ to $B \in \mathcal{V}$.
+           $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B$. When $y_B < 0$, we say that $A$ reduces her trust
+           to $B$ by $-y_B$, when $y_B > 0$, we say that $A$ increases her trust to $B$ by $y_B$.
+           If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$. ($Add(y_B, B)$)
+        \end{enumerate}
+        If player $A$ chooses no action in her turn, we say that she passes her turn. Also, let $Y_{st}, Y_{add}$ be the
+        total value to be stolen and added respectively by $A$ in her turn, $j$. For a turn to be feasible, it must hold
+        that $Y_{add} - Y_{st} \leq Cap_{A, j-1}$. We set $Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add}$. Moreover, player
+        $A$ is not allowed to choose two actions of the same kind against the same player in the same turn. \\
+        The set of actions a player makes in turn $j$ is $Turn_j$. Examples:
+        \begin{itemize}
+           \item $Turn_{j_1} = \emptyset$
+           \item $Turn_{j_2} = \{Steal(y, B), Add(w, B)\}$ (given that $DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge
+           -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq Cap_{A, j_2-1}$, where $A = Player(j_2)$)
+           \item $Turn_{j_3} = \{Steal(x, B), Add(y, C), Add(w, D)\}$ (given that $DTr_{B \rightarrow A, j_3 - 1} \leq x
+           \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge
+           x - y - w \leq Cap_{A, j_3-1}$, where $A = Player(j_3)$)
+           \item $Turn_{j_4} = \{Steal(x, B), Steal(y, B)\}$ is not a valid turn because it contains two $Steal()$ actions
+           against the same player. If $x + y \leq DTr_{B \rightarrow A}$, the correct alternative would be $Turn_{j_4} =
+           \{Steal(x+y, B)\}$, where $A = Player(j_4)$.
+        \end{itemize}
+     \end{definition}
+     \begin{definition}[Previous/Next turn of a player] \ \\
+        Let $j \in \mathbb{N}$ a turn with $Player(j) = A$. We define $prev(j), next(j)$ as the previous and next turn
+        that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays, $prev(j) = 0$. More formally,
+        $$prev(j) = \begin{cases}
+           \max{\{k \in \mathbb{N} : k < j \wedge Player(k) = A\}}, & \{k \in \mathbb{N} : k < j \wedge Player(k) = A\}
+           \neq \emptyset \\
+           0, & \{k \in \mathbb{N} : k < j \wedge Player(k) = A\} = \emptyset
+        \end{cases}$$
+        $$next(j) = \min{\{k \in \mathbb{N} : k > j \wedge Player(k) = A\}}$$
+        $next(j)$ is always well defined with the assumption that eventually everybody plays.
+     \end{definition}
+     \begin{definition}[$A$ is stolen $x$] \ \\
+        Let $j, j'$ be two consecutive turns of $A$ ($next(j) = j'$). We say that $A$ has been stolen a value $x$ between
+        $j$ and $j'$ if $out_{A,j} - out_{A,j'} = x > 0$. If turns are not specified, we implicitly refer to the current
+        and the previous turns.
+     \end{definition}
+     \begin{definition}[History] \ \\
+        We define History, $\mathcal{H} = (\mathcal{H}_j)$, as the sequence of all the tuples containing the sets of actions
+        and the corresponding player. $\mathcal{H}_j = (Player(j), Turn_j)$.
+     \end{definition}
+     \begin{definition}[Conservative strategy] \ \\
+        A player $A$ is said to follow the conservative strategy in turn $j$ if for any value $x$ that has been stolen from
+        her since the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
+        equal to $\min{(x,in_{A,j})}$ and she takes no other action.
+        More formally, let $j' = prev(j), Damage_j = out_{A,j'} - out_{A,j-1}$. If $Strategy(A) = Conservative$, then
+        $\forall j \in \mathbb{N}: Player(j) = A$ it is $$Turn_j =
+        \begin{cases}
+           \emptyset, & Damage_j \leq 0 \\
+           \bigcup\limits_{i=1}^{k}\{Steal(y_i,v_i)\}, & Damage_j > 0, N^{-}(A)_j = \{v_1,...,v_k\}
+        \end{cases}$$
+        In the second case, it is $\sum\limits_{i=1}^{k}y_i = \min(in_{A,j-1}, Damage_j)$. \\
 %         If $j$ is the first turn in which $A$ plays, $j'$ is not well defined. In this case, we choose $Turn_j = \emptyset$,
 %         except if it is otherwise denoted in some special cases. \\
-      \end{definition}
-      As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_j <
-      in_{A,j-1}$ she can choose to distribute the $Steal(s)()$ in any way she chooses, as long as $\forall i, y_i \leq
-      DTr_{N^{-}(A)_{j,i} \rightarrow A, j-1} \wedge \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage_j$.
-      The oracle remembers $PrevOutTrust = out_{A, j'}$ for  $j' = prev(j)$ and can observe all incoming and outgoing direct
-      trusts of player $A$, $\forall v \in N^{-}(A)_{j-1}, DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1},
-      DTr_{A \rightarrow v, j-1}$. We note that $N(A)_{j-1} = N(A)_j$. \\
-      \begin{algorithm}[H]
-         \label{conservativeoracle}
-         \SetKwInOut{Input}{Input}
-         \SetKwInOut{Output}{Output}
-         \SetKwFunction{SelectSteal}{SelectSteal}
-         \Input{previous graph $\mathcal{G}_{j-1}$}
-         \Output{$Turn_j$}
-         \caption{Conservative Oracle}
-         $\mathcal{O}_{cons}(\mathcal{G}_{j-1})$ : \\ {
-            $NewOutTrust \gets \sum\limits_{v \in N^{+}(A)_{j-1}}DTr_{A \rightarrow v, j-1}$ \\
-            $NewInTrust \gets \sum\limits_{v \in N^{-}(A)_{j-1}}DTr_{v \rightarrow A, j-1}$ \\
-            $Damage \gets PrevOutTrust - NewOutTrust$ \\
-            \If{$Damage > 0$}{
-               \If{$Damage \geq NewInTrust$}{
-                  $Turn_j \gets \emptyset$ \\
-                  \For{$v \in N^{-}(A)_{j-1}$}{
-                     $Turn_j \gets Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$}}
-               \Else{
-                  $(y_1,...,y_{|N^{-}(A)_{j-1}|}) \gets$ \SelectSteal{$DTr_{N^{-}(A)_{j-1,1} \rightarrow A, j-1}$,$...$,
-                    $DTr_{N^{-}(A)_{j-1,|N^{-}(A)_{j-1}|} \rightarrow A, j-1}$,$Damage$} \\
-                  $Turn_j \gets \emptyset$ \\
-                  \For{$i \gets 1$ to $|N^{-}(A)_{j-1}|$}{
-                     $Turn_j \gets Turn_j \cup \{Steal(y_i, N^{-}(A)_{j-1,i})\}$}}}
-            \Else{$Turn_j \gets \emptyset$}
-            \Return{$Turn_j$}}
-      \end{algorithm}
-      \texttt{SelectSteal()} returns $y_i, i \in [|N^{-}(A)_j|] : \forall i, y_i \leq DTr_{N^{-}(A)_{j,i} \rightarrow A},
-      \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage$. 
-      \begin{definition}[Idle strategy] \ \\
-         A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, if $Strategy(A) =
-         Idle$, then $\forall j \in \mathbb{N} : Player(j) = A$ it is $Turn_j = \emptyset$.
-      \end{definition}
-      \begin{algorithm}[H]
-         \label{idleoracle}
-         \SetKwInOut{Input}{Input}
-         \SetKwInOut{Output}{Output}
-         \Input{previous graph $\mathcal{G}_{j-1}$}
-         \Output{$Turn_j$}
-         \caption{Idle Oracle}
-         $\mathcal{O}_{idle}(\mathcal{G}_{j-1})$ : \\ {
-            \Return{$\emptyset$}}
-      \end{algorithm}
-      \begin{definition}[Evil strategy] \ \\
-         A player $A$ is said to follow the evil strategy if she steals value $y_B = DTr_{B \rightarrow A, j-1} \:
-         \forall \: B \in N^{-}(A)_j$ (steals all incoming direct trust) and reduces her trust to $C$ by
-         $DTr_{A \rightarrow C, j-1} \: \forall \: C \in N^{+}(A)_j$ (nullifies her outgoing direct trust) in her turn.
-         More formally, if $Strategy(A) = Evil$, then $\forall j \in \mathbb{N} : Player(j) = A$ it is $Turn_j =
-         \{Steal(y_1,N^{-}(A)_{j,1}),...,Steal(y_m,N^{-}(A)_{j,m}), Add(w_1,N^{+}(A)_{j,1}),...,Add(w_l,N^{+}(A)_{j,l})\}$ 
-         where $m = |N^{-}(A)_j|, l = |N^{+}(A)_j|, \forall i \in [m], y_i = DTr_{N^{-}(A)_{j,i} \rightarrow A, j-1},
-         \forall i \in [l], w_i = -DTr_{A \rightarrow N^{+}(A)_{j,i},j-1}$. We note again that $N(A)_{j-1} = N(A)_j$.
-      \end{definition}
-      \begin{algorithm}[H]
-         \label{eviloracle}
-         \SetKwInOut{Input}{Input}
-         \SetKwInOut{Output}{Output}
-         \Input{previous graph $\mathcal{G}_{j-1}$}
-         \Output{$Turn_j$}
-         \caption{Evil Oracle}
-         $\mathcal{O}_{evil}(\mathcal{G}_{j-1})$ : \\ {
-            $Turn_j \gets \emptyset$ \\
-            \For{$v \in N^{-}(A)_{j-1}$}{
-               $Turn_j \gets Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$}
-            \For{$w \in N^{+}(A)_{j-1}$}{
-               $Turn_j \gets Turn_j \cup \{Add(-DTr_{A \rightarrow v, j-1}, w)\}$}
-            \Return{$Turn_j$}}
-      \end{algorithm}
-      \begin{definition}[Indirect trust from $A \in \mathcal{V}_j$ to $B \in \mathcal{V}_j$, $Tr_{A \rightarrow B, j}$] \ \\
-         Maximum possible value that can be stolen from $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy
-         and everyone else ($\mathcal{V} \setminus \{A,B\}$) follows the conservative strategy. More formally,
-         $$Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, configurations}{[out_{A,j} - out_{A,j'}]}$$ where
-         $Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{V} \setminus \{A,B\}, Strategy(C) = Conservative$.
-      \end{definition}
-      \begin{definition}[Indirect trust from $A \in \mathcal{V}_j$ to $S \subset \mathcal{V}_j$, $Tr_{A \rightarrow S, j}$]
-         \ \\Maximum possible value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows
-         the idle strategy and everyone else ($\mathcal{V} \setminus (S \cup \{A\})$) follows the conservative strategy. More
-         formally, $$Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{[out_{A,j} - out_{A,j'}]}$$ where
-         $Strategy(A) = Idle, \forall E \in S, Strategy(E) = Evil,
-         \forall C \in \mathcal{V} \setminus \{A,E\}, Strategy(C) = Conservative$.
-      \end{definition}
-      \begin{definition}[Trust Reduction] \ \\
-         Let $A, B \in \mathcal{V}, x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i =
-         DTr_{A \rightarrow N^{+}(A)_i,j-1}, u_i' = DTr_{A \rightarrow N^{+}(A)_i,j},$ \\ $i \in [|N^{+}(A)|],
-         j \in \mathbb{N}$.
-         \begin{enumerate}
-            \item The Trust Reduction on neighbour $i, \delta_i$ is defined as $\delta_i = u_i - u_i'$.
-            \item The Flow Reduction on neigbour $i, \Delta_i$ is defined as $\Delta_i = x_i - u_i'$.
-         \end{enumerate}
-         We will also use the standard notation for 1-norm and $\infty$-norm, that is:
-         \begin{enumerate}
-            \item $||\delta_i||_1 = \sum\limits_{i \in N^{+}(A)}\delta_i$
-            \item $||\delta_i||_\infty = \max\limits_{i \in N^{+}(A)}\delta_i$.
-         \end{enumerate}
-      \end{definition}
-      \begin{definition}[Restricted Flow] \ \\
-         Let $A, B \in \mathcal{V}, i \in [|N^{+}(A)|]$.
-         \begin{enumerate}
-            \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$
-               ($x_i'$) when $u_i' = u_i,$ \\ $u_k' = 0 \:\forall k \in [|N^{+}(A)|] \wedge k \neq i$.
-            \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as
-               calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S,
-               u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$.
-         \end{enumerate}
-      \end{definition}
-      \begin{definition}[Collusion] \ \\
-         A collusion of players $S \subset \mathcal{V}$ is a set of players that is entirely controlled by a single entity in
-         the physical world. From a game theoretic point of view, other players ($v \in \mathcal{V} \setminus S$) perceive
-         the collusion as independent players with a distinct strategy each, whereas in reality they are all subject to a
-         single strategy dictated by the controlling entity.
-      \end{definition}
+     \end{definition}
+     As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_j <
+     in_{A,j-1}$ she can choose to distribute the $Steal(s)()$ in any way she chooses, as long as $\forall i, y_i \leq
+     DTr_{N^{-}(A)_{j,i} \rightarrow A, j-1} \wedge \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage_j$.
+     The oracle remembers $PrevOutTrust = out_{A, j'}$ for  $j' = prev(j)$ and can observe all incoming and outgoing direct
+     trusts of player $A$, $\forall v \in N^{-}(A)_{j-1}, DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1},
+     DTr_{A \rightarrow v, j-1}$. We note that $N(A)_{j-1} = N(A)_j$. \\
+     \begin{algorithm}[H]
+        \label{conservativeoracle}
+        \SetKwInOut{Input}{Input}
+        \SetKwInOut{Output}{Output}
+        \SetKwFunction{SelectSteal}{SelectSteal}
+        \Input{previous graph $\mathcal{G}_{j-1}$}
+        \Output{$Turn_j$}
+        \caption{Conservative Oracle}
+        $\mathcal{O}_{cons}(\mathcal{G}_{j-1})$ : \\ {
+           $NewOutTrust \gets \sum\limits_{v \in N^{+}(A)_{j-1}}DTr_{A \rightarrow v, j-1}$ \\
+           $NewInTrust \gets \sum\limits_{v \in N^{-}(A)_{j-1}}DTr_{v \rightarrow A, j-1}$ \\
+           $Damage \gets PrevOutTrust - NewOutTrust$ \\
+           \If{$Damage > 0$}{
+              \If{$Damage \geq NewInTrust$}{
+                 $Turn_j \gets \emptyset$ \\
+                 \For{$v \in N^{-}(A)_{j-1}$}{
+                    $Turn_j \gets Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$}}
+              \Else{
+                 $(y_1,...,y_{|N^{-}(A)_{j-1}|}) \gets$ \SelectSteal{$DTr_{N^{-}(A)_{j-1,1} \rightarrow A, j-1}$,$...$,
+                   $DTr_{N^{-}(A)_{j-1,|N^{-}(A)_{j-1}|} \rightarrow A, j-1}$,$Damage$} \\
+                 $Turn_j \gets \emptyset$ \\
+                 \For{$i \gets 1$ to $|N^{-}(A)_{j-1}|$}{
+                    $Turn_j \gets Turn_j \cup \{Steal(y_i, N^{-}(A)_{j-1,i})\}$}}}
+           \Else{$Turn_j \gets \emptyset$}
+           \Return{$Turn_j$}}
+     \end{algorithm}
+     \texttt{SelectSteal()} returns $y_i, i \in [|N^{-}(A)_j|] : \forall i, y_i \leq DTr_{N^{-}(A)_{j,i} \rightarrow A},
+     \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage$. 
+     \begin{definition}[Idle strategy] \ \\
+        A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, if $Strategy(A) =
+        Idle$, then $\forall j \in \mathbb{N} : Player(j) = A$ it is $Turn_j = \emptyset$.
+     \end{definition}
+     \begin{algorithm}[H]
+        \label{idleoracle}
+        \SetKwInOut{Input}{Input}
+        \SetKwInOut{Output}{Output}
+        \Input{previous graph $\mathcal{G}_{j-1}$}
+        \Output{$Turn_j$}
+        \caption{Idle Oracle}
+        $\mathcal{O}_{idle}(\mathcal{G}_{j-1})$ : \\ {
+           \Return{$\emptyset$}}
+     \end{algorithm}
+     \begin{definition}[Evil strategy] \ \\
+        A player $A$ is said to follow the evil strategy if she steals value $y_B = DTr_{B \rightarrow A, j-1} \:
+        \forall \: B \in N^{-}(A)_j$ (steals all incoming direct trust) and reduces her trust to $C$ by
+        $DTr_{A \rightarrow C, j-1} \: \forall \: C \in N^{+}(A)_j$ (nullifies her outgoing direct trust) in her turn.
+        More formally, if $Strategy(A) = Evil$, then $\forall j \in \mathbb{N} : Player(j) = A$ it is $Turn_j =
+        \{Steal(y_1,N^{-}(A)_{j,1}),...,Steal(y_m,N^{-}(A)_{j,m}), Add(w_1,N^{+}(A)_{j,1}),...,Add(w_l,N^{+}(A)_{j,l})\}$ 
+        where $m = |N^{-}(A)_j|, l = |N^{+}(A)_j|, \forall i \in [m], y_i = DTr_{N^{-}(A)_{j,i} \rightarrow A, j-1},
+        \forall i \in [l], w_i = -DTr_{A \rightarrow N^{+}(A)_{j,i},j-1}$. We note again that $N(A)_{j-1} = N(A)_j$.
+     \end{definition}
+     \begin{algorithm}[H]
+        \label{eviloracle}
+        \SetKwInOut{Input}{Input}
+        \SetKwInOut{Output}{Output}
+        \Input{previous graph $\mathcal{G}_{j-1}$}
+        \Output{$Turn_j$}
+        \caption{Evil Oracle}
+        $\mathcal{O}_{evil}(\mathcal{G}_{j-1})$ : \\ {
+           $Turn_j \gets \emptyset$ \\
+           \For{$v \in N^{-}(A)_{j-1}$}{
+              $Turn_j \gets Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$}
+           \For{$w \in N^{+}(A)_{j-1}$}{
+              $Turn_j \gets Turn_j \cup \{Add(-DTr_{A \rightarrow v, j-1}, w)\}$}
+           \Return{$Turn_j$}}
+     \end{algorithm}
+     \begin{definition}[Indirect trust from $A \in \mathcal{V}_j$ to $B \in \mathcal{V}_j$, $Tr_{A \rightarrow B, j}$] \ \\
+        Maximum possible value that can be stolen from $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy
+        and everyone else ($\mathcal{V} \setminus \{A,B\}$) follows the conservative strategy. More formally,
+        $$Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, configurations}{[out_{A,j} - out_{A,j'}]}$$ where
+        $Strategy(A) = Idle, Strategy(B) = Evil, \forall C \in \mathcal{V} \setminus \{A,B\}, Strategy(C) = Conservative$.
+     \end{definition}
+     \begin{definition}[Indirect trust from $A \in \mathcal{V}_j$ to $S \subset \mathcal{V}_j$, $Tr_{A \rightarrow S, j}$]
+        \ \\Maximum possible value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows
+        the idle strategy and everyone else ($\mathcal{V} \setminus (S \cup \{A\})$) follows the conservative strategy. More
+        formally, $$Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{[out_{A,j} - out_{A,j'}]}$$ where
+        $Strategy(A) = Idle, \forall E \in S, Strategy(E) = Evil,
+        \forall C \in \mathcal{V} \setminus \{A,E\}, Strategy(C) = Conservative$.
+     \end{definition}
+     \begin{definition}[Trust Reduction] \ \\
+        Let $A, B \in \mathcal{V}, x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i =
+        DTr_{A \rightarrow N^{+}(A)_i,j-1}, u_i' = DTr_{A \rightarrow N^{+}(A)_i,j},$ \\ $i \in [|N^{+}(A)|],
+        j \in \mathbb{N}$.
+        \begin{enumerate}
+           \item The Trust Reduction on neighbour $i, \delta_i$ is defined as $\delta_i = u_i - u_i'$.
+           \item The Flow Reduction on neigbour $i, \Delta_i$ is defined as $\Delta_i = x_i - u_i'$.
+        \end{enumerate}
+        We will also use the standard notation for 1-norm and $\infty$-norm, that is:
+        \begin{enumerate}
+           \item $||\delta_i||_1 = \sum\limits_{i \in N^{+}(A)}\delta_i$
+           \item $||\delta_i||_\infty = \max\limits_{i \in N^{+}(A)}\delta_i$.
+        \end{enumerate}
+     \end{definition}
+     \begin{definition}[Restricted Flow] \ \\
+        Let $A, B \in \mathcal{V}, i \in [|N^{+}(A)|]$.
+        \begin{enumerate}
+           \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$
+              ($x_i'$) when $u_i' = u_i,$ \\ $u_k' = 0 \:\forall k \in [|N^{+}(A)|] \wedge k \neq i$.
+           \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as
+              calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S,
+              u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$.
+        \end{enumerate}
+     \end{definition}
+     \begin{definition}[Collusion] \ \\
+        A collusion of players $S \subset \mathcal{V}$ is a set of players that is entirely controlled by a single entity in
+        the physical world. From a game theoretic point of view, other players ($v \in \mathcal{V} \setminus S$) perceive
+        the collusion as independent players with a distinct strategy each, whereas in reality they are all subject to a
+        single strategy dictated by the controlling entity.
+     \end{definition}
   \section{Theorems-Algorithms}
     The following algorithm has read access to direct trusts in $\mathcal{G}_{j-1}$ and write access to direct trusts in
     $\mathcal{G}_j$.
