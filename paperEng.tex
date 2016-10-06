@@ -61,14 +61,6 @@
         \lhead{Decentralized financial reputation with multisig for lines-of-credit}
         \rfoot{Page \thepage\ of \pageref{LastPage}}}
 
-%\newlength\myindent
-%\setlength\myindent{1em}
-%\newcommand{%
-%  \begingroup
-%  \setlength{\itemindent}{\myindent}
-%  \addtolength{\algorithmicindent}{\myindent}
-%}
-%\newcommand{\endgroup}
 \makeatletter
 \def\blfootnotemark{\xdef\@thefnmark{}\@footnotemark}
 \makeatother
@@ -99,27 +91,19 @@
   \end{minipage}
   \hspace*{\fill} \\ \ \\
   \blfootnote{\textsuperscript{\textdagger}Research supported by ERC project CODAMODA, project \#259152}
-%  \textdagger Research supported by ERC project CODAMODA, project \#259152.
 
   \section{Abstract}
-  Reputation in centralized systems typically uses stars and review-based
-  trust. These systems require extensive manual intervention and secrecy to
-  avoid manipulation. In decentralized systems this luxury is not available
-  as the reputation system should be autonomous and open source. Previous
-  peer-to-peer reputation systems define trust abstractly and do not allow for
-  financial arguments pertaining to reputation. We propose a concrete
-  sybil-resilient decentralized reputation system in which direct trust is
-  defined as lines-of-credit using bitcoin's 1-of-2 multisig. We introduce a new
-  model for bitcoin wallets in which user coins are split among trusted friends.
-  Indirect trust is subsequently defined using a transitive property. This
-  enables formal game theoretic arguments pertaining to risk analysis. Using our
-  reputation model, we define financial risk and prove that risk and max flows
-  are equivalent. We then propose several algorithms for the redistribution of
-  trust so that a decision can be made on whether an anonymous third party can
-  be indirectly trusted. In such a setting, the risk incurred by making a
-  purchase from an anonymous vendor remains invariant. Finally, we prove the
-  correctness of our algorithms and provide optimality arguments for various
-  norms.
+     Reputation in centralized systems typically uses stars and review-based trust.  These systems require extensive manual
+     intervention and secrecy to avoid manipulation. In decentralized systems this luxury is not available as the reputation
+     system should be autonomous and open source. Previous peer-to-peer reputation systems define trust abstractly and do not
+     allow for financial arguments pertaining to reputation. We propose a concrete sybil-resilient decentralized reputation
+     system in which direct trust is defined as lines-of-credit using bitcoin's 1-of-2 multisig. We introduce a new model for
+     bitcoin wallets in which user coins are split among trusted friends.  Indirect trust is subsequently defined using a
+     transitive property. This enables formal game theoretic arguments pertaining to risk analysis.  Using our reputation
+     model, we define financial risk and prove that risk and max flows are equivalent. We then propose several algorithms for
+     the redistribution of trust so that a decision can be made on whether an anonymous third party can be indirectly
+     trusted. In such a setting, the risk incurred by making a purchase from an anonymous vendor remains invariant.  Finally,
+     we prove the correctness of our algorithms and provide optimality arguments for various norms.
 
   \section{Introduction}
      Modern marketplaces can be roughly categorized as centralized and decentralized. Two major examples are
@@ -162,17 +146,37 @@
      but not least, the network can be viewed as a possible field for investment and speculation since it constitutes a
      completely new area of financial activity.
 
+     We should note that the current description of TrustIsRisk refers to a static setting where the game evolves in turns.
+     In each turn only one user changes the state of the network. Also the system we describe needs full network knowledge
+     for all of the users, a situation that may be undesirable because of the privacy-invading implications it brings.
+     Future work is needed to address both limitations.
+
   \section{Keywords}
      decentralized, trust, web-of-trust, bitcoin, multisig, line-of-credit, trust-as-risk, flow  
 
-  \section{Key points}
+  \section{A detailed example}
+     The state of the game can be represented by a directed weighted graph where each node represents a pseudonymous identity
+     that is considered to correspond to exactly one user and each edge represents a direct trust, the weight of which is the
+     value which the head entrusts the tail with. [Image] \\
+     Each node has a corresponding number that represents its capital. A node's capital is the total value that the node
+     directly and exclusively controls, i.e. is the number of bitcoin contained in p2pkh transactions in the utxo of which
+     the private keys are controlled by the node. A rational player would like to maximize her capital in the long term.
+     Let's suppose that player $A$ wants to buy a product that costs $10$ from player $B$, but $A$ has not given any direct
+     trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other words, should $B$ decide to
+     steal all its incoming direct trust and stop trusting directly other users and the rest of the players choose the
+     conservative strategy of stealing from their respective incoming trusts just enough to replenish their loss [rationale
+     needed], what would the eventual loss of $A$ be? If it can be higher than the value of the product, then $A$ is already
+     exposed to a higher risk to $B$, thus paying for the product can be done without $A$ being exposed to any additional
+     risk towards $B$. \\
+     Suppose that $B$ really decides to depart from the network, taking with him all the coins he can [Image] \\
+     (Completion of example)
 
   \section{Definitions}
      \begin{definition}[Graph] \ \\
-        TrustIsRisk is represented by a sequence of wheighted directed graphs $(\mathcal{G}_j)$ where $\mathcal{G}_j =
+        TrustIsRisk is represented by a sequence of weighted directed graphs $(\mathcal{G}_j)$ where $\mathcal{G}_j =
         (\mathcal{V}_j, \mathcal{E}_j), j \in \mathbb{N}$. Members of $\mathcal{E}_j$ are tuples of two nodes from
         $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = (A,B)$.
-        Also, since the graphs are wheighted, there exists a sequence of functions $(c_j)$ with $c_j : \mathcal{E}_j
+        Also, since the graphs are weighted, there exists a sequence of functions $(c_j)$ with $c_j : \mathcal{E}_j
         \rightarrow \mathbb{R}^{+}$.
      \end{definition}
      \begin{definition}[Players] \ \\
