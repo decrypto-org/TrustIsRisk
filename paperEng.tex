@@ -1188,25 +1188,27 @@
        \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
        \caption{Proportional equality trust transfer}
-       $F \gets \sum\limits_{i=1}^{n}x_i$ \\
-       \If{$F < V$}{\Return $\bot$}
-       \For{$i \gets 1$ to $n$}
-          {$u_i' \gets x_i - \frac{V}{F} x_i$}
-       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
+       $F \gets \sum\limits_{i=1}^{n}x_i$ \label{propfinit} \\
+       \If{$F < V$ \label{propifinputvalid}}{\Return $\bot$ \label{propinputinvalid}}
+       \For{$i \gets 1$ to $n$ \label{proploop}}
+          {$u_i' \gets x_i - \frac{V}{F} x_i$ \label{propcapmodify}}
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{propreturn}
     \end{algorithm} \ \\
     \begin{proof}[Proof of correctness for algorithm \ref{prop}] \
        \begin{itemize}
           \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
-          According to line 5, which is the only line where $u_i'$ is changed, $u_i' = x_i - \frac{V}{F}x_i \leq x_i$
-          since $x_i, V, F > 0$ and $V \leq F$.
+          According to line~\ref{propcapmodify}, which is the only line where $u_i'$ is changed,
+          $u_i' = x_i - \frac{V}{F}x_i \leq x_i$ since $x_i, V, F > 0$ and $V \leq F$.
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
-          With $F = \sum\limits_{i=1}^{n}x_i$, on line 6 it holds that $\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}
-          (x_i - \frac{V}{F}x_i) = \sum\limits_{i=1}^{n}x_i - \frac{V}{F}\sum\limits_{i=1}^{n}x_i = F - V$.
+          With $F = \sum\limits_{i=1}^{n}x_i$, on line~\ref{propreturn} it holds that $\sum\limits_{i=1}^{n}u_i' =
+          \sum\limits_{i=1}^{n}(x_i - \frac{V}{F}x_i) = \sum\limits_{i=1}^{n}x_i - \frac{V}{F}\sum\limits_{i=1}^{n}x_i =
+          F - V$.
        \end{itemize}
     \end{proof}
     \begin{proof}[Complexity of algorithm \ref{prop}] \ \\
-       The complexity of lines 1, 4-5 and 6 is $O(n)$ and the complexity of lines 2-3 is $O(1)$, thus the total complexity
-       of algorithm \ref{prop} is $O(n)$.
+       The complexity of lines~\ref{propfinit},~\ref{proploop} -~\ref{propcapmodify} and~\ref{propreturn} is $O(n)$ and the
+       complexity of lines~\ref{propifinputvalid} -~\ref{propinputinvalid} is $O(1)$, thus the total complexity of algorithm
+       \ref{prop} is $O(n)$.
     \end{proof}
 
     Naive algorithms result in $u_i' \leq x_i$, thus according to \ref{invariability}, $||\delta_i||_1$ is invariable for
