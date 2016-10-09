@@ -67,7 +67,11 @@
 \makeatletter
 \def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
 \makeatother
- 
+
+%include number at thebibliography section
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*}{\section}{}{} 
+
 \begin{document}
   \begin{centering}
      \Large{\textbf{Trust Is Risk: Introducing a decentralized platform for financial trust}}
@@ -97,27 +101,28 @@
      intervention and secrecy to avoid manipulation. In decentralized systems this luxury is not available as the reputation
      system should be autonomous and open source. Previous peer-to-peer reputation systems define trust abstractly and do not
      allow for financial arguments pertaining to reputation. We propose a concrete sybil-resilient decentralized reputation
-     system in which direct trust is defined as lines-of-credit using bitcoin's [6] 1-of-2 multisig. We introduce a new model
-     for bitcoin wallets in which user coins are split among trusted friends.  Indirect trust is subsequently defined using a
-     transitive property. This enables formal game theoretic arguments pertaining to risk analysis.  Using our reputation
-     model, we define financial risk and prove that risk and max flows are equivalent. We then propose several algorithms for
-     the redistribution of trust so that a decision can be made on whether an anonymous third party can be indirectly
-     trusted. In such a setting, the risk incurred by making a purchase from an anonymous vendor remains invariant.  Finally,
-     we prove the correctness of our algorithms and provide optimality arguments for various norms.
+     system in which direct trust is defined as lines-of-credit using bitcoin's \cite{bitcoin} 1-of-2 multisig. We introduce
+     a new model for bitcoin wallets in which user coins are split among trusted friends.  Indirect trust is subsequently
+     defined using a transitive property. This enables formal game theoretic arguments pertaining to risk analysis.  Using
+     our reputation model, we define financial risk and prove that risk and max flows are equivalent. We then propose several
+     algorithms for the redistribution of trust so that a decision can be made on whether an anonymous third party can be
+     indirectly trusted. In such a setting, the risk incurred by making a purchase from an anonymous vendor remains
+     invariant. Finally, we prove the correctness of our algorithms and provide optimality arguments for various norms.
 
   \section{Introduction}
      Modern marketplaces can be roughly categorized as centralized and decentralized. Two major examples are
-     \href{http://www.ebay.com}{ebay}, which is centralized and as such it is vulnerable to ddos attacks [1] and can be
-     considered as a single point of failure, charges fees for the use of its services [2] and maintains a private database
-     of personal data as anybody can find out by creating an account, but it can give money-back guarantees [3] since it is
-     run by a single company that has a financial advantage in keeping its clients satisfied. On the other hand,
-     \href{https://openbazaar.org/}{OpenBazaar} is a fully decentralized platform built on bitcoin [4], where individual
-     stores or its \href{https://duosear.ch}{search engine} is vulnerable to ddos attacks [1], but not the platform as a
-     whole. Additionally, it does not charge fees for its usage [4] and there is no central agent recording all the
-     transactions by name (except for the bitcoin blockchain) [4] but it is possible for a buyer or a seller colluding with a
-     moderator to scam the third party and there exists no central authority able to verify the truth of her claim and
-     reimburse her [5]. Even though trust (or distrust) should be directed to each store individually, it is very likely that
-     the whole platform will be discarded as untrusted by the scammed party.
+     \href{http://www.ebay.com}{ebay}, which is centralized and as such it is vulnerable to ddos attacks \cite{ddosattacks}
+     and can be considered as a single point of failure, charges fees for the use of its services \cite{ebayfees} and
+     maintains a private database of personal data as anybody can find out by creating an account, but it can give money-back
+     guarantees \cite{ebayguarantee} since it is run by a single company that has a financial advantage in keeping its
+     clients satisfied. On the other hand, \href{https://openbazaar.org/}{OpenBazaar} is a decentralized platform built on
+     bitcoin \cite{bitcoin}, where individual stores or its \href{https://duosear.ch}{search engine} is vulnerable to ddos
+     attacks \cite{ddosattacks}, but not the platform as a whole. Additionally, it does not charge fees for its usage
+     \cite{openbazaar} and there is no central agent recording all the transactions by name (except for the bitcoin
+     blockchain) \cite{openbazaar} but it is possible for a buyer or a seller colluding with a  moderator to scam the third
+     party and there exists no central authority able to verify the truth of her claim and reimburse her
+     \cite{multisigfraud}. Even though trust (or distrust) should be directed to each store individually, it is very likely
+     that the whole platform will be discarded as untrusted by the scammed party.
 
      Our goal is to create a distributed marketplace where the trust each user gives to the others is quantifiable,
      measurable and expressable in monetary terms. The central concept used throughout this paper is trust-as-risk, or the
@@ -322,7 +327,7 @@
            \Return{$Turn_j$}}
      \end{algorithm}
      \texttt{SelectSteal()} returns $y_i, i \in [|N^{-}(A)_j|] : \forall i, y_i \leq DTr_{N^{-}(A)_{j,i} \rightarrow A},
-     \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage$. 
+     \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage$.
      \begin{definition}[Idle strategy] \ \\
         A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, if $Strategy(A) =
         Idle$, then $\forall j \in \mathbb{N} : Player(j) = A$ it is $Turn_j = \emptyset$.
@@ -629,9 +634,9 @@
        prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' = u_i'$.
     \end{proof}
 
-    Let $G$ be a weighted directed graph. According to (p.709 Introduction to algorithms (CLRS), third edition), if we
-    consider each edge's capacity as its weight ($\forall e \in E(G), c_e = c(e)$), we say that a flow assignment
-    $X = [x_{vw}]_{V(FG) \times V(FG)}$ with a source $A$ and a sink $B$ is valid when:
+    Let $G$ be a weighted directed graph. According to \cite{clrs} p. 709, if we consider each edge's capacity as its weight
+    ($\forall e \in E(G), c_e = c(e)$), we say that a flow assignment $X = [x_{vw}]_{V(FG) \times V(FG)}$ with a source $A$
+    and a sink $B$ is valid when:
     \begin{enumerate}
        \item $\forall (v, w) \in E(FG), x_{vw} \leq c_{vw}$
        \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}$
@@ -652,11 +657,11 @@
           maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $maxFlow(A, B)$ algorithm on $\mathcal{G}$.
           It is known that all flows are DAGs [citation needed] and that all DAGs are a partial order of their nodes based on
           the partial ordering $x_{vw} > 0 \Rightarrow v < w$ [citation needed]. From this partial order, we can create a
-          total order with an algorithm such as topoSort [7]. The maximum element of the total order is a node that does not
-          have any outgoing flow. Removing any node from a DAG cannot create a cycle, thus the graph that remains after
-          removing a node from a DAG is also a DAG, thus it has a total order as well, which can be chosen to be the same
-          total order as before removing the node, except for the removed node. If the removed node was maximum or minimum,
-          the new total order is obvious. We will prove our claim using induction.\\
+          total order with an algorithm such as topoSort \cite{toposort}. The maximum element of the total order is a node
+          that does not have any outgoing flow. Removing any node from a DAG cannot create a cycle, thus the graph that
+          remains after removing a node from a DAG is also a DAG, thus it has a total order as well, which can be chosen to
+          be the same total order as before removing the node, except for the removed node. If the removed node was maximum
+          or minimum, the new total order is obvious. We will prove our claim using induction. \\
           \begin{itemize}
              \item Player $B$ is the maximum node in turn 0 because she is the sink of the MaxFlow algorithm, thus she is the
              first to be chosen to play and steals all her incoming and outgoing trust. $\forall v \in N^{-}(B)_0, x_{vB}
@@ -1363,15 +1368,29 @@
   effectively in zero knowledge and what bounds exist in regards to information
   revealed in such fashion.
 
-  \section{References}
-     [1] \href{http://www.cisco.com/c/en/us/about/press/internet-protocol-journal/back-issues/table-contents-30/dos-attacks.html}
-              {Distributed Denial of Service Attacks - The Internet Protocol Journal - Volume 7, Number 4}
-     [2] \href{http://pages.ebay.com/help/sell/fees.html}{Standard ebay selling fees}
-     [3] \href{http://pages.ebay.com/ebay-money-back-guarantee/questions.html}{ebay money back guarantees}
-     [4] \href{https://blog.openbazaar.org/what-is-openbazaar/}{What is OpenBazaar}
-     [5] \href{https://blog.openbazaar.org/can-bitcoin-and-multisig-reduce-identity-theft-and-fraud/}{Can bitcoin and multisig
-               reduce identity theft and fraud?}
-     [6] \href{https://bitcoin.org/bitcoin.pdf}{Bitcoin: A Peer-to-Peer Electronic Cash System}
-     [7] Kahn, Arthur B. (1962), "Topological sorting of large networks", Communications of the ACM
+  \begin{thebibliography}{10}
+     \bibitem{ddosattacks}
+     \href{http://www.cisco.com/c/en/us/about/press/internet-protocol-journal/back-issues/table-contents-30/dos-attacks.html}
+           {Distributed Denial of Service Attacks - The Internet Protocol Journal - Volume 7, Number 4}
+     \bibitem{ebayfees}
+     \href{http://pages.ebay.com/help/sell/fees.html}{Standard ebay selling fees}
+     \bibitem{ebayguarantee}
+     \href{http://pages.ebay.com/ebay-money-back-guarantee/questions.html}{ebay money back guarantees}
+     \bibitem{openbazaar}
+     \href{https://blog.openbazaar.org/what-is-openbazaar/}{What is OpenBazaar}
+     \bibitem{multisigfraud}
+     \href{https://blog.openbazaar.org/can-bitcoin-and-multisig-reduce-identity-theft-and-fraud/}{Can bitcoin and multisig
+     reduce identity theft and fraud?}
+     \bibitem{bitcoin}
+     \href{https://bitcoin.org/bitcoin.pdf}{Nakamoto, Satoshi (2008). Bitcoin: A Peer-to-Peer Electronic Cash System}
+     \bibitem{toposort}
+     Kahn, Arthur B. (1962), "Topological sorting of large networks", Communications of the ACM
+     \bibitem{clrs}
+     Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2009) [1990]. Introduction to Algorithms
+     (3rd ed.). MIT Press and McGraw-Hill.
+     \bibitem{dionyziz}
+     \href{https://dionyziz.com/pseudonymous-trust-2.pdf}{Zindros, Dionysis S. (2015). Trust in decentralized anonymous
+     marketplaces}
+  \end{thebibliography}
 
 \end{document}
