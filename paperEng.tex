@@ -497,9 +497,9 @@
        \caption{Transitive Steal}
        $Angry \gets \emptyset$ \\
        $Happy \gets \emptyset$ \\
-       $Sad \gets \emptyset$ \\
+       $Sad \gets \emptyset$ \label{trstealsadinit}\\
        \For{$v \in \mathcal{V}_{0} \setminus \{E\}$}{
-          $Loss_v \gets 0$ \\
+          $Loss_v \gets 0$ \label{trsteallossinit}\\
           \If{$v \neq A$}{
              $Happy \gets Happy \cup \{v\}$}}
        $j \gets 0$ \\
@@ -512,17 +512,17 @@
               $action$ \textbf{match do}{ \\
                  \textbf{case} $Steal(y, w)$ \textbf{do}{ \\
                     $exchange \gets y$ \\
-                    $Loss_w \gets Loss_w + exchange$ \\
+                    $Loss_w \gets Loss_w + exchange$ \label{trsteallossincrease}\\
                     \If{$v \neq E$}{
-                       $Loss_v \gets Loss_v - exchange$}
+                       $Loss_v \gets Loss_v - exchange$} \label{trsteallossdecrease}
                     \If{$w \neq A$}{
                        $Happy \gets Happy \setminus \{w\}$ \\
                        \If{$in_{w, j} = 0$}
                           {$Sad \gets Sad \cup \{w\}$}
                        \Else{$Angry \gets Angry \cup \{w\}$}}}}}
            $Angry \gets Angry \setminus \{v\}$ \\
-           \If{$in_{v, j} = 0 \wedge Loss_v > 0$}{
-               $Sad \gets Sad \cup \{v\}$}
+           \If{$in_{v, j} = 0 \wedge Loss_v > 0$ \label{trstealifentersad}}{
+               $Sad \gets Sad \cup \{v\}$} \label{trstealtrueentersad}
            \If{$Loss_v = 0$}{
                $Happy \gets Happy \cup \{v\}$}}
     \end{algorithm}
@@ -551,14 +551,15 @@
              \item $v \in Happy_j$ because $Turn_{j} = \emptyset$,
              \item $Loss_{v, j} = 0$ because otherwise $v \notin Happy_j$,
              \item $Damage_{v, j} = 0$, or else any reduction in direct trust to $v$ would increase equally
-             $Loss_{v, j}$ (line 18), which cannot be decreased again but during an Angry player's turn (line 20).
+             $Loss_{v, j}$ (line~\ref{trsteallossincrease}), which cannot be decreased again but during an Angry player's turn
+             (line~\ref{trsteallossdecrease}).
              \item $in_{v, j} \geq 0$
           \end{enumerate}
           Thus $\min(in_{v, j}, Damage_{v,j}) = \min(in_{v, j}, Loss_{v,j}) = 0$.
           \item $v \in Sad_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Sad_j$ because $Turn_{j} = \emptyset$, 
-             \item $in_{v, j} = 0$ (lines 28-29),
+             \item $in_{v, j} = 0$ (lines~\ref{trstealifentersad} -~\ref{trstealtrueentersad}),
              \item $Damage_{v, j} \geq 0 \wedge Loss_{v, j} \geq 0$.
           \end{enumerate}
           Thus $\min(in_{v, j}, Damage_{v,j}) = \min(in_{v, j}, Loss_{v,j}) = 0$.
@@ -583,27 +584,29 @@
        $\forall j > j_0 : Player(j) = A \Rightarrow Turn_j = \emptyset$ because of the idle strategy that $A$ follows. As far
        as the rest of the players are concerned, consider the algorithm \ref{transitivesteal}, which is a variation of the
        TrustIsRisk Game. \\
-       As we can see from lines 5 and 18-20, $\forall j, \sum\limits_{v \in \mathcal{V}_j}Loss_v = in_{E, j_0-1}$, that is
-       the total loss is constant and equal to the total value stolen by $E$. Also, as we can see in lines 3 and 29, which
-       are the only lines where the $Sad$ set is modified, once a player enters the $Sad$ set, it is impossible to exit from
-       this set. Also, we can see that players in $Sad \cup Happy$ always pass their turn. We will now show that eventually
-       the $Angry$ set will be empty, or equivalently that eventually every player will pass their turn. Suppose that it is
+       As we can see from lines~\ref{trsteallossinit} and~\ref{trsteallossincrease} -~\ref{trsteallossdecrease}, $\forall j,
+       \sum\limits_{v \in \mathcal{V}_j}Loss_v = in_{E, j_0-1}$, that is the total loss is constant and equal to the total
+       value stolen by $E$. Also, as we can see in lines~\ref{trstealsadinit} and~\ref{trstealtrueentersad}, which are the
+       only lines where the $Sad$ set is modified, once a player enters the $Sad$ set, it is impossible to exit from this
+       set. Also, we can see that players in $Sad \cup Happy$ always pass their turn. We will now show that eventually the
+       $Angry$ set will be empty, or equivalently that eventually every player will pass their turn. Suppose that it is
        possible to have an infinite amount of turns that players do not choose to pass. We know that the number of nodes is
        finite, thus this is possible only if $\exists j_1: \forall j \geq j_1, |Angry_j \cup Happy_j| = c > 0 \wedge Angry_j
        \neq \emptyset$ (the total number of angry and happy players cannot increase because no player leaves the $Sad$ set
        and if it were to be decreased, it would eventually reach 0). Since $Angry_j \neq \emptyset$, a player $v$ that will
        not pass her turn will eventually be chosen to play. According to algorithm \ref{transitivesteal}, $v$ will either
-       deplete her incoming trust and enter the $Sad$ set (line 29), which is contradicting $|Angry_j \cup Happy_j| = c$,
-       or will steal enough value to enter the $Happy$ set, that is $v$ will achieve $Loss_{v, j} = 0$. Suppose that she has
-       stolen $m$ players. They, in their turn, will steal total value at least equal to the value stolen by $v$ (since they
-       cannot go sad, as explained above). However, this means that, since the total value being stolen will never be reduced
-       and the turns this will happen are infinite, the players must steal an infinite amount of value, which is impossible
-       because the direct trusts are finite in number and in value. More precisely, let $\forall j \in \mathbb{N}, DTr_j =
-       \sum\limits_{w,w' \in \mathcal{V}}DTr_{w \rightarrow w', j}$. Also, without loss of generality, suppose that $\forall
-       j \geq j_1, out_{A, j} = out_{A, j_1}$. \\ In $Turn_{j_1}$, $v$ steals $St_{j_1} = \sum\limits_{i=1}^{m}y_i$. Thus
-       $DTr_{j_1} = DTr_{j_1-1} - St_{j_1}$. Eventually there is a turn $j_2$ when every player in $N^{-}(v)$ will have
-       played. Then $S_{j_2} \leq DTr_{j_1} - St_{j_1} = DTr_{j_1-1} - 2St_{j_1}$, since all players in $N^{-}(v)$ follow the
-       conservative strategy, except maybe for $A$, who will not have been stolen anything due to the supposition. \\
+       deplete her incoming trust and enter the $Sad$ set (line~\ref{trstealtrueentersad}), which is contradicting $|Angry_j
+       \cup Happy_j| = c$, or will steal enough value to enter the $Happy$ set, that is $v$ will achieve $Loss_{v, j} = 0$.
+       Suppose that she has stolen $m$ players. They, in their turn, will steal total value at least equal to the value
+       stolen by $v$ (since they cannot go sad, as explained above). However, this means that, since the total value being
+       stolen will never be reduced and the turns this will happen are infinite, the players must steal an infinite amount of
+       value, which is impossible because the direct trusts are finite in number and in value. More precisely, let $\forall j
+       \in \mathbb{N}, DTr_j = \sum\limits_{w,w' \in \mathcal{V}}DTr_{w \rightarrow w', j}$. Also, without loss of
+       generality, suppose that $\forall j \geq j_1, out_{A, j} = out_{A, j_1}$. \\ In $Turn_{j_1}$, $v$ steals $St_{j_1} =
+       \sum\limits_{i=1}^{m}y_i$. Thus $DTr_{j_1} = DTr_{j_1-1} - St_{j_1}$. Eventually there is a turn $j_2$ when every
+       player in $N^{-}(v)$ will have played. Then $S_{j_2} \leq DTr_{j_1} - St_{j_1} = DTr_{j_1-1} - 2St_{j_1}$, since all
+       players in $N^{-}(v)$ follow the conservative strategy, except maybe for $A$, who will not have been stolen anything
+       due to the supposition. \\
        Suppose that $\exists k > 1 : j_k > j_{k-1} > j_1 \Rightarrow DTr_{j_k} \leq DTr_{j_{k-1}} - St_{j_1}$. Then there
        exists a subset of the $Angry$ players, $S$, that have been stolen at least value $St_{j_1}$ in total between the
        turns $j_{k-1}$ and $j_k$, thus there exists a turn $j_{k+1}$ such that all players in $S$ will have played and thus
@@ -1023,24 +1026,25 @@
        \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
        \Output{$u_i'$ capacities}
        \caption{First-come, first-served trust transfer}
-       $F \gets \sum\limits_{i=1}^{n}x_i$ \\
-       \If{$F < V$}{\Return $\bot$}
-       $F_{cur} \gets F$ \\
-       \For{$i \gets 1$ to $n$}
-          {$u_i' \gets x_i$} 
-       $i \gets 1$ \\
-       \While{$F_{cur} > F - V$}
+       $F \gets \sum\limits_{i=1}^{n}x_i$ \label{fcfsfinit}\\
+       \If{$F < V$ \label{fcfsifinputvalid}}{\Return $\bot$}
+       $F_{cur} \gets F$ \label{fcfsfcurinit}\\
+       \For{$i \gets 1$ to $n$ \label{fcfsforcapinit}}
+          {$u_i' \gets x_i$} \label{fcfscapinit}
+       $i \gets 1$ \label{fcfsiinit}\\
+       \While{$F_{cur} > F - V$ \label{fcfsloop}}
           {$reduce \gets \min{(x_i, F_{cur} - F + V)}$ \\
            $F_{cur} \gets F_{cur} - reduce$ \\
-           $u_i' \gets x_i - reduce$ \\
-           $i \gets i + 1$}
-       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
+           $u_i' \gets x_i - reduce$ \label{capmod}\\
+           $i \gets i + 1$ \label{fcfsiinc}}
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{fcfsreturn}
     \end{algorithm}
     \begin{proof}[Proof of correctness for algorithm \ref{fcfs}] \
        \begin{itemize}
           \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
-          Let $i \in [n]$. In line 6 we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
-          is in line 11 where it is never increased $(reduce \geq 0)$, thus we see that, when returned, $u_i' \leq x_i$.
+          Let $i \in [n]$. In line~\ref{fcfscapinit} we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
+          is in line~\ref{capmod} where it is never increased $(reduce \geq 0)$, thus we see that, when returned,
+          $u_i' \leq x_i$.
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
           $F_{cur,0} = F$ \\
           If $F_{cur,i} \geq F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
@@ -1057,13 +1061,15 @@
        \end{itemize}
     \end{proof}
     \begin{proof}[Complexity of algorithm \ref{fcfs}] \ \\
-       First we will prove that on line 13 $i \leq n+1$. Suppose that $i > n+1$ on line 13. This means that $F_{cur,n}$
-       exists and $F_{cur,n} = F - \sum\limits_{i=1}^{n}x_i = 0 \leq F - V$ since, according to the condition on line 2,
-       $F - V \geq 0$. This means however that the \emph{while} loop on line 8 will break, thus $F_{cur,n+1}$ cannot exist
-       and $i = n + 1$ on line 13, which is a contradiction, thus $i \leq n+1$ on line 13. Since $i$ is incremented by 1
-       on every iteration of the \emph{while} loop (line 12), the complexity of the \emph{while} loop is $O(n)$ in the
-       worst case. The complexity of lines 2-4 and 7 is $O(1)$ and the complexity of lines 1, 5-6 and 13 is $O(n)$, thus
-       the total complexity of algorithm \ref{fcfs} is $O(n)$.
+       First we will prove that on line~\ref{fcfsreturn} $i \leq n+1$. Suppose that $i > n+1$ on line~\ref{fcfsreturn}. This
+       means that $F_{cur,n}$ exists and $F_{cur,n} = F - \sum\limits_{i=1}^{n}x_i = 0 \leq F - V$ since, according to the
+       condition on line~\ref{fcfsifinputvalid}, $F - V \geq 0$. This means however that the \emph{while} loop on
+       line~\ref{fcfsloop} will break, thus $F_{cur,n+1}$ cannot exist and $i = n + 1$ on line~\ref{fcfsreturn}, which is a
+       contradiction, thus $i \leq n+1$ on line~\ref{fcfsreturn}. Since $i$ is incremented by 1 on every iteration of the
+       \emph{while} loop (line~\ref{fcfsiinc}), the complexity of the \emph{while} loop is $O(n)$ in the worst case. The
+       complexity of lines~\ref{fcfsifinputvalid} -~\ref{fcfsfcurinit} and~\ref{fcfsiinit} is $O(1)$ and the complexity of
+       lines~\ref{fcfsfinit},~\ref{fcfsforcapinit} -~\ref{fcfscapinit} and~\ref{fcfsreturn} is $O(n)$, thus the total
+       complexity of algorithm \ref{fcfs} is $O(n)$.
     \end{proof}
 
     \begin{algorithm}[H]
@@ -1076,31 +1082,31 @@
        $F \gets \sum\limits_{i=1}^{n}x_i$ \\
        \If{$F < V$}{\Return $\bot$}
        \For{$i \gets 1$ to $n$}
-          {$u_i' \gets x_i$}
+          {$u_i' \gets x_i$ \label{abscapinit}}
        $reduce \gets {V \over n}$ \\
        $reduction \gets 0$ \\
        $empty \gets 0$ \\
-       $i \gets 0$ \\
-       \While{$reduction < V$}
-          {\If{$u_i' > 0$}{\If{$x_i < reduce$}
-                {$empty \gets empty + 1$ \\
-                 \If{$empty < n$}
-                    {$reduce \gets reduce + \frac{reduce - x_i}{n - empty}$}
-                 $reduction \gets reduction + u_i'$ \\
-                 $u_i' \gets 0$ \\}
-           \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \\
-                 $u_i' \gets x_i - reduce$}}
-           $i \gets (i + 1) mod \:n$}
-       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
+       $i \gets 0$ \label{absiinit} \\
+       \While{$reduction < V$ \label{absloop}}
+          {\If{$u_i' > 0$ \label{absifcappositive}}{\If{$x_i < reduce$ \label{absifflowlessreduce}}
+                {$empty \gets empty + 1$ \label{absemptyincrement} \\
+                 \If{$empty < n$ \label{absifemptylessn}}
+                    {$reduce \gets reduce + \frac{reduce - x_i}{n - empty}$ \label{absreducemodify}}
+                 $reduction \gets reduction + u_i'$ \label{absreductionincrease} \\
+                 $u_i' \gets 0$ \label{abscapzero} \\}
+           \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \label{absreductionmodify} \\
+                 $u_i' \gets x_i - reduce$ \label{abscapreduce}}}
+           $i \gets (i + 1) mod \:n$ \label{absiincrement}}
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{absreturn}
     \end{algorithm}
        \noindent
        We will start by showing some results useful for the following proofs. Let $j$ be the number of iterations of the
-       \textbf{while} loop for the rest of the proofs for algorithm \ref{abs} (think of $i$ from line 20 without the
-       $mod\:n$).\\
-       First we will show that $empty \leq n$. $empty$ is only modified on line 12 where it is incremented by 1. This
-       happens only when $u_i' > 0$ (line 11), which is assigned the value 0 on line 16. We can see that the
-       incrementation of $empty$ can happen at most $n$ times because $|U'| = n$. Since $empty_0 = 0$, $empty \leq n$
-       at all times of the execution. \\
+       \textbf{while} loop for the rest of the proofs for algorithm \ref{abs} (think of $i$ from line~\ref{absiincrement}
+       without the $mod\:n$).\\
+       First we will show that $empty \leq n$. $empty$ is only modified on line~\ref{absemptyincrement} where it is
+       incremented by 1. This happens only when $u_i' > 0$ (line~\ref{absifcappositive}), which is assigned the value 0 on
+       line~\ref{abscapzero}. We can see that the incrementation of $empty$ can happen at most $n$ times because
+       $|U'| = n$. Since $empty_0 = 0$, $empty \leq n$ at all times of the execution. \\
        Next we will derive the recursive formulas for the various variables. \\
        $empty_0 = 0$ \\
        $empty_{j+1} = 
@@ -1131,10 +1137,11 @@
     \begin{proof}[Proof of correctness for algorithm \ref{abs}] \
        \begin{itemize}
           \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
-          On line 9, $\forall i \in [n] \: u_i' = x_i$. Subsequently $u_i'$ is modified on line 16, where
-          it becomes equal to 0 and on line 19, where it is assigned $x_i - reduce$. It holds that $x_i - reduce \leq x_i$
-          because initially $reduce = \frac{V}{n} \geq 0$ and subsequently $reduce$ is modified only on line 14 where it
-          is increased ($n > empty$ because of line 13 and $reduce > x_i$ because of line 11, thus
+          On line~\ref{abscapinit}, $\forall i \in [n] \: u_i' = x_i$. Subsequently $u_i'$ is modified on
+          line~\ref{abscapzero}, where it becomes equal to 0 and on line~\ref{abscapreduce}, where it is assigned
+          $x_i - reduce$. It holds that $x_i - reduce \leq x_i$ because initially $reduce = \frac{V}{n} \geq 0$ and
+          subsequently $reduce$ is modified only on line~\ref{absreducemodify} where it is increased ($n > empty$ because of
+          line~\ref{absifemptylessn} and $reduce > x_i$ because of line~\ref{absifflowlessreduce}, thus
           $\frac{reduce - x_i}{n - empty} > 0$). We see that $\forall i \in [n], u_i' \leq x_i$.
           \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
           The variable $reduction$ keeps track of the total reduction that has happened and breaks the \textbf{while} loop
@@ -1142,16 +1149,17 @@
           then we will prove that $reduction = V$ at the end of the execution. Thus we will have proven that
           $\sum\limits_{i=1}^{n}u_i'= \sum\limits_{i=1}^{n}x_i - V = F - V$.
           \begin{itemize}
-             \item On line 9, $u_i' = x_i \Rightarrow \sum\limits_{i=1}^{n}(x_i- u_i') = 0$ and $reduction = 0$. \\
-             On line 16, $u_i'$ is reduced to 0 thus $\sum\limits_{i=1}^{n}(x_i- u_i')$ is increased by $u_i'$.
-             Similarly, on line 15 $reduction$ is increased by $u_i'$, the same as the increase in
+             \item On line~\ref{abscapinit}, $u_i' = x_i \Rightarrow \sum\limits_{i=1}^{n}(x_i- u_i') = 0$ and
+             $reduction = 0$. \\
+             On line~\ref{abscapzero}, $u_i'$ is reduced to 0 thus $\sum\limits_{i=1}^{n}(x_i- u_i')$ is increased by $u_i'$.
+             Similarly, on line~\ref{absreductionincrease} $reduction$ is increased by $u_i'$, the same as the increase in
              $\sum\limits_{i=1}^{n}(x_i- u_i')$. \\
-             On line 19, $u_i'$ is reduced by $u_i' - x_i + reduce$ thus $\sum\limits_{i=1}^{n}(x_i- u_i')$ is increased
-             by $u_i' - x_i + reduce$. On line 18, $reduction$ is increased by $u_i' - x_i + reduce$, which is equal
-             to the increase in $\sum\limits_{i=1}^{n}(x_i- u_i')$. \\
-             We also have to note that neither $u_i'$ nor $reduction$ is modified in any other way from line 10 and on,
-             thus we conclude that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times.
-             \item Suppose that $reduction_j > V$ on the line 21. Since $reduction_j$ exists, $reduction_{j-1} < V$.
+             On line~\ref{abscapreduce}, $u_i'$ is reduced by $u_i' - x_i + reduce$ thus $\sum\limits_{i=1}^{n}(x_i- u_i')$
+             is increased by $u_i' - x_i + reduce$. On line~\ref{absreductionmodify}, $reduction$ is increased by
+             $u_i' - x_i + reduce$, which is equal to the increase in $\sum\limits_{i=1}^{n}(x_i- u_i')$. \\
+             We also have to note that neither $u_i'$ nor $reduction$ is modified in any other way from line~\ref{absloop}
+             and on, thus we conclude that $reduction = \sum\limits_{i=1}^{n}(x_i- u_i')$ at all times.
+             \item Suppose that $reduction_j > V$ on the line~\ref{absreturn}. Since $reduction_j$ exists, $reduction_{j-1} < V$.
              If $x_{j \: mod \: n} < reduce_{j-1}$ then $reduction_j = reduction_{j-1} + u_{j \: mod \:n}'$.
              Since $reduction_j > V$, $u_{j \: mod \:n}' > V - reduction_{j-1}$. TOCOMPLETE\\
              
