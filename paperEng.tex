@@ -1222,16 +1222,16 @@
        \Input{$X = \{x_i\}$ flows, $n = |N^{+}(s)|$, $V$ value, $\epsilon_1$, $\epsilon_2$}
        \Output{$u_i'$ capacities}
        \caption{$||\delta_i||_\infty$ minimizer}
-       \If{$\epsilon_1 < 0 \vee \epsilon_2 < 0$}
-          {\Return $\bot$}
-       $F \gets \sum\limits_{i=1}^{n}x_i$ \\
-       \If{$F < V$}
-          {\Return $\bot$}
-       $\delta_{max} \gets \max\limits_{i \in [n]}\{u_i\}$ \\
-       $\delta^* \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \\
-       \For{$i \gets 1$ to $n$}
-          {$u_i' \gets \max{(u_i - \delta^*, 0)}$}
-       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$
+       \If{$\epsilon_1 < 0 \vee \epsilon_2 < 0$ \label{dinfifepsilonsvalid}}
+          {\Return $\bot$ \label{dinfepsilonsinvalid}}
+       $F \gets \sum\limits_{i=1}^{n}x_i$ \label{dinffinit} \\
+       \If{$F < V$ \label{dinfifvvalid}}
+          {\Return $\bot$ \label{dinfvinvalid}}
+       $\delta_{max} \gets \max\limits_{i \in [n]}\{u_i\}$ \label{dinfdeltainit} \\
+       $\delta^* \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \label{dinfcallbs} \\
+       \For{$i \gets 1$ to $n$ \label{dinfforcap}}
+          {$u_i' \gets \max{(u_i - \delta^*, 0)}$ \label{dinfcapset}}
+       \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{dinfreturn}
     \end{algorithm}
     Since trust should be considered as a continuous unit and binary search dissects the possible interval for the solution
     on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
@@ -1244,16 +1244,16 @@
        \Input{$bot$, $top$, $F'$, $n$, $X$, $\epsilon_1$, $\epsilon_2$}
        \Output{$\delta^*$}
        \caption*{\textbf{function} \texttt{BinSearch} }
-       \If{$bot = top$}{\Return $bot$}
+       \If{$bot = top$ \label{bsifboteqtop}}{\Return $bot$ \label{bsretbot}}
        \Else{
-          \For{$i \gets 1$ to $n$}
-              {$u_i' \gets \max{(0,u_i - \frac{top + bot}{2})}$}
-          \If{$maxFlow < F' - \epsilon_1$}
-	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$F'$,$n$,$X$,$\epsilon_1$,$\epsilon_2$}}
-          \ElseIf{$maxFlow > F' + \epsilon_2$}
-	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$F'$,$n$,$X$.$\epsilon_1$,$\epsilon_2$}}
+          \For{$i \gets 1$ to $n$ \label{bsforcapset}}
+              {$u_i' \gets \max{(0,u_i - \frac{top + bot}{2})}$ \label{bscapset}}
+          \If{$maxFlow < F' - \epsilon_1$ \label{bsiflow}}
+	     {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$F'$,$n$,$X$,$\epsilon_1$,$\epsilon_2$} \label{bsreclow}}
+          \ElseIf{$maxFlow > F' + \epsilon_2$ \label{bsifhigh}}
+	     {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$F'$,$n$,$X$.$\epsilon_1$,$\epsilon_2$} \label{bsrechigh}}
           \Else
-             {\Return $\frac{top + bot}{2}$}
+             {\Return $\frac{top + bot}{2}$\label{bsretmid}}
        }
     \end{algorithm}
     \begin{proof}[Proof that $maxFlow(\delta)$ is strictly decreasing for $\delta: maxflow(\delta) < F$] \ \\
@@ -1281,20 +1281,22 @@
        Supposing that $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$, or equivalently
        $maxFlow(top) \leq F' - \epsilon_1 \wedge maxFlow(bot) \geq F' + \epsilon_2$, we will prove that
        $maxFlow(\delta^*) \in [F' - \epsilon_1, F' + \epsilon_2]$. \\
-       First of all, we should note that if an invocation of \texttt{BinSearch} returns without calling
-       \texttt{BinSearch} again (line 2 or 11), its return value will be equal to the return value of the initial invocation
-       of \texttt{BinSearch}, as we can see on lines 7 and 9, where the return value of the invoked \texttt{BinSearch}
-       is returned without any modification. The case where \texttt{BinSearch} is called again is analyzed next:
+       First of all, we should note that if an invocation of \texttt{BinSearch} returns without calling \texttt{BinSearch}
+       again (line~\ref{bsretbot} or~\ref{bsretmid}), its return value will be equal to the return value of the initial
+       invocation of \texttt{BinSearch}, as we can see on lines~\ref{bsreclow} and~\ref{bsrechigh}, where the return value of
+       the invoked \texttt{BinSearch} is returned without any modification. The case where \texttt{BinSearch} is called again
+       is analyzed next:
        \begin{itemize}
-          \item If $maxFlow(\frac{top+bot}{2}) < F' - \epsilon_1 < F'$ (line 6) then, since $maxFlow(\delta)$ is strictly
-          decreasing, $\delta^* \in [bot,\frac{top+bot}{2})$. As we see on line 7, the interval $(\frac{top+bot}{2}, top]$
-          is discarded when the next \texttt{BinSearch} is called. Since $F' + \epsilon_2 \leq maxFlow(bot)$, we have
-          $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(\frac{top+bot}{2}), maxFlow(bot)]$ and
+          \item If $maxFlow(\frac{top+bot}{2}) < F' - \epsilon_1 < F'$ (line~\ref{bsiflow}) then, since $maxFlow(\delta)$ is
+          strictly decreasing, $\delta^* \in [bot,\frac{top+bot}{2})$. As we see on line~\ref{bsreclow}, the interval
+          $(\frac{top+bot}{2}, top]$ is discarded when the next \texttt{BinSearch} is called. Since $F' + \epsilon_2 \leq
+          maxFlow(bot)$, we have $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(\frac{top+bot}{2}), maxFlow(bot)]$ and
           the length of the available interval is divided by 2.
-          \item Similarly, if $maxFlow(\frac{top+bot}{2}) > F' + \epsilon_2 > F'$ (line 8) then $\delta^* \in
-          (\frac{top+bot}{2}, top]$. According to line 9, the interval $[bot, \frac{top+bot}{2})$ is discarded when the next
-          \texttt{BinSearch} is called. Since $F'- \epsilon_1 \geq maxFlow(top)$, we have $[F' - \epsilon_1, F' + \epsilon_2]
-          \subset (maxFlow(top),$ $maxFlow(\frac{top+bot}{2})]$ and the length of the available interval is divided by 2.
+          \item Similarly, if $maxFlow(\frac{top+bot}{2}) > F' + \epsilon_2 > F'$ (line~\ref{bsifhigh}) then $\delta^* \in
+          (\frac{top+bot}{2}, top]$. According to line~\ref{bsrechigh}, the interval $[bot, \frac{top+bot}{2})$ is discarded
+          when the next \texttt{BinSearch} is called. Since $F'- \epsilon_1 \geq maxFlow(top)$, we have $[F' - \epsilon_1, F'
+          + \epsilon_2] \subset (maxFlow(top),$ $maxFlow(\frac{top+bot}{2})]$ and the length of the available interval is
+          divided by 2.
        \end{itemize}
        As we saw, $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$ in every recursive call and
        $top - bot$ is divided by 2 in every call. From topology we know that $A \subset B \Rightarrow |A| < |B|$, so the
@@ -1333,10 +1335,11 @@
 %$\forall \delta': 0 \leq \delta' < bot_j, maxFlow > F'$ because $\exists i \in [0,j):bot_i \leq \delta' \leq top_i$
     \end{proof}
     \begin{proof}[Complexity of function \ref{binsearch}] \ \\
-       Lines 1-2 have complexity $O(1)$, lines 4-5 have complexity $O(n)$, lines 6-11 have complexity
-       $O(maxFlow) + O(BinSearch)$. As we saw in the proof of correctness for function \ref{binsearch}, we need at most
-       $\log_2(\frac{top - bot}{\epsilon_1 + \epsilon_2})$ recursive calls of \texttt{BinSearch}. Thus the function
-       \ref{binsearch} has worst-case complexity $O((maxFlow + n)\log_2(\frac{top - bot}{\epsilon_1 + \epsilon_2}))$.
+       Lines~\ref{bsifboteqtop} -~\ref{bsretbot} have complexity $O(1)$, lines~\ref{bsforcapset} -~\ref{bscapset} have
+       complexity $O(n)$, lines~\ref{bsiflow} -~\ref{bsretmid} have complexity $O(maxFlow) + O(BinSearch)$. As we saw in the
+       proof of correctness for function \ref{binsearch}, we need at most $\log_2(\frac{top - bot}{\epsilon_1 +
+       \epsilon_2})$ recursive calls of \texttt{BinSearch}. Thus the function \ref{binsearch} has worst-case complexity
+       $O((maxFlow + n)\log_2(\frac{top - bot}{\epsilon_1 + \epsilon_2}))$.
     \end{proof}
     \begin{proof}[Proof of correctness for algorithm \ref{dinf}] \ \\
        We will show that $maxFlow \in [F - V - \epsilon_1, F - V + \epsilon_2]$, with $u_i'$ decided by algorithm
@@ -1348,9 +1351,11 @@
        the condition $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$.
     \end{proof}
     \begin{proof}[Complexity of algorithm \ref{dinf}] \ \\
-       The complexity of lines 1,2 and 4-6 is $O(n)$ and the complexity of line 3 is $O(BinSearch) = O((maxFlow + n)
-       \log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$, thus the total complexity of algorithm \ref{dinf} is
-       $O((maxFlow + n)\log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$.
+       The complexity of lines~\ref{dinfifepsilonsvalid} -~\ref{dinfepsilonsinvalid} and~\ref{dinfifvvalid}
+       -~\ref{dinfvinvalid} is $O(1)$, the complexity of lines~\ref{dinffinit},~\ref{dinfdeltainit},~\ref{dinfforcap}
+       -~\ref{dinfcapset} and~\ref{dinfreturn} is $O(n)$ and the complexity of line~\ref{dinfcallbs} is $O(BinSearch) =
+       O((maxFlow + n) \log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$, thus the total complexity of algorithm
+       \ref{dinf} is $O((maxFlow + n)\log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$.
     \end{proof}
 
     However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i') = ||\delta_i||_1$.
