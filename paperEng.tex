@@ -143,7 +143,9 @@
      several algorithms that we propose, or in any custom way the user chooses to. On the other side, there is no guarantee
      that the store will complete is part of the transaction and no central authority can reimburse the money. However, it is
      possible for the defrauded user to make up for her loss by in turn stealing from other users that trust her, an action
-     that will tautologically reduce their trust to her.
+     that will tautologically reduce their trust to her. The fact that this system can function in a completely distributed
+     fashion will become clear in the following sections, along with the positive result that it is in principle Sybil
+     resilient.
 
      There are several incentives for a user to join this network. First of all, they can have access to a store that is
      otherwise unaccessible. Moreover, two friends can formalize their mutual trust by entrusting the same amount to each
@@ -163,20 +165,23 @@
      decentralized, trust, web-of-trust, bitcoin, multisig, line-of-credit, trust-as-risk, flow  
 
   \section{A detailed example}
-     The state of the game can be represented by a directed weighted graph where each node represents a pseudonymous identity
-     that is considered to correspond to exactly one user and each edge represents a direct trust, the weight of which is the
-     value which the head entrusts the tail with. [Image] \\
-     Each node has a corresponding number that represents its capital. A node's capital is the total value that the node
-     directly and exclusively controls, i.e. is the number of bitcoin contained in p2pkh transactions in the utxo of which
-     the private keys are controlled by the node. A rational player would like to maximize her capital in the long term.
-     Let's suppose that player $A$ wants to buy a product that costs $10$ from player $B$, but $A$ has not given any direct
-     trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other words, should $B$ decide to
-     steal all its incoming direct trust and stop trusting directly other users and the rest of the players choose the
-     conservative strategy of stealing from their respective incoming trusts just enough to replenish their loss [rationale
-     needed], what would the eventual loss of $A$ be? If it can be higher than the value of the product, then $A$ is already
-     exposed to a higher risk to $B$, thus paying for the product can be done without $A$ being exposed to any additional
-     risk towards $B$. \\
-     Suppose that $B$ really decides to depart from the network, taking with him all the coins he can [Image] \\
+     The state of the game at any given moment can be represented by a directed weighted graph where each node represents a
+     pseudonymous identity that is considered to correspond to exactly one user and each edge represents a direct trust, the
+     weight of which is the value which the head entrusts the tail with. [Image] \\
+     Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
+     the node directly and exclusively controls. More technically, it is the number of bitcoins contained in p2pkh
+     transactions in the utxo of which the private keys are controlled by the node. A rational player would like to maximize
+     her capital in the long term. Let's suppose that player $A$ wants to buy a product that costs $10$ from player $B$, but
+     $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
+     words, should $B$ decide to steal all its incoming direct trust and stop trusting directly other users and the rest of
+     the players choose the conservative strategy of stealing from their respective incoming trusts just enough to replenish
+     their loss [rationale needed], what would the eventual loss of $A$ be? If it can be higher than the value of the
+     product, then $A$ is already exposed to a higher risk to $B$, thus paying for the product can be done without $A$ being
+     exposed to any additional risk towards $B$, as long as $A$ reduces the direct trust to her friends enough to reduce the
+     risk by the value of the product. If the transaction completes in a satisfying manner, $A$ can replenish the reduced
+     trust to her friends, or can even choose to start directly trusting $B$. \\
+     Suppose that at the moment $A$ is considering of performing a payment to him, $B$ really decides to depart from the
+     network, taking with him all the coins he can [Image] \\
      (Completion of example)
 
   \section{Definitions}
