@@ -111,45 +111,48 @@
 
   \section{Introduction}
      Modern marketplaces can be roughly categorized as centralized and decentralized. Two major examples are
-     \href{http://www.ebay.com}{ebay}, which is centralized and as such it is vulnerable to ddos attacks \cite{ddosattacks}
-     and can be considered as a single point of failure, charges fees for the use of its services \cite{ebayfees} and
-     maintains a private database of personal data as anybody can find out by creating an account, but it can give money-back
-     guarantees \cite{ebayguarantee} since it is run by a single company that has a financial advantage in keeping its
-     clients satisfied. On the other hand, \href{https://openbazaar.org/}{OpenBazaar} is a decentralized platform built on
-     bitcoin \cite{bitcoin}, where individual stores or its \href{https://duosear.ch}{search engine} is vulnerable to ddos
-     attacks \cite{ddosattacks}, but not the platform as a whole. Additionally, it does not charge fees for its usage
-     \cite{openbazaar} and there is no central agent recording all the transactions by name (except for the bitcoin
-     blockchain) \cite{openbazaar} but it is possible for a buyer or a seller colluding with a  moderator to scam the third
+     \href{http://www.ebay.com}{ebay} and \href{https://openbazaar.org/}{OpenBazaar}. \href{http://www.ebay.com}{ebay} is
+     centralized and as such it is vulnerable to ddos attacks \cite{ddosattacks} and can be considered as a single point of
+     failure, it charges fees for the use of its services \cite{ebayfees} and maintains a private database of personal data,
+     but it can give money-back guarantees \cite{ebayguarantee} since it is run by a single company that has a financial
+     advantage in keeping its clients satisfied. On the other hand, \href{https://openbazaar.org/}{OpenBazaar} is a
+     decentralized platform built on bitcoin \cite{bitcoin}, where individual stores or its \href{https://duosear.ch}{search
+     engine} are vulnerable to ddos attacks \cite{ddosattacks}, but not the platform as a whole. Additionally, it does not
+     charge fees for its usage \cite{openbazaar} and there is no central agent recording all the transactions alongside with
+     private data \cite{openbazaar} but it is possible for a buyer or a seller colluding with a  moderator to scam the third
      party and there exists no central authority able to verify the truth of her claim and reimburse her
      \cite{multisigfraud}. Even though trust (or distrust) should be directed to each store individually, it is very likely
      that the whole platform will be discarded as untrusted by the scammed party.
 
-     Our goal is to create a distributed marketplace where the trust each user gives to the others is quantifiable,
-     measurable and expressable in monetary terms. The central concept used throughout this paper is trust-as-risk, or the
-     proposition that a user's $A$ \textit{trust} to another user $B$ is defined to be the \textit{maximum sum of money} $A$
-     can lose when $B$ is free to choose any strategy she wants. To flesh out trust-as-risk, we will use \textit{lines of
-     credit} as proposed by Washington Sanchez [citation needed]. Joining the network will be done by explicitly entrusting
-     a certain amount of money to another user. If that user has already entrusted an amount of money to a store, then we
-     trust indirectly the store, thus we can engage in economic interaction with that store.
+     Our goal is to create a distributed marketplace where the trust each user gives to the rest of the users is
+     quantifiable, measurable and expressable in monetary terms. The central concept used throughout this paper is
+     trust-as-risk, or the proposition that a user's $A$ \textit{trust} to another user $B$ is defined to be the
+     \textit{maximum sum of money} $A$ can lose when $B$ is free to choose any strategy she wants. To flesh out
+     trust-as-risk, we will use \textit{lines of credit} as proposed by Washington Sanchez [citation needed]. Joining the
+     network will be done by explicitly entrusting a certain amount of money to another user. If the second user has already
+     entrusted an amount of money to a store, then we trust indirectly the store, thus we can engage in economic interaction
+     with said store.
 
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
-     construction that permits any one of two pre-designated users to spend the coins contained therein.
+     construction that permits any one of two pre-designated users to spend the coins contained therein \cite{multisig}.
 
      Our approach drastically changes the user experience. A user no more has to worry about stars and ratings to develop
-     trust towards a store, she can simply check the trust \textit{flowing} from her to the store which will be a number
-     expressed in bitcoins and if this number exceeds the price of the product, she is safe to complete the transaction.
-     On the other side, there is no guarantee that the store will complete is part of the transaction and no central
-     authority can reimburse the money. However, it is possible for the defrauded user to make up for her loss by in turn
-     stealing from other users that trust her, an action that will tautologically reduce their trust to her.
+     trust towards a store, she can simply check the trust \textit{flowing} from her to the store (which will be a number
+     expressed in bitcoins) and if this number exceeds the price of the product, she is safe to complete the transaction
+     after modifying her direct trust towards her friends in an appropriate way, a process that can be handled by one of
+     several algorithms that we propose, or in any custom way the user chooses to. On the other side, there is no guarantee
+     that the store will complete is part of the transaction and no central authority can reimburse the money. However, it is
+     possible for the defrauded user to make up for her loss by in turn stealing from other users that trust her, an action
+     that will tautologically reduce their trust to her.
 
      There are several incentives for a user to join this network. First of all, they can have access to a store that is
-     otherwise unaccessible. Two friends can formalize their mutual trust by trusting the same amount to each other. A large
-     company that casually subcontracts other companies to complete various tasks can express its trust towards them through
-     our system. A government can choose to entrust its citizens with money and confront them using its legal arsenal if they
-     make irresponsible use of this trust. A bank can provide loans as outgoing and manage savings as incoming trust and thus
-     has a unique opportunity of expressing in a formal and absolute way its credence by publicating its incoming trust. Last
-     but not least, the network can be viewed as a possible field for investment and speculation since it constitutes a
-     completely new area of financial activity.
+     otherwise unaccessible. Moreover, two friends can formalize their mutual trust by entrusting the same amount to each
+     other. A large company that casually subcontracts other companies to complete various tasks can express its trust
+     towards them using this method. A government can choose to entrust its citizens with money and confront them using its
+     legal arsenal if they make irresponsible use of this trust. A bank can provide loans as outgoing and manage savings as
+     incoming trust and thus has a unique opportunity of expressing in a formal and absolute way its credence by publishing
+     its incoming trust. Last but not least, the network can be viewed as a possible field for investment and speculation
+     since it constitutes a completely new area for financial activity.
 
      We should note that the current description of TrustIsRisk refers to a static setting where the game evolves in turns.
      In each turn only one user changes the state of the network. Also the system we describe needs full network knowledge
@@ -1383,7 +1386,7 @@
   effectively in zero knowledge and what bounds exist in regards to information
   revealed in such fashion.
 
-  \begin{thebibliography}{10}
+  \begin{thebibliography}{20}
      \bibitem{ddosattacks}
      \href{http://www.cisco.com/c/en/us/about/press/internet-protocol-journal/back-issues/table-contents-30/dos-attacks.html}
            {Distributed Denial of Service Attacks - The Internet Protocol Journal - Volume 7, Number 4}
@@ -1406,6 +1409,9 @@
      \bibitem{dionyziz}
      \href{https://dionyziz.com/pseudonymous-trust-2.pdf}{Zindros, Dionysis S. (2015). Trust in decentralized anonymous
      marketplaces}
+     \bibitem{multisig}
+     \href{https://bitcoinmagazine.com/articles/multisig-future-bitcoin-1394686504}{Bitcoin Magazine (2014). Bitcoin Multisig
+     Wallet: The Future of Bitcoin}
   \end{thebibliography}
 
 \end{document}
