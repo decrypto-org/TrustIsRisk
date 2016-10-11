@@ -986,33 +986,37 @@
        players who are controlled by an adversary, Eve. Eve also controls the number of players in the Sybil set
        $\mathcal{C}, |\mathcal{C}|$, but players $C \in \mathcal{C}$ are not directly trusted by players outside the
        collusion, contrary to players $B \in \mathcal{B}$, the corrupted set, who may be directly trusted by any player in
-       $\mathcal{V}$. It holds that $Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
+       $\mathcal{V}$. It holds that $Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = Tr_{A \rightarrow \mathcal{B}}$.
     \end{theorem}
     \begin{proof}
        Suppose two separate games $\mathcal{G}_1 = (\mathcal{V}_1,\mathcal{E}_1), \mathcal{G}_2 = (\mathcal{V}_2,
        \mathcal{E}_2)$ with $(\mathcal{B} \subset \mathcal{V(G)}_1 \wedge \mathcal{B} \subset \mathcal{V(G)}_2) \wedge
-       (\mathcal{C} \subset \mathcal{V}_1 \wedge \mathcal{C} \cap \mathcal{V}_2 = \emptyset)$. Suppose also that there exist
-       $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game and $|\mathcal{B}|$ consecutive turns for the
-       second game during which all the colluding players choose actions according to the evil strategy. More formally,
-       suppose that $\exists j \in \mathbb{N} : \forall d_1 \in [|\mathcal{B} \cup \mathcal{C}|], Player(j+d) \in
-       \mathcal{B} \cup \mathcal{C} \wedge \forall d_1, d_2 \in [|\mathcal{B} \cup \mathcal{C}|], d_1 \neq d_2, Player(j +
-       d_1) \neq Player(j + d_2) \wedge \forall d \in [|\mathcal{B} \cup \mathcal{C}|], Strategy(Player(j+d)) = Evil \wedge
-       \forall j' \in [j] Player(j') \notin \mathcal{B} \cup \mathcal{C}$ for the first and likewise for the second game. Let
-       $T_1$ be an auxiliary player such that $\forall D \in \mathcal{B} \cup \mathcal{C}, DTr_{D \rightarrow T_1} = \infty$
-       and $T_2$ be another auxiliary player such that $\forall B \in \mathcal{B}, DTr_{B \rightarrow T_2} = \infty$.
-       According to \ref{trustmany}, $Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow(A, T_1), Tr_{A \rightarrow
-       \mathcal{B}} = maxFlow(A, T_2)$. From lemma \ref{mincutmany}, we know that $\forall (v,w) \in MinCut, v \notin
-       \mathcal{B} \cup \mathcal{C}$ and thus $e \in MinCut_1 \Rightarrow e \in \mathcal{E}_2 \wedge e \in MinCut_2
-       \Rightarrow e \in \mathcal{E}_1 \wedge \forall e \in MinCut_1 \cup MinCut_2, c_1(e) = c_2(e)$. Thus the flow $X_1$
-       resulting from $maxFlow(A, T_1)$ is a valid flow for the second case if we set $\forall v \in \mathcal{V}_2 \setminus
-       \mathcal{B}, \forall w \in \mathcal{V}_2, x_{vw,2} = x_{vw,1} \wedge \forall v \in \mathcal{B}, x_{vT_2,2} =
-       \sum\limits_{w \in N^{+}(v)}x_{vw,1} \wedge \forall v,w \in \mathcal{B} \cup \mathcal{C}, x_{vw,2} = 0$ and the flow
-       $X_2$ resulting from $maxFlow(A, T_2)$ is a valid flow for the first case if we set $\forall v \in \mathcal{V}_1
-       \setminus (\mathcal{B} \cup \mathcal{C}), \forall w \in \mathcal{V}_1, x_{vw,1} = x_{vw,2} \wedge \forall v \in
-       \mathcal{B}, x_{vT_1,1} = \sum\limits_{w \in N^{+}(v)}x_{vw,2} \wedge \forall v \in \mathcal{C}, \forall w \in
-       \mathcal{V}_1, x_{vw,1} = 0$. From these two observations, we deduce that the two $maxFlow$s are equal, because
-       otherwise the lower $maxFlow$ of the two could be exchanged with the flow from the higher, thus it would not have
-       been maximum in the first place. We conclude that $maxFlow(A, T_1) = maxFlow(A, T_2) \Rightarrow Tr_{A \rightarrow
+       (\mathcal{C} \subset \mathcal{V}_1 \wedge \mathcal{C} \cap \mathcal{V}_2 = \emptyset)$. Let $T_1 \in \mathcal{V}_1$ be
+       an auxiliary player such that $\forall D \in \mathcal{B} \cup \mathcal{C}, DTr_{D \rightarrow T_1} = \infty$ and $T_2
+       \in \mathcal{V}_2$ be another auxiliary player such that $\forall B \in \mathcal{B}, DTr_{B \rightarrow T_2} =
+       \infty$. Suppose also that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game and
+       $|\mathcal{B}|$ consecutive turns for the second game during which all the colluding players choose actions according
+       to the evil strategy. More formally, suppose that $\exists j \in \mathbb{N} : \forall d_1 \in [|\mathcal{B} \cup
+       \mathcal{C}|], Player(j+d) \in \mathcal{B} \cup \mathcal{C} \wedge \forall d_1, d_2 \in [|\mathcal{B} \cup
+       \mathcal{C}|], d_1 \neq d_2, Player(j + d_1) \neq Player(j + d_2) \wedge \forall d \in [|\mathcal{B} \cup
+       \mathcal{C}|], Strategy(Player(j+d)) = Evil \wedge \forall j' \in [j] Player(j') \notin \mathcal{B} \cup \mathcal{C}$
+       for the first and likewise for the second game. According to \ref{trustmany}, $Tr_{A \rightarrow \mathcal{B} \cup
+       \mathcal{C}} = maxFlow(A, T_1), Tr_{A \rightarrow \mathcal{B}} = maxFlow(A, T_2)$. From lemma \ref{mincutmany}, we
+       know that $\forall (v,w) \in MinCut, v \notin \mathcal{B} \cup \mathcal{C}$ and thus $e \in MinCut_1 \Rightarrow e \in
+       \mathcal{E}_2 \wedge e \in MinCut_2 \Rightarrow e \in \mathcal{E}_1 \wedge \forall e \in MinCut_1 \cup MinCut_2,
+       c_1(e) = c_2(e)$. Thus the flow $X_1$ resulting from $maxFlow(A, T_1)$ can be used to construct a valid flow of equal
+       value for the second case if we set $\forall v \in \mathcal{V}_2 \setminus \mathcal{B}, \forall w \in \mathcal{V}_2,
+       x_{vw,2} = x_{vw,1} \wedge \forall v \in \mathcal{B}, x_{vT_2,2} = \sum\limits_{w \in N^{+}(v)}x_{vw,1} \wedge \forall
+       v,w \in \mathcal{B} \cup \mathcal{C}, x_{vw,2} = 0$. Likewise, the flow $X_2$ resulting from $maxFlow(A, T_2)$ can be
+       used to construct a valid flow of equal value for the first case if we set $\forall v \in \mathcal{V}_1 \setminus
+       (\mathcal{B} \cup \mathcal{C}), \forall w \in \mathcal{V}_1, x_{vw,1} = x_{vw,2} \wedge \forall v \in \mathcal{B},
+       x_{vT_1,1} = \sum\limits_{w \in N^{+}(v)}x_{vw,2} \wedge \forall v \in \mathcal{C}, \forall w \in \mathcal{V}_1,
+       x_{vw,1} = 0$. From these two observations, we deduce that there exists a function, say $F_2(X_1)$, that transforms
+       the $MaxFlow_1$ of the first graph into a valid flow for the second graph that has the same amount of flow as
+       $MaxFlow_1$ and there also exists a similar function $F_1(X_2)$ that transforms the $MaxFlow_2$ of the second graph
+       into a valid flow for the first graph that has the same amount of flow as $MaxFlow_2$. Suppose that $maxFlow_1 <
+       maxFlow_2$. Then $F_1(MaxFlow_2) > maxFlow_1$ which is a contradiction. The same contradiction arises if we suppose
+       that $maxFlow_1 > maxFlow_2$. We conclude that $maxFlow(A, T_1) = maxFlow(A, T_2) \Rightarrow Tr_{A \rightarrow
        \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
     \end{proof}
 %       Consider the partition of
