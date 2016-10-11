@@ -659,18 +659,18 @@
     \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
     \label{trustflow}
        Let $\mathcal{G}$ be a game graph at a specific turn and $A,B \in V(\mathcal{G})$. It holds that
-       $Tr_{A \rightarrow B} = MaxFlow(A, B)$
+       $Tr_{A \rightarrow B} = maxFlow(A, B)$
     \end{theorem}
     \begin{proof} \ \\
        Without loss of generality, we can suppose that the turn in which we are interested is 0 ($\mathcal{G} =
        \mathcal{G}_0$). First we will show that the $MaxFlow$ can be a result of a valid execution of algorithm
        \ref{transitivesteal} and afterwards we will show that each valid execution of algorithm \ref{transitivesteal}
-       corresponds to a valid flow from $A$ to $B$. Thus we will have proven that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
+       corresponds to a valid flow from $A$ to $B$. Thus we will have proven that $Tr_{A \rightarrow B} = maxFlow(A, B)$.
        \begin{itemize}
           \item We will first show that there exists an execution of algorithm \ref{transitivesteal} such that $Loss_A =
-          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $maxFlow(A, B)$ algorithm on $\mathcal{G}$.
+          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $MaxFlow(A, B)$ algorithm on $\mathcal{G}$.
           It is known that all flows are DAGs [citation needed] and that all DAGs are a partial order of their nodes based on
-          the partial ordering $x_{vw} > 0 \Rightarrow v < w$ [citation needed]. From this partial order, we can create a
+          the partial ordering $x_{vw} \leq 0 \Rightarrow v < w$ [citation needed]. From this partial order, we can create a
           total order with an algorithm such as topoSort \cite{toposort}. The maximum element of the total order is a node
           that does not have any outgoing flow. Removing any node from a DAG cannot create a cycle, thus the graph that
           remains after removing a node from a DAG is also a DAG, thus it has a total order as well, which can be chosen to
@@ -684,11 +684,11 @@
              remove the maximum element, $B$.
              \item Suppose that $\forall j \in [k], k > 0$, the player $v$ corresponding to the maximum element is chosen to
              play for the first time, that $\forall w \in N^{-}(v)_{j-1} (= N^{-}(v)_0), x_{wv} \leq y$ where $Steal(y,w) \in
-             Turn_k \wedge \sum\limits_{w \in N^{-}(v)_0}x_{wv} = \sum\limits_{w \in N^{+}(v)_0}x_{vw}$.
+             Turn_j \wedge \sum\limits_{w \in N^{-}(v)_0}x_{wv} = \sum\limits_{w \in N^{+}(v)_0}x_{vw}$.
              \item For $j = k+1$, $Player(k+1) = v'$ corresponds to the maximum element of the previous total order with the
              element $v$ removed and it is the first time player $v'$ plays, since $v > v'$ in all previous steps thus $v'$
-             was not maximum. It also holds that $\forall w \in N^{-}(v)_0, x_{wv'} \leq DTr_{w \rightarrow v', 0}$ since the
-             $x_{wv'}$ are chosen by the maxFlow algorithm with corresponding capacities the direct trusts and, since
+             was not maximum. It also holds that $\forall w \in N^{-}(v')_0, x_{wv'} \leq DTr_{w \rightarrow v', 0}$ since
+             the $x_{wv'}$ are chosen by the maxFlow algorithm with corresponding capacities the direct trusts and, since
              $\sum\limits_{w \in N^{-}(v')_0}x_{wv'} = \sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ and player $v'$ has already
              been stolen value equal to $\sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ (since she has no outgoing flow in turn
              $j$), player $v'$ can choose to steal from each player $w \in N^{-}(v')_0$ value at least equal to $x_{wv'}$
@@ -701,12 +701,12 @@
           \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
           valid flow from $A$ to $B$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)_0}x_{Av}$. Let $j$ be a turn where
           \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
-          out_{A, 0} - out_{A, j}$. We create a new graph $\mathcal{G}'$ such that $V(\mathcal{G}') = V(\mathcal{G}) \cup T,
-          E(\mathcal{G}') = E(\mathcal{G}) \cup \{(T, v) : v \in Sad_j\} \cup (T, A), \forall (v, w) \in E(\mathcal{G}),
+          out_{A, 0} - out_{A, j}$. We create a new graph $\mathcal{G}'$ such that $V(\mathcal{G}') = V(\mathcal{G}) \cup
+          \{T\}, E(\mathcal{G}') = E(\mathcal{G}) \cup \{(T, v) : v \in Sad_j\} \cup (T, A), \forall (v, w) \in E(\mathcal{G}),
           c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \forall v \in Sad_j, c'_{Tv} = c'_{TA} = \infty$
           ($T$ is an auxiliary source that trusts infinitely $A$ and all the $Sad$ nodes). We execute the $MaxFlow(T, B)$
           algorithm on $\mathcal{G}'$ and we get a flow $X' : \forall v,w \in V(\mathcal{G}), x'_{vw} = c'_{vw}$ (all the
-          edges, except for the auxiliary ones, saturated). Thus $\sum\limits_{v \in N^{+}(A)_0}x_{Av} = Loss_{A, j}$.
+          edges, except for the auxiliary ones, saturated). Thus $\sum\limits_{v \in N^{+}(A)_0}x'_{Av} = Loss_{A, j}$.
           If we create a new graph $\mathcal{G}''$ with $V(\mathcal{G}'') = V(\mathcal{G}'), E(\mathcal{G}'') =
           E(\mathcal{G}'), \forall v \in Sad_j, c''_{Tv} = 0, c''_{TA} = \infty, \forall v,w \in V(\mathcal{G}), c''_{vw} =
           c_{vw}$ (the auxiliary node trusts only $A$) and execute the $MaxFlow(T, B) = X''$ algorithm on $\mathcal{G}''$,
@@ -717,7 +717,7 @@
           \sum\limits_{v \in N^{+}(A)_0}c'_{Av} = \sum\limits_{v \in N^{+}(A)_0}c''_{Av}$ (the outgoing edges from $A$ were
           already saturated) thus $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} \leq \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$. Thus
           the resulting flow is equal to $Loss_{A, j}$, or $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} = \sum\limits_{v \in
-          N^{+}(A)_0}c_{Av} = Loss_{A, j}$.
+          N^{+}(A)_0}c'_{Av} = Loss_{A, j}$.
        \end{itemize}
        We finally conclude that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
     \end{proof}
