@@ -656,9 +656,57 @@
        \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}$
        \item $\sum\limits_{v \in N^{+}(A)}x_{Av} = \sum\limits_{v \in N^{-}(B)}x_{vB}$
     \end{enumerate}
+    \begin{lemma}[Transitive Steal coincidence with MaxFlow] \ \\
+       \label{maxflowvalidgame}
+       Let $\mathcal{G}_{j_0}$ be a game graph at a specific turn $j_0$, let $A, B \in V(\mathcal{G}_{j_0})$ and
+       $maxFlow(A, B)$ the maximum flow from $A$ to $B$ executed on $\mathcal{G}_{j_0}$. There exists an execution of
+       algorithm \ref{transitivesteal} and a turn $j_1 \in \mathbb{N}$ such that algorithm \ref{transitivesteal} has
+       converged and $maxFlow(A, B) = Loss_{A, j_1}$.
+    \end{lemma}
+    \begin{proof} \ \\
+       Without loss of generality, we suppose that the interesting turn is 0. In other words, $j_0 = 0$. Let $X =
+       \{x_{vw}\}_{V(\mathcal{G}_0) \times V(\mathcal{G}_0)}$ be the flows returned by the execution of the $MaxFlow(A, B)$
+       algorithm on $\mathcal{G}_0$. It is known that all flows are DAGs [citation needed] and that we can apply the
+       topological sort algorithm to any DAG and obtain a total ordering of its nodes with the following property: $\forall$
+       nodes $v, w$, it holds that $v < w \Rightarrow x_{wv} = 0$. Put differently, there is no flow from larger to smaller
+       nodes. We execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
+       $A$ is the minimum node. $B$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
+       minimum since it is the source and thus has no incoming flow from any node. The desired execution of algorithm
+       \ref{transitivesteal} will choose players following the total order, starting from player $B$. We observe that
+       $\forall v \in \mathcal{G}_0, \sum\limits_{w \in V(\mathcal{G}_0)}x_{wv} = \sum\limits_{w \in V(\mathcal{G}_0)}x_{vw}
+       \leq maxFlow(A, B) \leq in_{B, 0}$. Player $B$ will follow a modified evil strategy where she steals value equal to
+       her total incoming flow, not her total incoming trust. We will show using strong induction that there exists a set of
+       valid actions for each player according to their respective strategy such that at the end of each turn $j$ the
+       corresponding player $v = Player(j)$ will have stolen value equal to her incoming flow,
+       $\sum\limits_{w \in V(\mathcal{G}_0)}x_{wv}$.
+       \begin{itemize}
+          \item Base case: In turn 1, $B$ steals value equal to $\sum\limits_{w \in V(\mathcal{G}_0)}x_{wB}$, following the
+          modified evil strategy. $$Turn_1 = \{Steal(x_{v_1B}, v_1), ..., Steal(x_{v_iB}, v_i), ...,Steal(x_{v_mB},
+          v_m)\},$$ where $m = |N^{-}(B)_1|$ and $\forall i \in [m], v_i = N^{-}(B)_{1, i}$.
+          \item Induction hypothesis: Let $k \in [j_1 - 2]$, where $j_1$ is the turn when $A$ is chosen to play. We suppose
+          that $\forall j \in [k]$, there exists a valid set of actions, $Turn_j$, performed by $v = Player(j)$ such that $v$
+          steals from each player $w$ value equal to $x_{wv}$. $$\forall j \in [k], Turn_j = \{Steal(x_{w_1v}, w_1), ...,
+          Steal(x_{w_iv}, w_i), ..., Steal(x_{w_mv}, w_m)\},$$ where $m = |N^{-}(v)_j|$ and $\forall i \in [m], w_i =
+          N^{-}(v)_{j, i}$.
+          \item Induction step: Let $j = k + 1, v = Player(j)$. Since all the players that are greater than $v$ in the total
+          order have already played and all of them have stolen value equal to their incoming flow, we deduce that $v$ has
+          been stolen value equal to $\sum\limits_{w \in V(\mathcal{G}_0)}x_{vw}$. Since it is the first time $v$ plays,
+          $\forall w \in N^{-}(v), DTr_{w \rightarrow v, j} = DTr_{w \rightarrow v, 0} \geq x_{wv}$, thus $v$ is able to
+          choose the following turn: $$Turn_j = \{Steal(x_{w_1v}, w_1), ..., Steal(x_{w_iv}, w_i), ...,
+          Steal(x_{w_mv}, w_m)\},$$ where $m = |N^{-}(v)_j|$ and $\forall i \in [m], w_i = N^{-}(v)_{j, i}$. Moreover, this
+          turn satisfies the conservative strategy since $\sum\limits_{w \in V(\mathcal{G}_0)}x_{wv} = \sum\limits_{w \in
+          V(\mathcal{G}_0)}x_{vw}$. Thus $Turn_j$ is a valid turn for the conservative player $v$.
+       \end{itemize}
+       We have proven that in the end of turn $j_1 - 1$, player $B$ and all the conservative players will have stolen value
+       exactly equal to their total incoming flow, thus $A$ will have been stolen value equal to her outgoing flow, which is
+       $maxFlow(A, B)$. Thus we have proven that there exists a valid execution of algorithm \ref{transitivesteal} where
+       $Loss_{A, j_1} = maxFlow(A, B)$.
+    \end{proof}
+    The fact that $B$ follows the modified evil strategy in the previous proof only strengthens our result, since we can see
+    that $A$ can lose value equal to $maxFlow(A, B)$ even if $B$ chooses a more moderate strategy than the evil one.
     \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
     \label{trustflow}
-       Let $\mathcal{G}$ be a game graph at a specific turn and $A,B \in V(\mathcal{G})$. It holds that
+       Let $\mathcal{G}$ be a game graph at a specific turn and $A, B \in V(\mathcal{G})$. It holds that
        $Tr_{A \rightarrow B} = maxFlow(A, B)$
     \end{theorem}
     \begin{proof} \ \\
@@ -667,37 +715,37 @@
        \ref{transitivesteal} and afterwards we will show that each valid execution of algorithm \ref{transitivesteal}
        corresponds to a valid flow from $A$ to $B$. Thus we will have proven that $Tr_{A \rightarrow B} = maxFlow(A, B)$.
        \begin{itemize}
-          \item We will first show that there exists an execution of algorithm \ref{transitivesteal} such that $Loss_A =
-          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $MaxFlow(A, B)$ algorithm on $\mathcal{G}$.
-          It is known that all flows are DAGs [citation needed] and that all DAGs are a partial order of their nodes based on
-          the partial ordering $x_{vw} \leq 0 \Rightarrow v < w$ [citation needed]. From this partial order, we can create a
-          total order with an algorithm such as topoSort \cite{toposort}. The maximum element of the total order is a node
-          that does not have any outgoing flow. Removing any node from a DAG cannot create a cycle, thus the graph that
-          remains after removing a node from a DAG is also a DAG, thus it has a total order as well, which can be chosen to
-          be the same total order as before removing the node, except for the removed node. If the removed node was maximum
-          or minimum, the new total order is obvious. We will prove our claim using induction. \\
-          \begin{itemize}
-             \item Player $B$ is the maximum node in turn 0 because she is the sink of the MaxFlow algorithm, thus she is the
-             first to be chosen to play and steals all her incoming and outgoing trust. $\forall v \in N^{-}(B)_0, x_{vB}
-             \leq DTr_{v \rightarrow B, 0}$ and $\sum\limits_{v \in N^{-}(B)_0}x_{vB} = maxFlow(A, B)$. The graph
-             $\mathcal{G}_1 = \mathcal{G}_0 \setminus \{B\}$ is also a DAG and corresponds to the previous total order if we
-             remove the maximum element, $B$.
-             \item Suppose that $\forall j \in [k], k > 0$, the player $v$ corresponding to the maximum element is chosen to
-             play for the first time, that $\forall w \in N^{-}(v)_{j-1} (= N^{-}(v)_0), x_{wv} \leq y$ where $Steal(y,w) \in
-             Turn_j \wedge \sum\limits_{w \in N^{-}(v)_0}x_{wv} = \sum\limits_{w \in N^{+}(v)_0}x_{vw}$.
-             \item For $j = k+1$, $Player(k+1) = v'$ corresponds to the maximum element of the previous total order with the
-             element $v$ removed and it is the first time player $v'$ plays, since $v > v'$ in all previous steps thus $v'$
-             was not maximum. It also holds that $\forall w \in N^{-}(v')_0, x_{wv'} \leq DTr_{w \rightarrow v', 0}$ since
-             the $x_{wv'}$ are chosen by the maxFlow algorithm with corresponding capacities the direct trusts and, since
-             $\sum\limits_{w \in N^{-}(v')_0}x_{wv'} = \sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ and player $v'$ has already
-             been stolen value equal to $\sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ (since she has no outgoing flow in turn
-             $j$), player $v'$ can choose to steal from each player $w \in N^{-}(v')_0$ value at least equal to $x_{wv'}$
-             without violating the conservative strategy.
-          \end{itemize}
-          We have proven using induction that if the algorithm chooses only maximum nodes, after exactly $|V(\mathcal{G}_0)|-
-          1$ turns (we do not count idle player $A$) every player except for $A$ will have stolen at least value equal to the
-          flow passing through them and player $A$ will have been stolen value exactly equal to $maxFlow(A, B) \Rightarrow
-          Loss_A = maxFlow(A, B)$.
+%          \item We will first show that there exists an execution of algorithm \ref{transitivesteal} such that $Loss_A =
+%          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $MaxFlow(A, B)$ algorithm on $\mathcal{G}$.
+%          It is known that all flows are DAGs [citation needed] and that all DAGs are a partial order of their nodes based on
+%          the partial ordering $x_{vw} \leq 0 \Rightarrow v < w$ [citation needed]. From this partial order, we can create a
+%          total order with an algorithm such as topoSort \cite{toposort}. The maximum element of the total order is a node
+%          that does not have any outgoing flow. Removing any node from a DAG cannot create a cycle, thus the graph that
+%          remains after removing a node from a DAG is also a DAG, thus it has a total order as well, which can be chosen to
+%          be the same total order as before removing the node, except for the removed node. If the removed node was maximum
+%          or minimum, the new total order is obvious. We will prove our claim using induction. \\
+%          \begin{itemize}
+%             \item Player $B$ is the maximum node in turn 0 because she is the sink of the MaxFlow algorithm, thus she is the
+%             first to be chosen to play and steals all her incoming and outgoing trust. $\forall v \in N^{-}(B)_0, x_{vB}
+%             \leq DTr_{v \rightarrow B, 0}$ and $\sum\limits_{v \in N^{-}(B)_0}x_{vB} = maxFlow(A, B)$. The graph
+%             $\mathcal{G}_1 = \mathcal{G}_0 \setminus \{B\}$ is also a DAG and corresponds to the previous total order if we
+%             remove the maximum element, $B$.
+%             \item Suppose that $\forall j \in [k], k > 0$, the player $v$ corresponding to the maximum element is chosen to
+%             play for the first time, that $\forall w \in N^{-}(v)_{j-1} (= N^{-}(v)_0), x_{wv} \leq y$ where $Steal(y,w) \in
+%             Turn_j \wedge \sum\limits_{w \in N^{-}(v)_0}x_{wv} = \sum\limits_{w \in N^{+}(v)_0}x_{vw}$.
+%             \item For $j = k+1$, $Player(k+1) = v'$ corresponds to the maximum element of the previous total order with the
+%             element $v$ removed and it is the first time player $v'$ plays, since $v > v'$ in all previous steps thus $v'$
+%             was not maximum. It also holds that $\forall w \in N^{-}(v')_0, x_{wv'} \leq DTr_{w \rightarrow v', 0}$ since
+%             the $x_{wv'}$ are chosen by the maxFlow algorithm with corresponding capacities the direct trusts and, since
+%             $\sum\limits_{w \in N^{-}(v')_0}x_{wv'} = \sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ and player $v'$ has already
+%             been stolen value equal to $\sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ (since she has no outgoing flow in turn
+%             $j$), player $v'$ can choose to steal from each player $w \in N^{-}(v')_0$ value at least equal to $x_{wv'}$
+%             without violating the conservative strategy.
+%          \end{itemize}
+%          We have proven using induction that if the algorithm chooses only maximum nodes, after exactly $|V(\mathcal{G}_0)|-
+%          1$ turns (we do not count idle player $A$) every player except for $A$ will have stolen at least value equal to the
+%          flow passing through them and player $A$ will have been stolen value exactly equal to $maxFlow(A, B) \Rightarrow
+%          Loss_A = maxFlow(A, B)$.
           \item We will now show that for any valid execution of algorithm \ref{transitivesteal} there exists at least one
           valid flow from $A$ to $B$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)_0}x_{Av}$. Let $j$ be a turn where
           \ref{transitivesteal} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
