@@ -582,7 +582,7 @@
     \end{proof}
 
     \begin{theorem}[Trust convergence theorem] \ \\
-    \label{convergence}
+       \label{convergence}
        Let $A,E \in \mathcal{V} : Strategy(A) = Idle$, $Strategy(E) = Evil$, $\forall C \in \mathcal{V} \setminus \{A,E\},
        Strategy(C) = Conservative$ and $j_0 \in \mathbb{N} : Player(j_0) = E$. Given that all players eventually play, there
        exists a turn $j' > j_0 : \forall j \geq j', Turn_j = \emptyset$.
@@ -629,7 +629,7 @@
     \end{proof}
 
     \begin{theorem}[Saturation theorem] \ \\ 
-    \label{saturation}
+       \label{saturation}
        Let $s$ source, $n = |N^{+}(s)|, x_i, i \in [n]$, flows to $s$'s neighbours as calculated by the
        maxFlow algorithm, $u_i'$ new direct trusts to the $n$ neighbours and $x_i'$ new flows to the neighbours
        as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. It holds that
@@ -656,8 +656,8 @@
        \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}$
        \item $\sum\limits_{v \in N^{+}(A)}x_{Av} = \sum\limits_{v \in N^{-}(B)}x_{vB}$
     \end{enumerate}
-    \begin{lemma}[Transitive Steal coincidence with MaxFlow] \ \\
-       \label{maxflowvalidgame}
+    \begin{lemma}[MaxFlow $\rightarrow$ Transitive Steal execution] \ \\
+       \label{maxflowgame}
        Let $\mathcal{G}_{j_0}$ be a game graph at a specific turn $j_0$, let $A, B \in V(\mathcal{G}_{j_0})$ and
        $maxFlow(A, B)$ the maximum flow from $A$ to $B$ executed on $\mathcal{G}_{j_0}$. There exists an execution of
        algorithm \ref{transitivesteal} and a turn $j_1 \in \mathbb{N}$ such that algorithm \ref{transitivesteal} has
@@ -704,8 +704,15 @@
     \end{proof}
     The fact that $B$ follows the modified evil strategy in the previous proof only strengthens our result, since we can see
     that $A$ can lose value equal to $maxFlow(A, B)$ even if $B$ chooses a more moderate strategy than the evil one.
+    \begin{lemma}[Transitive Steal execution $\rightarrow$ flow] \ \\
+       \label{gameflow}
+       
+    \end{lemma}
+    \begin{proof}
+       
+    \end{proof}
     \begin{theorem}[Trust flow theorem - TOCHECK] \ \\
-    \label{trustflow}
+       \label{trustflow}
        Let $\mathcal{G}$ be a game graph at a specific turn and $A, B \in V(\mathcal{G})$. It holds that
        $Tr_{A \rightarrow B} = maxFlow(A, B)$
     \end{theorem}
@@ -889,7 +896,7 @@
 %        OLD PROOF END
 
     \begin{theorem}[Conservative world theorem] \ \\
-    \label{conservativeworld}
+       \label{conservativeworld}
        If everybody follows the conservative strategy, nobody steals any amount from anybody.
     \end{theorem}
     \begin{proof} \ \\
@@ -900,7 +907,7 @@
     \end{proof}
 
     \begin{theorem}[Trust transfer theorem (flow terminology)] \ \\
-    \label{trusttransfer}
+       \label{trusttransfer}
        Let $s$ source, $t$ sink, $n = N^{+}(s)$ \\
        $X = \{x_1, ..., x_n\}$ outgoing flows from $s$, \\
        $U = \{u_1, ..., u_n\}$ outgoing capacities from $s$, \\
@@ -958,7 +965,7 @@
     \end{proof}
 
     \begin{theorem}[Trust-saving Theorem] \ \\
-    \label{trustsave}
+       \label{trustsave}
        A configuration $U' : u_i' = F_{A_i \rightarrow B}$ for some $i \in [|N^{+}(A)|]$ can yield the same $maxFlow$ with a
        configuration $U'' : u_i'' = u_i, \forall k \in [|N^{+}(A)|], k \neq i, u_k'' = u_k'$.
     \end{theorem}
@@ -969,7 +976,7 @@
     \end{proof}
 
     \begin{theorem}[Invariable trust reduction with naive algorithms] \ \\
-    \label{invariability}
+       \label{invariability}
        Let $A$ source, $n = |N^{+}(A)|$ and $u_i'$ new direct trusts. If $\forall i \in [n],u_i' \leq x_i$,
        Trust Reduction $||\delta_i||_1$ is independent of $x_i, u_i' \:\: \forall$ valid configurations of $x_i$
     \end{theorem}
@@ -981,7 +988,7 @@
     \end{proof}
 
     \begin{theorem}[Dependence impossibility theorem] \ \\
-    \label{independence}
+       \label{independence}
        ${\partial x_k \over \partial x_i} = 0$ with $x_i$ the flow from MaxFlow $\Rightarrow
          \forall x_i' \leq x_i, {\partial x_k \over \partial x_i} = 0$ ceteris paribus
     \end{theorem}
@@ -992,7 +999,7 @@
     player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
 
     \begin{theorem}[Trust to multiple players] \ \\
-    \label{trustmany}
+       \label{trustmany}
        Let $S \subset \mathcal{V}, T$ auxiliary player such that $\forall B \in S, DTr_{B \rightarrow T} = \infty$.
        It holds that $\forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow(A, T)$.
     \end{theorem}       
@@ -1014,7 +1021,7 @@
     $C \in \mathcal{C}$ can be trusted only by players $D \in \mathcal{B} \cup \mathcal{C}$ ($DTr_{D \rightarrow C} \geq 0$)
     and not by players $A \in \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$ ($DTr_{A \rightarrow C} = 0$).
     \begin{lemma}[$\forall S \subset \mathcal{V}, v \in S \Rightarrow \forall w \in \mathcal{V}, (v,w) \notin MinCut$] \ \\
-    \label{mincutmany}
+       \label{mincutmany}
        Let $S \subset \mathcal{V}$. When calculating $maxFlow(A, S)$, it is impossible to have an edge $(v,w) \in
        MinCut : v \in S$.
     \end{lemma}
@@ -1029,7 +1036,7 @@
        as $X$. Thus $(v,w) \notin MinCut$.
     \end{proof}
     \begin{theorem}[Sybil resilience] \ \\
-    \label{sybil}
+       \label{sybil}
        Let $\mathcal{B} \cup \mathcal{C} \subset \mathcal{V}$ ($\mathcal{B} \cap \mathcal{C} = \emptyset$) be a collusion of
        players who are controlled by an adversary, Eve. Eve also controls the number of players in the Sybil set
        $\mathcal{C}, |\mathcal{C}|$, but players $C \in \mathcal{C}$ are not directly trusted by players outside the
