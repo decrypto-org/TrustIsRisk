@@ -674,10 +674,10 @@
        Without loss of generality, we suppose that the interesting turn is 0. In other words, $j_0 = 0$. Let $X =
        \{x_{vw}\}_{V(\mathcal{G}_0) \times V(\mathcal{G}_0)}$ be the flows returned by the execution of the $MaxFlow(A, B)$
        algorithm on $\mathcal{G}_0$. It is known that for any directed weighted graph $G$ there exists a $MaxFlow$ over $G$
-       that is a DAG [citation needed] and that we can apply the topological sort algorithm to any DAG and obtain a total
-       ordering of its nodes with the following property: $\forall$ nodes $v, w$, it holds that $v < w \Rightarrow x_{wv} =
-       0$ [citation needed]. Put differently, there is no flow from larger to smaller
-       nodes. We execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
+       that is a DAG [citation needed]. We also know that we can apply the topological sort algorithm to any DAG and obtain a
+       total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it holds that
+       $v < w \Rightarrow x_{wv} = 0$ [citation needed]. Put differently, there is no flow from larger to smaller nodes. We
+       execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
        $A$ is the minimum node. $B$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
        minimum since it is the source and thus has no incoming flow from any node. The desired execution of algorithm
        \ref{transitivesteal} will choose players following the total order, starting from player $B$. We observe that
