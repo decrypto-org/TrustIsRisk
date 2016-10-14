@@ -812,8 +812,8 @@
        Let $\mathcal{G}$ be a game graph at a specific turn and $A, B \in V(\mathcal{G})$. It holds that
        $Tr_{A \rightarrow B} = maxFlow(A, B)$
     \end{theorem}
-    \begin{proof}
-       \begin{itemize}
+    \begin{proof} \
+       \begin{itemize} 
           \item From lemma \ref{maxflowgame} we see that there exists an execution of algorithm \ref{transitivesteal} such
           that $Loss_{A, j} = maxFlow(A, B)$. Since $Tr_{A \rightarrow B}$ is the maximum loss that $A$ can suffer after the
           convergence of algorithm \ref{transitivesteal}, we see taht $Tr_{A \rightarrow B} \geq maxFlow(A, B)$.
