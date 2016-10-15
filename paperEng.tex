@@ -674,7 +674,9 @@
        everybody passes. \qed
     \end{proof}
     In games where there exists one evil $E$, one idle player $A$ and the rest of the players are conservative, we define
-    $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged.
+    $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is not
+    the same for repeated executions of this kind of games, since the order in which players are chosen may differ between
+    executions and the conservative players are free to choose which incoming trusts will steal and how much from each.
 
     \begin{theorem}[Saturation theorem] \ \\ 
        \label{saturation}
