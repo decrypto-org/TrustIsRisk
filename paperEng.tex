@@ -464,7 +464,7 @@
      \end{definition}
   \section{Theorems-Algorithms}
     The following algorithm has read access to direct trusts in $\mathcal{G}_{j-1}$ and write access to direct trusts in
-    $\mathcal{G}_j$.
+    $\mathcal{G}_j$. \\
     \begin{algorithm}[H]
        \label{executeturn}
        \SetKwInOut{Input}{Input}
@@ -539,15 +539,17 @@
           $(G_j, Cap_{v, j}, H_j) \gets$ \executeTurn{$v$, $\mathcal{G}_{j-1}$, $Cap_{v, j-1}$, $ProvisionalTurn$}}
     \end{algorithm}
 
-    On turn $0$, there is already a network in place. \\
+    We continue with an important possible evolution of the game, the Transitive Game. In turn $0$, there is already a
+    network in place. All players apart from $A$ and $E$ follow the conservative strategy. This convention will hold
+    whenever we use the Transitive Game. \\
     \begin{algorithm}[H]
        \label{transitivesteal}
        \SetKwInOut{Input}{Input}
        \SetKwInOut{Output}{Output}
        \SetKwFunction{executeTurn}{executeTurn}
-       \Input{$A$ idle player, $E$ evil player}
+       \Input{$\mathcal{G}_0$ game graph, $A \in \mathcal{V}_0$ idle player, $E \in \mathcal{V}_0$ evil player}
        \Output{$\mathcal{H}$ history}
-       \caption{Transitive Steal}
+       \caption{Transitive Game}
        $Angry \gets \emptyset$ \\
        $Happy \gets \emptyset$ \\
        $Sad \gets \emptyset$ \label{trstealsadinit}\\
@@ -579,6 +581,8 @@
            \If{$Loss_v = 0$}{
                $Happy \gets Happy \cup \{v\}$}}
     \end{algorithm}
+    We observe that the set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$
+    for any turn $j$ as $\mathcal{V}$ in any setting where we use the Transitive Game. \\
     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, according to theorem \ref{conservativeworld},
     all players will pass their turn.
     Given that $Damage_{v,j} = out_{v,j'} - out_{v,j}$ where $j' = prev(j)$, the algorithm generates turns:
@@ -625,8 +629,8 @@
 
     \begin{theorem}[Trust convergence theorem] \ \\
        \label{convergence}
-       Let $A,E \in \mathcal{V} : Strategy(A) = Idle$, $Strategy(E) = Evil$, $\forall C \in \mathcal{V} \setminus \{A,E\},
-       Strategy(C) = Conservative$ and $j_0 \in \mathbb{N} : Player(j_0) = E$. Given that all players eventually play, there
+       Let $A,E \in \mathcal{V} : Strategy(A) = Idle$, $Strategy(E) = Evil$, $\forall v \in \mathcal{V} \setminus \{A,E\},
+       Strategy(v) = Conservative$ and $j_0 \in \mathbb{N} : Player(j_0) = E$. Given that all players eventually play, there
        exists a turn $j' > j_0 : \forall j \geq j', Turn_j = \emptyset$.
     \end{theorem}
     \begin{proof}
@@ -669,6 +673,8 @@
        \in \mathcal{V}, \forall j \in \mathbb{N}, DTr_{w \rightarrow w', j} \geq 0$, thus eventually $Angry = \emptyset$ and
        everybody passes.
     \end{proof}
+    In games where there exists one evil $E$, one idle player $A$ and the rest of the players are conservative, we define
+    $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged.
 
     \begin{theorem}[Saturation theorem] \ \\ 
        \label{saturation}
@@ -705,16 +711,18 @@
              \end{equation}
 %       \item $\sum\limits_{v \in N^{+}(A)}x_{Av} = \sum\limits_{v \in N^{-}(B)}x_{vB}$
     \end{enumerate}
-    \begin{lemma}[MaxFlows Are Games] \ \\
+    \begin{lemma}[MaxFlows Are Transitive Games] \ \\
        \label{maxflowgame}
-       Let $\mathcal{G}_{j_0}$ be a game graph at a specific turn $j_0$, let $A, B \in V(\mathcal{G}_{j_0})$ and
-       $maxFlow(A, B)$ the maximum flow from $A$ to $B$ executed on $\mathcal{G}_{j_0}$. There exists an execution of
-       algorithm \ref{transitivesteal} such that when it converges in turn $j_1 \in \mathbb{N}$, it holds that
-       $maxFlow(A, B) \leq Loss_{A, j_1}$.
+       Let $\mathcal{G}_{j_0}$ be a game graph at a specific turn $j_0$, let $A, E \in \mathcal{V}_{j_0}$ and
+       $maxFlow\left(A, E\right)$ the maximum flow from $A$ to $E$ executed on $\mathcal{G}_{j_0}$. There exists an execution
+       of \texttt{TransitiveGame(}$\mathcal{G}_{j_0}, A, E$\texttt{)} such that
+       \begin{equation}
+          maxFlow\left(A, E\right) \leq Loss_A \enspace.
+       \end{equation}
     \end{lemma}
     \begin{proof} \ \\
        Without loss of generality, we suppose that the interesting turn is 0. In other words, $j_0 = 0$. Let $X =
-       \{x_{vw}\}_{V(\mathcal{G}_0) \times V(\mathcal{G}_0)}$ be the flows returned by the execution of the $MaxFlow(A, B)$
+       \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, B\right)$
        algorithm on $\mathcal{G}_0$. It is known that for any directed weighted graph $G$ there exists a $MaxFlow$ over $G$
        that is a DAG [citation needed]. We also know that we can apply the topological sort algorithm to any DAG and obtain a
        total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it holds that
@@ -723,146 +731,255 @@
        $A$ is the minimum node. $B$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
        minimum since it is the source and thus has no incoming flow from any node. The desired execution of algorithm
        \ref{transitivesteal} will choose players following the total order, starting from player $B$. We observe that
-       $\forall v \in V(\mathcal{G}_0) \setminus \{A, B\}, \sum\limits_{w \in V(\mathcal{G}_0)}x_{wv} = \sum\limits_{w \in V(\mathcal{G}_0)}x_{vw}
-       \leq maxFlow(A, B) \leq in_{B, 0}$. Player $B$ will follow a modified evil strategy where she steals value equal to
-       her total incoming flow, not her total incoming trust. Let $j_2$ be the turn when $A$ is chosen to play. We will show
-       using strong induction that there exists a set of
-       valid actions for each player according to their respective strategy such that at the end of each turn $j$ the
-       corresponding player $v = Player(j)$ will have stolen value $x_{wv}$ from each in neighbour $w$.
-       \begin{itemize}
-          \item Base case: In turn 1, $B$ steals value equal to $\sum\limits_{w \in V(\mathcal{G}_0)}x_{wB}$, following the
-          modified evil strategy. $$Turn_1 = \{Steal(x_{v_1B}, v_1), \dots, Steal(x_{v_iB}, v_i), \dots,Steal(x_{v_mB},
-          v_m)\},$$ where $m = |N^{-}(B)_1|$ and $\forall i \in [m], v_i = N^{-}(B)_{1, i}$.
-          \item Induction hypothesis: Let $k \in [j_2 - 2]$. We suppose
-          that $\forall j \in [k]$, there exists a valid set of actions, $Turn_j$, performed by $v = Player(j)$ such that $v$
-          steals from each player $w$ value equal to $x_{wv}$. $$\forall j \in [k], Turn_j = \{Steal(x_{w_1v}, w_1), \dots,
-          Steal(x_{w_iv}, w_i), \dots, Steal(x_{w_mv}, w_m)\},$$ where $m = |N^{-}(v)_j|$ and $\forall i \in [m], w_i =
-          N^{-}(v)_{j, i}$.
-          \item Induction step: Let $j = k + 1, v = Player(j)$. Since all the players that are greater than $v$ in the total
-          order have already played and all of them have stolen value equal to their incoming flow, we deduce that $v$ has
-          been stolen value equal to $\sum\limits_{w \in V(\mathcal{G}_0)}x_{vw}$. Since it is the first time $v$ plays,
-          $\forall w \in N^{-}(v), DTr_{w \rightarrow v, j} = DTr_{w \rightarrow v, 0} \geq x_{wv}$, thus $v$ is able to
-          choose the following turn: $$Turn_j = \{Steal(x_{w_1v}, w_1), \dots, Steal(x_{w_iv}, w_i), \dots,
-          Steal(x_{w_mv}, w_m)\},$$ where $m = |N^{-}(v)_j|$ and $\forall i \in [m], w_i = N^{-}(v)_{j, i}$. Moreover, this
-          turn satisfies the conservative strategy since $\sum\limits_{w \in V(\mathcal{G}_0)}x_{wv} = \sum\limits_{w \in
-          V(\mathcal{G}_0)}x_{vw}$. Thus $Turn_j$ is a valid turn for the conservative player $v$.
-       \end{itemize}
+       $\forall v \in \mathcal{V} \setminus \{A, B\}, \sum\limits_{w \in \mathcal{V}}x_{wv} = \sum\limits_{w \in
+       \mathcal{V}}x_{vw} \leq maxFlow\left(A, B\right) \leq in_{B, 0}$. Player $B$ will follow a modified evil strategy
+       where she steals value equal to her total incoming flow, not her total incoming trust. Let $j_2$ be the first turn
+       when $A$ is chosen to play. We will show using strong induction that there exists a set of valid actions for each
+       player according to their respective strategy such that at the end of each turn $j$ the corresponding player $v =
+       Player\left(j\right)$ will have stolen value $x_{wv}$ from each in neighbour $w$. \\
+       Base case: In turn 1, $B$ steals value equal to $\sum\limits_{w \in \mathcal{V}}x_{wB}$, following the modified evil
+       strategy.
+       \begin{equation}
+          Turn_1 = \bigcup\limits_{v \in N^{-}\left(B\right)_0}\{Steal\left(x_{vB}, v\right)\}
+       \end{equation}
+       Induction hypothesis: Let $k \in [j_2 - 2]$. We suppose that $\forall j \in [k]$, there exists a valid set of actions,
+       $Turn_j$, performed by $v = Player\left(j\right)$ such that $v$ steals from each player $w$ value equal to $x_{wv}$.
+       \begin{equation}
+          \forall j \in [k], Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(x_{wv}, w\right)\}
+       \end{equation}
+       Induction step: Let $j = k + 1, v = Player\left(j\right)$. Since all the players that are greater than $v$ in the
+       total order have already played and all of them have stolen value equal to their incoming flow, we deduce that $v$ has
+       been stolen value equal to $\sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw}$. Since it is the first time $v$
+       plays, $\forall w \in N^{-}\left(v\right), DTr_{w \rightarrow v, j-1} = DTr_{w \rightarrow v, 0} \geq x_{wv}$, thus
+       $v$ is able to choose the following turn:
+       \begin{equation}
+          Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(x_{wv}, w\right)\}
+       \end{equation}
+       Moreover, this turn satisfies the conservative strategy since
+       \begin{equation}
+          \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}x_{wv} = \sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw} \enspace.
+       \end{equation}
+       Thus $Turn_j$ is a valid turn for the conservative player $v$. \\
        We have proven that in the end of turn $j_2 - 1$, player $B$ and all the conservative players will have stolen value
        exactly equal to their total incoming flow, thus $A$ will have been stolen value equal to her outgoing flow, which is
-       $maxFlow(A, B)$. Thus we have proven that there exists a valid execution of algorithm \ref{transitivesteal} where
-       $Loss_{A, j_2} = maxFlow(A, B)$.
+       $maxFlow(A, B)$. Since there remains no Angry player, it is obvious that $j_2$ is a turn that Transitive Game has
+       converged thus $Loss_{A, j_2} = Loss_A$. It is also obvious that if $B$ had chosen the original evil strategy, the
+       described actions would still be valid only by supplementing them with additional $Steal\left(\right)$ actions, thus
+       $Loss_A$ would further increase.  We have proven that there exists a valid execution of the Transitive Game where
+       \begin{equation}
+          Loss_A \geq maxFlow\left(A, B\right) \enspace.
+       \end{equation}
     \end{proof}
-    The fact that $B$ follows the modified evil strategy in the previous proof only strengthens our result, since we can see
-    that $A$ can lose value equal to $maxFlow(A, B)$ even if $B$ chooses a more moderate strategy than the evil one.
-    \begin{lemma}[Games Are Flows] \ \\
+    \begin{lemma}[Transitive Games Are Flows] \ \\
        \label{gameflow}
-       Let $\mathcal{G}_0$ be a game graph and $A, B \in V(\mathcal{G}_0)$ where $Strategy(A) = Idle \wedge Strategy(B) =
-       Evil \wedge \forall v \in V(\mathcal{G}_0) \setminus \{A, B\}, Strategy(v) = Conservative$. Let also $\mathcal{H}$ be
-       a history corresponding to an execution of algorithm \ref{transitivesteal} on the graph $\mathcal{G}_0$ and $j_1$ a
-       turn when algorithm \ref{transitivesteal} has converged. Let $Sad, Happy, Angry$ be as defined in algorithm
-       \ref{transitivesteal}.  There exists a valid flow
-       $X = \{x_{wv}\}_{V(\mathcal{G}_0) \times V(\mathcal{G}_0)}$ on $\mathcal{G}_0$ such that
-       $\sum\limits_{v \in V(\mathcal{G}_0)}x_{Av} = Loss_{A, j_1}$.
+       Let $\mathcal{H} = $\texttt{TransitiveGame(}$\mathcal{G}, A, B$\texttt{)} for some game graph $\mathcal{G}$ and $A,
+       B \in \mathcal{V}$. Let $Sad, Happy, Angry$ be as defined in the Transitive Game. There exists a valid flow
+       $X = \{x_{wv}\}_{\mathcal{V} \times \mathcal{V}}$ on $\mathcal{G}_0$ such that
+       \begin{equation}
+          \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A \enspace.
+       \end{equation}
     \end{lemma}
     \begin{proof}
-       Let $\mathcal{G}'$ be a directed weighted graph based on $\mathcal{G}_0$ with an auxiliary source. More precisely,
-       $\mathcal{G}'$ is defined as follows:
-       \begin{itemize}
-          \item $V(\mathcal{G}') = V(\mathcal{G}_0) \cup \{T\}$
-          \item $E(\mathcal{G}') = E(\mathcal{G}_0) \cup \{(T, A)\} \cup \{(T, v) : v \in Sad_{j_1}\}$
-          \item $\forall (v, w) \in E(\mathcal{G}_0), c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}$
-          \item $\forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty$
-%          \item $\forall v \in V(\mathcal{G}_0) \setminus (Sad_{j_1} \cup \{A\}), c'_{Tv} = 0$
-%          \item $\forall v \in V(\mathcal{G}_0), c'_{vT} = 0$
-       \end{itemize} (Image)
-%------------MAY BE UNNECESSARY--------- \\
-       We can safely suppose that $\forall v \in V(\mathcal{G}_0), \forall j \in \mathbb{N}, DTr_{B \rightarrow v, j} = 0$,
-       that can be equivalently seen as $\forall j \in \mathbb{N}, N^{+}(B)_j = \emptyset$, or even $\forall j \in
-       \mathbb{N}, out_{B, j} = 0$. We can maintain such a supposition since the other players do not modify $B$'s outgoing
-       trust or take any modification of $B$'s outgoing trust into consideration. We further observe that $Strategy(A) =
-       Idle$, that nobody reduces her outgoing trust to $A$ and that nobody takes a modification of $A$'s incoming trust into
-       consideration, thus we can again suppose that
+       Let $\mathcal{G}'$ be a directed weighted graph based on $\mathcal{G}$ with an auxiliary source and $j_1$ a turn
+       when the Transitive Game has converged. More precisely, $\mathcal{G}'$ is defined as follows:
+       \begin{equation}
+          \mathcal{V}' = \mathcal{V} \cup \{T\}
+       \end{equation}
+       \begin{equation}
+          \mathcal{E}' = \mathcal{E} \cup \{(T, A)\} \cup \{(T, v) : v \in Sad_{j_1}\}
+       \end{equation}
+       \begin{equation}
+          \forall (v, w) \in \mathcal{E}, c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}
+       \end{equation}
+       \begin{equation}
+          \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
+       \end{equation}
+       (Image)
+       We observe that $\forall v \in \mathcal{V},$
+       \begin{equation}
+       \label{gameflowin}
+          \sum\limits_{w \in N^{-}\left(v\right)}c'_{wv} = \sum\limits_{w \in N^{-}\left(v\right)}\left(DTr_{w \rightarrow v,
+          0} - DTr_{w \rightarrow v, j_1}\right) = in_{v, 0} - in_{v, j_1}
+       \end{equation}
+       and
+       \begin{equation}
+       \label{gameflowout}
+          \sum\limits_{w \in N^{+}\left(v\right)}c'_{vw} = \sum\limits_{w \in N^{+}\left(v\right)}\left(DTr_{v \rightarrow w,
+          0} - DTr_{v \rightarrow w, j_1}\right) = out_{v, 0} - out_{v, j_1} \enspace.
+       \end{equation}
+       We can suppose that
        \begin{equation}
        \label{Aincoming}
-          \forall j \in \mathbb{N}, in_{A, j} = 0
+          \forall j \in \mathbb{N}, in_{A, j} = 0 \enspace,
        \end{equation}
-%------------MAY BE UNNECESSARY--------- \\
-       Next we try to calculate $MaxFlow(T, B) = X'$ on graph $\mathcal{G}'$. We observe that a flow in which it holds that
-       $\forall v, w \in V(\mathcal{G}_0), x'_{vw} = c'_{vw}$ can be valid for the following reasons:
+       since if we find a valid flow under this assumption, the flow will still be valid for the original graph. \\
+       Next we try to calculate $MaxFlow\left(T, B\right) = X'$ on graph $\mathcal{G}'$. We observe that a flow in which it
+       holds that $\forall v, w \in \mathcal{V}, x'_{vw} = c'_{vw}$ can be valid for the following reasons:
        \begin{itemize}
-          \item $x'_{vw} \leq c'_{vw}$ (Requirement \ref{flow1} $\forall e \in E(\mathcal{G}_0)$)
+          \item $\forall v,w \in \mathcal{V}, x'_{vw} \leq c'_{vw}$ (Requirement \ref{flow1} $\forall e \in \mathcal{E}$)
           \item Since $\forall v \in Sad_{j_1} \cup \{A\}, c'_{Tv} = \infty$, the requirement \ref{flow1} holds for any
           flow $x'_{Tv} \geq 0$.
-          \item Let $v \in V(\mathcal{G}') \setminus (Sad_{j_1} \cup \{T, A, B\})$. According to the conservative strategy
-          and since $v \notin Sad_{j_1}, out_{v, 0} - out_{v, j_1} = in_{v, 0} - in_{v, j_1}$. Also, according to the
-          definition of $\mathcal{G}', \sum\limits_{w \in V(\mathcal{G}')}c'_{vw} = out_{v, 0} - out_{v, j_1} \wedge
-          \sum\limits_{w \in V(\mathcal{G}')}c'_{wv} = in_{v, 0} - in_{v, j_1}$. Combining these observations, we have that
-          $\sum\limits_{w \in V(\mathcal{G}')}c'_{vw} = \sum\limits_{w \in V(\mathcal{G}')}c'_{wv}$. (Requirement \ref{flow2}
-          $\forall v \in V(\mathcal{G}') \setminus (Sad_{j_1} \cup \{T, A, B\})$)
-          \item Let $v \in Sad_{j_1}$. Since $v$ is sad, we know that $out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1}$.
-          According to the definition of $\mathcal{G}', \sum\limits_{w \in V(\mathcal{G}')}c'_{vw} = out_{v, 0} -
-          out_{v, j_1}$ and, since $c'_{Tv} = \infty$, we can set $x'_{Tv} = (out_{v, 0} - out_{v, j_1}) - (in_{v, 0} -
-          in_{v, j_1})$. In this way, we have $\sum\limits_{w \in V(\mathcal{G}')}x'_{vw} = out_{v, 0} - out_{v, j_1},
-          \sum\limits_{w \in V(\mathcal{G}')}x'_{wv} = \sum\limits_{w \in V(\mathcal{G}') \setminus \{T\}}c'_{wv} + x'_{Tv} =
-          in_{v, 0} - in_{v, j_1} + (out_{v, 0} - out_{v, j_1}) - (in_{v, 0} - in_{v, j_1}) = out_{v, 0} - out_{v, j_1}
-          \Rightarrow \sum\limits_{w \in V(\mathcal{G}')}x'_{vw} = \sum\limits_{w \in V(\mathcal{G}')}x'_{wv}$. (Requirement
-          \ref{flow2} $\forall v \in Sad_{j_1}$)
-          \item We set $x'_{TA} = \sum\limits_{v \in V(\mathcal{G}')}x'_{Av} \overset{\ref{Aincoming}}{\Longrightarrow}
-          \sum\limits_{v \in V(\mathcal{G}')}x'_{vA} = \sum\limits_{v \in V(\mathcal{G}')}x'_{Av}$. (Requirement \ref{flow2}
-          for $A$)
+          \item Let $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, B\}\right)$. According to the conservative
+          strategy and since $v \notin Sad_{j_1},$ it holds that
+          \begin{equation}
+             out_{v, 0} - out_{v, j_1} = in_{v, 0} - in_{v, j_1} \enspace.
+          \end{equation}
+          Combining this observation with (\ref{gameflowin}) and (\ref{gameflowout}), we have that
+          \begin{equation}
+             \sum\limits_{w \in \mathcal{V}'}c'_{vw} = \sum\limits_{w \in \mathcal{V}'}c'_{wv} \enspace.
+          \end{equation}
+          (Requirement \ref{flow2} $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, B\}\right)$)
+          \item Let $v \in Sad_{j_1}$. Since $v$ is sad, we know that
+          \begin{equation}
+             out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1} \enspace.
+          \end{equation}
+          Since $c'_{Tv} = \infty$, we can set
+          \begin{equation}
+             x'_{Tv} = \left(out_{v, 0} - out_{v, j_1}\right) - \left(in_{v, 0} - in_{v, j_1}\right) \enspace.
+          \end{equation}
+          In this way, we have
+          \begin{equation}
+             \sum\limits_{w \in \mathcal{V}'}x'_{vw} = out_{v, 0} - out_{v, j_1} \mbox{ and}
+          \end{equation}
+          \begin{equation}
+          \begin{gathered}
+             \sum\limits_{w \in \mathcal{V}'}x'_{wv} = \sum\limits_{w \in \mathcal{V}' \setminus \{T\}}c'_{wv} + x'_{Tv} =
+             in_{v, 0} - in_{v, j_1} + \\ + (out_{v, 0} - out_{v, j_1}) - (in_{v, 0} - in_{v, j_1}) = out_{v, 0} -
+             out_{v, j_1} \enspace.
+          \end{gathered}
+          \end{equation}
+          thus
+          \begin{equation}
+             \sum\limits_{w \in \mathcal{V}'}x'_{vw} = \sum\limits_{w \in \mathcal{V}'}x'_{wv} \enspace.
+          \end{equation}
+          (Requirement \ref{flow2} $\forall v \in Sad_{j_1}$)
+          \item We set
+          \begin{equation}
+             x'_{TA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace,
+          \end{equation}
+          thus from (\ref{Aincoming}) we have
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}'}x'_{vA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+          \end{equation}
+          (Requirement \ref{flow2} for $A$)
        \end{itemize}
        We saw that for all nodes, the necessary properties for a flow to be valid hold and thus $X'$ is a valid flow for
-       $\mathcal{G}_0$. $\sum\limits_{v \in V(\mathcal{G}')}x'_{Av} = \sum\limits_{v \in V(\mathcal{G}')}c'_{Av} = out_{A, 0}
-       - out_{A, j_1} = Loss_{A, j_1}$. Moreover, this flow is equal to $maxFlow(T, B)$ because all incoming flows to $B$ are
-       saturated. \\ \ \\
-%       There obviously [citation needed] exists a subflow from $A$ to $B$ equal to $Loss_{A, j_1}$. \\
+       $\mathcal{G}$. Moreover, this flow is equal to $maxFlow(T, B)$ because all incoming flows to $B$ are saturated.
+       Also we observe that
+       \begin{equation}
+          \sum\limits_{v \in \mathcal{V}'}x'_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = out_{A, 0} - out_{A, j_1} =
+          Loss_A \enspace.
+       \end{equation}
        We define another graph, $\mathcal{G}''$, based on $\mathcal{G}'$.
-       \begin{itemize}
-          \item $V(\mathcal{G}'') = V(\mathcal{G}')$
-          \item $E(\mathcal{G}'') = E(\mathcal{G}') \setminus \{(T, v) : v \in Sad_j\}$ or equivalently $E(\mathcal{G}'') =
-          E(\mathcal{G}_0) \cup \{(T, A)\}$
-          \item $\forall e \in E(\mathcal{G}''), c''_e = c'_e$
-       \end{itemize}
+       \begin{equation}
+          \mathcal{V}'' = \mathcal{V}'
+       \end{equation}
+       \begin{equation}
+          E(\mathcal{G}'') = E(\mathcal{G}') \setminus \{(T, v) : v \in Sad_j\}
+       \end{equation}
+       \begin{equation}
+          \forall e \in E(\mathcal{G}''), c''_e = c'_e
+       \end{equation}
        If we execute the algorithm $MaxFlow(T, B)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
-       $\sum\limits_{v \in V(\mathcal{G}'')}x''_{Tv} = x''_{TA} = \sum\limits_{v \in V(\mathcal{G}'')}x''_{Av}$. The outgoing
-       flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons:
+       \begin{equation}
+          \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
+       \end{equation}
+       The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: \\
+       No capacity reachable by $A$ is modified and $T$ has no incoming flow, thus
+       \begin{equation}
+          \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \mbox{ [citation needed] and}
+       \end{equation}
+       \begin{equation}
+          \begin{rcases}
+             \sum\limits_{v \in \mathcal{V}''}c''_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = \sum\limits_{v \in
+             \mathcal{V}'}x'_{Av} \\
+             \sum\limits_{v \in \mathcal{V}''}c''_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
+          \end{rcases}
+          \Rightarrow \sum\limits_{v \in \mathcal{V}'}x'_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
+       \end{equation}
+       Thus we conclude that
+       \begin{equation}
+          \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+       \end{equation}
+       The flow $X^A = X'' \setminus \{(T, A)\}$ is a possible output of $MaxFlow\left(A, B\right)$. This holds for the
+       following reasons:
        \begin{itemize}
-          \item $\sum\limits_{v \in V(\mathcal{G}'')}c''_{Av} = \sum\limits_{v \in V(\mathcal{G}')}c'_{Av} = \sum\limits_{v
-          \in V(\mathcal{G}')}x'_{Av} \wedge \sum\limits_{v \in V(\mathcal{G}'')}c''_{Av} \geq \sum\limits_{v \in
-          V(\mathcal{G}'')}x''_{Av} \Rightarrow \sum\limits_{v \in V(\mathcal{G}')}x'_{Av} \geq \sum\limits_{v \in
-          V(\mathcal{G}'')}x''_{Av}$
-          \item No capacity reachable by $A$ is modified and $T$ has no incoming flow, thus $\sum\limits_{v \in
-          V(\mathcal{G}'')}x''_{Av} \geq \sum\limits_{v \in V(\mathcal{G}')}x'_{Av}$. [citation needed]
+          \item If we suppose that
+          \begin{equation}
+             maxFlow\left(A, B\right) > \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+          \end{equation}
+          then we can set
+          \begin{equation}
+             X^T = X^A \cup \{(T, A)\} \mbox{ with}
+          \end{equation}
+          \begin{equation}
+             \forall v, w \in \mathcal{V}'', x^T_{vw} = x^A_{vw} \mbox{ and}
+          \end{equation}
+          \begin{equation}
+             x^T_{TA} = \sum\limits_{v \in \mathcal{V}''}x^A_{Av} \enspace.
+          \end{equation}
+          Since
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}''}x^A_{Av} = maxFlow\left(A, B\right) \enspace,
+          \end{equation}
+          we see that
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}''}x^T_{Tv} = x^T_{TA} > x''_{TA} \enspace,
+          \end{equation}
+          thus $X''$ is not $MaxFlow\left(T, B\right)$, which is a contradiction.
+          \item If we suppose that
+          \begin{equation}
+             maxFlow\left(A, B\right) < \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+          \end{equation}
+          we can likewise choose ${X^A}'$ such that
+          \begin{equation}
+             \forall v, w \in \mathcal{V}'' \setminus \{T\}, {x^A}'_{vw} = x''_{vw} \enspace,
+          \end{equation}
+          thus
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}{x^A}'_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
+          \end{equation}
+          We deduce that
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}{x^A}'_{Av} > maxFlow\left(A, B\right) \enspace,
+          \end{equation}
+          which is a contradiction.
        \end{itemize}
-       Thus we conclude that $\sum\limits_{v \in V(\mathcal{G}'')}x''_{Av} = \sum\limits_{v \in V(\mathcal{G}')}x'_{Av}$. \\
-       \ \\ The flow $X^A = X'' \setminus \{(T, A)\}$ is a possible output of $MaxFlow(A, B)$. This holds for the following
-       reasons:
-       \begin{itemize}
-          \item If we suppose $maxFlow(A, B) > \sum\limits_{v \in V(\mathcal{G}'')}x''_{Av}$, then we can choose $X^T$ to be
-          $X^A \cup \{(T, A)\} \wedge \forall v, w \in V(\mathcal{G}''), x^T_{vw} = x^A_{vw}$, thus $x^T_{TA} =
-          \sum\limits_{v \in V(\mathcal{G}'')}x^A_{Av}$. Since $\sum\limits_{v \in V(\mathcal{G}'')}x^A_{Av} =
-          maxFlow(A, B)$, we see that $\sum\limits_{v \in V(\mathcal{G}'')}x^T_{Tv} = x^T_{TA} > x''_{TA}$, thus $X''$ is not
-          $MaxFlow(T, B)$, which is a contradiction.
-          \item If we suppose that $maxFlow(A, B) = f < \sum\limits_{v \in V(\mathcal{G}'')}x''_{Av}$, we can likewise choose
-          ${X^A}'$ such that $\forall v, w \in V(\mathcal{G}'') \setminus \{T\}, {x^A}'_{vw} = x''_{vw}$, thus
-          $\sum\limits_{v \in V(\mathcal{G}'') \setminus \{T\}}{x^A}'_{Av} = \sum\limits_{v \in V(\mathcal{G}'')}x''_{Av}$.
-          We deduce that $\sum\limits_{v \in V(\mathcal{G}'') \setminus \{T\}}{x^A}'_{Av} > f$, which is a contradiction.
-       \end{itemize}
-       Thus there exists a valid flow for each execution of algorithm \ref{transitivesteal} such that $\sum\limits_{v \in
-       V(\mathcal{G}_0)}x_{Av} = Loss_{A, j_1}$, which is the flow $X^A$.
+       Thus there exists a valid flow for each execution the Transitive Game such that
+       \begin{equation}
+          \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_{A, j_1} \enspace,
+       \end{equation}
+       which is the flow $X^A$.
     \end{proof}
     \begin{theorem}[Trust flow theorem] \ \\
        \label{trustflow}
-       Let $\mathcal{G}_j$ be a game graph at a specific turn $j$ and $A, B \in V(\mathcal{G}_j)$. It holds that
-       $Tr_{A \rightarrow B} = maxFlow(A, B)$.
+       Let $\mathcal{G}$ be a game graph and $A, B \in \mathcal{V}$. It holds that
+       \begin{equation}
+          Tr_{A \rightarrow B} = maxFlow\left(A, B\right) \enspace.
+       \end{equation}
     \end{theorem}
-    \begin{proof} \
-       From lemma \ref{maxflowgame} we see that there exists an execution of algorithm \ref{transitivesteal} such that
-       $Loss_{A, j} = maxFlow(A, B)$. Since $Tr_{A \rightarrow B}$ is the maximum loss that $A$ can suffer after the
-       convergence of algorithm \ref{transitivesteal}, we see taht $Tr_{A \rightarrow B} \geq maxFlow(A, B)$. \\
-       There exists an execution of the Transitive Game such that $Tr_{A \rightarrow B} = Loss_{A, j}$. From lemma
-       \ref{gameflow}, this execution corresponds to a flow. Thus $Tr_{A \rightarrow B} \leq maxFlow(A, B)$. \\
-       We conclude that $Tr_{A \rightarrow B} = maxFlow(A, B)$.
+    \begin{proof} \ \\
+       From lemma \ref{maxflowgame} we see that there exists an execution of the Transitive Game such that
+       \begin{equation}
+          Loss_A = maxFlow\left(A, B\right) \enspace.
+       \end{equation}
+       Since $Tr_{A \rightarrow B}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
+       see that
+       \begin{equation}
+          Tr_{A \rightarrow B} \geq maxFlow\left(A, B\right) \enspace.
+       \end{equation}
+       Moreover, there exists an execution of the Transitive Game such that
+       \begin{equation}
+          Tr_{A \rightarrow B} = Loss_A \enspace.
+       \end{equation}
+       From lemma \ref{gameflow}, this execution corresponds to a flow. Thus
+       \begin{equation}
+          Tr_{A \rightarrow B} \leq maxFlow\left(A, B\right) \enspace.
+       \end{equation}
+       We conclude that
+       \begin{equation}
+          Tr_{A \rightarrow B} = maxFlow\left(A, B\right) \enspace.
+       \end{equation}
     \end{proof}
 %       Without loss of generality, we can suppose that the turn in which we are interested is 0 ($\mathcal{G} =
 %       \mathcal{G}_0$). First we will show that the $MaxFlow$ can be a result of a valid execution of algorithm
