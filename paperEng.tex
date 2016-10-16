@@ -1,16 +1,12 @@
 \documentclass[11pt]{llncs}
-%%\usepackage[a4paper,top=2cm,bottom=2cm,left=1.5cm,right=1.5cm]{geometry}
 \usepackage{graphicx}
 \usepackage[linesnumbered,ruled,noend]{algorithm2e}
-%%\usepackage{algorithm}
 %\usepackage{lipsum}
-%%\usepackage{algpseudocode}
 %\usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 %\usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{mathtools}
-%%\usepackage{amsthm}
 %\usepackage{caption}
 %\usepackage{subcaption}
 \usepackage{amssymb}
@@ -23,20 +19,32 @@
 \usepackage{listings}
 
 \lstset{frame=tb,
-%  language=Java,
-  aboveskip=3mm,
-  belowskip=3mm,
   showstringspaces=false,
   columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
+  basicstyle=\ttfamily,
   keywordstyle=\color{blue},
   commentstyle=\color{dkgreen},
   stringstyle=\color{mauve},
   breaklines=true,
   breakatwhitespace=true,
-  tabsize=3
+  tabsize=3,
+  escapeinside={(*@}{@*)},
+  frame=n
+}
+\lstdefinestyle{numbers}{numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt}
+\let\origthelstnumber\thelstnumber
+\makeatletter
+\newcommand*\Suppressnumber{%
+  \lst@AddToHook{OnNewLine}{%
+    \let\thelstnumber\relax%
+     \advance\c@lstnumber-\@ne\relax%
+    }%
+}
+
+\newcommand*\Reactivatenumber{%
+  \lst@AddToHook{OnNewLine}{%
+   \let\thelstnumber\origthelstnumber%
+   \advance\c@lstnumber\@ne\relax}%
 }
 
 \bibliographystyle{splncs}
@@ -352,33 +360,29 @@
      trusts of player $A$,
      %$\forall v \in N^{-}(A)_{j-1}, DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1}, DTr_{A \rightarrow v, j-1}$.
      We note that $N(A)_{j-1} = N(A)_j$. \\
-     
-     \begin{algorithm}[H]
-        \label{conservativeoracle}
-        \SetKwInOut{Input}{Input}
-        \SetKwInOut{Output}{Output}
-        \SetKwFunction{SelectSteal}{SelectSteal}
-        \Input{previous graph $\mathcal{G}_{j-1}$}
-        \Output{$Turn_j$}
-        \caption{Conservative Oracle}
-           $\mathcal{O}_{cons}(\mathcal{G}_{j-1})$ : \\ {
-              $NewOutTrust \gets \sum\limits_{v \in N^{+}(A)_{j-1}}DTr_{A \rightarrow v, j-1}$ \\
-              $NewInTrust \gets \sum\limits_{v \in N^{-}(A)_{j-1}}DTr_{v \rightarrow A, j-1}$ \\
-              $Damage \gets PrevOutTrust - NewOutTrust$ \\
-              \If{$Damage > 0$}{
-                 \If{$Damage \geq NewInTrust$}{
-                    $Turn_j \gets \emptyset$ \\
-                    \For{$v \in N^{-}(A)_{j-1}$}{
-                       $Turn_j \gets Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$}}
-                 \Else{
-                    $(y_1,\dots,y_{|N^{-}(A)_{j-1}|}) \gets$ \SelectSteal{$DTr_{N^{-}(A)_{j-1,1} \rightarrow A, j-1}$,$\dots$,
-                      $DTr_{N^{-}(A)_{j-1,|N^{-}(A)_{j-1}|} \rightarrow A, j-1}$,$Damage$} \\
-                    $Turn_j \gets \emptyset$ \\
-                    \For{$i \gets 1$ to $|N^{-}(A)_{j-1}|$}{
-                       $Turn_j \gets Turn_j \cup \{Steal(y_i, N^{-}(A)_{j-1,i})\}$}}}
-              \Else{$Turn_j \gets \emptyset$}
-              \Return{$Turn_j$}}
-     \end{algorithm}
+     \Suppressnumber
+     \begin{lstlisting}[label=conservativeoracle,style=numbers]
+Conservative Oracle
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
+Output : (*@$Turn_j$@*)
+Ocons((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
+  NewOutTrust = (*@$\sum\limits_{v \in N^{+}(A)_{j-1}}DTr_{A \rightarrow v, j-1}$@*)
+  NewInTrust = (*@$\sum\limits_{v \in N^{-}(A)_{j-1}}DTr_{v \rightarrow A, j-1}$@*)
+  Damage = PrevOutTrust - NewOutTrust
+  if (Damage > 0)
+    if (Damage >= NewInTrust)
+      (*@$Turn_j$@*) = (*@$\emptyset$@*)
+      for (v (*@$\in N^{-}(A)_{j-1}$@*))
+        (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
+    else
+      (*@$(y_1, \dots, y_{|N^{-}(A)_{j-1}|})$@*) = SelectSteal((*@$DTr_{N^{-}(A)_{j-1,1} \rightarrow A, j-1} \dots
+         DTr_{N^{-}(A)_{j-1,|N^{-}(A)_{j-1}|} \rightarrow A, j-1}$@*),Damage)
+      $Turn_j \gets \emptyset$ \\
+      \For{$i \gets 1$ to $|N^{-}(A)_{j-1}|$}{
+        $Turn_j \gets Turn_j \cup \{Steal(y_i, N^{-}(A)_{j-1,i})\}$}}}
+  \Else{$Turn_j \gets \emptyset$}
+  \Return{$Turn_j$}}
+     \end{lstlisting}
      \texttt{SelectSteal()} returns $y_i, i \in [|N^{-}(A)_j|] : \forall i, y_i \leq DTr_{N^{-}(A)_{j,i} \rightarrow A},
      \sum\limits_{i=1}^{|N^{-}(A)_j|}y_i = Damage$.
      \begin{definition}[Idle strategy] \ \\
