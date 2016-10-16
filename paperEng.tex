@@ -614,26 +614,35 @@ while (True)
     We observe that the set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$
     for any turn $j$ as $\mathcal{V}$ in any setting where we use the Transitive Game. \\
     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, according to theorem \ref{conservativeworld},
-    all players will pass their turn.
-    Given that $Damage_{v,j} = out_{v,j'} - out_{v,j}$ where $j' = prev(j)$, the algorithm generates turns:
-    $$Turn_j =
-      \begin{cases}
-         \emptyset, & Damage_{v,j-1} = 0 \\
-         \bigcup\limits_{i=1}^{k}\{Steal(y_i,v_i)\}, & Damage_j > 0, N^{-}(A)_j = \{v_1,\dots,v_k\}
-      \end{cases}$$
-    In the second case, it is $\sum\limits_{i=1}^{k}y_i = \min(in_{v, j-1}, Damage_{v, j-1})$. From the
-    definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is obvious
-    that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$
-    because if $Loss_{v,j} < 0$, then $v$ has stolen more value than she has been stolen, thus she would not be following the
-    conservative strategy.
-    \begin{lemma}[$Loss$ equivalent to $Damage$] \ \\
-       Let $j \in \mathbb{N}, v \in \mathcal{V}_j \setminus \{A, E\}, v = Player(j)$. Then $\min(in_{v, j}, Loss_{v, j}) = 
-       \min(in_{v, j}, Damage_{v, j})$.
+    all players will pass their turn. Moreover, let $j' = prev\left(j\right)$ and $\{v_1, \dots, v_k\} =
+    N^{-}\left(A\right)_j$. Given that
+    \begin{equation}
+       Damage_{v,j} = out_{v,j'} - out_{v,j} \enspace,
+    \end{equation}
+    the algorithm generates turns:
+    \begin{equation}
+       Turn_j =
+         \begin{cases}
+            \emptyset, & Damage_{v,j-1} = 0 \\
+            \bigcup\limits_{i=1}^{k}\{Steal\left(y_i,v_i\right)\}, & Damage_j > 0
+         \end{cases} \enspace.
+    \end{equation}
+    In the second case, it is
+    \begin{equation}
+       \sum\limits_{i=1}^{k}y_i = \min\left(in_{v, j-1}, Damage_{v, j-1}\right) \enspace.
+    \end{equation}
+    From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
+    obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
+    stolen more value than she has been stolen, thus she would not be following the conservative strategy.
+    \begin{lemma}[$Loss$ Equivalent to $Damage$] \ \\
+       Let $j \in \mathbb{N}, v \in \mathcal{V}_j \setminus \{A, E\}, v = Player\left(j\right)$. It holds that
+       \begin{equation}
+          \min\left(in_{v, j}, Loss_{v, j}\right) = \min\left(in_{v, j}, Damage_{v, j}\right) \enspace.
+       \end{equation}
     \end{lemma}
-    \begin{proof} \ 
-       $j \in \mathbb{N}: v = Player(j)$.
+    \begin{proof}
        \begin{itemize}
-          \item $v \in Happy_{j-1}$. Then
+          \item Let $v \in Happy_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Happy_j$ because $Turn_{j} = \emptyset$,
              \item $Loss_{v, j} = 0$ because otherwise $v \notin Happy_j$,
@@ -642,22 +651,30 @@ while (True)
              (line~\ref{trsteallossdecrease}).
              \item $in_{v, j} \geq 0$
           \end{enumerate}
-          Thus $\min(in_{v, j}, Damage_{v,j}) = \min(in_{v, j}, Loss_{v,j}) = 0$.
-          \item $v \in Sad_{j-1}$. Then
+          Thus
+          \begin{equation}
+             v \in Happy_{j-1} \Rightarrow \min\left(in_{v, j}, Damage_{v,j}\right) = \min\left(in_{v, j}, Loss_{v,j}\right)
+             = 0 \enspace.
+          \end{equation}
+          \item Let $v \in Sad_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Sad_j$ because $Turn_{j} = \emptyset$, 
              \item $in_{v, j} = 0$ (lines~\ref{trstealifentersad} -~\ref{trstealtrueentersad}),
              \item $Damage_{v, j} \geq 0 \wedge Loss_{v, j} \geq 0$.
           \end{enumerate}
-          Thus $\min(in_{v, j}, Damage_{v,j}) = \min(in_{v, j}, Loss_{v,j}) = 0$.
-          \item $v \in Angry_{j-1} \wedge v \in Happy_j$. Then the same argument as in the first case holds, if
+          Thus
+          \begin{equation}
+             v \in Sad_{j-1} \Rightarrow \min\left(in_{v, j}, Damage_{v,j}\right) = \min\left(in_{v, j}, Loss_{v,j}\right) =
+             0 \enspace.
+          \end{equation}
+          \item Let $v \in Angry_{j-1} \wedge v \in Happy_j$. Then the same argument as in the first case holds, if
           we ignore the argument (1).
-          \item $v \in Angry_j \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
+          \item Let $v \in Angry_{j-1} \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
           we ignore the argument (1).
        \end{itemize} \qed
     \end{proof}
 
-    \begin{theorem}[Trust convergence theorem] \ \\
+    \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
        Let $A,E \in \mathcal{V} : Strategy(A) = Idle$, $Strategy(E) = Evil$, $\forall v \in \mathcal{V} \setminus \{A,E\},
        Strategy(v) = Conservative$ and $j_0 \in \mathbb{N} : Player(j_0) = E$. Given that all players eventually play, there
