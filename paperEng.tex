@@ -1016,66 +1016,66 @@ while (True)
        \begin{equation}
           \forall e \in \mathcal{E}, c_e \geq c''_e \enspace.
        \end{equation}
-       We will now prove that
-       \begin{equation}
-          X = MaxFlow_{\mathcal{G}}\left(A, B\right) \enspace.
-       \end{equation}
-       \begin{itemize}
-          \item Let $X^A = MaxFlow_{\mathcal{G}}$. If we suppose that
-          \begin{equation}
-             maxFlow_{\mathcal{G}}\left(A, B\right) > \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
-          \end{equation}
-          then we can set
-          \begin{equation}
-             X^T = X \cup \{(T, A)\} \mbox{ with}
-          \end{equation}
-          \begin{equation}
-             \forall v, w \in \mathcal{V}'', x^T_{vw} = x^A_{vw} \mbox{ and}
-          \end{equation}
-          \begin{equation}
-             x^T_{TA} = \sum\limits_{v \in \mathcal{V}''}x^A_{Av} \enspace.
-          \end{equation}
-          Since
-          \begin{equation}
-             \sum\limits_{v \in \mathcal{V}''}x^A_{Av} = maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
-          \end{equation}
-          we see that
-          \begin{equation}
-             \sum\limits_{v \in \mathcal{V}''}x^T_{Tv} = x^T_{TA} > x''_{TA} \enspace,
-          \end{equation}
-          thus $X''$ is not $MaxFlow_{\mathcal{G}}\left(T, B\right)$, which is a contradiction. Thus
-          \begin{equation}
-             maxFlow_{\mathcal{G}}\left(A, B\right) \leq \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
-          \end{equation}
-          therefore
-          \begin{equation}
-             maxFlow_{\mathcal{G}}\left(A, B\right) \leq \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
-          \end{equation}
-          \item If we suppose that
-          \begin{equation}
-             maxFlow_{\mathcal{G}}\left(A, B\right) < \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
-          \end{equation}
-          we can likewise choose $X^A$ such that
-          \begin{equation}
-             \forall v, w \in \mathcal{V}'' \setminus \{T\}, x^A_{vw} = x''_{vw} \enspace,
-          \end{equation}
-          thus
-          \begin{equation}
-             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
-          \end{equation}
-          We deduce that
-          \begin{equation}
-             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} > maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
-          \end{equation}
-          which is a contradiction. Thus
-          \begin{equation}
-             maxFlow_{\mathcal{G}}\left(A, B\right) \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
-          \end{equation}
-          therefore
-          \begin{equation}
-             maxFlow_{\mathcal{G}}\left(A, B\right) \geq \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
-          \end{equation}
-       \end{itemize}
+%       We will now prove that
+%       \begin{equation}
+%          X = MaxFlow_{\mathcal{G}}\left(A, B\right) \enspace.
+%       \end{equation}
+%       \begin{itemize}
+%          \item Let $X^A = MaxFlow_{\mathcal{G}}$. If we suppose that
+%          \begin{equation}
+%             maxFlow_{\mathcal{G}}\left(A, B\right) > \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+%          \end{equation}
+%          then we can set
+%          \begin{equation}
+%             X^T = X \cup \{(T, A)\} \mbox{ with}
+%          \end{equation}
+%          \begin{equation}
+%             \forall v, w \in \mathcal{V}'', x^T_{vw} = x^A_{vw} \mbox{ and}
+%          \end{equation}
+%          \begin{equation}
+%             x^T_{TA} = \sum\limits_{v \in \mathcal{V}''}x^A_{Av} \enspace.
+%          \end{equation}
+%          Since
+%          \begin{equation}
+%             \sum\limits_{v \in \mathcal{V}''}x^A_{Av} = maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
+%          \end{equation}
+%          we see that
+%          \begin{equation}
+%             \sum\limits_{v \in \mathcal{V}''}x^T_{Tv} = x^T_{TA} > x''_{TA} \enspace,
+%          \end{equation}
+%          thus $X''$ is not $MaxFlow_{\mathcal{G}}\left(T, B\right)$, which is a contradiction. Thus
+%          \begin{equation}
+%             maxFlow_{\mathcal{G}}\left(A, B\right) \leq \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+%          \end{equation}
+%          therefore
+%          \begin{equation}
+%             maxFlow_{\mathcal{G}}\left(A, B\right) \leq \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
+%          \end{equation}
+%          \item If we suppose that
+%          \begin{equation}
+%             maxFlow_{\mathcal{G}}\left(A, B\right) < \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+%          \end{equation}
+%          we can likewise choose $X^A$ such that
+%          \begin{equation}
+%             \forall v, w \in \mathcal{V}'' \setminus \{T\}, x^A_{vw} = x''_{vw} \enspace,
+%          \end{equation}
+%          thus
+%          \begin{equation}
+%             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
+%          \end{equation}
+%          We deduce that
+%          \begin{equation}
+%             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} > maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
+%          \end{equation}
+%          which is a contradiction. Thus
+%          \begin{equation}
+%             maxFlow_{\mathcal{G}}\left(A, B\right) \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+%          \end{equation}
+%          therefore
+%          \begin{equation}
+%             maxFlow_{\mathcal{G}}\left(A, B\right) \geq \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
+%          \end{equation}
+%       \end{itemize}
        Thus there exists a valid flow for each execution of the Transitive Game such that
        \begin{equation}
           \sum\limits_{v \in \mathcal{V}}x_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av}
