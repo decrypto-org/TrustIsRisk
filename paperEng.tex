@@ -1405,18 +1405,50 @@ while (True)
     \end{equation}
     \begin{lemma}[$\forall S \subset \mathcal{V}, v \in S \Rightarrow \forall w \in \mathcal{V}, (v,w) \notin MinCut$] \ \\
        \label{mincutmany}
-       Let $S \subset \mathcal{V}$. When calculating $maxFlow(A, S)$, it is impossible to have an edge $(v,w) \in
-       MinCut : v \in S$.
+       Let $S \subset \mathcal{V}$. When calculating $MaxFlow\left(A, S\right)$, it is impossible to have an edge $\left(v,
+       w\right) \in MinCut : v \in S$.
     \end{lemma}
     \begin{proof}
-       Let $T$ be the auxiliary node ($\forall v \in S, c_{vT} = \infty$). Since $out_A < \infty$, $maxFlow(A, S)
-       < \infty$. All edges in the $MinCut$ are saturated, thus $\nexists v \in S : (v,T) \in MinCut$, or else
-       $maxFlow(A, S) = \infty$. Suppose that $\exists v \in S, w \in \mathcal{V} : (v,w) \in MinCut$. Then this
-       edge must be saturated, that is $x_{vw} = c_{vw} > 0$. However, there exists an alternative flow configuration $X'$
-       where $\forall (u,u') \in \mathcal{E} \setminus \{(v,w), (v,T)\}, x_{u,u'}' = x_{u,u'}, x_{vw}' = 0, x_{vT}' = x_{vT}
-       + x_{vw}$, which is valid because $\sum\limits_{w \in N^{+}(v)}x_{vw} = \sum\limits_{w \in N^{+}(v)}x_{vw}' \wedge
-       c_{vT} = \infty \Rightarrow x_{vT}' \leq c_{vT}$ and $X'$ is maximum as well because it carries exactly the same flow
-       as $X$. Thus $(v,w) \notin MinCut$. \qed
+       Let $T$ be the auxiliary node. It is
+       \begin{equation}
+          \forall v \in S, c_{vT} = \infty \enspace.
+       \end{equation}
+       We can see that $out_A < \infty$ and thus
+       \begin{equation}
+       \label{maxflowbounded}
+          maxFlow\left(A, S\right) < \infty \enspace.
+       \end{equation}
+       Since all edges in the $MinCut$ are saturated and due to (\ref{maxflowbounded}), we have
+       \begin{equation}
+          \nexists v \in S : \left(v, T\right) \in MinCut \enspace.
+       \end{equation}
+       Suppose that
+       \begin{equation}
+          \exists v \in S, w \in \mathcal{V} : \left(v, w\right) \in MinCut \enspace.
+       \end{equation}
+       Then this edge must be saturated, that is $x_{vw} = c_{vw} > 0$. However, there exists an alternative flow
+       configuration $X'$ where
+       \begin{equation}
+       \begin{gathered}
+          \forall \left(u, u'\right) \in \mathcal{E} \setminus \{\left(v, w\right), \left(v, T\right)\}, x_{u,u'}' =
+          x_{u,u'} \enspace, \\
+          x_{vw}' = 0 \mbox{ and} \\
+          x_{vT}' = x_{vT} + x_{vw} \enspace,
+       \end{gathered}
+       \end{equation}
+       which is valid because
+       \begin{equation}
+          \begin{rcases}
+             \sum\limits_{w \in N^{+}\left(v\right)}x_{vw} = \sum\limits_{w \in N^{+}\left(v\right)}x_{vw}' \\
+             c_{vT} = \infty
+          \end{rcases}
+          \Rightarrow x_{vT}' \leq c_{vT}
+       \end{equation}
+       and $X'$ is maximum as well because it carries exactly the same flow as $X$. Thus
+       \begin{equation}
+          \left(v, w\right) \notin MinCut \enspace.
+       \end{equation}
+       \qed
     \end{proof}
     \begin{theorem}[Sybil resilience] \ \\
        \label{sybil}
