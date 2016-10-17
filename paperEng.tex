@@ -1363,15 +1363,26 @@ while (True)
 %    \end{proof}
     Note: The maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the same
     player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
-    \begin{theorem}[Trust to multiple players] \ \\
+    \begin{theorem}[Trust to Multiple Players] \ \\
        \label{trustmany}
-       Let $S \subset \mathcal{V}, T$ auxiliary player such that $\forall B \in S, DTr_{B \rightarrow T} = \infty$.
-       It holds that $\forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow(A, T)$.
+       Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
+       \begin{equation}
+          \forall B \in S, DTr_{B \rightarrow T} = \infty \enspace.
+       \end{equation}
+       It holds that
+       \begin{equation}
+          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow\left(A, T\right) \enspace.
+       \end{equation}
     \end{theorem}       
     \begin{proof}
-       If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to steal
-       all their incoming direct trust, thus they will act in a way identical to following the evil strategy as far as
-       maxFlow is concerned, thus, by \ref{trustflow}, $Tr_{A \rightarrow T} = maxFlow(A, T) = Tr_{A \rightarrow S}$. \qed
+       If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to
+       steal all their incoming direct trust, thus they will act in a way identical to following the evil strategy as far as
+       $MaxFlow$ is concerned, thus, according to the Trust Flow Theorem, it holds that
+       \begin{equation}
+          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
+          \enspace.
+       \end{equation}
+       \qed
     \end{proof}
 
     One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
