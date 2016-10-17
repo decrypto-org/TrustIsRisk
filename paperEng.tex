@@ -124,7 +124,8 @@
      with said store.
 
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
-     construction that permits any one of two pre-designated users to spend the coins contained therein \cite{multisig}.
+     construction that permits any one of two pre-designated users to spend the coins contained therein \cite{multisig}. We
+     will use the notation 1/$\{A, B\}$ to represent a 1-of-2 multisig that can be spent by either of players $A, B$.
 
      Our approach drastically changes the user experience. A user no more has to worry about stars and ratings to develop
      trust towards a store, she can simply check the trust \textit{flowing} from her to the store (which will be a number
@@ -157,8 +158,8 @@
      pseudonymous identity that is considered to correspond to exactly one user and each edge represents a direct trust, the
      weight of which is the value which the head entrusts the tail with. [Image] \\
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
-     the node directly and exclusively controls. More technically, it is the number of bitcoins contained in p2pkh
-     transactions in the utxo of which the private keys are controlled by the node. A rational player would like to maximize
+     the node directly and exclusively controls. More technically, it is the number of bitcoins contained in P2PKH
+     transactions in the UTXO of which the private keys are controlled by the node. A rational player would like to maximize
      her capital in the long term. Let's suppose that player $A$ wants to buy a product that costs $10$ from player $B$, but
      $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
      words, should $B$ decide to steal all its incoming direct trust and stop trusting directly other users and the rest of
