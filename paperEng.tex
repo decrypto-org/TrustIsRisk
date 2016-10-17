@@ -727,26 +727,6 @@ while (True)
     the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
     executions and the conservative players are free to choose which incoming trusts will steal and how much from each.
 
-    \begin{theorem}[Saturation theorem] \ \\ 
-       \label{saturation}
-       Let $s$ source, $n = |N^{+}(s)|, x_i, i \in [n]$, flows to $s$'s neighbours as calculated by the
-       maxFlow algorithm, $u_i'$ new direct trusts to the $n$ neighbours and $x_i'$ new flows to the neighbours
-       as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. It holds that
-       $\forall i \in [n], u_i' \leq x_i \Rightarrow x_i' = u_i'$.
-    \end{theorem}
-    \begin{proof} \ 
-       $\forall i \in [n], x_i' > u_i'$ is impossible because a flow cannot be higher than its
-       corresponding capacity. Thus $\forall i \in [n], x_i' \leq u_i'$. (1) \\
-       In the initial configuration of $u_i$ and according to the flow problem setting, a combination of flows
-       $y_i$ such that $\forall i \in [n], y_i = u_i'$ is a valid, albeit not necessarily maximum,
-       configuration with a flow $\sum\limits_{i=1}^{n}y_i$. Suppose that $\exists k \in [n] : x_k'
-       < u_k'$ as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. Then for the new
-       maxFlow $F'$ it holds that $F' = \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_k' < y_k$
-       and (1) which is impossible because the configuration $\forall i \in [n], x_i' = y_i$ is valid since 
-       $\forall i \in [n], y_i = u_i'$ and also has a higher flow, thus the maxFlow algorithm will
-       prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' = u_i'$. \qed
-    \end{proof}
-
     Let $G$ be a weighted directed graph. According to \cite{clrs} p. 709, if we consider each edge's capacity as its weight
     ($\forall e \in E(G), c_e = c(e)$), we say that a flow assignment $X = [x_{vw}]_{V(FG) \times V(FG)}$ with a source $A$
     and a sink $B$ is valid when:
