@@ -249,10 +249,13 @@
            out_{A, j} = \sum\limits_{v \in N^{+}\left(A\right)_j}DTr_{A \rightarrow v, j}
         \end{equation}
      \end{definition}
-%      \begin{definition}[$B$ steals $x$ from $A$] \ \\
-%         $B$ steals value $x$ from $A$ when $B$ reduces the $DTr_{A \rightarrow B}$ by $x$ and increases $Cap_B$ by $x$.
-%         This makes sense when $x \leq DTr_{A \rightarrow B}$.
-%      \end{definition}
+     \begin{definition}[Assets of $A$ in turn $j$, $As_{A, j}$] \ \\
+        Sum of $A$'s capital and outgoing trust.
+        \begin{equation}
+           As_{A, j} = Cap_{A, j} + out_{A, j}
+        \end{equation}
+        If the turn we refer to is obvious, it is possible to omit $j$.
+     \end{definition}
      \begin{definition}[Turns] \ \\
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
         Player\left(j\right)$, chooses an action (according to a certain strategy) that can be one of the following, or a
