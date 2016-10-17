@@ -1389,13 +1389,20 @@ while (True)
     autonomy. Let Eve be a possible attacker. Since participation in the network does not require any kind of registration,
     Eve can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
     can invest any amount she chooses, thus she can arbitrarily set the direct trusts of any player $C \in \mathcal{C}$ to
-    any player $P \in \mathcal{V}$ ($DTr_{C \rightarrow P}$) and can also steal all incoming direct trust to these players.
-    Additionally, we give Eve a set of players $B \in \mathcal{B}$ that she has corrupted (the corrupted set), so she fully
-    controls their direct trusts to any player $P \in \mathcal{V}$ ($DTr_{B \rightarrow P}$) and can also steal all incoming
-    direct trust to these players. The players $B \in \mathcal{B}$ are considered to be legitimate before the corruption,
-    thus they can be directly trusted by any player $P \in \mathcal{V}$ ($DTr_{P \rightarrow B} \geq 0$). However, players
-    $C \in \mathcal{C}$ can be trusted only by players $D \in \mathcal{B} \cup \mathcal{C}$ ($DTr_{D \rightarrow C} \geq 0$)
-    and not by players $A \in \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$ ($DTr_{A \rightarrow C} = 0$).
+    any player $P \in \mathcal{V}$ and can also steal all incoming direct trust to these players. Additionally, we give Eve a
+    set of players $B \in \mathcal{B}$ that she has corrupted (the corrupted set), so she fully controls their direct trusts
+    to any player $P \in \mathcal{V}$ and can also steal all incoming direct trust to these players. The players $B \in
+    \mathcal{B}$ are considered to be legitimate before the corruption, thus they may be directly trusted by any player $P
+    \in \mathcal{V}$. However, players $C \in \mathcal{C}$ can be trusted only by players $D \in \mathcal{B} \cup
+    \mathcal{C}$ and not by players $A \in \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$. In short,
+    \begin{equation}
+      \forall D \in \mathcal{B} \cup \mathcal{C}, P \in \mathcal{V}, \mbox{ Eve controls } DTr_{D \rightarrow P}, \mbox{ can
+      steal } DTr_{P \rightarrow D}
+    \end{equation}
+    and can change $|\mathcal{C}|$. Furthermore, the following restriction true:
+    \begin{equation}
+       \forall C \in \mathcal{C}, P \in \mathcal{V}, DTr_{P \rightarrow C} = 0 \enspace.
+    \end{equation}
     \begin{lemma}[$\forall S \subset \mathcal{V}, v \in S \Rightarrow \forall w \in \mathcal{V}, (v,w) \notin MinCut$] \ \\
        \label{mincutmany}
        Let $S \subset \mathcal{V}$. When calculating $maxFlow(A, S)$, it is impossible to have an edge $(v,w) \in
