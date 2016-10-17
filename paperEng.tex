@@ -882,8 +882,8 @@ while (True)
        \end{equation}
     \end{lemma}
     \begin{proof}
-       Let $\mathcal{G}'$ be a directed weighted graph based on $\mathcal{G}$ with an auxiliary source and $j_1$ a turn
-       when the Transitive Game has converged. More precisely, $\mathcal{G}'$ is defined as follows:
+       Let $\mathcal{G}'$ be a directed weighted graph based on $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a
+       turn when the Transitive Game has converged. More precisely, $\mathcal{G}'$ is defined as follows:
        \begin{equation}
           \mathcal{V}' = \mathcal{V} \cup \{T\}
        \end{equation}
@@ -900,14 +900,15 @@ while (True)
        We observe that $\forall v \in \mathcal{V},$
        \begin{equation}
        \label{gameflowin}
-          \sum\limits_{w \in N^{-}\left(v\right)}c'_{wv} = \sum\limits_{w \in N^{-}\left(v\right)}\left(DTr_{w \rightarrow v,
-          0} - DTr_{w \rightarrow v, j_1}\right) = in_{v, 0} - in_{v, j_1}
+          \sum\limits_{w \in N^{-}\left(v\right) \setminus \{T\}}c'_{wv} = \sum\limits_{w \in
+          N^{-}\left(v\right) \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} - DTr_{w \rightarrow v, j_1}\right) = in_{v, 0}
+          - in_{v, j_1}
        \end{equation}
        and
        \begin{equation}
        \label{gameflowout}
-          \sum\limits_{w \in N^{+}\left(v\right)}c'_{vw} = \sum\limits_{w \in N^{+}\left(v\right)}\left(DTr_{v \rightarrow w,
-          0} - DTr_{v \rightarrow w, j_1}\right) = out_{v, 0} - out_{v, j_1} \enspace.
+          \sum\limits_{w \in N^{+}\left(v\right) \setminus \{T\}}c'_{vw} = \sum\limits_{w \in N^{+}\left(v\right) \setminus
+          \{T\}}\left(DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}\right) = out_{v, 0} - out_{v, j_1} \enspace.
        \end{equation}
        We can suppose that
        \begin{equation}
@@ -918,9 +919,10 @@ while (True)
        Next we try to calculate $MaxFlow\left(T, B\right) = X'$ on graph $\mathcal{G}'$. We observe that a flow in which it
        holds that $\forall v, w \in \mathcal{V}, x'_{vw} = c'_{vw}$ can be valid for the following reasons:
        \begin{itemize}
-          \item $\forall v,w \in \mathcal{V}, x'_{vw} \leq c'_{vw}$ (Requirement \ref{flow1} $\forall e \in \mathcal{E}$)
-          \item Since $\forall v \in Sad_{j_1} \cup \{A\}, c'_{Tv} = \infty$, the requirement \ref{flow1} holds for any
-          flow $x'_{Tv} \geq 0$.
+          \item $\forall v,w \in \mathcal{V}, x'_{vw} \leq c'_{vw}$ (Capacity flow requirement (\ref{flow1}) $\forall e \in
+          \mathcal{E}$)
+          \item Since $\forall v \in Sad_{j_1} \cup \{A\}, c'_{Tv} = \infty$, requirement (\ref{flow1}) holds for any flow
+          $x'_{Tv} \geq 0$.
           \item Let $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, B\}\right)$. According to the conservative
           strategy and since $v \notin Sad_{j_1},$ it holds that
           \begin{equation}
@@ -930,7 +932,8 @@ while (True)
           \begin{equation}
              \sum\limits_{w \in \mathcal{V}'}c'_{vw} = \sum\limits_{w \in \mathcal{V}'}c'_{wv} \enspace.
           \end{equation}
-          (Requirement \ref{flow2} $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, B\}\right)$)
+          (Flow Conservation requirement (\ref{flow2}) $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1}
+          \cup \{T, A, B\}\right)$)
           \item Let $v \in Sad_{j_1}$. Since $v$ is sad, we know that
           \begin{equation}
              out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1} \enspace.
@@ -989,7 +992,7 @@ while (True)
        The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: \\
        No capacity reachable by $A$ is modified and $T$ has no incoming flow, thus
        \begin{equation}
-          \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \mbox{ [citation needed] and}
+          \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \mbox{[citation needed] and}
        \end{equation}
        \begin{equation}
           \begin{rcases}
@@ -997,22 +1000,22 @@ while (True)
              \mathcal{V}'}x'_{Av} \\
              \sum\limits_{v \in \mathcal{V}''}c''_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
           \end{rcases}
-          \Rightarrow \sum\limits_{v \in \mathcal{V}'}x'_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
+          \Rightarrow \sum\limits_{v \in \mathcal{V}''}x''_{Av} \leq \sum\limits_{v \in \mathcal{V}'}x'_{Av}
        \end{equation}
        Thus we conclude that
        \begin{equation}
           \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
        \end{equation}
-       The flow $X^A = X'' \setminus \{(T, A)\}$ is a possible output of $MaxFlow\left(A, B\right)$. This holds for the
-       following reasons:
+       The flow $X = X'' \setminus \{(T, A)\}$ is a possible output of $MaxFlow_{\mathcal{G}}\left(A, B\right)$ on graph
+       $\mathcal{G}$. This holds for the following reasons:
        \begin{itemize}
-          \item If we suppose that
+          \item Let $X^A = MaxFlow_{\mathcal{G}}$. If we suppose that
           \begin{equation}
-             maxFlow\left(A, B\right) > \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+             maxFlow_{\mathcal{G}}\left(A, B\right) > \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
           \end{equation}
           then we can set
           \begin{equation}
-             X^T = X^A \cup \{(T, A)\} \mbox{ with}
+             X^T = X \cup \{(T, A)\} \mbox{ with}
           \end{equation}
           \begin{equation}
              \forall v, w \in \mathcal{V}'', x^T_{vw} = x^A_{vw} \mbox{ and}
@@ -1022,28 +1025,28 @@ while (True)
           \end{equation}
           Since
           \begin{equation}
-             \sum\limits_{v \in \mathcal{V}''}x^A_{Av} = maxFlow\left(A, B\right) \enspace,
+             \sum\limits_{v \in \mathcal{V}''}x^A_{Av} = maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
           \end{equation}
           we see that
           \begin{equation}
              \sum\limits_{v \in \mathcal{V}''}x^T_{Tv} = x^T_{TA} > x''_{TA} \enspace,
           \end{equation}
-          thus $X''$ is not $MaxFlow\left(T, B\right)$, which is a contradiction.
+          thus $X''$ is not $MaxFlow_{\mathcal{G}}\left(T, B\right)$, which is a contradiction.
           \item If we suppose that
           \begin{equation}
-             maxFlow\left(A, B\right) < \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+             maxFlow_{\mathcal{G}}\left(A, B\right) < \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
           \end{equation}
-          we can likewise choose ${X^A}'$ such that
+          we can likewise choose $X^A$ such that
           \begin{equation}
-             \forall v, w \in \mathcal{V}'' \setminus \{T\}, {x^A}'_{vw} = x''_{vw} \enspace,
+             \forall v, w \in \mathcal{V}'' \setminus \{T\}, x^A_{vw} = x''_{vw} \enspace,
           \end{equation}
           thus
           \begin{equation}
-             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}{x^A}'_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
+             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
           \end{equation}
           We deduce that
           \begin{equation}
-             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}{x^A}'_{Av} > maxFlow\left(A, B\right) \enspace,
+             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} > maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
           \end{equation}
           which is a contradiction.
        \end{itemize}
@@ -1051,7 +1054,7 @@ while (True)
        \begin{equation}
           \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_{A, j_1} \enspace,
        \end{equation}
-       which is the flow $X^A$. \qed
+       which is the flow $X$. \qed
     \end{proof}
     \begin{theorem}[Trust flow theorem] \ \\
        \label{trustflow}
