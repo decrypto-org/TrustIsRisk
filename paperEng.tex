@@ -704,7 +704,7 @@ while (True)
        \end{equation}
        We will show using induction that
        \begin{equation}
-          \forall n \in \mathbb{N}, \exists j_n \in \mathbb{N} : DTr_{j_n} \leq DTr_{j_1-1} - nSt_{j_1} \enspace.
+          \forall n \in \mathbb{N}, \exists j_n \in \mathbb{N} : DTr_{j_n} \leq DTr_{j_1-1} - nSt \enspace.
        \end{equation}
        Base case: It holds that
        \begin{equation}
@@ -718,7 +718,7 @@ while (True)
        anything due to the supposition. \\
        Induction hypothesis: Suppose that
        \begin{equation}
-          \exists k > 1 : j_k > j_{k-1} > j_1 \Rightarrow DTr_{j_k} \leq DTr_{j_{k-1}} - St_{j_1} \enspace.
+          \exists k > 1 : j_k > j_{k-1} > j_1 \Rightarrow DTr_{j_k} \leq DTr_{j_{k-1}} - St \enspace.
        \end{equation}
        Induction step: There exists a subset of the $Angry$ players, $S$, that have been stolen at least value $St$ in total
        between the turns $j_{k-1}$ and $j_k$, thus there exists a turn $j_{k+1}$ such that all players in $S$ will have
@@ -752,18 +752,16 @@ while (True)
     Let $G$ be a weighted directed graph. According to \cite{clrs} p. 709, if we consider each edge's capacity as its weight
     ($\forall e \in E(G), c_e = c(e)$), we say that a flow assignment $X = [x_{vw}]_{V(FG) \times V(FG)}$ with a source $A$
     and a sink $B$ is valid when:
-    \begin{enumerate}
-       \item \begin{equation}
-             \label{flow1}
-                \forall (v, w) \in E(FG), x_{vw} \leq c_{vw}
-             \end{equation}
-       \item \begin{equation}
-             \label{flow2}
-                \forall v \in V(FG) \setminus \{A,B\},
-                \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
-             \end{equation}
-%       \item $\sum\limits_{v \in N^{+}(A)}x_{Av} = \sum\limits_{v \in N^{-}(B)}x_{vB}$
-    \end{enumerate}
+    \begin{equation}
+    \label{flow1}
+       \forall (v, w) \in E(FG), x_{vw} \leq c_{vw}
+    \end{equation}
+    and
+    \begin{equation}
+    \label{flow2}
+       \forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
+       \enspace.
+    \end{equation}
     \begin{lemma}[MaxFlows Are Transitive Games] \ \\
        \label{maxflowgame}
        Let $\mathcal{G}_{j_0}$ be a game graph at a specific turn $j_0$, let $A, E \in \mathcal{V}_{j_0}$ and
