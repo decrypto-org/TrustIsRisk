@@ -777,6 +777,9 @@ while (True)
           maxFlow\left(A, E\right) \leq Loss_A \enspace.
        \end{equation}
     \end{lemma}
+    \begin{proofsketch}
+       The execution will contain all flows from the $MaxFlow\left(A, E\right)$ as equivalent $Steal\left(\right)$ actions.
+    \end{proofsketch}
     \begin{proof} \ \\
        Without loss of generality, we suppose that the interesting turn is 0. In other words, $j_0 = 0$. Let $X =
        \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, B\right)$
