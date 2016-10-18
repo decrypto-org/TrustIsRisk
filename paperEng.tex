@@ -657,8 +657,9 @@ while (True)
        \end{equation}
     \end{theorem}
     \begin{proofsketch}
-       If the game didn't converge, the $Steal\left(\right)$ actions would continue forever, thus they would reach infinity.
-       However this is impossible, since there exists only finite total trust.
+       If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
+       stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
+       trust.
     \end{proofsketch}
     \begin{proof}
        First of all,
@@ -840,6 +841,10 @@ while (True)
           \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A \enspace.
        \end{equation}
     \end{lemma}
+    \begin{proofsketch}
+       The flow will contain all $Steal\left(\right)$ actions that eventually reach $A$ and not a player who is sad after
+       convergence.
+    \end{proofsketch}
     \begin{proof}
        Let $\mathcal{G}'$ be a directed weighted graph based on $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a
        turn when the Transitive Game has converged. More precisely, $\mathcal{G}'$ is defined as follows:
