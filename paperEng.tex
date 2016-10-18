@@ -39,6 +39,8 @@
    \advance\c@lstnumber\@ne\relax}%
 }
 
+\newenvironment{proofsketch}{\textit{Proof Sketch.}}{}
+
 \bibliographystyle{splncs}
 
 % PDF bookmarks
@@ -654,6 +656,10 @@ while (True)
           \forall j \geq j', Turn_j = \emptyset \enspace.
        \end{equation}
     \end{theorem}
+    \begin{proofsketch}
+       If the game didn't converge, the $Steal\left(\right)$ actions would continue forever, thus they would reach infinity.
+       However this is impossible, since there exists only finite total trust.
+    \end{proofsketch}
     \begin{proof}
        First of all,
        \begin{equation}
