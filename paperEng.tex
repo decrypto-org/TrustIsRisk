@@ -8,6 +8,7 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{listings}
+%\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 %\usepackage{chngcntr}
 
@@ -49,6 +50,7 @@
 %\counterwithout{proofctr}{section}
 %\renewenvironment{proof}{(\arabic{proof})}
 
+\pagestyle{plain}
 \newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \ \\}
 
 \bibliographystyle{splncs}
@@ -67,7 +69,7 @@
 \institute{National Technical University of Athens \\ \email{orfeas.litos@hotmail.com}
            \and University of Athens \\ \email{dionyziz@di.uoa.gr}}
 \maketitle
-
+\thispagestyle{plain}
   \begin{abstract}
      Reputation in centralized systems uses stars and review-based trust. Such systems require manual intervention and
      secrecy to avoid manipulation. In autonomous and open source decentralized systems this luxury is not available.
@@ -483,7 +485,7 @@ evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
 Execute Turn
 Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), ProvisionalTurn
 Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
-executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), ProvTurn) :
+executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), ProvisionalTurn) :
   ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), ProvisionalTurn)
   return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
     \end{lstlisting}
@@ -536,7 +538,7 @@ TrustIsRisk Game (*@\Reactivatenumber@*)
 j = 0
 while (True)
   j = j + 1
-  (*@$v \overset{\$}{\texttt{=}} \mathcal{V}_j$@*)
+  (*@$v \overset{\$}{\texttt{<-}} \mathcal{V}_j$@*)
   ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*))
   ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
       ProvisionalTurn)
@@ -559,7 +561,7 @@ for ((*@$v \in \mathcal{V}_0 \setminus \{E\}$@*))
 j = 0
 while (True)
   j = j + 1
-  (*@$v \overset{\$}{\texttt{=}} \mathcal{V}_j \setminus \{A\}$@*)
+  (*@$v \overset{\$}{\texttt{<-}} \mathcal{V}_j \setminus \{A\}$@*)
   (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*))               #(*@$v$@*)Oracle() = idleOracle()
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
@@ -576,9 +578,9 @@ while (True)
           else
             Angry = Angry(*@$\cup \{w\}$@*)
   Angry = Angry(*@$\setminus \{v\}$@*)
-  if ((*@$in_{v, j}$@*) = 0 && (*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)
+  if ((*@$in_{v, j}$@*) == 0 && (*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)
     Sad = Sad(*@$\cup \{v\}$@*) (*@\label{trstealtrueentersad}@*)
-  if ((*@$Loss_v$@*) = 0)
+  if ((*@$Loss_v$@*) == 0)
     Happy = Happy(*@$\cup \{v\}$@*)
     \end{lstlisting}
     We observe that the set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$
@@ -1495,49 +1497,49 @@ while (True)
        \qed
     \end{proof}
 
-    \begin{proof}[No Evil Edges in the $MinCut$ Lemma (\ref{mincutmany}]
-    \label{mincutmanyproof}
-       Let $T$ be the auxiliary node. It is
-       \begin{equation}
-          \forall v \in S, c_{vT} = \infty \enspace.
-       \end{equation}
-       We can see that $out_A < \infty$ and thus
-       \begin{equation}
-       \label{maxflowbounded}
-          maxFlow\left(A, S\right) < \infty \enspace.
-       \end{equation}
-       Since all edges in the $MinCut$ are saturated and due to (\ref{maxflowbounded}), we have
-       \begin{equation}
-          \nexists v \in S : \left(v, T\right) \in MinCut \enspace.
-       \end{equation}
-       Suppose that
-       \begin{equation}
-          \exists v \in S, w \in \mathcal{V} : \left(v, w\right) \in MinCut \enspace.
-       \end{equation}
-       Then this edge must be saturated, that is $x_{vw} = c_{vw} > 0$. However, there exists an alternative flow
-       configuration $X'$ where
-       \begin{equation}
-       \begin{gathered}
-          \forall \left(u, u'\right) \in \mathcal{E} \setminus \{\left(v, w\right), \left(v, T\right)\}, x_{u,u'}' =
-          x_{u,u'} \enspace, \\
-          x_{vw}' = 0 \mbox{ and} \\
-          x_{vT}' = x_{vT} + x_{vw} \enspace,
-       \end{gathered}
-       \end{equation}
-       which is valid because
-       \begin{equation}
-          \begin{rcases}
-             \sum\limits_{w \in N^{+}\left(v\right)}x_{vw} = \sum\limits_{w \in N^{+}\left(v\right)}x_{vw}' \\
-             c_{vT} = \infty
-          \end{rcases}
-          \Rightarrow x_{vT}' \leq c_{vT}
-       \end{equation}
-       and $X'$ is maximum as well because it carries exactly the same flow as $X$. Thus
-       \begin{equation}
-          \left(v, w\right) \notin MinCut \enspace.
-       \end{equation}
-       \qed
-    \end{proof}
+%    \begin{proof}[No Evil Edges in the $MinCut$ Lemma (\ref{mincutmany}]
+%    \label{mincutmanyproof}
+%       Let $T$ be the auxiliary node. It is
+%       \begin{equation}
+%          \forall v \in S, c_{vT} = \infty \enspace.
+%       \end{equation}
+%       We can see that $out_A < \infty$ and thus
+%       \begin{equation}
+%       \label{maxflowbounded}
+%          maxFlow\left(A, S\right) < \infty \enspace.
+%       \end{equation}
+%       Since all edges in the $MinCut$ are saturated and due to (\ref{maxflowbounded}), we have
+%       \begin{equation}
+%          \nexists v \in S : \left(v, T\right) \in MinCut \enspace.
+%       \end{equation}
+%       Suppose that
+%       \begin{equation}
+%          \exists v \in S, w \in \mathcal{V} : \left(v, w\right) \in MinCut \enspace.
+%       \end{equation}
+%       Then this edge must be saturated, that is $x_{vw} = c_{vw} > 0$. However, there exists an alternative flow
+%       configuration $X'$ where
+%       \begin{equation}
+%       \begin{gathered}
+%          \forall \left(u, u'\right) \in \mathcal{E} \setminus \{\left(v, w\right), \left(v, T\right)\}, x_{u,u'}' =
+%          x_{u,u'} \enspace, \\
+%          x_{vw}' = 0 \mbox{ and} \\
+%          x_{vT}' = x_{vT} + x_{vw} \enspace,
+%       \end{gathered}
+%       \end{equation}
+%       which is valid because
+%       \begin{equation}
+%          \begin{rcases}
+%             \sum\limits_{w \in N^{+}\left(v\right)}x_{vw} = \sum\limits_{w \in N^{+}\left(v\right)}x_{vw}' \\
+%             c_{vT} = \infty
+%          \end{rcases}
+%          \Rightarrow x_{vT}' \leq c_{vT}
+%       \end{equation}
+%       and $X'$ is maximum as well because it carries exactly the same flow as $X$. Thus
+%       \begin{equation}
+%          \left(v, w\right) \notin MinCut \enspace.
+%       \end{equation}
+%       \qed
+%    \end{proof}
 
   \begin{thebibliography}{20}
      \bibitem{ddosattacks}
@@ -1570,9 +1572,11 @@ while (True)
      \bibitem{loc}
      Sanchez W.: Lines of Credit (2016) \url{https://gist.github.com/drwasho/2c40b91e169f55988618#part-3-web-of-credit}
      \bibitem{deanonymisation}
-     Biryukov A., Khovratovich D., Pustogarov I.: Deanonymisation of clients in Bitcoin P2P network. arXiv:1405.7418 [cs.CR]
-     (2014)
-     \url{https://arxiv.org/pdf/1405.7418v3.pdf}
+     Narayanan A., Shmatikov V.: De-anonymizing Social Networks. SP '09 Proceedings of the 2009 30th IEEE Symposium on
+     Security and Privacy, pp. 173-187, 10.1109/SP.2009.22 (2009)
+%     Biryukov A., Khovratovich D., Pustogarov I.: Deanonymisation of clients in Bitcoin P2P network. arXiv:1405.7418 [cs.CR]
+%     (2014)
+%     \url{https://arxiv.org/pdf/1405.7418v3.pdf}
   \end{thebibliography}
 
 \end{document}
