@@ -259,18 +259,43 @@
         \\ The set of actions a player makes in turn $j$ is represented with $Turn_j$.
      \end{definition}
      Examples:
-     \begin{itemize}
-        \item $Turn_{j_1} = \emptyset$
-        \item $Turn_{j_2} = \{Steal\left(y, B\right), Add\left(w, B\right)\},$ given that $DTr_{B \rightarrow A, j_2 - 1}
-        \leq y \wedge -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq Cap_{A, j_2-1}$, where $A =
-        Player\left(j_2\right).$
-        \item $Turn_{j_3} = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\},$ given that \\
-        $DTr_{B \rightarrow A, j_3 - 1} \leq x \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge
-        -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge$ $x - y - w \leq Cap_{A, j_3-1}$, where $A = Player\left(j_3\right)$
-        \item $Turn_{j_4} = \{Steal\left(x, B\right), Steal\left(y, B\right)\}$ is not a valid turn because it contains two
-        $Steal\left(\right)$ actions against the same player. If $x + y \leq DTr_{B \rightarrow A}$, the correct alternative
-        would be $Turn_{j_4} = \{Steal\left(x+y, B\right)\}$, where $A = Player\left(j_4\right)$.
-     \end{itemize}
+     \begin{enumerate}
+        \item \begin{equation}
+           Turn_{j_1} = \emptyset
+        \end{equation}
+        \item \begin{equation}
+           Turn_{j_2} = \{Steal\left(y, B\right), Add\left(w, B\right)\} \enspace,
+        \end{equation}
+        given that
+        \begin{equation}
+           DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq
+           Cap_{A, j_2-1} \enspace,
+        \end{equation}
+        where $A = Player\left(j_2\right)$.
+        \item \begin{equation}
+           Turn_{j_3} = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
+        \end{equation}
+        given that
+        \begin{equation}
+        \begin{gathered}
+           DTr_{B \rightarrow A, j_3 - 1} \leq x \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge \\
+           \wedge -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge x - y - w \leq Cap_{A, j_3-1} \enspace,
+        \end{gathered}
+        \end{equation}
+        where $A = Player\left(j_3\right)$.
+        \item \begin{equation}
+           Turn_{j_4} = \{Steal\left(x, B\right), Steal\left(y, B\right)\}
+        \end{equation}
+        is not a valid turn because it contains two $Steal\left(\right)$ actions against the same player. If
+        \begin{equation}
+           x + y \leq DTr_{B \rightarrow A} \enspace,
+        \end{equation}
+        the correct alternative would be
+        \begin{equation}
+           Turn_{j_4} = \{Steal\left(x+y, B\right)\} \enspace,
+        \end{equation}
+        where $A = Player\left(j_4\right)$.
+     \end{enumerate}
      \begin{definition}[Previous/Next Turn of a Player] \ \\
         Let $j \in \mathbb{N}$ a turn with $Player\left(j\right) = A$. We define $prev\left(j\right), next\left(j\right)$ as
         the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
