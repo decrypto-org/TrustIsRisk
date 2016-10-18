@@ -1242,15 +1242,27 @@ while (True)
 %        \end{enumerate}
 %        OLD PROOF END
 
-    \begin{theorem}[Conservative world theorem] \ \\
+    \begin{theorem}[Conservative World Theorem] \ \\
        \label{conservativeworld}
        If everybody follows the conservative strategy, nobody steals any amount from anybody.
     \end{theorem}
     \begin{proof} \ \\
-       Suppose that there exists a subseries of History, $(Turn_{j_k})$, where $Turn_{j_k} = \{Steal(y_1,B_1),\dots,
-       Steal(y_m,B_m)\}$. This subseries must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative
-       strategy, thus somebody must have stolen from her as well, so $Player(j_1)$ cannot be the initial element. We have a
-       contradiction, thus there cannot exist a series of stealing actions when everybody is conservative. \qed
+       Suppose that we are interested in graphs $\mathcal{G}_j$.
+       \begin{equation}
+       \begin{gathered}
+          \mbox{Let } (j_k) \mbox{ an increasing sequence of positive integers,} \\
+          \mbox{let } S_{j_k} \subseteq N^{-}\left(Player\left(j_k\right)\right)_{j_k} \mbox{ and} \\
+          \mbox{let } \forall v \in S_{j_k}, y_{v, j_k} > 0\enspace.
+       \end{gathered}
+       \end{equation}
+       Suppose that there exists a subseries of History, $(Turn_{j_k})$, where
+       \begin{equation}
+          Turn_{j_k} = \bigcup\limits_{v \in S_{j_k}}\{Steal(y_{v, j_k},v)\} \enspace,
+       \end{equation}
+       This subseries must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative strategy,
+       thus somebody must have stolen from her as well, so $Player(j_1)$ cannot be the initial element. We have a
+       contradiction, thus there cannot exist a series of stealing actions when everybody is conservative.
+       \qed
     \end{proof}
 
     Note: The maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the same
