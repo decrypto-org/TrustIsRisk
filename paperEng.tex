@@ -49,7 +49,7 @@
 %\counterwithout{proofctr}{section}
 %\renewenvironment{proof}{(\arabic{proof})}
 
-\newenvironment{proofsketch}{\textit{Proof Sketch.}}{\\}
+\newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \ \\}
 
 \bibliographystyle{splncs}
 
@@ -234,13 +234,6 @@
            out_{A, j} = \sum\limits_{v \in N^{+}\left(A\right)_j}DTr_{A \rightarrow v, j}
         \end{equation}
      \end{definition}
-     \begin{definition}[Assets of $A$ in turn $j$, $As_{A, j}$] \ \\
-        Sum of $A$'s capital and outgoing trust.
-        \begin{equation}
-           As_{A, j} = Cap_{A, j} + out_{A, j}
-        \end{equation}
-        If the turn we refer to is obvious, it is possible to omit $j$.
-     \end{definition}
      \begin{definition}[Turns] \ \\
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
         Player\left(j\right)$, chooses an action (according to a certain strategy) that can be one of the following, or a
@@ -328,8 +321,7 @@
         $next\left(j\right)$ is always well defined with the assumption that eventually everybody plays.
      \end{definition}
      \begin{definition}[$A$ is Stolen $x$] \ \\
-        Let $j, j'$ be two consecutive turns of $A$ ($next\left(j\right) = j'$). We say that $A$ has been stolen a value $x$
-        between $j$ and $j'$ if
+        Let $j, j'$ be two consecutive turns of $A$. We say that $A$ has been stolen a value $x$ between $j$ and $j'$ if
         \begin{equation}
            out_{A,j} - out_{A,j'} > 0 \enspace.
         \end{equation}
@@ -483,12 +475,6 @@ evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
            Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{\left[out_{A,j} - out_{A,j'}\right]}
         \end{equation}
      \end{definition}
-     \begin{definition}[Collusion] \ \\
-        A collusion of players $S \subset \mathcal{V}$ is a set of players that is entirely controlled by a single entity in
-        the physical world. From a game theoretic point of view, other players ($v \in \mathcal{V} \setminus S$) perceive
-        the collusion as independent players with a distinct strategy each, whereas in reality they are all subject to a
-        single strategy dictated by the controlling entity.
-     \end{definition}
   \section{Theorems-Algorithms}
     The following algorithm has read access to direct trusts in $\mathcal{G}_{j-1}$ and write access to direct trusts in
     $\mathcal{G}_j$.
@@ -635,7 +621,7 @@ while (True)
     In games where there exists one evil $E$, one idle player $A$ and the rest of the players are conservative, we define
     $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is not
     the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
-    executions and the conservative players are free to choose which incoming trusts will steal and how much from each.
+    executions and the conservative players are free to choose which incoming trusts they will steal and how much from each.
 
     Let $G$ be a weighted directed graph. According to \cite{clrs} p. 709, if we consider each edge's capacity as its weight
     ($\forall e \in E(G), c_e = c(e)$), we say that a flow assignment $X = [x_{vw}]_{V(FG) \times V(FG)}$ with a source $A$
@@ -661,20 +647,22 @@ while (True)
     \end{lemma}
     \begin{proofsketch}
        The execution will contain all flows from the $MaxFlow\left(A, E\right)$ as equivalent $Steal\left(\right)$ actions.
-       For the complete proof, kindly refer to the Appendix (\ref{maxflowgameproof}).
+       The players will play in turns, moving from $E$ back to $A$. Each player will steal from his predecessors as much as
+       was stolen from her. The flows and the conservative strategy share the property that the total input is equal to the
+       total output. For the complete proof, kindly refer to the Appendix (\ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
        \label{gameflow}
-       Let $\mathcal{H} = $\texttt{TransitiveGame(}$\mathcal{G}, A, B$\texttt{)} for some game graph $\mathcal{G}$ and $A,
-       B \in \mathcal{V}$. Let $Sad, Happy, Angry$ be as defined in the Transitive Game. There exists a valid flow
+       Let $\mathcal{H} = $\texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} for some game graph $\mathcal{G}$ and $A,
+       E \in \mathcal{V}$. There exists a valid flow
        $X = \{x_{wv}\}_{\mathcal{V} \times \mathcal{V}}$ on $\mathcal{G}_0$ such that
        \begin{equation}
           \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A \enspace.
        \end{equation}
     \end{lemma}
     \begin{proofsketch}
-       The flow will contain all $Steal\left(\right)$ actions that eventually reach $A$ and not a player who is sad after
-       convergence. For the complete proof, kindly refer to the Appendix (\ref{gameflowproof}).
+       If we remove the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
+       $A$ to $E$. For the complete proof, kindly refer to the Appendix (\ref{gameflowproof}).
     \end{proofsketch}
     \begin{theorem}[Trust flow theorem] \ \\
        \label{trustflow}
@@ -908,37 +896,48 @@ while (True)
        \end{equation}
        \qed
     \end{proof}
+     \begin{definition}[Collusion] \ \\
+        A collusion of players $S \subset \mathcal{V}$ is a set of players that is entirely controlled by a single entity in
+        the physical world. From a game theoretic point of view, other players ($v \in \mathcal{V} \setminus S$) perceive
+        the collusion as independent players with a distinct strategy each, whereas in reality they are all subject to a
+        single strategy dictated by the controlling entity.
+     \end{definition}
 
     One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
     autonomy. Let Eve be a possible attacker. Since participation in the network does not require any kind of registration,
     Eve can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
-    can invest any amount she chooses, thus she can arbitrarily set the direct trusts of any player $C \in \mathcal{C}$ to
-    any player $P \in \mathcal{V}$ and can also steal all incoming direct trust to these players. Additionally, we give Eve a
-    set of players $B \in \mathcal{B}$ that she has corrupted (the corrupted set), so she fully controls their direct trusts
-    to any player $P \in \mathcal{V}$ and can also steal all incoming direct trust to these players. The players $B \in
-    \mathcal{B}$ are considered to be legitimate before the corruption, thus they may be directly trusted by any player $P
-    \in \mathcal{V}$. However, players $C \in \mathcal{C}$ can be trusted only by players $D \in \mathcal{B} \cup
-    \mathcal{C}$ and not by players $A \in \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$. In short,
-    \begin{equation}
-      \forall D \in \mathcal{B} \cup \mathcal{C}, P \in \mathcal{V}, \mbox{ Eve controls } DTr_{D \rightarrow P}, \mbox{ can
-      steal } DTr_{P \rightarrow D}
-    \end{equation}
-    and can change $|\mathcal{C}|$. Furthermore, the following restriction true:
-    \begin{equation}
-       \forall C \in \mathcal{C}, P \in \mathcal{V}, DTr_{P \rightarrow C} = 0 \enspace.
-    \end{equation}
-    \begin{lemma}[No Evil Edges in the $MinCut$] \ \\
-       \label{mincutmany}
-       Let $S \subset \mathcal{V}, A \notin S$. When calculating $MaxFlow\left(A, S\right)$, it is impossible to have an edge
-       $\left(v, w\right) \in MinCut : v \in S$.
-    \end{lemma}
+    can invest any amount she chooses, thus she can arbitrarily set the direct trusts of any player in $\mathcal{C}$ to
+    any player in $\mathcal{V}$ and can also steal all incoming direct trust to players in $\mathcal{C}$. Additionally, we
+    give Eve a set of players $\mathcal{B}$ that she has corrupted (the corrupted set), so she fully controls their direct
+    trusts to any player in $\mathcal{V}$ and can also steal all incoming direct trust to players in $\mathcal{B}$. The
+    players $\mathcal{B}$ are considered to be legitimate before the corruption, thus they may be directly trusted by any
+    player in $\mathcal{V}$. However, players $\mathcal{C}$ can be trusted only by players $\mathcal{B} \cup \mathcal{C}$
+    but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$.
+%    In short,
+%    \begin{equation}
+%      \forall D \in \mathcal{B} \cup \mathcal{C}, P \in \mathcal{V}, \mbox{ Eve controls } DTr_{D \rightarrow P}, \mbox{ can
+%      steal } DTr_{P \rightarrow D}
+%    \end{equation}
+%    and can change $|\mathcal{C}|$.
+%    Furthermore, the following restriction is true:
+%    \begin{equation}
+%       \forall C \in \mathcal{C}, A \in \mathcal{V} \setminus \left(\mathcal{B} \cup \mathcal{C}\right), DTr_{A \rightarrow
+%       C} = 0 \enspace.
+%    \end{equation}
+%    \begin{lemma}[No Evil Edges in the $MinCut$] \ \\
+%       \label{mincutmany}
+%       Let $S \subset \mathcal{V}, A \notin S$. When calculating $MaxFlow\left(A, S\right)$, it is impossible to have an edge
+%       $\left(v, w\right) \in MinCut\left(A, S\right) : v \in S$.
+%    \end{lemma}
     \begin{theorem}[Sybil Resilience] \ \\
        \label{sybil}
-       Let $\mathcal{B} \cup \mathcal{C} \subset \mathcal{V}$ with $\mathcal{B} \cap \mathcal{C} = \emptyset$ be a collusion
-       of players who are controlled by an adversary, Eve. Eve also controls the number of players in the Sybil set
-       $\mathcal{C}, |\mathcal{C}|$. Players $C \in \mathcal{C}$ are not directly trusted by players outside the collusion,
-       contrary to players $B \in \mathcal{B}$, the corrupted set, who may be directly trusted by any player in
-       $\mathcal{V}$. It then holds that
+%       Let $\mathcal{B} \cup \mathcal{C} \subset \mathcal{V}$ with $\mathcal{B} \cap \mathcal{C} = \emptyset$ be a collusion
+%       of players who are controlled by an adversary, Eve. Eve also controls the number of players in the Sybil set,
+%       $|\mathcal{C}|$. Players in $\mathcal{C}$ are not directly trusted by players outside the collusion,
+%       contrary to players in $\mathcal{B}$, the corrupted set, who may be directly trusted by any player in
+%       $\mathcal{V}$. 
+       Let $\mathcal{G}$ be a game graph and $\left(\mathcal{B}, \mathcal{C}\right)$ be a collusion of players on
+       $\mathcal{G}$. It holds that
        \begin{equation}
           Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = Tr_{A \rightarrow \mathcal{B}} \enspace.
        \end{equation}
@@ -950,84 +949,101 @@ while (True)
     \end{proofsketch}
     \begin{proof}[Sybil Resilience Theorem (\ref{sybil})]
     \label{sybilproof}
-       Suppose two separate games $\mathcal{G}_1, \mathcal{G}_2$ with
+       Suppose two separate games $\mathcal{G}_1, \mathcal{G}_2$ defined as follows:
        \begin{equation}
-          (\mathcal{B} \subset \mathcal{V(G)}_1 \wedge \mathcal{B} \subset \mathcal{V(G)}_2) \wedge
-       (\mathcal{C} \subset \mathcal{V}_1 \wedge \mathcal{C} \cap \mathcal{V}_2 = \emptyset) \enspace.
+          \mathcal{V}_1 = \mathcal{V} \cup \{T_1\} \wedge \mathcal{V}_2 = \mathcal{V} \setminus \mathcal{C} \cup \{T_2\}
+          (\mathcal{B} \subset \mathcal{V}_1 \wedge \mathcal{B} \subset \mathcal{V}_2) \wedge
+          (\mathcal{C} \subset \mathcal{V}_1 \wedge \mathcal{C} \cap \mathcal{V}_2 = \emptyset) \enspace.
        \end{equation}
        Let $T_1 \in \mathcal{V}_1, T_2 \in \mathcal{V}_2$ be two auxiliary players such that
        \begin{align}
           \forall D \in \mathcal{B} \cup \mathcal{C}&, DTr_{D \rightarrow T_1} = \infty \enspace, \\
           \forall B \in \mathcal{B}&, DTr_{B \rightarrow T_2} = \infty \enspace.
        \end{align}
-       Suppose also that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game and
-       $|\mathcal{B}|$ consecutive turns for the second game during which all the colluding players choose actions according
-       to the evil strategy. More formally, suppose that
-       \begin{equation}
-       \begin{gathered}
-          \exists j \in \mathbb{N} : \forall d_1 \in [|\mathcal{B} \cup \mathcal{C}|], Player(j+d) \in \mathcal{B} \cup
-          \mathcal{C} \wedge \\
-          \wedge \forall d_1, d_2 \in [|\mathcal{B} \cup \mathcal{C}|], d_1 \neq d_2, Player(j + d_1) \neq Player(j + d_2)
-          \wedge \\
-          \wedge \forall d \in [|\mathcal{B} \cup \mathcal{C}|], Strategy(Player(j+d)) = Evil \wedge \\
-          \wedge \forall j' \in [j] Player(j') \notin \mathcal{B} \cup \mathcal{C}
-       \end{gathered}
-       \end{equation}
-       for the first and likewise for the second game. \\
+       The colluding players follow the evil strategy. Suppose that until some turn $j$ only good players are chosen to play.
+       Starting from turn $j$, suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game
+       and $|\mathcal{B}|$ consecutive turns for the second game during which all the colluding players are chosen to play.
+%       More formally, suppose that
+%       \begin{equation}
+%       \begin{gathered}
+%          \exists j \in \mathbb{N} : \forall d_1 \in [|\mathcal{B} \cup \mathcal{C}|], Player(j+d) \in \mathcal{B} \cup
+%          \mathcal{C} \wedge \\
+%          \wedge \forall d_1, d_2 \in [|\mathcal{B} \cup \mathcal{C}|], d_1 \neq d_2, Player(j + d_1) \neq Player(j + d_2)
+%          \wedge \\
+%          \wedge \forall d \in [|\mathcal{B} \cup \mathcal{C}|], Strategy(Player(j+d)) = Evil \wedge \\
+%          \wedge \forall j' \in [j] Player(j') \notin \mathcal{B} \cup \mathcal{C}
+%       \end{gathered}
+%       \end{equation}
+%       for the first and likewise for the second game. \\
        According to theorem (\ref{trustmany}),
        \begin{equation}
-          Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow\left(A, T_1\right) \wedge
-          Tr_{A \rightarrow \mathcal{B}} = maxFlow\left(A, T_2\right) \enspace.
+          Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow_1\left(A, T_1\right) \wedge
+          Tr_{A \rightarrow \mathcal{B}} = maxFlow_2\left(A, T_2\right) \enspace.
        \end{equation}
-       From lemma (\ref{mincutmany}), we know that
-       \begin{equation}
-          \forall (v,w) \in MinCut, v \notin \mathcal{B} \cup \mathcal{C}
-       \end{equation}
-       and thus
-       \begin{equation}
-       \begin{gathered}
-          e \in MinCut_1 \Rightarrow e \in \mathcal{E}_2 \wedge \\
-          \wedge e \in MinCut_2 \Rightarrow e \in \mathcal{E}_1 \wedge \\
-          \wedge \forall e \in MinCut_1 \cup MinCut_2, c_1(e) = c_2(e) \enspace.
-       \end{gathered}
-       \end{equation}
-       Thus the flow $X_1$ resulting from $maxFlow(A, T_1)$ can be used to construct a valid flow of equal
-       value for the second case if we set
+%       From lemma (\ref{mincutmany}), we know that
+%       \begin{equation}
+%          \forall \left(v, w\right) \in MinCut_1\left(A, T_1\right), v \notin \mathcal{B} \cup \mathcal{C} \wedge \forall
+%          \left(v, w\right) \in MinCut_2\left(A, T_2\right), v \notin \mathcal{B}
+%       \end{equation}
+%       and thus
+%       \begin{equation}
+%       \begin{gathered}
+%          e \in MinCut_1 \Rightarrow e \in \mathcal{E}_2 \wedge \\
+%          \wedge e \in MinCut_2 \Rightarrow e \in \mathcal{E}_1 \wedge \\
+%          \wedge \forall e \in MinCut_1 \cup MinCut_2, c_1(e) = c_2(e) \enspace.
+%       \end{gathered}
+%       \end{equation}
+       We will show that the $MaxFlow$ of each of the two graphs can be used to construct a valid flow of equal value for the
+       other graph. The flow $X_1 = MaxFlow\left(A, T_1\right)$ can be used to construct a valid flow of equal value for the
+       second graph if we set
        \begin{align}
           \forall v \in \mathcal{V}_2 \setminus \mathcal{B}, \forall w \in \mathcal{V}_2&, x_{vw,2} = x_{vw,1} \enspace, \\
           \forall v \in \mathcal{B}&, x_{vT_2,2} = \sum\limits_{w \in N^{+}(v)}x_{vw,1} \enspace, \\
-          \forall v,w \in \mathcal{B} \cup \mathcal{C}&, x_{vw,2} = 0 \enspace.
+          \forall v,w \in \mathcal{B}&, x_{vw,2} = 0 \enspace.
        \end{align}
-       Likewise, the flow $X_2$ resulting from $maxFlow(A, T_2)$ can be
-       used to construct a valid flow of equal value for the first case if we set
-       \begin{align}
-          \forall v \in \mathcal{V}_1 \setminus (\mathcal{B} \cup \mathcal{C}), \forall w \in \mathcal{V}_1&, x_{vw,1} =
-          x_{vw,2} \enspace, \\
-          \forall v \in \mathcal{B}&, x_{vT_1,1} = \sum\limits_{w \in N^{+}(v)}x_{vw,2} \enspace, \\
-          \forall v \in \mathcal{C}, \forall w \in \mathcal{V}_1&, x_{vw,1} = 0 \enspace.
-       \end{align}
-       From these two observations, we deduce that there exists a function, say $F_2(X_1)$, that transforms
-       the $MaxFlow_1$ of the first graph into a valid flow for the second graph that has the same amount of flow as
-       $MaxFlow_1$ and there also exists a similar function $F_1(X_2)$ that transforms the $MaxFlow_2$ of the second graph
-       into a valid flow for the first graph that has the same amount of flow as $MaxFlow_2$. Suppose that
+       Therefore
        \begin{equation}
-         maxFlow_1 < maxFlow_2 \enspace.
+          maxFlow_1\left(A, T_1\right) \leq maxFlow_2\left(A, T_2\right)
        \end{equation}
-       Then
+       Likewise, the flow $X_2 = MaxFlow(A, T_2)$ is a valid flow for $\mathcal{G}_1$ because $\mathcal{G}_2$ is an induced
+       subgraph of $\mathcal{G}_1$. Therefore
        \begin{equation}
-          F_1(MaxFlow_2) > maxFlow_1 \enspace,
+          maxFlow_1\left(A, T_1\right) \geq maxFlow_2\left(A, T_2\right)
        \end{equation}
-       which is a contradiction. Likewise, suppose that
+%       used to construct a valid flow of equal value for the first case if we set
+%       \begin{align}
+%          \forall v \in \mathcal{V}_1 \setminus \left(\mathcal{B} \cup \mathcal{C}\right), \forall w \in \mathcal{V}_1&,
+%          x_{vw,1} = x_{vw,2} \enspace, \\
+%          \forall v \in \mathcal{B}&, x_{vT_1,1} = \sum\limits_{w \in N^{+}(v)}x_{vw,2} \enspace, \\
+%          \forall v \in \mathcal{C}, \forall w \in \mathcal{V}_1&, x_{vw,1} = 0 \enspace.
+%       \end{align}
+%       Observe that
+%       \begin{equation}
+%          \forall v \in \mathcal{V}_1 \setminus \left(\mathcal{B} \cup \mathcal{C}\right), \forall w \in \mathcal{C},
+%          x_{vw, 1} = 0 \enspace.
+%       \end{equation}
+%       From these two observations, we deduce that there exists a function, say $F_2(X_1)$, that transforms
+%       the $MaxFlow_1$ of the first graph into a valid flow for the second graph that has the same amount of flow as
+%       $MaxFlow_1$ and there also exists a similar function $F_1(X_2)$ that transforms the $MaxFlow_2$ of the second graph
+%       into a valid flow for the first graph that has the same amount of flow as $MaxFlow_2$. Suppose that
+%       \begin{equation}
+%         maxFlow_1 < maxFlow_2 \enspace.
+%       \end{equation}
+%       Then
+%       \begin{equation}
+%          F_1(MaxFlow_2) > maxFlow_1 \enspace,
+%       \end{equation}
+%       which is a contradiction. Likewise, suppose that
+%       \begin{equation}
+%          maxFlow_1 > maxFlow_2 \enspace.
+%       \end{equation}
+%       Then
+%       \begin{equation}
+%          F_2(MaxFlow_1) > maxFlow_2 \enspace,
+%       \end{equation}
+       We conclude that
        \begin{equation}
-          maxFlow_1 > maxFlow_2 \enspace.
-       \end{equation}
-       Then
-       \begin{equation}
-          F_2(MaxFlow_1) > maxFlow_2 \enspace,
-       \end{equation}
-       which is also a contradiction. We conclude that
-       \begin{equation}
-          maxFlow(A, T_1) = maxFlow(A, T_2) \enspace,
+          maxFlow\left(A, T_1\right) = maxFlow\left(A, T_2\right) \enspace,
        \end{equation}
        thus
        \begin{equation}
@@ -1035,16 +1051,6 @@ while (True)
        \end{equation}
        \qed
     \end{proof}
-%       Consider the partition of
-%       $\mathcal{V}, \mathcal{P} = \{\mathcal{B} \cup \mathcal{C}, \mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})\} =
-%       \{P_1, P_2\}$. The edges from $P_2$ to $P_1$ will carry a flow $X_P, X_{P'}$ and the edges inside of $P_1$ will carry
-%       a flow $X_T, X_{T'}$ from the calculation of $maxFlow(A, T), maxFlow(A, T')$ respectively. $maxFlow(A, T) \leq
-%       maxFlow(A, T')$ because the maximal configuration of $X_T$ can be part of a valid configuration of $X_{T'}$ since
-%       edges in $\mathcal{B}$ are edges in $\mathcal{B} \cup \mathcal{C}$. Both maxFlows are not infinite, because $out_A <
-%       \infty$ and according to \ref{mincutmany} all the edges in both $MinCut$s have their starting point outside
-%       $\mathcal{B} \cup \mathcal{C}$. However, then in both cases the minCut is the same, thus $maxFlow(A, T) =
-%       maxFlow(A, T')$. MISSING Thus we conclude that $Tr_{A \rightarrow \mathcal{B}} =
-%       Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}}$.
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
 
   \section{Related Work}
@@ -1063,6 +1069,15 @@ while (True)
      knowledge and what bounds exist in regards to information revealed in such fashion.
 
   \section*{Appendix}
+    \subsection{Common Notation}
+     \begin{definition}[Assets of $A$ in turn $j$, $As_{A, j}$] \ \\
+        Sum of $A$'s capital and outgoing trust.
+        \begin{equation}
+           As_{A, j} = Cap_{A, j} + out_{A, j}
+        \end{equation}
+        If the turn we refer to is obvious, it is possible to omit $j$.
+     \end{definition}
+    \subsection{Proofs, Lemmas and Theorems}
     \begin{lemma}[$Loss$ Equivalent to $Damage$] \ \\
        Let $j \in \mathbb{N}, v \in \mathcal{V}_j \setminus \{A, E\}, v = Player\left(j\right)$. It holds that
        \begin{equation}
@@ -1250,8 +1265,9 @@ while (True)
 
     \begin{proof}[Transitive Games Are Flows Lemma (\ref{gameflow})]
     \label{gameflowproof}
-       Let $\mathcal{G}'$ be a directed weighted graph based on $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a
-       turn when the Transitive Game has converged. More precisely, $\mathcal{G}'$ is defined as follows:
+       Let $Sad, Happy, Angry$ be as defined in the Transitive Game. Let $\mathcal{G}'$ be a directed weighted graph based on
+       $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a turn when the Transitive Game has converged. More
+       precisely, $\mathcal{G}'$ is defined as follows:
        \begin{equation}
           \mathcal{V}' = \mathcal{V} \cup \{T\}
        \end{equation}
