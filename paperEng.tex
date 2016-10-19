@@ -901,25 +901,27 @@ while (True)
     One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
     autonomy. Let Eve be a possible attacker.
      \begin{definition}[Corrupted Set] \ \\
-        Let Eve have a set of players $\mathcal{B}$ corrupted, so that she fully controls their outgoing direct trusts to any
-        player and can also steal all incoming direct trust to players in $\mathcal{B}$. We call this the corrupted set. The
-        players $\mathcal{B}$ are considered to be legitimate before the corruption, thus they may be directly trusted by any
-        player.
+        Let $\mathcal{G}$ be a game graph and let Eve have a set of players $\mathcal{B} \subset \mathcal{V}$ corrupted, so
+        that she fully controls their outgoing direct trusts to any player in $\mathcal{V}$ and can also steal all incoming
+        direct trust to players in $\mathcal{B}$. We call this the corrupted set. The players $\mathcal{B}$ are considered to
+        be legitimate before the corruption, thus they may be directly trusted by any player in $\mathcal{V}$.
      \end{definition}
      \begin{definition}[Sybil Set] \ \\
-        Since participation in the network does not require any kind of registration, Eve can create any number of players.
-        We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve %can invest any amount she chooses, thus she
+        Let $\mathcal{G}$ be a game graph. Since participation in the network does not require any kind of registration, Eve
+        can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
+        %can invest any amount she chooses, thus she
         can arbitrarily set the direct trusts of any player in $\mathcal{C}$ to any player and can also steal all
         incoming direct trust to players in $\mathcal{C}$. However, players $\mathcal{C}$ can be directly trusted only by
         players $\mathcal{B} \cup \mathcal{C}$ but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$,
         where $\mathcal{B}$ is a set of players corrupted by Eve.
      \end{definition}
      \begin{definition}[Collusion] \ \\
-        Let $\mathcal{B}$ be a corrupted set and $\mathcal{C}$ be a Sybil set, both controlled by Eve. The tuple
-        $\left(\mathcal{B}, \mathcal{C}\right)$ is called a collusion and is entirely controlled by a single entity in the
-        physical world. From a game theoretic point of view, players $v \notin \mathcal{B} \cup \mathcal{C}$ perceive the
-        collusion as independent players with a distinct strategy each, whereas in reality they are all subject to a single
-        strategy dictated by the controlling entity, Eve.
+        Let $\mathcal{G}$ be a game graph. Let $\mathcal{B} \subset \mathcal{V}$ be a corrupted set and $\mathcal{C} \subset
+        \mathcal{V}$ be a Sybil set, both controlled by Eve. The tuple $\left(\mathcal{B}, \mathcal{C}\right)$ is called a
+        collusion and is entirely controlled by a single entity in the physical world. From a game theoretic point of view,
+        players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$ perceive the collusion as independent players with a
+        distinct strategy each, whereas in reality they are all subject to a single strategy dictated by the controlling
+        entity, Eve.
      \end{definition}
 %    In short,
 %    \begin{equation}
