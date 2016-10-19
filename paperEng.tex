@@ -147,7 +147,7 @@
      transactions in the UTXO of which the private keys are controlled by the node. A rational player would like to maximize
      her capital in the long term. Let's suppose that player $A$ wants to buy a product that costs $10$ from player $B$, but
      $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
-     words, should $B$ decide to steal all its incoming direct trust and stop trusting directly other users and the rest of
+     words, should $B$ decide to steal all her incoming direct trust and stop trusting directly other users and the rest of
      the players choose the conservative strategy of stealing from their respective incoming trusts just enough to replenish
      their loss [rationale needed], what would the eventual loss of $A$ be? If it can be higher than the value of the
      product, then $A$ is already exposed to a higher risk to $B$, thus paying for the product can be done without $A$ being
@@ -356,8 +356,6 @@
         \begin{equation}
            \sum\limits_{i=1}^{k}y_i = \min\left(in_{A,j-1}, Damage_j\right) \enspace.
         \end{equation}
-%         If $j$ is the first turn in which $A$ plays, $j'$ is not well defined. In this case, we choose $Turn_j = \emptyset$,
-%         except if it is otherwise denoted in some special cases. \\
      \end{definition}
      As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_j <
      in_{A,j-1}$ she can choose to distribute the $Steal\left(s\right)\left(\right)$ in any way she chooses, as long as
@@ -399,6 +397,15 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
         \sum\limits_{i=1}^{|N^{-}\left(A\right)_j|}y_i = Damage \wedge \forall i, y_i \leq DTr_{N^{-}\left(A\right)_{j,i}
         \rightarrow A} \enspace.
      \end{equation}
+     The rationale behind this strategy arises from a real-world common situation. Suppose a client, an intermediary and a
+     producer. The client entrusts some value to the intermediary so that the latter can buy the desired product from the
+     producer and deliver it to the client. The intermediary in turn entrusts an equal value to the producer, who needs the
+     value up front to be able to complete the production process. However the producer eventually does not give the product
+     neither reimburses the value, due to bankruptcy or decision to exit the market with a benefit. The intermediary can
+     choose either to reimburse the client and suffer the loss, or refuse to return the money and lose the client's trust.
+     The latter choice for the intermediary is exactly the conservative strategy. It is used throughout this work as a
+     strategy for all the intermediary players because it models effectively the worst-case scenario that a client can face
+     after an evil player decides to steal everything she can and the rest of the players do not engage in evil activity.
      \begin{definition}[Idle strategy] \ \\
         A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, it holds that
         \begin{equation}
