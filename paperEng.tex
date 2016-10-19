@@ -336,6 +336,55 @@
            \mathcal{H}_j = \left(Player\left(j\right), Turn_j\right)
         \end{equation}
      \end{definition}
+     \begin{definition}[Idle strategy] \ \\
+        A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, it holds that
+        \begin{equation}
+           Strategy\left(A\right) = Idle \Rightarrow \forall j \in \mathbb{N} : Player\left(j\right) = A, Turn_j = \emptyset
+           \enspace.
+        \end{equation}
+     \end{definition}
+     \Suppressnumber
+     \begin{lstlisting}[label=idleoracle, style=numbers]
+Idle Oracle
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
+Output : (*@$Turn_j$@*)
+idleOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
+  return((*@$\emptyset$@*))
+     \end{lstlisting}
+     \begin{definition}[Evil strategy] \ \\
+        A player $A$ is said to follow the evil strategy if she steals value
+        \begin{equation}
+           y_v = DTr_{v \rightarrow A, j-1} \: \forall \: v \in N^{-}\left(A\right)_j
+        \end{equation}
+        (steals all incoming direct trust) and reduces her trust to $w$ by
+        \begin{equation}
+           DTr_{A \rightarrow w, j-1} \: \forall \: w \in N^{+}\left(A\right)_j
+        \end{equation}
+        (nullifies her outgoing direct trust) in her turn.
+        More formally, it holds that
+        \begin{equation}
+        \begin{gathered}
+           Strategy\left(A\right) = Evil \Rightarrow \forall j \in \mathbb{N} : Player\left(j\right) = A, \\
+           Turn_j = \left(\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}\right)
+           \cup \\ \left(\bigcup\limits_{w \in N^{+}\left(A\right)_{j-1}}\{Add\left(-DTr_{A \rightarrow w, j-1},
+           w\right)\}\right) \enspace.
+        \end{gathered}
+        \end{equation}
+        We again note that $N(A)_{j-1} = N(A)_j$.
+     \end{definition}
+     \Suppressnumber
+     \begin{lstlisting}[label=eviloracle, style=numbers]
+Evil Oracle
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
+Output : (*@$Turn_j$@*)
+evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
+  (*@$Turn_j$@*) = (*@$\emptyset$@*)
+  for ((*@$v \in N^{-}\left(A\right)_{j-1}$@*))
+    (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
+  for ((*@$w \in N^{+}\left(A\right)_{j-1}$@*))
+    (*@$Turn_j$@*) = (*@$Turn_j \cup \{Add(-DTr_{A \rightarrow v, j-1}, w)\}$@*)
+  return((*@$Turn_j$@*))
+     \end{lstlisting}
      \begin{definition}[Conservative Strategy] \ \\
         A player $A$ is said to follow the conservative strategy in turn $j$ if for any value $x$ that has been stolen from
         her since the previous turn she played, she substitutes it in her turn by stealing from others that trust her value
@@ -406,55 +455,6 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
      The latter choice for the intermediary is exactly the conservative strategy. It is used throughout this work as a
      strategy for all the intermediary players because it models effectively the worst-case scenario that a client can face
      after an evil player decides to steal everything she can and the rest of the players do not engage in evil activity.
-     \begin{definition}[Idle strategy] \ \\
-        A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, it holds that
-        \begin{equation}
-           Strategy\left(A\right) = Idle \Rightarrow \forall j \in \mathbb{N} : Player\left(j\right) = A, Turn_j = \emptyset
-           \enspace.
-        \end{equation}
-     \end{definition}
-     \Suppressnumber
-     \begin{lstlisting}[label=idleoracle, style=numbers]
-Idle Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
-Output : (*@$Turn_j$@*)
-idleOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
-  return((*@$\emptyset$@*))
-     \end{lstlisting}
-     \begin{definition}[Evil strategy] \ \\
-        A player $A$ is said to follow the evil strategy if she steals value
-        \begin{equation}
-           y_v = DTr_{v \rightarrow A, j-1} \: \forall \: v \in N^{-}\left(A\right)_j
-        \end{equation}
-        (steals all incoming direct trust) and reduces her trust to $w$ by
-        \begin{equation}
-           DTr_{A \rightarrow w, j-1} \: \forall \: w \in N^{+}\left(A\right)_j
-        \end{equation}
-        (nullifies her outgoing direct trust) in her turn.
-        More formally, it holds that
-        \begin{equation}
-        \begin{gathered}
-           Strategy\left(A\right) = Evil \Rightarrow \forall j \in \mathbb{N} : Player\left(j\right) = A, \\
-           Turn_j = \left(\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}\right)
-           \cup \\ \left(\bigcup\limits_{w \in N^{+}\left(A\right)_{j-1}}\{Add\left(-DTr_{A \rightarrow w, j-1},
-           w\right)\}\right) \enspace.
-        \end{gathered}
-        \end{equation}
-        We again note that $N(A)_{j-1} = N(A)_j$.
-     \end{definition}
-     \Suppressnumber
-     \begin{lstlisting}[label=eviloracle, style=numbers]
-Evil Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
-Output : (*@$Turn_j$@*)
-evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
-  (*@$Turn_j$@*) = (*@$\emptyset$@*)
-  for ((*@$v \in N^{-}\left(A\right)_{j-1}$@*))
-    (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
-  for ((*@$w \in N^{+}\left(A\right)_{j-1}$@*))
-    (*@$Turn_j$@*) = (*@$Turn_j \cup \{Add(-DTr_{A \rightarrow v, j-1}, w)\}$@*)
-  return((*@$Turn_j$@*))
-     \end{lstlisting}
      \begin{definition}[Indirect Trust from $A \in \mathcal{V}_j$ to $B \in \mathcal{V}_j$, $Tr_{A \rightarrow B, j}$] \ \\
         Maximum possible value that can be stolen from $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy
         and everyone else ($\mathcal{V} \setminus \{A,B\}$) follows the conservative strategy. More formally, if
