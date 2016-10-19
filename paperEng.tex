@@ -1447,17 +1447,23 @@ while (True)
 
     \begin{proof}[Sybil Resilience Theorem (\ref{sybil})]
     \label{sybilproof}
-       Suppose two separate games $\mathcal{G}_1, \mathcal{G}_2$ defined as follows:
+       Let $\mathcal{G}_1$ be a game graph defined as follows:
        \begin{equation}
-          \mathcal{V}_1 = \mathcal{V} \cup \{T_1\} \wedge \mathcal{V}_2 = \mathcal{V} \setminus \mathcal{C} \cup \{T_2\}
-          (\mathcal{B} \subset \mathcal{V}_1 \wedge \mathcal{B} \subset \mathcal{V}_2) \wedge
-          (\mathcal{C} \subset \mathcal{V}_1 \wedge \mathcal{C} \cap \mathcal{V}_2 = \emptyset) \enspace.
+          \mathcal{V}_1 = \mathcal{V} \cup \{T_1\} \enspace,
        \end{equation}
-       Let $T_1 \in \mathcal{V}_1, T_2 \in \mathcal{V}_2$ be two auxiliary players such that
-       \begin{align}
-          \forall D \in \mathcal{B} \cup \mathcal{C}&, DTr_{D \rightarrow T_1} = \infty \enspace, \\
-          \forall B \in \mathcal{B}&, DTr_{B \rightarrow T_2} = \infty \enspace.
-       \end{align}
+       \begin{equation}
+          \mathcal{E}_1 = \mathcal{E} \cup \{(v, T_1) : v \in \mathcal{B} \cup \mathcal{C}\} \enspace,
+       \end{equation}
+       \begin{equation}
+          \forall v,w \in \mathcal{V}_1 \setminus \{T_1\}, DTr^1_{v \rightarrow w} = DTr_{v \rightarrow w} \enspace,
+       \end{equation}
+       \begin{equation}
+          \forall v \in \mathcal{B} \cup \mathcal{C}, DTr^1_{v \rightarrow T_1} = \infty \enspace,
+       \end{equation}
+       where $DTr_{v \rightarrow w}$ is the direct trust from $v$ to $w$ in $\mathcal{G}$ and $DTr^1_{v \rightarrow w}$ is
+       the direct trust from $v$ to $w$ in $\mathcal{G}_1$. \\
+       Let also $\mathcal{G}_2$ be the induced graph that results from $\mathcal{G}_1$ if we remove the Sybil set,
+       $\mathcal{C}$. We rename $T_1$ to $T_2$ to facilitate comprehension. (Image) \\
        The colluding players follow the evil strategy. Suppose that until some turn $j$ only good players are chosen to play.
        Starting from turn $j$, suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game
        and $|\mathcal{B}|$ consecutive turns for the second game during which all the colluding players are chosen to play.
