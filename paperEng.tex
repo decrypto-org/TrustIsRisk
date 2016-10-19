@@ -412,8 +412,8 @@ evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
         \forall i, y_i \leq DTr_{N^{-}\left(A\right)_{j,i} \rightarrow A, j-1}
         \wedge \sum\limits_{i=1}^{|N^{-}\left(A\right)_j|}y_i = Damage_j \enspace.
      \end{equation}
-     The oracle remembers $PrevOutTrust = out_{A, j'}$ for  $j' = prev\left(j\right)$ and can observe all incoming and
-     outgoing direct trusts of player $A$,
+     The oracle remembers \texttt{PrevOutTrust} $= out_{A, j'}$ for  $j' = prev\left(j\right)$ and can observe all incoming
+     and outgoing direct trusts of player $A$.
      %$\forall v \in N^{-}(A)_{j-1}, DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1}, DTr_{A \rightarrow v, j-1}$.
      We note that $N\left(A\right)_{j-1} = N\left(A\right)_j$. \\
      \Suppressnumber
@@ -424,7 +424,8 @@ Output : (*@$Turn_j$@*)
 consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
   NewOutTrust = (*@$\sum\limits_{v \in N^{+}\left(A\right)_{j-1}}DTr_{A \rightarrow v, j-1}$@*)
   NewInTrust = (*@$\sum\limits_{v \in N^{-}\left(A\right)_{j-1}}DTr_{v \rightarrow A, j-1}$@*)
-  Damage = PrevOutTrust - NewOutTrust
+  Damage = PrevOutTrust - NewOutTrust 
+                                       #PrevOutTrust = (*@$out_{A, prev\left(j\right)}$@*)
   if (Damage > 0)
     if (Damage >= NewInTrust)
       (*@$Turn_j$@*) = (*@$\emptyset$@*)
