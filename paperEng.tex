@@ -898,23 +898,29 @@ while (True)
        \end{equation}
        \qed
     \end{proof}
-     \begin{definition}[Collusion] \ \\
-        A collusion of players $S \subset \mathcal{V}$ is a set of players that is entirely controlled by a single entity in
-        the physical world. From a game theoretic point of view, other players ($v \in \mathcal{V} \setminus S$) perceive
-        the collusion as independent players with a distinct strategy each, whereas in reality they are all subject to a
-        single strategy dictated by the controlling entity.
-     \end{definition}
-
     One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
-    autonomy. Let Eve be a possible attacker. Since participation in the network does not require any kind of registration,
-    Eve can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
-    can invest any amount she chooses, thus she can arbitrarily set the direct trusts of any player in $\mathcal{C}$ to
-    any player in $\mathcal{V}$ and can also steal all incoming direct trust to players in $\mathcal{C}$. Additionally, we
-    give Eve a set of players $\mathcal{B}$ that she has corrupted (the corrupted set), so she fully controls their direct
-    trusts to any player in $\mathcal{V}$ and can also steal all incoming direct trust to players in $\mathcal{B}$. The
-    players $\mathcal{B}$ are considered to be legitimate before the corruption, thus they may be directly trusted by any
-    player in $\mathcal{V}$. However, players $\mathcal{C}$ can be trusted only by players $\mathcal{B} \cup \mathcal{C}$
-    but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$.
+    autonomy. Let Eve be a possible attacker.
+     \begin{definition}[Corrupted Set] \ \\
+        Let Eve have a set of players $\mathcal{B}$ corrupted, so that she fully controls their outgoing direct trusts to any
+        player and can also steal all incoming direct trust to players in $\mathcal{B}$. We call this the corrupted set. The
+        players $\mathcal{B}$ are considered to be legitimate before the corruption, thus they may be directly trusted by any
+        player.
+     \end{definition}
+     \begin{definition}[Sybil Set] \ \\
+        Since participation in the network does not require any kind of registration, Eve can create any number of players.
+        We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve %can invest any amount she chooses, thus she
+        can arbitrarily set the direct trusts of any player in $\mathcal{C}$ to any player and can also steal all
+        incoming direct trust to players in $\mathcal{C}$. However, players $\mathcal{C}$ can be directly trusted only by
+        players $\mathcal{B} \cup \mathcal{C}$ but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$,
+        where $\mathcal{B}$ is a set of players corrupted by Eve.
+     \end{definition}
+     \begin{definition}[Collusion] \ \\
+        Let $\mathcal{B}$ be a corrupted set and $\mathcal{C}$ be a Sybil set, both controlled by Eve. The tuple
+        $\left(\mathcal{B}, \mathcal{C}\right)$ is called a collusion and is entirely controlled by a single entity in the
+        physical world. From a game theoretic point of view, players $v \notin \mathcal{B} \cup \mathcal{C}$ perceive the
+        collusion as independent players with a distinct strategy each, whereas in reality they are all subject to a single
+        strategy dictated by the controlling entity, Eve.
+     \end{definition}
 %    In short,
 %    \begin{equation}
 %      \forall D \in \mathcal{B} \cup \mathcal{C}, P \in \mathcal{V}, \mbox{ Eve controls } DTr_{D \rightarrow P}, \mbox{ can
@@ -926,11 +932,6 @@ while (True)
 %       \forall C \in \mathcal{C}, A \in \mathcal{V} \setminus \left(\mathcal{B} \cup \mathcal{C}\right), DTr_{A \rightarrow
 %       C} = 0 \enspace.
 %    \end{equation}
-%    \begin{lemma}[No Evil Edges in the $MinCut$] \ \\
-%       \label{mincutmany}
-%       Let $S \subset \mathcal{V}, A \notin S$. When calculating $MaxFlow\left(A, S\right)$, it is impossible to have an edge
-%       $\left(v, w\right) \in MinCut\left(A, S\right) : v \in S$.
-%    \end{lemma}
     \begin{theorem}[Sybil Resilience] \ \\
        \label{sybil}
 %       Let $\mathcal{B} \cup \mathcal{C} \subset \mathcal{V}$ with $\mathcal{B} \cap \mathcal{C} = \emptyset$ be a collusion
@@ -1497,6 +1498,11 @@ while (True)
        \qed
     \end{proof}
 
+%    \begin{lemma}[No Evil Edges in the $MinCut$] \ \\
+%       \label{mincutmany}
+%       Let $S \subset \mathcal{V}, A \notin S$. When calculating $MaxFlow\left(A, S\right)$, it is impossible to have an edge
+%       $\left(v, w\right) \in MinCut\left(A, S\right) : v \in S$.
+%    \end{lemma}
 %    \begin{proof}[No Evil Edges in the $MinCut$ Lemma (\ref{mincutmany}]
 %    \label{mincutmanyproof}
 %       Let $T$ be the auxiliary node. It is
