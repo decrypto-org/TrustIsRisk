@@ -1,5 +1,5 @@
 \documentclass[11pt]{llncs}
-\usepackage{graphicx}
+\usepackage[pdftex]{graphicx}
 \usepackage[linesnumbered,ruled,noend]{algorithm2e}
 \usepackage[english]{babel}
 \usepackage{amsmath}
@@ -8,6 +8,10 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{listings}
+\usepackage{graphviz}
+\usepackage{dot2texi}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
 %\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 %\usepackage{chngcntr}
@@ -142,6 +146,21 @@
      The state of the game at any given moment can be represented by a directed weighted graph where each node represents a
      pseudonymous identity that is considered to correspond to exactly one user and each edge represents a direct trust, the
      weight of which is the value which the head entrusts the tail with. [Image] \\
+\begin{tikzpicture}[scale=0.5]
+   
+   \begin{dot2tex}
+      digraph G  {
+        rankdir=LR;
+	edge [arrowsize=0.6];
+        node [shape=circle];
+	A -> C;
+	A -> D;
+	C -> B;
+	D -> B;
+      }
+   \end{dot2tex}
+\end{tikzpicture}
+
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
      the node directly and exclusively controls. More technically, it is the number of bitcoins contained in P2PKH
      transactions in the UTXO of which the private keys are controlled by the node. A rational player would like to maximize
@@ -626,7 +645,7 @@ while (True)
     \begin{proofsketch}
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
-       trust. For the complete proof, kindly refer to the Appendix (\ref{convergenceproof}).
+       trust. For the complete proof, see Appendix (\ref{convergenceproof}).
     \end{proofsketch}
     In games where there exists one evil $E$, one idle player $A$ and the rest of the players are conservative, we define
     $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is not
@@ -659,7 +678,7 @@ while (True)
        The execution will contain all flows from the $MaxFlow\left(A, E\right)$ as equivalent $Steal\left(\right)$ actions.
        The players will play in turns, moving from $E$ back to $A$. Each player will steal from his predecessors as much as
        was stolen from her. The flows and the conservative strategy share the property that the total input is equal to the
-       total output. For the complete proof, kindly refer to the Appendix (\ref{maxflowgameproof}).
+       total output. For the complete proof, see Appendix (\ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
        \label{gameflow}
@@ -672,9 +691,9 @@ while (True)
     \end{lemma}
     \begin{proofsketch}
        If we remove the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
-       $A$ to $E$. For the complete proof, kindly refer to the Appendix (\ref{gameflowproof}).
+       $A$ to $E$. For the complete proof, see Appendix (\ref{gameflowproof}).
     \end{proofsketch}
-    \begin{theorem}[Trust flow theorem] \ \\
+    \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
        Let $\mathcal{G}$ be a game graph and $A, B \in \mathcal{V}$. It holds that
        \begin{equation}
@@ -689,6 +708,7 @@ while (True)
        Since $Tr_{A \rightarrow B}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
        see that
        \begin{equation}
+       \label{trgeqmaxflow}
           Tr_{A \rightarrow B} \geq maxFlow\left(A, B\right) \enspace.
        \end{equation}
        Moreover, there exists an execution of the Transitive Game such that
@@ -697,13 +717,10 @@ while (True)
        \end{equation}
        From lemma \ref{gameflow}, this execution corresponds to a flow. Thus
        \begin{equation}
+       \label{trleqmaxflow}
           Tr_{A \rightarrow B} \leq maxFlow\left(A, B\right) \enspace.
        \end{equation}
-       We conclude that
-       \begin{equation}
-          Tr_{A \rightarrow B} = maxFlow\left(A, B\right) \enspace.
-       \end{equation}
-       \qed
+       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}). \qed
     \end{proof}
 %       Without loss of generality, we can suppose that the turn in which we are interested is 0 ($\mathcal{G} =
 %       \mathcal{G}_0$). First we will show that the $MaxFlow$ can be a result of a valid execution of algorithm
@@ -899,12 +916,11 @@ while (True)
     \begin{proof}
        If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to
        steal all their incoming direct trust, thus they will act in a way identical to following the evil strategy as far as
-       $MaxFlow$ is concerned, thus, according to the Trust Flow Theorem, it holds that
-       \begin{equation}
-          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
-          \enspace.
-       \end{equation}
-       \qed
+       $MaxFlow$ is concerned. The theorem follows thus from the Trust Flow Theorem. \qed
+%       \begin{equation}
+%          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
+%          \enspace.
+%       \end{equation}
     \end{proof}
     One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
     autonomy. Let Eve be a possible attacker.
@@ -957,7 +973,7 @@ while (True)
     \end{theorem}
     \begin{proofsketch}
        The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
-       $\mathcal{C}$ has no incoming trust from players outside the collusion. For the complete proof, kindly refer to the
+       $\mathcal{C}$ has no incoming trust from players outside the collusion. For the complete proof, see
        Appendix (\ref{sybilproof}).
     \end{proofsketch}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
@@ -1472,9 +1488,9 @@ while (True)
        the direct trust from $v$ to $w$ in $\mathcal{G}_1$. \\
        Let also $\mathcal{G}_2$ be the induced graph that results from $\mathcal{G}_1$ if we remove the Sybil set,
        $\mathcal{C}$. We rename $T_1$ to $T_2$ to facilitate comprehension. (Image) \\
-       The colluding players follow the evil strategy. Suppose that until some turn $j$ only good players are chosen to play.
-       Starting from turn $j$, suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game
-       and $|\mathcal{B}|$ consecutive turns for the second game during which all the colluding players are chosen to play.
+%       The colluding players follow the evil strategy. Suppose that until some turn $j$ only good players are chosen to play.
+%       Starting from turn $j$, suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game
+%       and $|\mathcal{B}|$ consecutive turns for the second game during which all the colluding players are chosen to play.
 %       More formally, suppose that
 %       \begin{equation}
 %       \begin{gathered}
