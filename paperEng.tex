@@ -482,9 +482,7 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
       for ((*@$v \in N^{-}(A)_{j-1}$@*))
         (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
     else
-      ((*@$y_1$@*), (*@\dots@*), (*@$y_{|N^{-}\left(A\right)_{j-1}|}$@*)) = SelectSteal((*@$DTr_{N^{-}\left(A\right)_{j-1,1}
-      \rightarrow A, j-1}$@*), (*@\dots@*), (*@$DTr_{N^{-}\left(A\right)_{j-1,|N^{-}\left(A\right)_{j-1}|} \rightarrow A,
-      j-1}$@*),Damage)
+      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)
       (*@$Turn_j$@*) = (*@$\emptyset$@*)
       for ((*@$i \in [|N^{-}\left(A\right)_{j-1}|]$@*))
         (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal\left(y_i, N^{-}(A)_{j-1,i}\right)\}$@*)
@@ -497,6 +495,9 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
         \sum\limits_{i=1}^{|N^{-}\left(A\right)_j|}y_i = Damage \wedge \forall i, y_i \leq DTr_{N^{-}\left(A\right)_{j,i}
         \rightarrow A} \enspace.
      \end{equation}
+     Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
+     each time she calls the function, as long as the above restriction is respected.
+
      The rationale behind this strategy arises from a real-world common situation. Suppose a client, an intermediary and a
      producer. The client entrusts some value to the intermediary so that the latter can buy the desired product from the
      producer and deliver it to the client. The intermediary in turn entrusts an equal value to the producer, who needs the
