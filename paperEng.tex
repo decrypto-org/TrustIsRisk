@@ -1071,7 +1071,8 @@ while (True)
           we ignore the argument (1).
           \item Let $v \in Angry_{j-1} \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
           we ignore the argument (1).
-       \end{itemize} \qed
+       \end{itemize}
+       Thus the theorem holds in every case. \qed
     \end{proof}
 
     \begin{proof}[Trust Convergence Theorem (\ref{convergence})]
@@ -1212,10 +1213,11 @@ while (True)
        $maxFlow(A, B)$. Since there remains no Angry player, it is obvious that $j_2$ is a turn that Transitive Game has
        converged thus $Loss_{A, j_2} = Loss_A$. It is also obvious that if $B$ had chosen the original evil strategy, the
        described actions would still be valid only by supplementing them with additional $Steal\left(\right)$ actions, thus
-       $Loss_A$ would further increase.  We have proven that there exists a valid execution of the Transitive Game where
-       \begin{equation}
-          Loss_A \geq maxFlow\left(A, B\right) \enspace.
-       \end{equation}
+       $Loss_A$ would further increase. This proves the theorem.
+%       We have proven that there exists a valid execution of the Transitive Game where
+%       \begin{equation}
+%          Loss_A \geq maxFlow\left(A, B\right) \enspace.
+%       \end{equation}
        \qed
     \end{proof}
 
@@ -1447,7 +1449,7 @@ while (True)
        \end{equation}
        This subseries must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative strategy,
        thus somebody must have stolen from her as well, so $Player(j_1)$ cannot be the initial element. We have a
-       contradiction, thus there cannot exist a series of stealing actions when everybody is conservative.
+       contradiction, thus the theorem holds.
        \qed
     \end{proof}
 
@@ -1536,6 +1538,7 @@ while (True)
 %       for the first and likewise for the second game. \\
        According to theorem (\ref{trustmany}),
        \begin{equation}
+       \label{trmaxflow}
           Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow_1\left(A, T_1\right) \wedge
           Tr_{A \rightarrow \mathcal{B}} = maxFlow_2\left(A, T_2\right) \enspace.
        \end{equation}
@@ -1602,12 +1605,13 @@ while (True)
 %       \end{equation}
        We conclude that
        \begin{equation}
+       \label{eqmaxflows}
           maxFlow\left(A, T_1\right) = maxFlow\left(A, T_2\right) \enspace,
        \end{equation}
-       thus
-       \begin{equation}
-          Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} \enspace.
-       \end{equation}
+       thus from (\ref{trmaxflow}) and (\ref{eqmaxflows}) the theorem holds.
+%       \begin{equation}
+%          Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} \enspace.
+%       \end{equation}
        \qed
     \end{proof}
 
