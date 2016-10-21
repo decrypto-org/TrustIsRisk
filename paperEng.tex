@@ -643,9 +643,9 @@ while (True)
     \end{lstlisting}
     We observe that the set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$
     for any turn $j$ as $\mathcal{V}$ in any setting where we use the Transitive Game. \\
-    Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, according to theorem \ref{conservativeworld},
-    all players will pass their turn. Moreover, let $j' = prev\left(j\right)$ and $\{v_1, \dots, v_k\} =
-    N^{-}\left(A\right)_j$. Given that
+    Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
+    has been stolen yet (see Appendix (\ref{conservativeworld}) for a formal proof of this simple fact). Moreover, let
+    $j' = prev\left(j\right)$ and $\{v_1, \dots, v_k\} = N^{-}\left(A\right)_j$. Given that
     \begin{equation}
        Damage_{v,j} = out_{v,j'} - out_{v,j} \enspace,
     \end{equation}
@@ -1536,7 +1536,7 @@ while (True)
 %       \end{gathered}
 %       \end{equation}
 %       for the first and likewise for the second game. \\
-       According to theorem (\ref{trustmany}),
+       According to /heorem (\ref{trustmany}),
        \begin{equation}
        \label{trmaxflow}
           Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow_1\left(A, T_1\right) \wedge
