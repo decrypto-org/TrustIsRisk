@@ -141,23 +141,30 @@
   \section{A detailed example}
      The state of the game at any given moment can be represented by a directed weighted graph where each node represents a
      pseudonymous identity that is considered to correspond to exactly one user and each edge represents a direct trust, the
-     weight of which is the value which the head entrusts the tail with. [Image]
+     weight of which is the value which the head entrusts the tail with.
      \begin{center}
      \begin{tikzpicture}
-     \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.7]
+     \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.5]
         digraph G  {
            rankdir=LR;
            edge [arrowsize=0.6];
            node [shape=circle];
            compound=true;
-           subgraph trustisrisk {
+           subgraph cluster0 {
+              color=none;
+              label = "TrustIsRisk\\ game\\ graph";
               A -> C [label="5BTC"];
               A -> D [label="6BTC"];
               C -> B [label="3BTC"];
               C -> E [label="10BTC"];
               D -> B [label="2BTC"];
            }
-           subgraph utxo {
+           J1 [style=invisible];
+           J2 [style=invisible];
+           J1 -> J2 [dir=both];
+           subgraph cluster1 {
+              rank=same;
+              label="Bitcoin\\ UTXO";
               Z1 [style=invisible];
               a1 [label="5BTC"];
               Y1 [style=invisible];
@@ -168,13 +175,61 @@
               Y2 [style=invisible];
               a2 -> Y2 [label="1/\\{B,D\\}"];
               Z2 -> a2 [label="A"];
-              
+              Z3 [style=invisible];
+              a3 [label="10BTC"];
+              Y3 [style=invisible];
+              a3 -> Y3 [label="1/\\{C,E\\}"];
+              Z3 -> a3 [label="C"];
+              Z4 [style=invisible];
+              a4 [label="3BTC"];
+              Y4 [style=invisible];
+              a4 -> Y4 [label="1/\\{C,B\\}"];
+              Z4 -> a4 [label="C"];
+              Z5 [style=invisible];
+              a5 [label="2BTC"];
+              Y5 [style=invisible];
+              a5 -> Y5 [label="1/\\{D,B\\}"];
+              Z5 -> a5 [label="D"];
            }
+           B  -> J1 [style=invisible]
+           J2 -> Z3 [style=invisible]
         }
      \end{dot2tex}
      \end{tikzpicture}
-     \end{center}
-
+     \end{center} \ \\
+%     \begin{center}
+%     \begin{tikzpicture}
+%     \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.5]
+%digraph G {
+%  subgraph cluster_level1 {
+%    label="Level 1"
+%    subgraph cluster_room1 {
+%        label="Room 1"
+%        a -> b
+%    }
+%    subgraph cluster_room2 {
+%        label="Room 2"
+%        c -> d
+%    }
+%  }
+%  subgraph cluster_level2 {
+%    label="Level 2"
+%    subgraph cluster_room2_1 {
+%        label="Room 1"
+%        e -> f
+%    }
+%    subgraph cluster_room2_2 {
+%        label="Room 2"
+%        g -> h
+%    }
+%  }
+%  {edge[style=invis]
+%    {b d} -> {g e}
+%  }
+%}
+%     \end{dot2tex}
+%     \end{tikzpicture}
+%     \end{center}
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
      the node directly and exclusively controls. More technically, it is the number of bitcoins contained in P2PKH
      transactions in the UTXO \cite{bitcoinguide} of which the private keys are controlled by the node. A rational player
@@ -601,8 +656,8 @@ while (True)
             Angry = Angry(*@$\:\cup\: \{w\}$@*)
   if ((*@$v$@*) != (*@$E$@*))
     Angry = Angry(*@$\:\setminus\: \{v\}$@*)
-    if ((*@$in_{v, j}$@*) == 0 && (*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)
-      Sad = Sad(*@$\:\cup\: \{v\}$@*) (*@\label{trstealtrueentersad}@*)
+    if ((*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*) 
+      Sad = Sad(*@$\:\cup\: \{v\}$@*)                  #(*@$in_{v, j}$@*) should be zero (*@\label{trstealtrueentersad}@*)
     if ((*@$Loss_v$@*) == 0)
       Happy = Happy(*@$\:\cup\: \{v\}$@*)
     \end{lstlisting}
@@ -1241,7 +1296,62 @@ while (True)
        \begin{equation}
           \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
        \end{equation}
-       (Image)
+       \begin{center}
+       \begin{tikzpicture}
+       \begin{dot2tex}
+          digraph G {
+           rankdir=LR;
+           edge [arrowsize=0.6];
+           node [shape=circle];
+           compound=true;
+           T -> {S1 A S2} [label=<&#xe2889e;>];
+          }
+       \end{dot2tex}
+       \end{tikzpicture}
+       \end{center}
+%#           subgraph cluster0 {
+%#              color=none;
+%#              label = "TrustIsRisk\\ game\\ graph";
+%#              A -> C [label="5BTC"];
+%#              A -> D [label="6BTC"];
+%#              C -> B [label="3BTC"];
+%#              C -> E [label="10BTC"];
+%#              D -> B [label="2BTC"];
+%#           }
+%#           J1 [style=invisible];
+%#           J2 [style=invisible];
+%#           J1 -> J2 [dir=both];
+%#           subgraph cluster1 {
+%#              rank=same;
+%#              label="Bitcoin\\ UTXO";
+%#              Z1 [style=invisible];
+%#              a1 [label="5BTC"];
+%#              Y1 [style=invisible];
+%#              a1 -> Y1 [label="1/\\{B,C\\}"];
+%#              Z1 -> a1 [label="A"];
+%#              Z2 [style=invisible];
+%#              a2 [label="6BTC"];
+%#              Y2 [style=invisible];
+%#              a2 -> Y2 [label="1/\\{B,D\\}"];
+%#              Z2 -> a2 [label="A"];
+%#              Z3 [style=invisible];
+%#              a3 [label="10BTC"];
+%#              Y3 [style=invisible];
+%#              a3 -> Y3 [label="1/\\{C,E\\}"];
+%#              Z3 -> a3 [label="C"];
+%#              Z4 [style=invisible];
+%#              a4 [label="3BTC"];
+%#              Y4 [style=invisible];
+%#              a4 -> Y4 [label="1/\\{C,B\\}"];
+%#              Z4 -> a4 [label="C"];
+%#              Z5 [style=invisible];
+%#              a5 [label="2BTC"];
+%#              Y5 [style=invisible];
+%#              a5 -> Y5 [label="1/\\{D,B\\}"];
+%#              Z5 -> a5 [label="D"];
+%#           }
+%#           B  -> J1 [style=invisible]
+%#           J2 -> Z3 [style=invisible]
        We observe that $\forall v \in \mathcal{V},$
        \begin{equation}
        \label{gameflowin}
