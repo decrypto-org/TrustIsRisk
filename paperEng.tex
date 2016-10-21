@@ -472,10 +472,11 @@ Conservative Oracle
 Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
 Output : (*@$Turn_j$@*)
 consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
-  NewOutTrust = (*@$\sum\limits_{v \in N^{+}\left(A\right)_{j-1}}DTr_{A \rightarrow v, j-1}$@*)
-  NewInTrust = (*@$\sum\limits_{v \in N^{-}\left(A\right)_{j-1}}DTr_{v \rightarrow A, j-1}$@*)
-  Damage = PrevOutTrust - NewOutTrust 
-                                       #PrevOutTrust = (*@$out_{A, prev\left(j\right)}$@*)
+  NewOutTrust = (*@$out_{j-1}$@*)
+  NewInTrust = (*@$in_{j-1}$@*)
+  Damage = PrevOutTrust((*@$A$@*)) - NewOutTrust 
+                                   #PrevOutTrust((*@$A$@*)) = (*@$out_{A, prev\left(j\right)}$@*)
+  PrevOutTrust((*@$A$@*)) = NewOutTrust
   if (Damage > 0)
     if (Damage >= NewInTrust)
       (*@$Turn_j$@*) = (*@$\emptyset$@*)
