@@ -482,7 +482,7 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
       for ((*@$v \in N^{-}(A)_{j-1}$@*))
         (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
     else
-      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)
+      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = ((*@$y_1$@*),...,(*@$y_{|N^{-}\left(A\right)_{j-1}|}$@*))
       (*@$Turn_j$@*) = (*@$\emptyset$@*)
       for ((*@$i \in [|N^{-}\left(A\right)_{j-1}|]$@*))
         (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal\left(y_i, N^{-}(A)_{j-1,i}\right)\}$@*)
