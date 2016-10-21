@@ -181,9 +181,9 @@
      \end{center}
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
      the node directly and exclusively controls. More technically, it is the number of bitcoins contained in P2PKH
-     transactions in the UTXO of which the private keys are controlled by the node. A rational player would like to maximize
-     her capital in the long term. Let's suppose that player $A$ wants to buy a product that costs $10$ from player $B$, but
-     $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
+     transactions in the UTXO \cite{bitcoinguide} of which the private keys are controlled by the node. A rational player
+     would like to maximize her capital in the long term. Let's suppose that player $A$ wants to buy a product that costs 10
+     from player $B$, but $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
      words, should $B$ decide to steal all her incoming direct trust and stop trusting directly other users and the rest of
      the players choose the conservative strategy of stealing from their respective incoming trusts just enough to replenish
      their loss [rationale needed], what would the eventual loss of $A$ be? If it can be higher than the value of the
@@ -303,41 +303,6 @@
         \\ The set of actions a player makes in turn $j$ is represented with $Turn_j$. The new graph that emerges by applying
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
-     Let $A = Player(j)$. $Turn_j$ Examples:
-     \begin{enumerate}
-        \item \begin{equation}
-           Turn_j = \emptyset
-        \end{equation}
-        \item \begin{equation}
-           Turn_j = \{Steal\left(y, B\right), Add\left(w, B\right)\} \enspace,
-        \end{equation}
-        given that
-        \begin{equation}
-           DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq
-           Cap_{A, j_2-1} \enspace.
-        \end{equation}
-        \item \begin{equation}
-           Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
-        \end{equation}
-        given that
-        \begin{equation}
-        \begin{gathered}
-           DTr_{B \rightarrow A, j_3 - 1} \leq x \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge \\
-           \wedge -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge x - y - w \leq Cap_{A, j_3-1} \enspace.
-        \end{gathered}
-        \end{equation}
-        \item \begin{equation}
-           Turn_j = \{Steal\left(x, B\right), Steal\left(y, B\right)\}
-        \end{equation}
-        is not a valid turn because it contains two $Steal\left(\right)$ actions against the same player. If
-        \begin{equation}
-           x + y \leq DTr_{B \rightarrow A} \enspace,
-        \end{equation}
-        the correct alternative would be
-        \begin{equation}
-           Turn_j = \{Steal\left(x+y, B\right)\} \enspace.
-        \end{equation}
-     \end{enumerate}
      \begin{definition}[Previous/Next Turn of a Player] \ \\
         Let $j \in \mathbb{N}$ a turn with $Player\left(j\right) = A$. We define $prev\left(j\right), next\left(j\right)$ as
         the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
@@ -1034,6 +999,42 @@ while (True)
         \end{equation}
         If the turn we refer to is obvious, it is possible to omit $j$.
      \end{definition}
+     
+     Let $A = Player(j)$. $Turn_j$ Examples:
+     \begin{enumerate}
+        \item \begin{equation}
+           Turn_j = \emptyset
+        \end{equation}
+        \item \begin{equation}
+           Turn_j = \{Steal\left(y, B\right), Add\left(w, B\right)\} \enspace,
+        \end{equation}
+        given that
+        \begin{equation}
+           DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq
+           Cap_{A, j_2-1} \enspace.
+        \end{equation}
+        \item \begin{equation}
+           Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
+        \end{equation}
+        given that
+        \begin{equation}
+        \begin{gathered}
+           DTr_{B \rightarrow A, j_3 - 1} \leq x \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge \\
+           \wedge -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge x - y - w \leq Cap_{A, j_3-1} \enspace.
+        \end{gathered}
+        \end{equation}
+        \item \begin{equation}
+           Turn_j = \{Steal\left(x, B\right), Steal\left(y, B\right)\}
+        \end{equation}
+        is not a valid turn because it contains two $Steal\left(\right)$ actions against the same player. If
+        \begin{equation}
+           x + y \leq DTr_{B \rightarrow A} \enspace,
+        \end{equation}
+        the correct alternative would be
+        \begin{equation}
+           Turn_j = \{Steal\left(x+y, B\right)\} \enspace.
+        \end{equation}
+     \end{enumerate}
     \subsection{Proofs, Lemmas and Theorems}
     \begin{lemma}[$Loss$ Equivalent to $Damage$] \ \\
        Let $j \in \mathbb{N}, v \in \mathcal{V}_j \setminus \{A, E\}, v = Player\left(j\right)$. It holds that
@@ -1633,6 +1634,8 @@ while (True)
      \url{https://blog.openbazaar.org/can-bitcoin-and-multisig-reduce-identity-theft-and-fraud/}
      \bibitem{bitcoin}
      Nakamoto S.: Bitcoin: A Peer-to-Peer Electronic Cash System (2008)
+     \bibitem{bicoinguide}
+     Bitcoin Guide, \url{https://bitcoin.org/en/developer-guide}
      \bibitem{toposort}
      Kahn Arthu.r B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
      New York (1962)
