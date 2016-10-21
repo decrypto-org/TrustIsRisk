@@ -378,11 +378,12 @@
         \end{equation}
         $next\left(j\right)$ is always well defined with the assumption that eventually everybody plays.
      \end{definition}
-     \begin{definition}[$A$ is Stolen $x$] \ \\
-        Let $j, j'$ be two consecutive turns of $A$. We say that $A$ has been stolen a value $x$ between $j$ and $j'$ if
+     \begin{definition}[$Damage_{A, j}$] \ \\
+        Let $j$ be a turn such that $Player\left(j\right) = A$.
         \begin{equation}
-           out_{A,j} - out_{A,j'} > 0 \enspace.
+           Damage_{A, j} = out_{A, prev\left(j\right)} - out_{A, j}
         \end{equation}
+        We say that $A$ has been stolen value $Damage_{A, j}$ between $prev\left(j\right)$ and $j$ if $Damage_{A, j} > 0$.
         If turns are not specified, we implicitly refer to the current and the previous turns.
      \end{definition}
      \begin{definition}[History] \ \\
