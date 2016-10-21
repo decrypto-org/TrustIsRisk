@@ -137,11 +137,6 @@
      its incoming trust. Last but not least, the network can be viewed as a possible field for investment and speculation
      since it constitutes a completely new area for financial activity.
 
-     We should note that the current description of TrustIsRisk refers to a static setting where the game evolves in turns.
-     In each turn only one user changes the state of the network. Also the system we describe needs full network knowledge
-     for all of the users, a situation that may be undesirable because of the privacy-invading implications it brings.
-     Future work is needed to address both limitations.
-
      
   \section{A detailed example}
      The state of the game at any given moment can be represented by a directed weighted graph where each node represents a
@@ -179,6 +174,7 @@
      \end{dot2tex}
      \end{tikzpicture}
      \end{center}
+
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
      the node directly and exclusively controls. More technically, it is the number of bitcoins contained in P2PKH
      transactions in the UTXO \cite{bitcoinguide} of which the private keys are controlled by the node. A rational player
@@ -190,7 +186,8 @@
      product, then $A$ is already exposed to a higher risk to $B$, thus paying for the product can be done without $A$ being
      exposed to any additional risk towards $B$, as long as $A$ reduces the direct trust to her friends enough to reduce the
      risk by the value of the product. If the transaction completes in a satisfying manner, $A$ can replenish the reduced
-     trust to her friends, or can even choose to start directly trusting $B$. \\
+     trust to her friends, or can even choose to start directly trusting $B$.
+
      Suppose that at the moment $A$ is considering of performing a payment to him, $B$ really decides to depart from the
      network, taking with him all the coins he can. A chain reaction starts throughout the network because each player that
      $B$ exploited is expected to steal enough value from other users that directly trust her to replenish all the value she
@@ -201,8 +198,9 @@
   \section{Definitions}
      \begin{definition}[Graph] \ \\
         TrustIsRisk is represented by a sequence of weighted directed graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j =
-        \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$. Members of $\mathcal{E}_j$ are tuples of two nodes from
-        $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = \left(A,B\right)$.
+        \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$.
+%        Members of $\mathcal{E}_j$ are tuples of two nodes from
+%        $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = \left(A,B\right)$.
         Also, since the graphs are weighted, there exists a sequence of functions $\left(c_j\right)$ with $c_j : \mathcal{E}_j
         \rightarrow \mathbb{R}^{+}$.
      \end{definition}
@@ -224,9 +222,8 @@
                  0, & if \left(A, B\right) \notin \mathcal{E}_j
               \end{cases}
         \end{equation}
-        A function or algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts
-        of this graph. The exception are the oracles, which in this case have access only to their incoming and outgoing
-        direct trusts.
+        An algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
+        The exception are the oracles, which in this case have access only to their incoming and outgoing direct trusts.
      \end{definition}
      \begin{definition}[(In/Out) Neighbourhood of $A$ in Turn $j$] \
 %, $N^{+}\left(A\right)_j, N^{-}\left(A\right)_j, N\left(A\right)_j$] \ 
@@ -990,6 +987,10 @@ while (True)
      extract topological information. More research is required to establish how flows can be calculated effectively in zero
      knowledge and what bounds exist in regards to information revealed in such fashion.
 
+     The current description of TrustIsRisk refers to a static setting where the game evolves in turns. In each turn only one
+     user changes the state of the network. In the dynamic setting, the users should be able to play simultaneously, freely
+     join, leave and disconnect temporarily from the network.
+
   \section*{Appendix}
     \subsection{Common Notation}
      \begin{definition}[Assets of $A$ in turn $j$, $As_{A, j}$] \ \\
@@ -1634,7 +1635,7 @@ while (True)
      \url{https://blog.openbazaar.org/can-bitcoin-and-multisig-reduce-identity-theft-and-fraud/}
      \bibitem{bitcoin}
      Nakamoto S.: Bitcoin: A Peer-to-Peer Electronic Cash System (2008)
-     \bibitem{bicoinguide}
+     \bibitem{bitcoinguide}
      Bitcoin Guide, \url{https://bitcoin.org/en/developer-guide}
      \bibitem{toposort}
      Kahn Arthu.r B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
