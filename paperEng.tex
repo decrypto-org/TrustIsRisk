@@ -635,11 +635,13 @@ while (True)
             Sad = Sad(*@$\:\cup\: \{w\}$@*)
           else
             Angry = Angry(*@$\:\cup\: \{w\}$@*)
-  Angry = Angry(*@$\:\setminus\: \{v\}$@*)
-  if ((*@$in_{v, j}$@*) == 0 && (*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)
-    Sad = Sad(*@$\:\cup\: \{v\}$@*) (*@\label{trstealtrueentersad}@*)
-  if ((*@$Loss_v$@*) == 0)
-    Happy = Happy(*@$\:\cup\: \{v\}$@*)
+  if ((*@$v$@*) != (*@$E$@*)) {
+    Angry = Angry(*@$\:\setminus\: \{v\}$@*)
+    if ((*@$in_{v, j}$@*) == 0 && (*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)
+      Sad = Sad(*@$\:\cup\: \{v\}$@*) (*@\label{trstealtrueentersad}@*)
+    if ((*@$Loss_v$@*) == 0)
+      Happy = Happy(*@$\:\cup\: \{v\}$@*)
+  }
     \end{lstlisting}
     We observe that the set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$
     for any turn $j$ as $\mathcal{V}$ in any setting where we use the Transitive Game. \\
