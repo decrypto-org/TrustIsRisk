@@ -394,137 +394,74 @@
         \end{equation}
      \end{definition}
      \begin{definition}[Idle Strategy] \ \\
-        A player $A$ is said to follow the idle strategy if she passes in her turn. More formally, it holds that
-        \begin{equation}
-           \begin{rcases}
-              Strategy\left(A\right) = Idle \\
-              j \in \mathbb{N} : Player\left(j\right) = A
-           \end{rcases}
-           \Rightarrow Turn_j = \emptyset \enspace.
-        \end{equation}
+        A player $A$ is said to follow the idle strategy if she passes in her turn. 
      \end{definition}
      \Suppressnumber
      \begin{lstlisting}[label=idleoracle, style=numbers]
 Idle Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
 idleOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
   return((*@$\emptyset$@*))
      \end{lstlisting}
      \begin{definition}[Evil Strategy] \ \\
-        A player $A$ is said to follow the evil strategy if she steals value
-        \begin{equation}
-           y_v = DTr_{v \rightarrow A, j-1} \: \forall \: v \in N^{-}\left(A\right)_j
-        \end{equation}
-        (steals all incoming direct trust) and reduces her trust to $w$ by
-        \begin{equation}
-           DTr_{A \rightarrow w, j-1} \: \forall \: w \in N^{+}\left(A\right)_j
-        \end{equation}
-        (nullifies her outgoing direct trust) in her turn.
-        More formally, it holds that
-        \begin{equation}
-           \begin{rcases}
-              Strategy\left(A\right) = Evil \\
-              j \in \mathbb{N} : Player\left(j\right) = A
-           \end{rcases}
-           \Rightarrow Turn_j = Steals \cup Adds \enspace, \mbox{ where}
-        \end{equation}
-        \begin{equation}
-        \begin{gathered}
-           Steals = \bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\} \mbox{ and} \\
-           Adds = \bigcup\limits_{w \in N^{+}\left(A\right)_{j-1}}\{Add\left(-DTr_{A \rightarrow w, j-1}, w\right)\}
-           \enspace.
-        \end{gathered}
-        \end{equation}
-        We again note that $N(A)_{j-1} = N(A)_j$.
+        A player $A$ is said to follow the evil strategy if she steals all incoming direct trust and nullifies her outgoing
+        direct trust in her turn. We note that $N(A)_{j-1} = N(A)_j$.
      \end{definition}
      \Suppressnumber
      \begin{lstlisting}[label=eviloracle, style=numbers]
 Evil Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
 evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
-  (*@$Turn_j$@*) = (*@$\emptyset$@*)
-  for ((*@$v \in N^{-}\left(A\right)_{j-1}$@*))
-    (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
-  for ((*@$w \in N^{+}\left(A\right)_{j-1}$@*))
-    (*@$Turn_j$@*) = (*@$Turn_j \cup \{Add(-DTr_{A \rightarrow v, j-1}, w)\}$@*)
+  Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
+  Adds = (*@$\bigcup\limits_{v \in N^{+}\left(A\right)_{j-1}}\{Add(-DTr_{A \rightarrow v, j-1}, v)\}$@*)
+  (*@$Turn_j$@*) = Steals(*@$\: \cup \:$@*)Adds
   return((*@$Turn_j$@*))
      \end{lstlisting}
      \begin{definition}[Conservative Strategy] \ \\
         Let $j$ be the current turn and $x$ the value that has been stolen from player $A$ since the previous turn she
         played. Player $A$ is said to follow the conservative strategy if she replenishes her lost value by stealing
-        from others that trust her as much as she can up to $x$ and she takes no other action.
-        More formally, let $j' = prev\left(j\right), Damage_j = out_{A,j'} - out_{A,j-1}$ and $N^{-}\left(A\right)_j =
-        \{v_1, \dots, v_k\}$. It holds that
-        \begin{equation}
-        \begin{gathered}
-           \begin{rcases}
-              Strategy\left(A\right) = Conservative \\
-              j \in \mathbb{N}: Player\left(j\right) = A
-           \end{rcases}
-           \Rightarrow \\
-           \Rightarrow Turn_j =
-           \begin{cases}
-              \emptyset, & Damage_j \leq 0 \\
-              \bigcup\limits_{i=1}^{k}\{Steal\left(y_i,v_i\right)\}, & Damage_j > 0
-           \end{cases} \enspace.
-        \end{gathered}
-        \end{equation}
-        In the second case, it holds that
-        \begin{equation}
-           \sum\limits_{i=1}^{k}y_i = \min\left(in_{A,j-1}, Damage_j\right) \enspace.
-        \end{equation}
+        from others that trust her as much as she can up to $x$ and she takes no other action. We note that
+        $N\left(A\right)_{j-1} = N\left(A\right)_j$.
      \end{definition}
-     The oracle remembers \texttt{PrevOutTrust} $= out_{A, j'}$ for  $j' = prev\left(j\right)$ and can observe all incoming
-     and outgoing direct trusts of player $A$.
-     %$\forall v \in N^{-}(A)_{j-1}, DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1}, DTr_{A \rightarrow v, j-1}$.
-     We note that $N\left(A\right)_{j-1} = N\left(A\right)_j$. \\
      \Suppressnumber
      \begin{lstlisting}[label=conservativeoracle, style=numbers]
 Conservative Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*)
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
 consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
-  NewOutTrust = (*@$out_{A, j-1}$@*)
-  NewInTrust = (*@$in_{A, j-1}$@*)
-  Damage = PrevOutTrust((*@$A$@*)) - NewOutTrust 
-                                   #PrevOutTrust((*@$A$@*)) = (*@$out_{A, prev\left(j\right)}$@*)
-  PrevOutTrust((*@$A$@*)) = NewOutTrust
+  Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
   if (Damage > 0)
-    if (Damage >= NewInTrust)
-      (*@$Turn_j$@*) = (*@$\emptyset$@*)
-      for ((*@$v \in N^{-}(A)_{j-1}$@*))
-        (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
+    if (Damage >= (*@$in_{A, j-1}$@*))
+      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
     else
-      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = ((*@$y_1$@*),...,(*@$y_{|N^{-}\left(A\right)_{j-1}|}$@*))
-      (*@$Turn_j$@*) = (*@$\emptyset$@*)
-      for ((*@$i \in [|N^{-}\left(A\right)_{j-1}|]$@*))
-        (*@$Turn_j$@*) = (*@$Turn_j \cup \{Steal\left(y_i, N^{-}(A)_{j-1,i}\right)\}$@*)
+      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = (*@$\{y_v : v \in N^{-}\left(A\right)_{j-1}\}$@*)
+      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)}\{Steal\left(y_v, v\right)\}$@*)
   else
     (*@$Turn_j$@*) = (*@$\emptyset$@*)
   return((*@$Turn_j$@*))
      \end{lstlisting}
-     \texttt{SelectSteal()} returns $y_i$ with $i \in [|N^{-}\left(A\right)_j|]$ such that
+     \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
      \begin{equation}
-        \sum\limits_{i=1}^{|N^{-}\left(A\right)_j|}y_i = Damage \wedge \forall i, y_i \leq DTr_{N^{-}\left(A\right)_{j,i}
-        \rightarrow A} \enspace.
+        \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
+        y_v \leq DTr_{v \rightarrow A} \enspace.
      \end{equation}
      Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
-     each time she calls the function, as long as the above restriction is respected.
-     As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_j <
-     in_{A,j-1}$ she can choose to distribute the $Steal\left(\right)$ actions in any way she chooses.
+     each time she calls the function, as long as the above restriction is respected. As we can see, the definition covers a
+     multitude of options for the conservative player, since in case $0 < Damage_{A,j} < in_{A,j-1}$ she can choose to
+     distribute the $Steal\left(\right)$ actions in any way she chooses.
 
-     The rationale behind this strategy arises from a real-world common situation. Suppose there is a client, an intermediary
-     and a producer. The client entrusts some value to the intermediary so that the latter can buy the desired product from
-     the producer and deliver it to the client. The intermediary in turn entrusts an equal value to the producer, who needs
-     the value upfront to be able to complete the production process. However the producer eventually does not give the
-     product neither reimburses the value, due to bankruptcy or decision to exit the market with an unfair benefit. The
-     intermediary can choose either to reimburse the client and suffer the loss, or refuse to return the money and lose the
-     client's trust. The latter choice for the intermediary is exactly the conservative strategy. It is used throughout this
-     work as a strategy for all the intermediary players because it models effectively the worst-case scenario that a client
-     can face after an evil player decides to steal everything she can and the rest of the players do not engage in evil
-     activity.
+     The rationale behind this strategy arises from a real-world common situation. Suppose there are a client, an
+     intermediary and a producer. The client entrusts some value to the intermediary so that the latter can buy the desired
+     product from the producer and deliver it to the client. The intermediary in turn entrusts an equal value to the
+     producer, who needs the value upfront to be able to complete the production process. However the producer eventually
+     does not give the product neither reimburses the value, due to bankruptcy or decision to exit the market with an unfair
+     benefit. The intermediary can choose either to reimburse the client and suffer the loss, or refuse to return the money
+     and lose the client's trust. The latter choice for the intermediary is exactly the conservative strategy. It is used
+     throughout this work as a strategy for all the intermediary players because it models effectively the worst-case
+     scenario that a client can face after an evil player decides to steal everything she can and the rest of the players do
+     not engage in evil activity.
      \begin{definition}[Indirect Trust, $Tr_{A \rightarrow B, j}$] \ \\
         The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
         $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V} \setminus
