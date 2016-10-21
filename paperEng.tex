@@ -474,12 +474,6 @@ evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
            \sum\limits_{i=1}^{k}y_i = \min\left(in_{A,j-1}, Damage_j\right) \enspace.
         \end{equation}
      \end{definition}
-     As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_j <
-     in_{A,j-1}$ she can choose to distribute the $Steal\left(s\right)\left(\right)$ in any way she chooses, as long as
-     \begin{equation}
-        \forall i, y_i \leq DTr_{N^{-}\left(A\right)_{j,i} \rightarrow A, j-1}
-        \wedge \sum\limits_{i=1}^{|N^{-}\left(A\right)_j|}y_i = Damage_j \enspace.
-     \end{equation}
      The oracle remembers \texttt{PrevOutTrust} $= out_{A, j'}$ for  $j' = prev\left(j\right)$ and can observe all incoming
      and outgoing direct trusts of player $A$.
      %$\forall v \in N^{-}(A)_{j-1}, DTr_{v \rightarrow A, j-1}, \forall v \in N^{+}(A)_{j-1}, DTr_{A \rightarrow v, j-1}$.
@@ -516,16 +510,19 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
      \end{equation}
      Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
      each time she calls the function, as long as the above restriction is respected.
+     As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_j <
+     in_{A,j-1}$ she can choose to distribute the $Steal\left(\right)$ actions in any way she chooses.
 
-     The rationale behind this strategy arises from a real-world common situation. Suppose a client, an intermediary and a
-     producer. The client entrusts some value to the intermediary so that the latter can buy the desired product from the
-     producer and deliver it to the client. The intermediary in turn entrusts an equal value to the producer, who needs the
-     value up front to be able to complete the production process. However the producer eventually does not give the product
-     neither reimburses the value, due to bankruptcy or decision to exit the market with a benefit. The intermediary can
-     choose either to reimburse the client and suffer the loss, or refuse to return the money and lose the client's trust.
-     The latter choice for the intermediary is exactly the conservative strategy. It is used throughout this work as a
-     strategy for all the intermediary players because it models effectively the worst-case scenario that a client can face
-     after an evil player decides to steal everything she can and the rest of the players do not engage in evil activity.
+     The rationale behind this strategy arises from a real-world common situation. Suppose there is a client, an intermediary
+     and a producer. The client entrusts some value to the intermediary so that the latter can buy the desired product from
+     the producer and deliver it to the client. The intermediary in turn entrusts an equal value to the producer, who needs
+     the value upfront to be able to complete the production process. However the producer eventually does not give the
+     product neither reimburses the value, due to bankruptcy or decision to exit the market with an unfair benefit. The
+     intermediary can choose either to reimburse the client and suffer the loss, or refuse to return the money and lose the
+     client's trust. The latter choice for the intermediary is exactly the conservative strategy. It is used throughout this
+     work as a strategy for all the intermediary players because it models effectively the worst-case scenario that a client
+     can face after an evil player decides to steal everything she can and the rest of the players do not engage in evil
+     activity.
      \begin{definition}[Indirect Trust from $A \in \mathcal{V}_j$ to $B \in \mathcal{V}_j$, $Tr_{A \rightarrow B, j}$] \ \\
         Maximum possible value that can be stolen from $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy
         and everyone else ($\mathcal{V} \setminus \{A,B\}$) follows the conservative strategy. More formally, if
@@ -577,12 +574,12 @@ validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Provisi
   (*@$Y_{add}$@*) = 0
   for (action (*@$\in$@*) ProvisionalTurn)
     action match do
-      case Steal(y,(*@$w$@*)) do
+      case (*@$Steal($@*)y(*@$,w)$@*) do
         if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) || y < 0)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         else
           (*@$Y_{st}$@*) = (*@$Y_{st}$@*) + y
-      case Add(y,(*@$w$@*)) do
+      case (*@$Add($@*)y(*@$,w)$@*) do
         if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*))
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         else
@@ -602,9 +599,9 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
     (*@$DTr_{v \rightarrow w, j}$@*) = (*@$DTr_{v \rightarrow w, j-1}$@*)
   for (action (*@$\in Turn_j$@*))
     action match do
-      case Steal(y,(*@$w$@*)) do
+      case (*@$Steal($@*)y,(*@$,w)$@*) do
         (*@$DTr_{w \rightarrow A, j}$@*) = (*@$DTr_{w \rightarrow A, j-1} - y$@*)
-      case Add(y,(*@$w$@*)) do
+      case (*@$Add($@*)y(*@$,w)$@*) do
         (*@$DTr_{A \rightarrow w, j}$@*) = (*@$DTr_{A \rightarrow w, j-1} + y$@*)
   (*@$Cap_{A, j}$@*) = NewCap
   (*@$\mathcal{H}_j$@*) = ((*@$A$@*), (*@$Turn_j$@*))
@@ -643,7 +640,7 @@ while (True)
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
-      case Steal(y, (*@$w$@*)) do
+      case (*@$Steal($@*)y(*@$,w)$@*) do
         exchange = y
         (*@$Loss_w$@*) = (*@$Loss_w$@*) + exchange (*@\label{trsteallossincrease}@*)
         if ((*@$v$@*) != (*@$E$@*))
@@ -1746,7 +1743,7 @@ while (True)
      \bibitem{bitcoin}
      Nakamoto S.: Bitcoin: A Peer-to-Peer Electronic Cash System (2008)
      \bibitem{bitcoinguide}
-     Bitcoin Guide, \url{https://bitcoin.org/en/developer-guide}
+     Bitcoin Developer Guide, \url{https://bitcoin.org/en/developer-guide}
      \bibitem{toposort}
      Kahn Arthu.r B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
      New York (1962)
