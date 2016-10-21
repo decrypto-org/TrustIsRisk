@@ -601,26 +601,25 @@ while (True)
   ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
       ProvisionalTurn)
     \end{lstlisting}
-    We continue with a very useful possible evolution of the game, the Transitive Game. In turn 0, there is already a
-    network in place. All players apart from $A$ and $E$ follow the conservative strategy. This convention will hold
-    whenever we use the Transitive Game.
+    We continue with a very useful possible evolution of the game, the Transitive Game. In turn 0, there is already a network
+    in place. Also, all players apart from $A$ and $E$ follow the conservative strategy. Furthermore, the set of players is
+    not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ for any turn $j$ as $\mathcal{V}$.
+    These conventions will hold whenever we use the Transitive Game.
     \Suppressnumber
     \begin{lstlisting}[label=transitivegame, style=numbers]
 Transitive Game
-Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}_0$@*) idle player, (*@$E \in \mathcal{V}_0$@*) evil player
+Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player
 Output : history (*@$\mathcal{H}$@*) (*@\Reactivatenumber@*)
 Angry = (*@$\emptyset$@*)
-Happy = (*@$\emptyset$@*)
+Happy = (*@$\mathcal{V} \setminus \{A, E\}$@*)
 Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*)
-for ((*@$v \in \mathcal{V}_0 \setminus \{E\}$@*))
+for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))
   (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
-  if ((*@$v$@*) != (*@$A$@*))
-    Happy = Happy(*@$\: \cup \: \{v\}$@*)
 j = 0
 while (True)
   j = j + 1
-  (*@$v \overset{\$}{\gets} \mathcal{V}_j \setminus \{A\}$@*)
-  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*))               #(*@$v$@*)Oracle() = idleOracle()
+  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
+  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
@@ -635,16 +634,13 @@ while (True)
             Sad = Sad(*@$\:\cup\: \{w\}$@*)
           else
             Angry = Angry(*@$\:\cup\: \{w\}$@*)
-  if ((*@$v$@*) != (*@$E$@*)) {
+  if ((*@$v$@*) != (*@$E$@*))
     Angry = Angry(*@$\:\setminus\: \{v\}$@*)
     if ((*@$in_{v, j}$@*) == 0 && (*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)
       Sad = Sad(*@$\:\cup\: \{v\}$@*) (*@\label{trstealtrueentersad}@*)
     if ((*@$Loss_v$@*) == 0)
       Happy = Happy(*@$\:\cup\: \{v\}$@*)
-  }
     \end{lstlisting}
-    We observe that the set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$
-    for any turn $j$ as $\mathcal{V}$ in any setting where we use the Transitive Game. \\
     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
     has been stolen yet (see Appendix (\ref{conservativeworld}) for a formal proof of this simple fact). Moreover, let
     $j' = prev\left(j\right)$ and $\{v_1, \dots, v_k\} = N^{-}\left(A\right)_j$. Given that
