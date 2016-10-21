@@ -264,12 +264,13 @@
         as the set of all pseudonymous identities.
      \end{definition}
      \begin{definition}[Capital of $A$, $Cap_A$] \ \\
-       Total amount of value that exists in P2PKH in the UTXO and can be spent by $A$. We also define $Cap_{A,j}$ as
-       the total amount of value that exists in P2PKH in the UTXO and can be spent by $A$ during turn $j$.
+        The capital of $A$, $Cap_A$ is defined as the total amount of value that exists in P2PKH in the UTXO and can be spent
+        by $A$. We also define $Cap_{A,j}$ as the total amount of value that exists in P2PKH in the UTXO and can be spent by
+        $A$ during turn $j$.
      \end{definition}
      \begin{definition}[Direct Trust from $A$ to $B$ After Turn $j$, $DTr_{A \rightarrow B, j}$] \ \\
-        Total amount of value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is
-        deposited by $A$.
+        Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
+        value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
         \begin{equation}
            DTr_{A \rightarrow B, j} =
               \begin{cases}
@@ -523,9 +524,10 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
      work as a strategy for all the intermediary players because it models effectively the worst-case scenario that a client
      can face after an evil player decides to steal everything she can and the rest of the players do not engage in evil
      activity.
-     \begin{definition}[Indirect Trust from $A \in \mathcal{V}_j$ to $B \in \mathcal{V}_j$, $Tr_{A \rightarrow B, j}$] \ \\
-        Maximum possible value that can be stolen from $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy
-        and everyone else ($\mathcal{V} \setminus \{A,B\}$) follows the conservative strategy. More formally, if
+     \begin{definition}[Indirect Trust, $Tr_{A \rightarrow B, j}$] \ \\
+        The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
+        $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V} \setminus
+        \{A,B\}$) follows the conservative strategy. More formally, if
         \begin{equation}
         \begin{gathered}
            Strategy\left(A\right) = Idle \wedge Strategy\left(B\right) = Evil \wedge \\
@@ -537,10 +539,11 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
            Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
         \end{equation}
      \end{definition}
-     \begin{definition}[Indirect Trust from $A \in \mathcal{V}_j$ to $S \subset \mathcal{V}_j$, $Tr_{A \rightarrow S, j}$]
-        \ \\Maximum possible value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows
-        the idle strategy and everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative
-        strategy. More formally, if $S \subset \mathcal{V}$,
+     \begin{definition}[Indirect Trust to multiple players, $Tr_{A \rightarrow S, j}$] \ \\
+        The indirect trust from player $A$ to a set of players, $S \subset \mathcal{V}$ is defined as the maximum possible
+        value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows the idle strategy and
+        everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative strategy. More formally,
+        if $S \subset \mathcal{V}$,
         \begin{equation}
         \begin{gathered}
            Strategy\left(A\right) = Idle \wedge \forall E \in S, Strategy\left(E\right) = Evil \wedge \\
