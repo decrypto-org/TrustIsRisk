@@ -46,6 +46,15 @@
    \advance\c@lstnumber\@ne\relax}%
 }
 
+\def\bitcoin{%
+  \leavevmode
+  \vtop{\offinterlineskip %\bfseries
+    \setbox0=\hbox{B}%
+    \setbox2=\hbox to\wd0{\hfil\hskip-.03em
+    \vrule height .3ex width .15ex\hskip .08em
+    \vrule height .3ex width .15ex\hfil}
+    \vbox{\copy2\box0}\box2}}
+
 %\newcounter{proofctr}
 %\newcommand{\proofctr}[2][]{%
 %    \proof[#1]{#2}%
@@ -69,9 +78,9 @@
 
 \begin{document}
 \title{Trust Is Risk: \\ A Decentralized Financial Trust Platform}
-\author{Orfeas Stefanos Thyfronitis Litos \and Dionysis Zindros
+\author{Orfeas Stefanos Thyfronitis Litos\inst{1} \and Dionysis Zindros\inst{2} \fnmsep
                                                \thanks{Research supported by ERC project CODAMODA, project \#259152}}
-\institute{National Technical University of Athens, National and Kapodistrian University of Athens \\
+\institute{National Technical University of Athens \and National and Kapodistrian University of Athens \\
            \email{orfeas.litos@hotmail.com}, \email{dionyziz@di.uoa.gr}}
 \maketitle
 \thispagestyle{plain}
@@ -90,52 +99,95 @@
   \end{abstract}
 
   \section{Introduction}
-     Modern marketplaces can be roughly categorized as centralized and decentralized. Two major examples are
-     \href{http://www.ebay.com}{ebay} and \href{https://openbazaar.org/}{OpenBazaar}. \href{http://www.ebay.com}{ebay} is
-     centralized and as such it is vulnerable to ddos attacks \cite{ddosattacks} and can be considered as a single point of
-     failure, it charges fees for the use of its services \cite{ebayfees} and maintains a private database of personal data,
-     but it can give money-back guarantees \cite{ebayguarantee} since it is run by a single company that has a financial
-     advantage in keeping its clients satisfied. On the other hand, \href{https://openbazaar.org/}{OpenBazaar} is a
-     decentralized platform built on bitcoin \cite{bitcoin}, where individual stores or its \href{https://duosear.ch}{search
-     engine} are vulnerable to ddos attacks \cite{ddosattacks}, but not the platform as a whole. Additionally, it does not
-     charge fees for its usage \cite{openbazaar} and there is no central agent recording all the transactions alongside with
-     private data \cite{openbazaar} but it is possible for a buyer or a seller colluding with a  moderator to scam the third
-     party and there exists no central authority able to verify the truth of her claim and reimburse her
-     \cite{multisigfraud}. Even though trust (or distrust) should be directed to each store individually, it is very likely
-     that the whole platform will be discarded as untrusted by the scammed party.
+     Modern online marketplaces can be roughly categorized as centralized and decentralized.
+     Two major examples of each are \href{http://www.ebay.com}{ebay} and \href{https://openbazaar.org/}{OpenBazaar}.
+     The common denominator of established online marketplaces is that the reputation of each vendor and client is either
+     expressed in the form of stars and user-generated reviews that are viewable by the whole network, or not expressed at
+     all inside the marketplace and instead is entirely built on word-of-mouth or other out-of-band means.
+%     \href{http://www.ebay.com}{ebay} is
+%     centralized and as such it is vulnerable to ddos attacks \cite{ddosattacks} and can be considered as a single point of
+%     failure, it charges fees for the use of its services \cite{ebayfees} and maintains a private database of personal data,
+%     but it can give money-back guarantees \cite{ebayguarantee} since it is run by a single company that has a financial
+%     advantage in keeping its clients satisfied. On the other hand, \href{https://openbazaar.org/}{OpenBazaar} is a
+%     decentralized platform built on bitcoin \cite{bitcoin}, where individual stores or its \href{https://duosear.ch}{search
+%     engine} are vulnerable to ddos attacks \cite{ddosattacks}, but not the platform as a whole. Additionally, it does not
+%     charge fees for its usage \cite{openbazaar} and there is no central agent recording all the transactions alongside with
+%     private data \cite{openbazaar} but it is possible for a buyer or a seller colluding with a  moderator to scam the third
+%     party and there exists no central authority able to verify the truth of her claim and reimburse her
+%     \cite{multisigfraud}. Even though trust (or distrust) should be directed to each store individually, it is very likely
+%     that the whole platform will be discarded as untrusted by the scammed party.
 
      Our goal is to create a distributed marketplace where the trust each user gives to the rest of the users is
      quantifiable, measurable and expressable in monetary terms. The central concept used throughout this paper is
-     trust-as-risk, or the proposition that a user's $A$ \textit{trust} to another user $B$ is defined to be the
-     \textit{maximum sum of money} $A$ can lose when $B$ is free to choose any strategy she wants. To flesh out
+     trust-as-risk, or the proposition that $Alice$'s \textit{trust} to another user $Bob$ is defined to be the
+     \textit{maximum sum of money} $Alice$ can lose when $Bob$ is free to choose any strategy she wants. To flesh out
      trust-as-risk, we will use \textit{lines of credit} as proposed by Washington Sanchez \cite{loc}. Joining the network
-     will be done by explicitly entrusting a certain amount of money to another user. If the second user has already
-     entrusted an amount of money to a store, then we trust indirectly the store, thus we can engage in economic interaction
-     with said store.
+     will be done by explicitly entrusting a certain amount of money to another user, say $Bob$. If $Bob$ has already
+     entrusted an amount of money to a third user, $Charlie$, then we trust indirectly $Charlie$ since if he wished to play
+     unfairly, he could have already stolen the money entrusted by $Bob$. Thus we can engage in economic interaction with
+     $Charlie$.
+     \begin{center}
+        \begin{tikzpicture}
+        \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.57]
+           digraph G {
+             #size="0.01,0.01?"
+             rankdir=LR
+             subgraph cluster0 {
+                labelloc="c"
+                label="Ex.1:\\ Alice\\ trusts\\ Charlie\\ 10"
+                Alice1 -> Bob1 [label="10"]
+                Bob1 -> Charlie1 [label="20"]
+                Alice1 [label="Alice"]
+                Bob1 [label="Bob"]
+                Charlie1 [label="Charlie"]
+             }
+             subgraph cluster1 {
+                labelloc="t"
+                label="Ex.2:\\ Alice\\ trusts\\ Charlie\\ 5"
+                Alice2 -> Bob2 [label="10"]
+                Bob2 -> Charlie2 [label="5"]
+                Alice2 [label="Alice"]
+                Bob2 [label="Bob"]
+                Charlie2 [label="Charlie"]
+             }
+             Charlie1 -> Alice2 [style=invisible]
+           }
+        \end{dot2tex}
+        \end{tikzpicture}
+     \end{center} \ \\
 
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
      construction that permits any one of two pre-designated users to spend the coins contained therein \cite{multisig}. We
-     will use the notation 1/$\{A, B\}$ to represent a 1-of-2 multisig that can be spent by either of players $A, B$.
+     will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by either $Alice$ or $Bob$.
 
-     Our approach drastically changes the user experience. A user no more has to worry about stars and ratings to develop
-     trust towards a store, she can simply check the trust \textit{flowing} from her to the store (which will be a number
-     expressed in bitcoins) and if this number exceeds the price of the product, she is safe to complete the transaction
-     after modifying her direct trust towards her friends in an appropriate way, a process that can be handled by one of
-     several algorithms that we propose, or in any custom way the user chooses to. On the other side, there is no guarantee
-     that the store will complete is part of the transaction and no central authority can reimburse the money. However, it is
-     possible for the defrauded user to make up for her loss by in turn stealing from other users that trust her, an action
-     that will tautologically reduce their trust to her. The fact that this system can function in a completely distributed
-     fashion will become clear in the following sections, along with the positive result that it is in principle Sybil
-     resilient.
+     Our approach changes the user experience in a subtle but drastic way. A user no more has to base her trust towards a
+     store on stars, ratings or other dubious and non-quantifiable trust measures. She can simply consult her wallet to
+     decide whether the store is trustworthy and, if so, up to what value. Suppose that $Alice$ is viewing the item listings
+     of vendor $Bob$. Instead of $Bob$'s stars, $Alice$ will see a positive value that is calculated by her wallet and
+     represents the maximum monetary value that $Alice$ can safely use to complete a purchase from $Bob$. Obviously it will
+     not be safe for $Alice$ to buy anything from $Bob$ or any vendor if she has entrusted no value to other players. We see
+     that in TrustIsRisk the money is not invested at the time of the purchase and directly to the vendor, but at an earlier
+     point in time and only to parties that are trustworthy for out-of-band reasons. The fact that this system can function
+     in a completely distributed fashion will become clear in the following sections, along with the positive result that it
+     is in principle Sybil resilient.
 
-     There are several incentives for a user to join this network. First of all, they can have access to a store that is
+%     check the trust \textit{flowing} from her to the store (which will be a number
+%     expressed in bitcoins) and if this number exceeds the price of the product, she is safe to complete the transaction
+%     after modifying her direct trust towards her friends in an appropriate way, a process that can be handled by one of
+%     several algorithms that we propose, or in any custom way the user chooses to. On the other side, there is no guarantee
+%     that the store will complete is part of the transaction and no central authority can reimburse the money. However, it is
+%     possible for the defrauded user to make up for her loss by in turn stealing from other users that trust her, an action
+%     that will tautologically reduce their trust to her.
+
+     
+     There are several incentives for a user to join this network. First of all, she can have access to a store that is
      otherwise unaccessible. Moreover, two friends can formalize their mutual trust by entrusting the same amount to each
      other. A large company that casually subcontracts other companies to complete various tasks can express its trust
      towards them using this method. A government can choose to entrust its citizens with money and confront them using its
      legal arsenal if they make irresponsible use of this trust. A bank can provide loans as outgoing and manage savings as
      incoming trust and thus has a unique opportunity of expressing in a formal and absolute way its credence by publishing
-     its incoming trust. Last but not least, the network can be viewed as a possible field for investment and speculation
-     since it constitutes a completely new area for financial activity.
+     its incoming and outgoing trust. Last but not least, the network can be viewed as a possible field for investment and
+     speculation since it constitutes a completely new area for financial activity.
 
      
   \section{A detailed example}
