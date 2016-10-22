@@ -117,13 +117,13 @@
 %     \cite{multisigfraud}. Even though trust (or distrust) should be directed to each store individually, it is very likely
 %     that the whole platform will be discarded as untrusted by the scammed party.
 
-     Our goal is to create a distributed marketplace where the trust each user gives to the rest of the users is
+     Our goal is to create a decentralized marketplace where the trust each user gives to the rest of the users is
      quantifiable, measurable and expressable in monetary terms. The central concept used throughout this paper is
-     trust-as-risk, or the proposition that $Alice$'s \textit{trust} to another user $Bob$ is defined to be the
-     \textit{maximum sum of money} $Alice$ can lose when $Bob$ is free to choose any strategy she wants. To flesh out
-     trust-as-risk, we will use \textit{lines of credit} as proposed by Washington Sanchez \cite{loc}. Joining the network
+     that trust is equivalent to risk, or the proposition that $Alice$'s \textit{trust} to another user $Bob$ is defined to
+     be the \textit{maximum sum of money} that $Alice$ can lose when $Bob$ is free to choose any strategy he wants. To flesh
+     out this concept, we will use \textit{lines of credit} as proposed by Washington Sanchez \cite{loc}. Joining the network
      will be done by explicitly entrusting a certain amount of money to another user, say $Bob$. If $Bob$ has already
-     entrusted an amount of money to a third user, $Charlie$, then we trust indirectly $Charlie$ since if the latter wished
+     entrusted an amount of money to a third user, $Charlie$, then we indirectly trust $Charlie$ since if the latter wished
      to play unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic
      interaction with $Charlie$.
      \begin{center}
@@ -161,15 +161,24 @@
      will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by either $Alice$ or $Bob$.
 
      Our approach changes the user experience in a subtle but drastic way. A user no more has to base her trust towards a
-     store on stars, ratings or other dubious and non-quantifiable trust measures. She can simply consult her wallet to
-     decide whether the store is trustworthy and, if so, up to what value. Suppose that $Alice$ is viewing the item listings
-     of vendor $Bob$. Instead of $Bob$'s stars, $Alice$ will see a positive value that is calculated by her wallet and
-     represents the maximum monetary value that $Alice$ can safely use to complete a purchase from $Bob$. Obviously it will
-     not be safe for $Alice$ to buy anything from $Bob$ or any other vendor if she has entrusted no value to other players.
+     store on stars, ratings or other dubious and non-quantifiable trust metrics. She can simply consult her wallet to
+     decide whether the store is trustworthy and, if so, up to what value. This system works as follows: Initially $Alice$
+     migrates her funds from P2PKH addresses \cite{bitcoinguide} to 1-of-2 multisig addreses shared with friends she
+     comfortably trusts. We call this direct trust. Our system is agnostic to the means players use to determine who is
+     trustworthy for these direct 1-of-2 deposits.
+
+     Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
+     positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely use to
+     complete a purchase from $Charlie$. We examine exactly how this value is calculated in Trust Flow Theorem
+     (\ref{trustflow}). This monetary value reported by our system maintains the desired security property that, if $Alice$
+     makes this purchase, then she is exposed to no more risk than she was willing to expose herself towards her friends.
+     We prove this result in the Risk Invariance Theorem (\ref{riskinv}). Obviously it will not be safe for $Alice$ to buy
+     anything from $Charlie$ or any other vendor if she has entrusted no value to any other player.
+
      We see that in TrustIsRisk the money is not invested at the time of the purchase and directly to the vendor, but at an
      earlier point in time and only to parties that are trustworthy for out-of-band reasons. The fact that this system can
-     function in a completely distributed fashion will become clear in the following sections, along with the positive result
-     that it is in principle Sybil resilient.
+     function in a completely decentralized fashion will become clear in the following sections, along with the positive
+     result that it is in principle Sybil resilient (\ref{sybil}).
 
 %     check the trust \textit{flowing} from her to the store (which will be a number
 %     expressed in bitcoins) and if this number exceeds the price of the product, she is safe to complete the transaction
@@ -323,9 +332,8 @@
 %     \end{tikzpicture}
 %     \end{center}
      We use the notation $N^{+}(A)$ to refer to the nodes $A$ directly trusts and $N^{-}(A)$ for the nodes that directly
-     trust $A$. For a formal definition, see Appendix (Definition \ref{neighbourhood}). We also use the notation $in_{A, j},
-     out_{A, j}$ to refer to the total incoming and outgoing direct trust respectively. The formal definition can be found
-     in the Appendix (Definition \ref{inouttrust}).
+     trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
+     respectively. For a reference of common definitions, see Appendix.
      Let's suppose that player $A$ wants to buy a product that costs 10
      from player $B$, but $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
      words, should $B$ decide to steal all her incoming direct trust and stop trusting directly other users and the rest of
@@ -396,7 +404,7 @@
         \end{equation}
         $next\left(j\right)$ is always well defined with the assumption that eventually everybody plays.
      \end{definition}
-     \begin{definition}[$Damage_{A, j}$] \ \\
+     \begin{definition}[Damage] \ \\
         Let $j$ be a turn such that $Player\left(j\right) = A$.
         \begin{equation}
            Damage_{A, j} = out_{A, prev\left(j\right)} - out_{A, j-1}
@@ -419,7 +427,7 @@
 Idle Oracle
 Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
-idleOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
+idleOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   return((*@$\emptyset$@*))
      \end{lstlisting}
      \begin{definition}[Evil Strategy] \ \\
@@ -431,7 +439,7 @@ idleOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
 Evil Oracle
 Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
-evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
+evilOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
   Adds = (*@$\bigcup\limits_{v \in N^{+}\left(A\right)_{j-1}}\{Add(-DTr_{A \rightarrow v, j-1}, v)\}$@*)
   (*@$Turn_j$@*) = Steals(*@$\: \cup \:$@*)Adds
@@ -447,7 +455,7 @@ evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
 Conservative Oracle
 Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
-consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
+consOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
   if (Damage > 0)
     if (Damage >= (*@$in_{A, j-1}$@*))
@@ -906,6 +914,11 @@ while (True)
 
     Note: The maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the same
     player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
+    \begin{theorem}[Risk Invariance] \ \\
+    \label{riskinv}
+    \end{theorem}
+    \begin{proof}
+    \end{proof}
     \begin{theorem}[Trust to Multiple Players] \ \\
        \label{trustmany}
        Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
@@ -926,8 +939,8 @@ while (True)
 %          \enspace.
 %       \end{equation}
     \end{proof}
-    One of the primary aims of this system is to mitigate the danger for sybil attacks whilst maintaining fully decentralized
-    autonomy. Let Eve be a possible attacker.
+    One of the primary aims of this system is to mitigate the danger for sybil attacks [citation needed] whilst maintaining
+    fully decentralized autonomy. Let Eve be a possible attacker.
      \begin{definition}[Corrupted Set] \ \\
         Let $\mathcal{G}$ be a game graph and let Eve have a set of players $\mathcal{B} \subset \mathcal{V}$ corrupted, so
         that she fully controls their outgoing direct trusts to any player in $\mathcal{V}$ and can also steal all incoming
