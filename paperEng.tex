@@ -163,8 +163,8 @@
      Our approach changes the user experience in a subtle but drastic way. A user no more has to base her trust towards a
      store on stars, ratings or other dubious and non-quantifiable trust metrics. She can simply consult her wallet to
      decide whether the store is trustworthy and, if so, up to what value. This system works as follows: Initially $Alice$
-     migrates her funds from P2PKH addresses \cite{bitcoinguide} to 1-of-2 multisig addreses shared with friends she
-     comfortably trusts. We call this direct trust. Our system is agnostic to the means players use to determine who is
+     migrates her funds from P2PKH addresses in the UTXO \cite{bitcoinguide} to 1-of-2 multisig addreses shared with friends
+     she comfortably trusts. We call this direct trust. Our system is agnostic to the means players use to determine who is
      trustworthy for these direct 1-of-2 deposits.
 
      Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
@@ -177,8 +177,8 @@
 
      We see that in TrustIsRisk the money is not invested at the time of the purchase and directly to the vendor, but at an
      earlier point in time and only to parties that are trustworthy for out-of-band reasons. The fact that this system can
-     function in a completely decentralized fashion will become clear in the following sections, along with the positive
-     result that it is in principle Sybil resilient (\ref{sybil}).
+     function in a completely decentralized fashion will become clear in the following sections. We prove this result in the
+     Sybil Resilience Theorem (\ref{sybil}).
 
 %     check the trust \textit{flowing} from her to the store (which will be a number
 %     expressed in bitcoins) and if this number exceeds the price of the product, she is safe to complete the transaction
@@ -197,19 +197,17 @@
      credence by publishing its incoming and outgoing trust. Last but not least, the network can be viewed as a possible
      field for investment and speculation since it constitutes a completely new area for financial activity.
 
-     The initial members of TrustIsRisk can be groups of friends or researchers that are interested in this project. They
-     can be responsible for the bootstrapping process. Furthermore, new and independent networks can arise for other business
-     contexts. Apart from the common underlying blockchain, there needs to be no other type of connection between different
-     TrustIsRisk networks.
-     
-  \section{A Formal Treatment}
+     It is worth noting that the same physical person can maintain multiple pseudonymous identities in the same trust network
+     and that multiple independent trust networks for different purposes can coexist. On the other hand, the same
+     pseudonymous identity can be used to establish trust in different contexts.
+  \section{The Trust Graph}
 %     The state of the game at any given moment can be represented by a directed weighted graph where each node represents a
 %     pseudonymous identity that is considered to correspond to exactly one user and each edge represents a direct trust, the
 %     weight of which is the value which the head entrusts the tail with. The weights can be only positive numbers. If a
 %     direct trust drops to 0, the corresponding edge does not exist anymore.
      We now engage in the formal description of the proposed system, accompanied by helpful examples.
-     \begin{definition}[Graph] \ \\
-        TrustIsRisk is represented by a sequence of weighted directed graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j =
+     \begin{definition}[Graph]
+        TrustIsRisk is represented by a sequence of \\ weighted directed graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j =
         \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$.
 %        Members of $\mathcal{E}_j$ are tuples of two nodes from
 %        $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = \left(A,B\right)$.
@@ -219,19 +217,18 @@
      The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
      value attatched to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
      represents the turn.
-     \begin{definition}[Players] \ \\
+     \begin{definition}[Players]
         The set $\mathcal{V}_j = V\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise understood
         as the set of all pseudonymous identities.
      \end{definition}
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
      the node directly and exclusively controls.
-     \begin{definition}[Capital of $A$ at the End of Turn $j$, $Cap_{A, j}$] \ \\
+     \begin{definition}[Capital]
         The capital of $A$ at the end of turn $j$, $Cap_{A, j}$, is defined as the total value that exists in P2PKH in the
-        UTXO \cite{bitcoinguide} and can be spent by $A$ at the end of turn $j$. If the turn is obvious, we may omit the
-        subscript $j$.
+        UTXO and can be spent by $A$ at the end of turn $j$. If the turn is obvious, we may omit the subscript $j$.
      \end{definition}
      A rational player would like to maximize her capital in the long term. The formal definition of direct trust follows:
-     \begin{definition}[Direct Trust from $A$ to $B$ After Turn $j$, $DTr_{A \rightarrow B, j}$] \ \\
+     \begin{definition}[Direct Trust]
         Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
         value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
         \begin{equation}
@@ -331,9 +328,10 @@
 %     \end{dot2tex}
 %     \end{tikzpicture}
 %     \end{center}
-     We use the notation $N^{+}(A)$ to refer to the nodes $A$ directly trusts and $N^{-}(A)$ for the nodes that directly
+     We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
      trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-     respectively. For a reference of common definitions, see Appendix.
+     respectively. For a reference of common definitions, see Appendix. [Begin example]
+  \section{Evolution of Trust}
      Let's suppose that player $A$ wants to buy a product that costs 10
      from player $B$, but $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
      words, should $B$ decide to steal all her incoming direct trust and stop trusting directly other users and the rest of
@@ -351,8 +349,7 @@
      (\ref{convergence}). Going into detail, [Image] \\
      (Completion of example)
 
-  \section{Definitions}
-     \begin{definition}[Turns] \ \\
+     \begin{definition}[Turns]
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
         Player\left(j\right)$, chooses an action (according to a certain strategy) that can be one of the following, or a
         finite combination thereof:
@@ -382,7 +379,7 @@
         \\ The set of actions a player makes in turn $j$ is represented with $Turn_j$. The new graph that emerges by applying
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
-     \begin{definition}[Previous/Next Turn of a Player] \ \\
+     \begin{definition}[Previous/Next Turn of a Player]
         Let $j \in \mathbb{N}$ a turn with $Player\left(j\right) = A$. We define $prev\left(j\right), next\left(j\right)$ as
         the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
         $prev\left(j\right) = 0$. More formally, if
@@ -404,7 +401,7 @@
         \end{equation}
         $next\left(j\right)$ is always well defined with the assumption that eventually everybody plays.
      \end{definition}
-     \begin{definition}[Damage] \ \\
+     \begin{definition}[Damage]
         Let $j$ be a turn such that $Player\left(j\right) = A$.
         \begin{equation}
            Damage_{A, j} = out_{A, prev\left(j\right)} - out_{A, j-1}
@@ -412,113 +409,24 @@
         We say that $A$ has been stolen value $Damage_{A, j}$ between $prev\left(j\right)$ and $j$ if $Damage_{A, j} > 0$.
         If turns are not specified, we implicitly refer to the current and the previous turns.
      \end{definition}
-     \begin{definition}[History] \ \\
+     \begin{definition}[History]
         We define History, $\mathcal{H} = \left(\mathcal{H}_j\right)$, as the sequence of all the tuples containing the sets
         of actions and the corresponding player.
         \begin{equation}
            \mathcal{H}_j = \left(Player\left(j\right), Turn_j\right)
         \end{equation}
      \end{definition}
-     \begin{definition}[Idle Strategy] \ \\
-        A player $A$ is said to follow the idle strategy if she passes in her turn. 
-     \end{definition}
-     \Suppressnumber
-     \begin{lstlisting}[label=idleoracle, style=numbers]
-Idle Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
-Output : (*@$Turn_j$@*)
-idleOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
-  return((*@$\emptyset$@*))
-     \end{lstlisting}
-     \begin{definition}[Evil Strategy] \ \\
-        A player $A$ is said to follow the evil strategy if she steals all incoming direct trust and nullifies her outgoing
-        direct trust in her turn.
-     \end{definition}
-     \Suppressnumber
-     \begin{lstlisting}[label=eviloracle, style=numbers]
-Evil Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
-Output : (*@$Turn_j$@*)
-evilOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
-  Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
-  Adds = (*@$\bigcup\limits_{v \in N^{+}\left(A\right)_{j-1}}\{Add(-DTr_{A \rightarrow v, j-1}, v)\}$@*)
-  (*@$Turn_j$@*) = Steals(*@$\: \cup \:$@*)Adds
-  return((*@$Turn_j$@*))
-     \end{lstlisting}
-     \begin{definition}[Conservative Strategy] \ \\
-        Let $j$ be the current turn and $x$ the value that has been stolen from player $A$ since the previous turn she
-        played. Player $A$ is said to follow the conservative strategy if she replenishes her lost value by stealing
-        from others that trust her as much as she can up to $x$ and she takes no other action.
-     \end{definition}
-     \Suppressnumber
-     \begin{lstlisting}[label=conservativeoracle, style=numbers]
-Conservative Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
-Output : (*@$Turn_j$@*)
-consOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
-  Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
-  if (Damage > 0)
-    if (Damage >= (*@$in_{A, j-1}$@*))
-      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
-    else
-      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = (*@$\{y_v : v \in N^{-}\left(A\right)_{j-1}\}$@*)
-      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(y_v, v\right)\}$@*)
-  else
-    (*@$Turn_j$@*) = (*@$\emptyset$@*)
-  return((*@$Turn_j$@*))
-     \end{lstlisting}
-     \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
-     \begin{equation}
-        \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
-        y_v \leq DTr_{v \rightarrow A, j-1} \enspace.
-     \end{equation}
-     Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
-     each time she calls the function, as long as the above restriction is respected. As we can see, the definition covers a
-     multitude of options for the conservative player, since in case $0 < Damage_{A,j} < in_{A,j-1}$ she can choose to
-     distribute the $Steal\left(\right)$ actions in any way she chooses.
-
-     The rationale behind this strategy arises from a real-world common situation. Suppose there are a client, an
-     intermediary and a producer. The client entrusts some value to the intermediary so that the latter can buy the desired
-     product from the producer and deliver it to the client. The intermediary in turn entrusts an equal value to the
-     producer, who needs the value upfront to be able to complete the production process. However the producer eventually
-     does not give the product neither reimburses the value, due to bankruptcy or decision to exit the market with an unfair
-     benefit. The intermediary can choose either to reimburse the client and suffer the loss, or refuse to return the money
-     and lose the client's trust. The latter choice for the intermediary is exactly the conservative strategy. It is used
-     throughout this work as a strategy for all the intermediary players because it models effectively the worst-case
-     scenario that a client can face after an evil player decides to steal everything she can and the rest of the players do
-     not engage in evil activity.
-     \begin{definition}[Indirect Trust, $Tr_{A \rightarrow B, j}$] \ \\
-        The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
-        $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V} \setminus
-        \{A,B\}$) follows the conservative strategy. More formally, if
-        \begin{equation}
-        \begin{gathered}
-           Strategy\left(A\right) = Idle \wedge Strategy\left(B\right) = Evil \wedge \\
-           \wedge \forall v \in \mathcal{V} \setminus \{A,B\}, Strategy\left(v\right) = Conservative
-        \end{gathered}
-        \end{equation}
-        and $choices$ are the different actions between which the conservative players can choose, then
-        \begin{equation}
-           Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
-        \end{equation}
-     \end{definition}
-     \begin{definition}[Indirect Trust to multiple players, $Tr_{A \rightarrow S, j}$] \ \\
-        The indirect trust from player $A$ to a set of players, $S \subset \mathcal{V}$ is defined as the maximum possible
-        value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows the idle strategy and
-        everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative strategy. More formally,
-        if $S \subset \mathcal{V}$,
-        \begin{equation}
-        \begin{gathered}
-           Strategy\left(A\right) = Idle \wedge \forall E \in S, Strategy\left(E\right) = Evil \wedge \\
-           \wedge \forall v \in \mathcal{V} \setminus \left(S \cup \{A\}\right), Strategy\left(v\right) = Conservative
-        \end{gathered}
-        \end{equation}
-        and $choices$ are the different actions between which the conservative players can choose, then
-        \begin{equation}
-           Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{\left[out_{A,j} - out_{A,j'}\right]}
-        \end{equation}
-     \end{definition}
-  \section{Theorems-Algorithms}
+    \Suppressnumber
+    \begin{lstlisting}[label=trustisriskgame, style=numbers]
+TrustIsRisk Game (*@\Reactivatenumber@*)
+j = 0
+while (True)
+  j = j + 1
+  (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
+  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
+  ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
+      ProvisionalTurn)
+    \end{lstlisting}
     The following algorithm has read access to direct trusts in $\mathcal{G}_{j-1}$ and write access to direct trusts in
     $\mathcal{G}_j$.
     \Suppressnumber
@@ -573,23 +481,82 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
   (*@$\mathcal{H}_j$@*) = ((*@$A$@*), (*@$Turn_j$@*))
   return((*@$\mathcal{G}_j$@*), (*@$Cap_{A, j}$@*), (*@$\mathcal{H}_j$@*))
     \end{lstlisting}
-    \Suppressnumber
-    \begin{lstlisting}[label=trustisriskgame, style=numbers]
-TrustIsRisk Game (*@\Reactivatenumber@*)
-j = 0
-while (True)
-  j = j + 1
-  (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
-  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
-  ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
-      ProvisionalTurn)
-    \end{lstlisting}
-    We continue with a very useful possible evolution of the game, the Transitive Game. In turn 0, there is already a network
-    in place. Also, all players apart from $A$ and $E$ follow the conservative strategy. Furthermore, the set of players is
-    not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ for any turn $j$ as $\mathcal{V}$.
-    These conventions will hold whenever we use the Transitive Game.
-    \Suppressnumber
-    \begin{lstlisting}[label=transitivegame, style=numbers]
+  \section{Trust Transitivity}
+     \begin{definition}[Idle Strategy]
+        A player $A$ is said to follow the idle strategy if she passes in her turn. 
+     \end{definition}
+     \Suppressnumber
+     \begin{lstlisting}[label=idleoracle, style=numbers]
+Idle Oracle
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Output : (*@$Turn_j$@*)
+idleOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+  return((*@$\emptyset$@*))
+     \end{lstlisting}
+     \begin{definition}[Evil Strategy]
+        A player $A$ is said to follow the evil strategy if she steals all incoming direct trust and nullifies her outgoing
+        direct trust in her turn.
+     \end{definition}
+     \Suppressnumber
+     \begin{lstlisting}[label=eviloracle, style=numbers]
+Evil Oracle
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Output : (*@$Turn_j$@*)
+evilOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+  Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
+  Adds = (*@$\bigcup\limits_{v \in N^{+}\left(A\right)_{j-1}}\{Add(-DTr_{A \rightarrow v, j-1}, v)\}$@*)
+  (*@$Turn_j$@*) = Steals(*@$\: \cup \:$@*)Adds
+  return((*@$Turn_j$@*))
+     \end{lstlisting}
+     \begin{definition}[Conservative Strategy]
+        Let $j$ be the current turn and $x$ the value that has been stolen from player $A$ since the previous turn she
+        played. Player $A$ is said to follow the conservative strategy if she replenishes her lost value by stealing
+        from others that trust her as much as she can up to $x$ and she takes no other action.
+     \end{definition}
+     \Suppressnumber
+     \begin{lstlisting}[label=conservativeoracle, style=numbers]
+Conservative Oracle
+Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Output : (*@$Turn_j$@*)
+consOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+  Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
+  if (Damage > 0)
+    if (Damage >= (*@$in_{A, j-1}$@*))
+      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
+    else
+      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = (*@$\{y_v : v \in N^{-}\left(A\right)_{j-1}\}$@*)
+      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(y_v, v\right)\}$@*)
+  else
+    (*@$Turn_j$@*) = (*@$\emptyset$@*)
+  return((*@$Turn_j$@*))
+     \end{lstlisting}
+     \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
+     \begin{equation}
+        \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
+        y_v \leq DTr_{v \rightarrow A, j-1} \enspace.
+     \end{equation}
+     Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
+     each time she calls the function, as long as the above restriction is respected. As we can see, the definition covers a
+     multitude of options for the conservative player, since in case $0 < Damage_{A,j} < in_{A,j-1}$ she can choose to
+     distribute the $Steal\left(\right)$ actions in any way she chooses.
+
+     The rationale behind this strategy arises from a real-world common situation. Suppose there are a client, an
+     intermediary and a producer. The client entrusts some value to the intermediary so that the latter can buy the desired
+     product from the producer and deliver it to the client. The intermediary in turn entrusts an equal value to the
+     producer, who needs the value upfront to be able to complete the production process. However the producer eventually
+     does not give the product neither reimburses the value, due to bankruptcy or decision to exit the market with an unfair
+     benefit. The intermediary can choose either to reimburse the client and suffer the loss, or refuse to return the money
+     and lose the client's trust. The latter choice for the intermediary is exactly the conservative strategy. It is used
+     throughout this work as a strategy for all the intermediary players because it models effectively the worst-case
+     scenario that a client can face after an evil player decides to steal everything she can and the rest of the players do
+     not engage in evil activity.
+
+     We continue with a very useful possible evolution of the game, the Transitive Game. In turn 0, there is already a network
+     in place. Also, all players apart from $A$ and $E$ follow the conservative strategy. Furthermore, the set of players is
+     not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ for any turn $j$ as $\mathcal{V}$.
+     These conventions will hold whenever we use the Transitive Game.
+     \Suppressnumber
+     \begin{lstlisting}[label=transitivegame, style=numbers]
 Transitive Game
 Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player
 Output : history (*@$\mathcal{H}$@*) (*@\Reactivatenumber@*)
@@ -623,29 +590,44 @@ while (True)
       Sad = Sad(*@$\:\cup\: \{v\}$@*)                  #(*@$in_{v, j}$@*) should be zero (*@\label{trstealtrueentersad}@*)
     if ((*@$Loss_v$@*) == 0)
       Happy = Happy(*@$\:\cup\: \{v\}$@*)
-    \end{lstlisting}
-    Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
-    has been stolen yet (see Appendix (Theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
-    let $v = Player(j)$ and $j' = prev\left(j\right)$. Given that
-    \begin{equation}
-       Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
-    \end{equation}
-    the algorithm generates turns:
-    \begin{equation}
-       Turn_j =
-         \begin{cases}
-            \emptyset, & Damage_{v,j} = 0 \\
-            \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\}, & Damage_{v, j} > 0
-         \end{cases} \enspace.
-    \end{equation}
-    In the second case, it is
-    \begin{equation}
-       \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
-    \end{equation}
-    From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
-    obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
-    stolen more value than she has been stolen, thus she would not be following the conservative strategy.
-
+     \end{lstlisting}
+     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
+     has been stolen yet (see Appendix (Theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
+     let $v = Player(j)$ and $j' = prev\left(j\right)$. Given that
+     \begin{equation}
+        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
+     \end{equation}
+     the algorithm generates turns:
+     \begin{equation}
+        Turn_j =
+          \begin{cases}
+             \emptyset, & Damage_{v,j} = 0 \\
+             \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\}, & Damage_{v, j} > 0
+          \end{cases} \enspace.
+     \end{equation}
+     In the second case, it is
+     \begin{equation}
+        \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
+     \end{equation}
+     From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
+     obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
+     stolen more value than she has been stolen, thus she would not be following the conservative strategy.
+  \section{Trust Flow}
+     \begin{definition}[Indirect Trust]
+        The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
+        $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V} \setminus
+        \{A,B\}$) follows the conservative strategy. More formally, if
+        \begin{equation}
+        \begin{gathered}
+           Strategy\left(A\right) = Idle \wedge Strategy\left(B\right) = Evil \wedge \\
+           \wedge \forall v \in \mathcal{V} \setminus \{A,B\}, Strategy\left(v\right) = Conservative
+        \end{gathered}
+        \end{equation}
+        and $choices$ are the different actions between which the conservative players can choose, then
+        \begin{equation}
+           Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
+        \end{equation}
+     \end{definition}
     \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
        Consider a Transitive Game and let $j_0$ be the first turn that $E$ is chosen to play. Given that all players
@@ -912,14 +894,33 @@ while (True)
 %        OLD PROOF END
 
 
-    Note: The maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the same
-    player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
-    \begin{theorem}[Risk Invariance] \ \\
-    \label{riskinv}
-    \end{theorem}
-    \begin{proof}
-    \end{proof}
-    \begin{theorem}[Trust to Multiple Players] \ \\
+     Note: The maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the same
+     player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
+     \begin{theorem}[Risk Invariance]
+     \label{riskinv}
+     \end{theorem}
+     \begin{proof}
+     \end{proof}
+  \section{Sybil Resilience}
+     One of the primary aims of this system is to mitigate the danger for sybil attacks [citation needed] whilst maintaining
+     fully decentralized autonomy.
+     \begin{definition}[Indirect Trust to Multiple Players]
+        The indirect trust from player $A$ to a set of players, $S \subset \mathcal{V}$ is defined as the maximum possible
+        value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows the idle strategy and
+        everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative strategy. More formally,
+        if $S \subset \mathcal{V}$,
+        \begin{equation}
+        \begin{gathered}
+           Strategy\left(A\right) = Idle \wedge \forall E \in S, Strategy\left(E\right) = Evil \wedge \\
+           \wedge \forall v \in \mathcal{V} \setminus \left(S \cup \{A\}\right), Strategy\left(v\right) = Conservative
+        \end{gathered}
+        \end{equation}
+        and $choices$ are the different actions between which the conservative players can choose, then
+        \begin{equation}
+           Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{\left[out_{A,j} - out_{A,j'}\right]}
+        \end{equation}
+     \end{definition}
+    \begin{theorem}[Multi-Player Trust Flow] \ \\
        \label{trustmany}
        Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
        \begin{equation}
@@ -939,15 +940,14 @@ while (True)
 %          \enspace.
 %       \end{equation}
     \end{proof}
-    One of the primary aims of this system is to mitigate the danger for sybil attacks [citation needed] whilst maintaining
-    fully decentralized autonomy. Let Eve be a possible attacker.
-     \begin{definition}[Corrupted Set] \ \\
+     Let Eve be a possible attacker.
+     \begin{definition}[Corrupted Set]
         Let $\mathcal{G}$ be a game graph and let Eve have a set of players $\mathcal{B} \subset \mathcal{V}$ corrupted, so
         that she fully controls their outgoing direct trusts to any player in $\mathcal{V}$ and can also steal all incoming
         direct trust to players in $\mathcal{B}$. We call this the corrupted set. The players $\mathcal{B}$ are considered to
         be legitimate before the corruption, thus they may be directly trusted by any player in $\mathcal{V}$.
      \end{definition}
-     \begin{definition}[Sybil Set] \ \\
+     \begin{definition}[Sybil Set]
         Let $\mathcal{G}$ be a game graph. Since participation in the network does not require any kind of registration, Eve
         can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
         %can invest any amount she chooses, thus she
@@ -956,7 +956,7 @@ while (True)
         players $\mathcal{B} \cup \mathcal{C}$ but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$,
         where $\mathcal{B}$ is a set of players corrupted by Eve.
      \end{definition}
-     \begin{definition}[Collusion] \ \\
+     \begin{definition}[Collusion]
         Let $\mathcal{G}$ be a game graph. Let $\mathcal{B} \subset \mathcal{V}$ be a corrupted set and $\mathcal{C} \subset
         \mathcal{V}$ be a Sybil set, both controlled by Eve. The tuple $\left(\mathcal{B}, \mathcal{C}\right)$ is called a
         collusion and is entirely controlled by a single entity in the physical world. From a game theoretic point of view,
