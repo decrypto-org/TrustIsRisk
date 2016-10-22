@@ -600,7 +600,7 @@ while (True)
     \end{lstlisting}
     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
     has been stolen yet (see Appendix (Theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
-    let $j' = prev\left(j\right)$ and $\{v_1, \dots, v_k\} = N^{-}\left(A\right)_j$. Given that
+    let $v = Player(j)$ and $j' = prev\left(j\right)$. Given that
     \begin{equation}
        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
     \end{equation}
@@ -609,12 +609,12 @@ while (True)
        Turn_j =
          \begin{cases}
             \emptyset, & Damage_{v,j} = 0 \\
-            \bigcup\limits_{i=1}^{k}\{Steal\left(y_i,v_i\right)\}, & Damage_{v, j} > 0
+            \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\}, & Damage_{v, j} > 0
          \end{cases} \enspace.
     \end{equation}
     In the second case, it is
     \begin{equation}
-       \sum\limits_{i=1}^{k}y_i = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
+       \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
     \end{equation}
     From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
     obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
