@@ -69,10 +69,10 @@
 
 \begin{document}
 \title{Trust Is Risk: \\ A Decentralized Financial Trust Platform}
-\author{Orfeas Stefanos Thyfronitis Litos\inst{1} \and Dionysis Zindros\inst{2}\fnmsep
-                                                       \thanks{Research supported by ERC project CODAMODA, project \#259152}}
-\institute{National Technical University of Athens \\ \email{orfeas.litos@hotmail.com}
-           \and University of Athens \\ \email{dionyziz@di.uoa.gr}}
+\author{Orfeas Stefanos Thyfronitis Litos \and Dionysis Zindros
+                                               \thanks{Research supported by ERC project CODAMODA, project \#259152}}
+\institute{National Technical University of Athens, National and Kapodistrian University of Athens \\
+           \email{orfeas.litos@hotmail.com}, \email{dionyziz@di.uoa.gr}}
 \maketitle
 \thispagestyle{plain}
   \begin{abstract}
@@ -144,7 +144,7 @@
      weight of which is the value which the head entrusts the tail with.
      \begin{center}
      \begin{tikzpicture}
-     \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=1.0]
+     \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.6]
         digraph G  {
            rankdir=LR;
            edge [arrowsize=0.6];
@@ -282,7 +282,6 @@
         The exception are the oracles, which in this case have access only to their incoming and outgoing direct trusts.
      \end{definition}
      \begin{definition}[(In/Out) Neighbourhood of $A$ in Turn $j$] \
-%, $N^{+}\left(A\right)_j, N^{-}\left(A\right)_j, N\left(A\right)_j$] \ 
         \begin{enumerate}
            \item Let $N^{+}\left(A\right)_j$ be the set of players $B$ that $A$ directly trusts with any positive value at
               the end of turn $j$. More formally,
@@ -381,7 +380,7 @@
      \begin{definition}[$Damage_{A, j}$] \ \\
         Let $j$ be a turn such that $Player\left(j\right) = A$.
         \begin{equation}
-           Damage_{A, j} = out_{A, prev\left(j\right)} - out_{A, j}
+           Damage_{A, j} = out_{A, prev\left(j\right)} - out_{A, j-1}
         \end{equation}
         We say that $A$ has been stolen value $Damage_{A, j}$ between $prev\left(j\right)$ and $j$ if $Damage_{A, j} > 0$.
         If turns are not specified, we implicitly refer to the current and the previous turns.
@@ -600,22 +599,22 @@ while (True)
       Happy = Happy(*@$\:\cup\: \{v\}$@*)
     \end{lstlisting}
     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
-    has been stolen yet (see Appendix (\ref{conservativeworld}) for a formal proof of this simple fact). Moreover, let
-    $j' = prev\left(j\right)$ and $\{v_1, \dots, v_k\} = N^{-}\left(A\right)_j$. Given that
+    has been stolen yet (see Appendix (Theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
+    let $j' = prev\left(j\right)$ and $\{v_1, \dots, v_k\} = N^{-}\left(A\right)_j$. Given that
     \begin{equation}
-       Damage_{v,j} = out_{v,j'} - out_{v,j} \enspace,
+       Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
     \end{equation}
     the algorithm generates turns:
     \begin{equation}
        Turn_j =
          \begin{cases}
-            \emptyset, & Damage_{v,j-1} = 0 \\
-            \bigcup\limits_{i=1}^{k}\{Steal\left(y_i,v_i\right)\}, & Damage_{v, j-1} > 0
+            \emptyset, & Damage_{v,j} = 0 \\
+            \bigcup\limits_{i=1}^{k}\{Steal\left(y_i,v_i\right)\}, & Damage_{v, j} > 0
          \end{cases} \enspace.
     \end{equation}
     In the second case, it is
     \begin{equation}
-       \sum\limits_{i=1}^{k}y_i = \min\left(in_{v, j-1}, Damage_{v, j-1}\right) \enspace.
+       \sum\limits_{i=1}^{k}y_i = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
     \end{equation}
     From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
     obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
