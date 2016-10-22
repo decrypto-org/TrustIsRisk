@@ -330,7 +330,7 @@
         Player\left(j\right)$, chooses an action (according to a certain strategy) that can be one of the following, or a
         finite combination thereof:
         \begin{enumerate}
-           \item Steal value $y_B, 0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}\left(A\right)$.
+           \item Steal value $y_B, 0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}\left(A\right)_{j-1}$.
            \begin{equation}
               DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \:\: \left(Steal\left(y_B, B\right)\right)
            \end{equation}
@@ -405,7 +405,7 @@ idleOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
      \end{lstlisting}
      \begin{definition}[Evil Strategy] \ \\
         A player $A$ is said to follow the evil strategy if she steals all incoming direct trust and nullifies her outgoing
-        direct trust in her turn. We note that $N(A)_{j-1} = N(A)_j$.
+        direct trust in her turn.
      \end{definition}
      \Suppressnumber
      \begin{lstlisting}[label=eviloracle, style=numbers]
@@ -421,8 +421,7 @@ evilOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
      \begin{definition}[Conservative Strategy] \ \\
         Let $j$ be the current turn and $x$ the value that has been stolen from player $A$ since the previous turn she
         played. Player $A$ is said to follow the conservative strategy if she replenishes her lost value by stealing
-        from others that trust her as much as she can up to $x$ and she takes no other action. We note that
-        $N\left(A\right)_{j-1} = N\left(A\right)_j$.
+        from others that trust her as much as she can up to $x$ and she takes no other action.
      \end{definition}
      \Suppressnumber
      \begin{lstlisting}[label=conservativeoracle, style=numbers]
@@ -436,7 +435,7 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
       (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
     else
       (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = (*@$\{y_v : v \in N^{-}\left(A\right)_{j-1}\}$@*)
-      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)}\{Steal\left(y_v, v\right)\}$@*)
+      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(y_v, v\right)\}$@*)
   else
     (*@$Turn_j$@*) = (*@$\emptyset$@*)
   return((*@$Turn_j$@*))
@@ -444,7 +443,7 @@ consOracle((*@$\mathcal{G}_{j-1}$@*)) : (*@\Reactivatenumber@*)
      \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
      \begin{equation}
         \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
-        y_v \leq DTr_{v \rightarrow A} \enspace.
+        y_v \leq DTr_{v \rightarrow A, j-1} \enspace.
      \end{equation}
      Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
      each time she calls the function, as long as the above restriction is respected. As we can see, the definition covers a
@@ -1127,11 +1126,11 @@ while (True)
        \begin{equation}
           DTr_{j_1} = DTr_{j_1-1} - St \enspace.
        \end{equation}
-       Eventually there is a turn $j_2$ when every player in $N^{-}(v)$ will have played. Then it holds that
+       Eventually there is a turn $j_2$ when every player in $N^{-}(v)_{j-1}$ will have played. Then it holds that
        \begin{equation}
           DTr_{j_2} \leq DTr_{j_1} - St = DTr_{j_1-1} - 2St \enspace,
        \end{equation}
-       since all players in $N^{-}(v)$ follow the conservative strategy, except for $A$, who will not have been stolen
+       since all players in $N^{-}(v)_{j-1}$ follow the conservative strategy, except for $A$, who will not have been stolen
        anything due to the supposition. \\
        Induction hypothesis: Suppose that
        \begin{equation}
@@ -1193,7 +1192,7 @@ while (True)
        Induction step: Let $j = k + 1, v = Player\left(j\right)$. Since all the players that are greater than $v$ in the
        total order have already played and all of them have stolen value equal to their incoming flow, we deduce that $v$ has
        been stolen value equal to $\sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw}$. Since it is the first time $v$
-       plays, $\forall w \in N^{-}\left(v\right), DTr_{w \rightarrow v, j-1} = DTr_{w \rightarrow v, 0} \geq x_{wv}$, thus
+       plays, $\forall w \in N^{-}\left(v\right)_{j-1}, DTr_{w \rightarrow v, j-1} = DTr_{w \rightarrow v, 0} \geq x_{wv}$, thus
        $v$ is able to choose the following turn:
        \begin{equation}
           Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(x_{wv}, w\right)\}
@@ -1292,14 +1291,14 @@ while (True)
        We observe that $\forall v \in \mathcal{V},$
        \begin{equation}
        \label{gameflowin}
-          \sum\limits_{w \in N^{-}\left(v\right) \setminus \{T\}}c'_{wv} = \sum\limits_{w \in
-          N^{-}\left(v\right) \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} - DTr_{w \rightarrow v, j_1}\right) = in_{v, 0}
+          \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}c'_{wv} = \sum\limits_{w \in
+          N^{'-}\left(v\right) \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} - DTr_{w \rightarrow v, j_1}\right) = in_{v, 0}
           - in_{v, j_1}
        \end{equation}
        and
        \begin{equation}
        \label{gameflowout}
-          \sum\limits_{w \in N^{+}\left(v\right) \setminus \{T\}}c'_{vw} = \sum\limits_{w \in N^{+}\left(v\right) \setminus
+          \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}c'_{vw} = \sum\limits_{w \in N^{'+}\left(v\right) \setminus
           \{T\}}\left(DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}\right) = out_{v, 0} - out_{v, j_1} \enspace.
        \end{equation}
        We can suppose that
@@ -1485,11 +1484,10 @@ while (True)
        If everybody is conservative, nobody can initiate the chain of steals.
     \end{proofsketch}
     \begin{proof} \ \\
-       Suppose that we are interested in graphs $\mathcal{G}_j$.
+       Suppose that we are interested in graphs $\mathcal{G}_j$. Let $(j_k)$ an increasing sequence of positive integers,
        \begin{equation}
        \begin{gathered}
-          \mbox{Let } (j_k) \mbox{ an increasing sequence of positive integers,} \\
-          \mbox{let } S_{j_k} \subseteq N^{-}\left(Player\left(j_k\right)\right)_{j_k} \mbox{ and} \\
+          \mbox{let } S_{j_k} \subseteq N^{-}\left(Player\left(j_k\right)\right)_{j_k-1} \mbox{ and} \\
           \mbox{let } \forall v \in S_{j_k}, y_{v, j_k} > 0\enspace.
        \end{gathered}
        \end{equation}
@@ -1610,7 +1608,7 @@ while (True)
        second graph if we set
        \begin{align}
           \forall v \in \mathcal{V}_2 \setminus \mathcal{B}, \forall w \in \mathcal{V}_2&, x_{vw,2} = x_{vw,1} \enspace, \\
-          \forall v \in \mathcal{B}&, x_{vT_2,2} = \sum\limits_{w \in N^{+}(v)}x_{vw,1} \enspace, \\
+          \forall v \in \mathcal{B}&, x_{vT_2,2} = \sum\limits_{w \in N^{+}_1\left(v\right)}x_{vw,1} \enspace, \\
           \forall v,w \in \mathcal{B}&, x_{vw,2} = 0 \enspace.
        \end{align}
        Therefore
