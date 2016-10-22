@@ -379,7 +379,7 @@
         \\ The set of actions a player makes in turn $j$ is represented with $Turn_j$. The new graph that emerges by applying
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
-     \begin{definition}[Previous/Next Turn of a Player]
+     \begin{definition}[Previous/Next Turn]
         Let $j \in \mathbb{N}$ a turn with $Player\left(j\right) = A$. We define $prev\left(j\right), next\left(j\right)$ as
         the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
         $prev\left(j\right) = 0$. More formally, if
@@ -1016,14 +1016,14 @@ while (True)
 
   \section*{Appendix}
     \subsection{Common Notation}
-     \begin{definition}[Assets of $A$ in turn $j$, $As_{A, j}$] \ \\
+     \begin{definition}[Assets]
         Sum of $A$'s capital and outgoing trust.
         \begin{equation}
            As_{A, j} = Cap_{A, j} + out_{A, j}
         \end{equation}
         If the turn we refer to is obvious, it is possible to omit $j$.
      \end{definition}
-     \begin{definition}[(In/Out) Neighbourhood of $A$ in Turn $j$] \
+     \begin{definition}[Neighbourhood]
         \label{neighbourhood}
         \begin{enumerate}
            \item Let $N^{+}\left(A\right)_j$ be the set of players $B$ that $A$ directly trusts with any positive value at
@@ -1060,7 +1060,7 @@ while (True)
 %              enumeration of the set players.
         \end{enumerate}
      \end{definition}
-     \begin{definition}[Total Incoming/Outgoing Trust of $A$ in Turn $j$]
+     \begin{definition}[Total Incoming/Outgoing Trust]
      \label{inouttrust}
         \begin{equation}
            in_{A, j} = \sum\limits_{v \in N^{-}\left(A\right)_j}DTr_{v \rightarrow A, j}
