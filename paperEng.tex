@@ -178,7 +178,6 @@
 %     that the store will complete is part of the transaction and no central authority can reimburse the money. However, it is
 %     possible for the defrauded user to make up for her loss by in turn stealing from other users that trust her, an action
 %     that will tautologically reduce their trust to her.
-
      
      There are several incentives for a user to join this network. First of all, she can have access to a store that is
      otherwise unaccessible. Moreover, two friends can formalize their mutual trust by entrusting the same amount to each
@@ -189,11 +188,52 @@
      credence by publishing its incoming and outgoing trust. Last but not least, the network can be viewed as a possible
      field for investment and speculation since it constitutes a completely new area for financial activity.
 
+     The initial members of TrustIsRisk can be groups of friends or researchers that are interested in this project. They
+     can be responsible for the bootstrapping process. Furthermore, new and independent networks can arise for other business
+     contexts. Apart from the common underlying blockchain, there needs to be no other type of connection between different
+     TrustIsRisk networks.
      
-  \section{A detailed example}
-     The state of the game at any given moment can be represented by a directed weighted graph where each node represents a
-     pseudonymous identity that is considered to correspond to exactly one user and each edge represents a direct trust, the
-     weight of which is the value which the head entrusts the tail with.
+  \section{A Formal Treatment}
+%     The state of the game at any given moment can be represented by a directed weighted graph where each node represents a
+%     pseudonymous identity that is considered to correspond to exactly one user and each edge represents a direct trust, the
+%     weight of which is the value which the head entrusts the tail with. The weights can be only positive numbers. If a
+%     direct trust drops to 0, the corresponding edge does not exist anymore.
+     We now engage in the formal description of the proposed system, accompanied by helpful examples.
+     \begin{definition}[Graph] \ \\
+        TrustIsRisk is represented by a sequence of weighted directed graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j =
+        \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$.
+%        Members of $\mathcal{E}_j$ are tuples of two nodes from
+%        $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = \left(A,B\right)$.
+        Also, since the graphs are weighted, there exists a sequence of functions $\left(c_j\right)$ with $c_j : \mathcal{E}_j
+        \rightarrow \mathbb{R}^{+}$.
+     \end{definition}
+     The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
+     value attatched to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
+     represents the turn.
+     \begin{definition}[Players] \ \\
+        The set $\mathcal{V}_j = V\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise understood
+        as the set of all pseudonymous identities.
+     \end{definition}
+     Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
+     the node directly and exclusively controls.
+     \begin{definition}[Capital of $A$ at the End of Turn $j$, $Cap_{A, j}$] \ \\
+        The capital of $A$ at the end of turn $j$, $Cap_{A, j}$, is defined as the total value that exists in P2PKH in the
+        UTXO \cite{bitcoinguide} and can be spent by $A$ at the end of turn $j$. If the turn is obvious, we may omit the
+        subscript $j$.
+     \end{definition}
+     A rational player would like to maximize her capital in the long term. The formal definition of direct trust follows:
+     \begin{definition}[Direct Trust from $A$ to $B$ After Turn $j$, $DTr_{A \rightarrow B, j}$] \ \\
+        Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
+        value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
+        \begin{equation}
+           DTr_{A \rightarrow B, j} =
+              \begin{cases}
+                 c_j\left(A, B\right), & if \left(A, B\right) \in \mathcal{E}_j \\
+                 0, & if \left(A, B\right) \notin \mathcal{E}_j
+              \end{cases}
+        \end{equation}
+     \end{definition}
+     Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
      \begin{center}
      \begin{tikzpicture}
      \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.6]
@@ -282,10 +322,11 @@
 %     \end{dot2tex}
 %     \end{tikzpicture}
 %     \end{center}
-     Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
-     the node directly and exclusively controls. More technically, it is the number of bitcoins contained in P2PKH
-     transactions in the UTXO \cite{bitcoinguide} of which the private keys are controlled by the node. A rational player
-     would like to maximize her capital in the long term. Let's suppose that player $A$ wants to buy a product that costs 10
+     We use the notation $N^{+}(A)$ to refer to the nodes $A$ directly trusts and $N^{-}(A)$ for the nodes that directly
+     trust $A$. For a formal definition, see Appendix (Definition \ref{neighbourhood}). We also use the notation $in_{A, j},
+     out_{A, j}$ to refer to the total incoming and outgoing direct trust respectively. The formal definition can be found
+     in the Appendix (Definition \ref{inouttrust}).
+     Let's suppose that player $A$ wants to buy a product that costs 10
      from player $B$, but $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
      words, should $B$ decide to steal all her incoming direct trust and stop trusting directly other users and the rest of
      the players choose the conservative strategy of stealing from their respective incoming trusts just enough to replenish
@@ -303,80 +344,6 @@
      (Completion of example)
 
   \section{Definitions}
-     \begin{definition}[Graph] \ \\
-        TrustIsRisk is represented by a sequence of weighted directed graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j =
-        \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$.
-%        Members of $\mathcal{E}_j$ are tuples of two nodes from
-%        $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = \left(A,B\right)$.
-        Also, since the graphs are weighted, there exists a sequence of functions $\left(c_j\right)$ with $c_j : \mathcal{E}_j
-        \rightarrow \mathbb{R}^{+}$.
-     \end{definition}
-     \begin{definition}[Players] \ \\
-        The set $\mathcal{V}_j = V\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise understood
-        as the set of all pseudonymous identities.
-     \end{definition}
-     \begin{definition}[Capital of $A$, $Cap_A$] \ \\
-        The capital of $A$, $Cap_A$ is defined as the total amount of value that exists in P2PKH in the UTXO and can be spent
-        by $A$. We also define $Cap_{A,j}$ as the total amount of value that exists in P2PKH in the UTXO and can be spent by
-        $A$ during turn $j$.
-     \end{definition}
-     \begin{definition}[Direct Trust from $A$ to $B$ After Turn $j$, $DTr_{A \rightarrow B, j}$] \ \\
-        Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
-        value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
-        \begin{equation}
-           DTr_{A \rightarrow B, j} =
-              \begin{cases}
-                 c_j\left(A, B\right), & if \left(A, B\right) \in \mathcal{E}_j \\
-                 0, & if \left(A, B\right) \notin \mathcal{E}_j
-              \end{cases}
-        \end{equation}
-        An algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
-        The exception are the oracles, which in this case have access only to their incoming and outgoing direct trusts.
-     \end{definition}
-     \begin{definition}[(In/Out) Neighbourhood of $A$ in Turn $j$] \
-        \begin{enumerate}
-           \item Let $N^{+}\left(A\right)_j$ be the set of players $B$ that $A$ directly trusts with any positive value at
-              the end of turn $j$. More formally,
-              \begin{equation}
-                 N^{+}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\} \enspace.
-              \end{equation}
-              $N^{+}\left(A\right)_j$ is called out neighbourhood of $A$ on turn $j$. Let $S \subset \mathcal{V}_j$.
-              \begin{equation}
-                 N^{+}\left(S\right)_j = \bigcup\limits_{A \in S}N^{+}\left(A\right)_j
-              \end{equation}
-           \item Let $N^{-}\left(A\right)_j$ be the set of players $B$ that directly trust $A$ with any positive value at the
-              end of turn $j$. More formally,
-              \begin{equation}
-                 N^{-}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\} \enspace.
-              \end{equation}
-              $N^{-}\left(A\right)_j$ is called in neighbourhood of $A$ on turn $j$. Let $S \subset \mathcal{V}_j$.
-              \begin{equation}
-                 N^{-}\left(S\right)_j = \bigcup\limits_{A \in S}N^{-}\left(A\right)_j
-              \end{equation}
-           \item Let $N\left(A\right)_j$ be the set of players $B$ that either directly trust or are directly trusted by $A$
-              with any positive value at the end of turn $j$. More formally,
-              \begin{equation}
-                 N\left(A\right)_j = N^{+}\left(A\right)_j \cup N^{-}\left(A\right)_j \enspace.
-              \end{equation}
-              $N\left(A\right)_j$ is called neighbourhood of $A$ on turn $j$. Let $S \subset \mathcal{V}_j$.
-              \begin{equation}
-                 N\left(S\right)_j = N^{+}\left(S\right)_j \cup N^{-}\left(S\right)_j
-              \end{equation}
-%           \item Let $S \subset \mathcal{V}_j$. Let $N\left(A\right)_{j,i}$ (respectively $N^{+}\left(A\right)_{j,i},
-%              N^{-}\left(A\right)_{j,i}, N\left(S\right)_{j,i},$ $N^{+}\left(S\right)_{j,i}, N^{-}\left(S\right)_{j,i}$) be
-%              the $i$-th element of set $N\left(A\right)_j$ (respectively of $N^{+}\left(A\right)_j,  N^{-}\left(A\right)_j,
-%              N\left(S\right)_j, N^{+}\left(S\right)_j, N^{-}\left(S\right)_j$), according to an arbitrary but fixed
-%              enumeration of the set players.
-        \end{enumerate}
-     \end{definition}
-     \begin{definition}[Total Incoming/Outgoing Trust of $A$ in Turn $j$]
-        \begin{equation}
-           in_{A, j} = \sum\limits_{v \in N^{-}\left(A\right)_j}DTr_{v \rightarrow A, j}
-        \end{equation}
-        \begin{equation}
-           out_{A, j} = \sum\limits_{v \in N^{+}\left(A\right)_j}DTr_{A \rightarrow v, j}
-        \end{equation}
-     \end{definition}
      \begin{definition}[Turns] \ \\
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
         Player\left(j\right)$, chooses an action (according to a certain strategy) that can be one of the following, or a
@@ -1042,6 +1009,52 @@ while (True)
            As_{A, j} = Cap_{A, j} + out_{A, j}
         \end{equation}
         If the turn we refer to is obvious, it is possible to omit $j$.
+     \end{definition}
+     \begin{definition}[(In/Out) Neighbourhood of $A$ in Turn $j$] \
+        \label{neighbourhood}
+        \begin{enumerate}
+           \item Let $N^{+}\left(A\right)_j$ be the set of players $B$ that $A$ directly trusts with any positive value at
+              the end of turn $j$. More formally,
+              \begin{equation}
+                 N^{+}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\} \enspace.
+              \end{equation}
+              $N^{+}\left(A\right)_j$ is called out neighbourhood of $A$ on turn $j$. Let $S \subset \mathcal{V}_j$.
+              \begin{equation}
+                 N^{+}\left(S\right)_j = \bigcup\limits_{A \in S}N^{+}\left(A\right)_j
+              \end{equation}
+           \item Let $N^{-}\left(A\right)_j$ be the set of players $B$ that directly trust $A$ with any positive value at the
+              end of turn $j$. More formally,
+              \begin{equation}
+                 N^{-}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\} \enspace.
+              \end{equation}
+              $N^{-}\left(A\right)_j$ is called in neighbourhood of $A$ on turn $j$. Let $S \subset \mathcal{V}_j$.
+              \begin{equation}
+                 N^{-}\left(S\right)_j = \bigcup\limits_{A \in S}N^{-}\left(A\right)_j
+              \end{equation}
+           \item Let $N\left(A\right)_j$ be the set of players $B$ that either directly trust or are directly trusted by $A$
+              with any positive value at the end of turn $j$. More formally,
+              \begin{equation}
+                 N\left(A\right)_j = N^{+}\left(A\right)_j \cup N^{-}\left(A\right)_j \enspace.
+              \end{equation}
+              $N\left(A\right)_j$ is called neighbourhood of $A$ on turn $j$. Let $S \subset \mathcal{V}_j$.
+              \begin{equation}
+                 N\left(S\right)_j = N^{+}\left(S\right)_j \cup N^{-}\left(S\right)_j
+              \end{equation}
+%           \item Let $S \subset \mathcal{V}_j$. Let $N\left(A\right)_{j,i}$ (respectively $N^{+}\left(A\right)_{j,i},
+%              N^{-}\left(A\right)_{j,i}, N\left(S\right)_{j,i},$ $N^{+}\left(S\right)_{j,i}, N^{-}\left(S\right)_{j,i}$) be
+%              the $i$-th element of set $N\left(A\right)_j$ (respectively of $N^{+}\left(A\right)_j,  N^{-}\left(A\right)_j,
+%              N\left(S\right)_j, N^{+}\left(S\right)_j, N^{-}\left(S\right)_j$), according to an arbitrary but fixed
+%              enumeration of the set players.
+        \end{enumerate}
+     \end{definition}
+     \begin{definition}[Total Incoming/Outgoing Trust of $A$ in Turn $j$]
+     \label{inouttrust}
+        \begin{equation}
+           in_{A, j} = \sum\limits_{v \in N^{-}\left(A\right)_j}DTr_{v \rightarrow A, j}
+        \end{equation}
+        \begin{equation}
+           out_{A, j} = \sum\limits_{v \in N^{+}\left(A\right)_j}DTr_{A \rightarrow v, j}
+        \end{equation}
      \end{definition}
      
      Let $A = Player(j)$. $Turn_j$ Examples:
