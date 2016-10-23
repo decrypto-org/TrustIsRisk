@@ -906,20 +906,34 @@ while (True)
      player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
      \begin{theorem}[Risk Invariance]
      \label{riskinv}
-        Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}, F = Tr_{A \rightarrow B}$ and $V \leq F$ the desired value to be
-        transferred from $A$ to $B$. Let also $\mathcal{G}'$ such that
+        Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $V$ the desired value to be transferred from $A$ to $B$,
+        with $V \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ such that
         \begin{align}
            \mathcal{V}' &= \mathcal{V} \\
-           DTr'_{A \rightarrow B} &= DTr_{A \rightarrow B} + V \\
+%           DTr'_{A \rightarrow B} &= DTr_{A \rightarrow B} \\
            \forall v \in \mathcal{V}' \setminus \{A\}, w \in \mathcal{V}'&, DTr'_{v \rightarrow w} = DTr_{v \rightarrow w}
            \enspace.
         \end{align}
-        Then there exists an assignment for the outgoing trust of $A, DTr_{A \rightarrow v}$, such that
+        Furthermore, suppose that there exists an assignment for the outgoing trust of $A, DTr'_{A \rightarrow v}$, such that
         \begin{equation}
-           Tr'_{A \rightarrow B} = F \enspace.
-        \end{equation}         
+           Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - V \enspace.
+        \end{equation}
+        Let another game graph, $\mathcal{G}''$, be identical to $\mathcal{G}'$ except for the following change:
+        \begin{equation}
+           DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + V \enspace.
+        \end{equation}
+        It then holds that
+        \begin{equation}
+           Tr''_{A \rightarrow B} = Tr_{A \rightarrow B} \enspace.
+        \end{equation}
      \end{theorem}
      \begin{proof}
+        \begin{equation}
+        \begin{gathered}
+           Tr''_{A \rightarrow B} = maxFlow_{\mathcal{G}''}(A, B) = \\
+           = maxFlow_{\mathcal{G}'}(A, B) + V = Tr'_{A \rightarrow B} + V = Tr_{A \rightarrow B}
+        \end{gathered}
+        \end{equation}
      \end{proof}
   \section{Sybil Resilience}
      One of the primary aims of this system is to mitigate the danger for sybil attacks [citation needed] whilst maintaining
