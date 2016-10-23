@@ -3,6 +3,9 @@
 \usepackage[linesnumbered,ruled,noend]{algorithm2e}
 \usepackage[english]{babel}
 \usepackage{amsmath}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{lmodern}
@@ -64,7 +67,11 @@
 %\counterwithout{proofctr}{section}
 %\renewenvironment{proof}{(\arabic{proof})}
 
+\theoremstyle{definition}
+\newtheorem{sepproof}{Proof}
+
 \pagestyle{plain}
+
 \newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \ \\}
 
 \bibliographystyle{splncs}
@@ -639,7 +646,7 @@ while (True)
     \begin{proofsketch}
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
-       trust. For the complete proof, see Appendix (\ref{convergenceproof}).
+       trust. For the complete proof, see Appendix (Proof \ref{convergenceproof}).
     \end{proofsketch}
     In games where there exists one evil $E$, one idle player $A$ and the rest of the players are conservative, we define
     $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is not
@@ -672,7 +679,8 @@ while (True)
        The desired execution of \texttt{TransitiveGame()} will contain all flows from the $MaxFlow\left(A, E\right)$ as
        equivalent $Steal\left(\right)$ actions. The players will play in turns, moving from $E$ back to $A$. Each player will
        steal from his predecessors as much as was stolen from her. The flows and the conservative strategy share the property
-       that the total input is equal to the total output. For the complete proof, see Appendix (\ref{maxflowgameproof}).
+       that the total input is equal to the total output. For the complete proof, see Appendix
+       (Proof \ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
        \label{gameflow}
@@ -685,7 +693,7 @@ while (True)
     \end{lemma}
     \begin{proofsketch}
        If we remove the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
-       $A$ to $E$. For the complete proof, see Appendix (\ref{gameflowproof}).
+       $A$ to $E$. For the complete proof, see Appendix (Proof \ref{gameflowproof}).
     \end{proofsketch}
     \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
@@ -1003,7 +1011,7 @@ while (True)
     \begin{proofsketch}
        The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
        $\mathcal{C}$ has no incoming trust from players outside the collusion. For the complete proof, see
-       Appendix (\ref{sybilproof}).
+       Appendix (Proof \ref{sybilproof}).
     \end{proofsketch}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
 
@@ -1159,7 +1167,7 @@ while (True)
        Thus the theorem holds in every case. \qed
     \end{proof}
 
-    \begin{proof}[Trust Convergence Theorem (\ref{convergence})]
+    \begin{sepproof}[Trust Convergence Theorem (\ref{convergence})] \ \\
     \label{convergenceproof}
        First of all,
        \begin{equation}
@@ -1252,9 +1260,9 @@ while (True)
           \forall w,w' \in \mathcal{V}, \forall j \in \mathbb{N}, DTr_{w \rightarrow w', j} \geq 0 \enspace,
        \end{equation}
        thus eventually $Angry = \emptyset$ and everybody passes. \qed
-    \end{proof}
+    \end{sepproof}
 
-    \begin{proof}[MaxFlows Are Transitive Games Lemma (\ref{maxflowgame})] \ \\
+    \begin{sepproof}[MaxFlows Are Transitive Games Lemma (\ref{maxflowgame})] \ \\
     \label{maxflowgameproof}
        Without loss of generality, we suppose that the interesting turn is 0. In other words, $j_0 = 0$. Let $X =
        \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, B\right)$
@@ -1310,9 +1318,9 @@ while (True)
 %          Loss_A \geq maxFlow\left(A, B\right) \enspace.
 %       \end{equation}
        \qed
-    \end{proof}
+    \end{sepproof}
 
-    \begin{proof}[Transitive Games Are Flows Lemma (\ref{gameflow})]
+    \begin{sepproof}[Transitive Games Are Flows Lemma (\ref{gameflow})] \ \\
     \label{gameflowproof}
        Let $Sad, Happy, Angry$ be as defined in the Transitive Game. Let $\mathcal{G}'$ be a directed weighted graph based on
        $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a turn when the Transitive Game has converged. More
@@ -1582,7 +1590,7 @@ while (True)
           \overset{\left(\ref{xprimeequalloss}\right)}{=} Loss_{A, j_1} \enspace,
        \end{equation}
        which is the flow $X$. \qed
-    \end{proof}
+    \end{sepproof}
 
     \begin{theorem}[Conservative World Theorem] \ \\
        \label{conservativeworld}
@@ -1658,7 +1666,7 @@ while (True)
 %       \qed
 %    \end{proof}
 
-    \begin{proof}[Sybil Resilience Theorem (\ref{sybil})]
+    \begin{sepproof}[Sybil Resilience Theorem (\ref{sybil})] \ \\
     \label{sybilproof}
        Let $\mathcal{G}_1$ be a game graph defined as follows:
        \begin{equation}
@@ -1769,7 +1777,7 @@ while (True)
 %          Tr_{A \rightarrow \mathcal{B}} = Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} \enspace.
 %       \end{equation}
        \qed
-    \end{proof}
+    \end{sepproof}
 
   \begin{thebibliography}{20}
      \bibitem{ddosattacks}
