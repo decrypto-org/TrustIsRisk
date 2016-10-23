@@ -223,7 +223,7 @@
      \end{definition}
      The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
      value attatched to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
-     represents the turn.
+     represents the corresponding turn.
      \begin{definition}[Players]
         The set $\mathcal{V}_j = V\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise understood
         as the set of all pseudonymous identities.
@@ -273,12 +273,12 @@
               Z1 [style=invisible];
               a1 [label="5BTC"];
               Y1 [style=invisible];
-              a1 -> Y1 [label="1/\\{B,C\\}"];
+              a1 -> Y1 [label="1/\\{A,C\\}"];
               Z1 -> a1 [label="A"];
               Z2 [style=invisible];
               a2 [label="6BTC"];
               Y2 [style=invisible];
-              a2 -> Y2 [label="1/\\{B,D\\}"];
+              a2 -> Y2 [label="1/\\{A,D\\}"];
               Z2 -> a2 [label="A"];
               Z3 [style=invisible];
               a3 [label="10BTC"];
@@ -337,35 +337,20 @@
 %     \end{center}
      We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
      trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-     respectively. For a reference of common definitions, see Appendix. [Begin example]
+     respectively. For a reference of common definitions, see Appendix. An example graph with its corresponding transactions
+     in the UTXO can be seen below. [Image]
   \section{Evolution of Trust}
-     Let's suppose that player $A$ wants to buy a product that costs 10
-     from player $B$, but $A$ has not given any direct trust to $B$. Does $A$'s friends trust $B$ enough so that $A$ can buy the product? In other
-     words, should $B$ decide to steal all her incoming direct trust and stop trusting directly other users and the rest of
-     the players choose the conservative strategy of stealing from their respective incoming trusts just enough to replenish
-     their loss [rationale needed], what would the eventual loss of $A$ be? If it can be higher than the value of the
-     product, then $A$ is already exposed to a higher risk to $B$, thus paying for the product can be done without $A$ being
-     exposed to any additional risk towards $B$, as long as $A$ reduces the direct trust to her friends enough to reduce the
-     risk by the value of the product. If the transaction completes in a satisfying manner, $A$ can replenish the reduced
-     trust to her friends, or can even choose to start directly trusting $B$.
-
-     Suppose that at the moment $A$ is considering of performing a payment to him, $B$ really decides to depart from the
-     network, taking with him all the coins he can. A chain reaction starts throughout the network because each player that
-     $B$ exploited is expected to steal enough value from other users that directly trust her to replenish all the value she
-     lost to $B$, the newly exploited users will act in the same way and so on, until a new equilibrium is reached
-     (\ref{convergence}). Going into detail, [Image] \\
-     (Completion of example)
-
      \begin{definition}[Turns]
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
         Player\left(j\right)$, chooses an action (according to a certain strategy) that can be one of the following, or a
         finite combination thereof:
         \begin{enumerate}
-           \item Steal value $y_B, 0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$ from $B \in N^{-}\left(A\right)_{j-1}$.
+           \item Steal value $y_B$ from $B \in N^{-}\left(A\right)_{j-1}$, where
+           $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then it is:
            \begin{equation}
               DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \:\: \left(Steal\left(y_B, B\right)\right)
            \end{equation}
-           \item Add value $y_B, -DTr_{A \rightarrow B, j-1} \leq y_B$ to $B \in \mathcal{V}$.
+           \item Add value $y_B$ to $B \in \mathcal{V}$, where $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then it is:
            \begin{equation}
               DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B \:\: \left(Add\left(y_B, B\right)\right)
            \end{equation}
@@ -378,7 +363,7 @@
         \begin{equation}
            Y_{add} - Y_{st} \leq Cap_{A, j-1} \enspace.
         \end{equation}
-        Capital is updated in every round:
+        Capital is updated in every turn:
         \begin{equation}
            Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add} \enspace.
         \end{equation}
@@ -386,28 +371,9 @@
         \\ The set of actions a player makes in turn $j$ is represented with $Turn_j$. The new graph that emerges by applying
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
-     \begin{definition}[Previous/Next Turn]
-        Let $j \in \mathbb{N}$ a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
-        as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
-        $prev\left(j\right) = 0$. More formally, if
-        \begin{equation}
-           P = \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and}
-        \end{equation}
-        \begin{equation}
-           N = \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace,
-        \end{equation}
-        then we define $prev\left(j\right), next\left(j\right)$ as follows:
-        \begin{equation}
-           prev\left(j\right) = \begin{cases}
-              \max{P}, & P \neq \emptyset \\
-              0, & P = \emptyset
-           \end{cases}
-        \end{equation}
-        \begin{equation}
-           next\left(j\right) = \min{N}
-        \end{equation}
-        $next\left(j\right)$ is always well defined with the assumption that eventually everybody plays.
-     \end{definition}
+     The only requirement we impose to the choice of the player of each turn is that eventually everybody will play in some
+     turn. We will use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and the next turn that
+     is played by $Player(j)$ respectively. A formal definition can be found in the Appendix.
      \begin{definition}[Damage]
         Let $j$ be a turn such that $Player\left(j\right) = A$.
         \begin{equation}
@@ -423,8 +389,16 @@
            \mathcal{H}_j = \left(Player\left(j\right), Turn_j\right)
         \end{equation}
      \end{definition}
-    \Suppressnumber
-    \begin{lstlisting}[label=trustisriskgame, style=numbers]
+     Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
+     game. Building on the previous example, we can see the resulting graph when $D$ plays
+     \begin{equation}
+        Turn_1 = \{Steal\left(1, B\right), Add\left(4, C\right)\} \enspace.
+     \end{equation}
+     [Image]
+     In its initial form TrustIsRisk is controlled by an algorithm that chooses a player at random, receives the turn that
+     this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely.
+     \Suppressnumber
+     \begin{lstlisting}[label=trustisriskgame, style=numbers]
 TrustIsRisk Game (*@\Reactivatenumber@*)
 j = 0
 while (True)
@@ -722,7 +696,7 @@ while (True)
        \label{trleqmaxflow}
           Tr_{A \rightarrow B} \leq maxFlow\left(A, B\right) \enspace.
        \end{equation}
-       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}). \qed
+       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}).
     \end{proof}
 %       Without loss of generality, we can suppose that the turn in which we are interested is 0 ($\mathcal{G} =
 %       \mathcal{G}_0$). First we will show that the $MaxFlow$ can be a result of a valid execution of algorithm
@@ -911,8 +885,8 @@ while (True)
         \begin{align}
            \mathcal{V}' &= \mathcal{V} \\
 %           DTr'_{A \rightarrow B} &= DTr_{A \rightarrow B} \\
-           \forall v \in \mathcal{V}' \setminus \{A\}, w \in \mathcal{V}'&, DTr'_{v \rightarrow w} = DTr_{v \rightarrow w}
-           \enspace.
+           \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}'&, DTr'_{v \rightarrow w} =
+           DTr_{v \rightarrow w} \enspace.
         \end{align}
         Furthermore, suppose that there exists an assignment for the outgoing trust of $A, DTr'_{A \rightarrow v}$, such that
         \begin{equation}
@@ -968,7 +942,7 @@ while (True)
     \begin{proof}
        If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to
        steal all their incoming direct trust, thus they will act in a way identical to following the evil strategy as far as
-       $MaxFlow$ is concerned. The theorem follows thus from the Trust Flow Theorem. \qed
+       $MaxFlow$ is concerned. The theorem follows thus from the Trust Flow Theorem.
 %       \begin{equation}
 %          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
 %          \enspace.
@@ -1139,6 +1113,28 @@ while (True)
            Turn_j = \{Steal\left(x+y, B\right)\} \enspace.
         \end{equation}
      \end{enumerate}
+     \begin{definition}[Previous/Next Turn]
+        Let $j \in \mathbb{N}$ a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
+        as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
+        $prev\left(j\right) = 0$. More formally, if
+        \begin{equation}
+           P = \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and}
+        \end{equation}
+        \begin{equation}
+           N = \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace,
+        \end{equation}
+        then we define $prev\left(j\right), next\left(j\right)$ as follows:
+        \begin{equation}
+           prev\left(j\right) = \begin{cases}
+              \max{P}, & P \neq \emptyset \\
+              0, & P = \emptyset
+           \end{cases}
+        \end{equation}
+        \begin{equation}
+           next\left(j\right) = \min{N}
+        \end{equation}
+        $next\left(j\right)$ is always well defined with the assumption that eventually everybody plays.
+     \end{definition}
     \subsection{Proofs, Lemmas and Theorems}
     \begin{lemma}[$Loss$ Equivalent to $Damage$] \ \\
        Let $j \in \mathbb{N}, v \in \mathcal{V}_j \setminus \{A, E\}, v = Player\left(j\right)$. It holds that
@@ -1178,7 +1174,7 @@ while (True)
           \item Let $v \in Angry_{j-1} \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
           we ignore the argument (1).
        \end{itemize}
-       Thus the theorem holds in every case. \qed
+       Thus the theorem holds in every case.
     \end{proof}
 
     \begin{sepproof}[Trust Convergence Theorem (\ref{convergence})] \ \\
@@ -1628,7 +1624,6 @@ while (True)
        This subseries must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative strategy,
        thus somebody must have stolen from her as well, so $Player(j_1)$ cannot be the initial element. We have a
        contradiction, thus the theorem holds.
-       \qed
     \end{proof}
 
 %    \begin{lemma}[No Evil Edges in the $MinCut$] \ \\
