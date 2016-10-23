@@ -207,8 +207,8 @@
 %     direct trust drops to 0, the corresponding edge does not exist anymore.
      We now engage in the formal description of the proposed system, accompanied by helpful examples.
      \begin{definition}[Graph]
-        TrustIsRisk is represented by a sequence of \\ weighted directed graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j =
-        \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$.
+        TrustIsRisk is represented by a sequence of directed weighted graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j
+        = \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$.
 %        Members of $\mathcal{E}_j$ are tuples of two nodes from
 %        $\mathcal{V}_j$. More formally, $e \in \mathcal{E}_j \Rightarrow \exists A,B \in \mathcal{V}_j : e = \left(A,B\right)$.
         Also, since the graphs are weighted, there exists a sequence of functions $\left(c_j\right)$ with $c_j : \mathcal{E}_j
@@ -380,8 +380,8 @@
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
      \begin{definition}[Previous/Next Turn]
-        Let $j \in \mathbb{N}$ a turn with $Player\left(j\right) = A$. We define $prev\left(j\right), next\left(j\right)$ as
-        the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
+        Let $j \in \mathbb{N}$ a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
+        as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
         $prev\left(j\right) = 0$. More formally, if
         \begin{equation}
            P = \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and}
@@ -669,10 +669,10 @@ while (True)
        \end{equation}
     \end{lemma}
     \begin{proofsketch}
-       The execution will contain all flows from the $MaxFlow\left(A, E\right)$ as equivalent $Steal\left(\right)$ actions.
-       The players will play in turns, moving from $E$ back to $A$. Each player will steal from his predecessors as much as
-       was stolen from her. The flows and the conservative strategy share the property that the total input is equal to the
-       total output. For the complete proof, see Appendix (\ref{maxflowgameproof}).
+       The desired execution of \texttt{TransitiveGame()} will contain all flows from the $MaxFlow\left(A, E\right)$ as
+       equivalent $Steal\left(\right)$ actions. The players will play in turns, moving from $E$ back to $A$. Each player will
+       steal from his predecessors as much as was stolen from her. The flows and the conservative strategy share the property
+       that the total input is equal to the total output. For the complete proof, see Appendix (\ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
        \label{gameflow}
@@ -898,6 +898,18 @@ while (True)
      player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
      \begin{theorem}[Risk Invariance]
      \label{riskinv}
+        Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}, F = Tr_{A \rightarrow B}$ and $V \leq F$ the desired value to be
+        transferred from $A$ to $B$. Let also $\mathcal{G}'$ such that
+        \begin{align}
+           \mathcal{V}' &= \mathcal{V} \\
+           DTr'_{A \rightarrow B} &= DTr_{A \rightarrow B} + V \\
+           \forall v \in \mathcal{V}' \setminus \{A\}, w \in \mathcal{V}'&, DTr'_{v \rightarrow w} = DTr_{v \rightarrow w}
+           \enspace.
+        \end{align}
+        Then there exists an assignment for the outgoing trust of $A, DTr_{A \rightarrow v}$, such that
+        \begin{equation}
+           Tr'_{A \rightarrow B} = F \enspace.
+        \end{equation}         
      \end{theorem}
      \begin{proof}
      \end{proof}
@@ -1200,6 +1212,7 @@ while (True)
        \begin{equation}
           \forall n \in \mathbb{N}, \exists j_n \in \mathbb{N} : DTr_{j_n} \leq DTr_{j_1-1} - nSt \enspace.
        \end{equation}
+
        Base case: It holds that
        \begin{equation}
           DTr_{j_1} = DTr_{j_1-1} - St \enspace.
@@ -1209,11 +1222,13 @@ while (True)
           DTr_{j_2} \leq DTr_{j_1} - St = DTr_{j_1-1} - 2St \enspace,
        \end{equation}
        since all players in $N^{-}(v)_{j-1}$ follow the conservative strategy, except for $A$, who will not have been stolen
-       anything due to the supposition. \\
+       anything due to the supposition.
+
        Induction hypothesis: Suppose that
        \begin{equation}
           \exists k > 1 : j_k > j_{k-1} > j_1 \Rightarrow DTr_{j_k} \leq DTr_{j_{k-1}} - St \enspace.
        \end{equation}
+
        Induction step: There exists a subset of the $Angry$ players, $S$, that have been stolen at least value $St$ in total
        between the turns $j_{k-1}$ and $j_k$, thus there exists a turn $j_{k+1}$ such that all players in $S$ will have
        played and thus
@@ -1256,17 +1271,20 @@ while (True)
        where she steals value equal to her total incoming flow, not her total incoming trust. Let $j_2$ be the first turn
        when $A$ is chosen to play. We will show using strong induction that there exists a set of valid actions for each
        player according to their respective strategy such that at the end of each turn $j$ the corresponding player $v =
-       Player\left(j\right)$ will have stolen value $x_{wv}$ from each in neighbour $w$. \\
+       Player\left(j\right)$ will have stolen value $x_{wv}$ from each in neighbour $w$.
+
        Base case: In turn 1, $B$ steals value equal to $\sum\limits_{w \in \mathcal{V}}x_{wB}$, following the modified evil
        strategy.
        \begin{equation}
           Turn_1 = \bigcup\limits_{v \in N^{-}\left(B\right)_0}\{Steal\left(x_{vB}, v\right)\}
        \end{equation}
+
        Induction hypothesis: Let $k \in [j_2 - 2]$. We suppose that $\forall j \in [k]$, there exists a valid set of actions,
        $Turn_j$, performed by $v = Player\left(j\right)$ such that $v$ steals from each player $w$ value equal to $x_{wv}$.
        \begin{equation}
           \forall j \in [k], Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(x_{wv}, w\right)\}
        \end{equation}
+
        Induction step: Let $j = k + 1, v = Player\left(j\right)$. Since all the players that are greater than $v$ in the
        total order have already played and all of them have stolen value equal to their incoming flow, we deduce that $v$ has
        been stolen value equal to $\sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw}$. Since it is the first time $v$
@@ -1279,7 +1297,8 @@ while (True)
        \begin{equation}
           \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}x_{wv} = \sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw} \enspace.
        \end{equation}
-       Thus $Turn_j$ is a valid turn for the conservative player $v$. \\
+       Thus $Turn_j$ is a valid turn for the conservative player $v$.
+
        We have proven that in the end of turn $j_2 - 1$, player $B$ and all the conservative players will have stolen value
        exactly equal to their total incoming flow, thus $A$ will have been stolen value equal to her outgoing flow, which is
        $maxFlow(A, B)$. Since there remains no Angry player, it is obvious that $j_2$ is a turn that Transitive Game has
@@ -1369,15 +1388,26 @@ while (True)
        We observe that $\forall v \in \mathcal{V},$
        \begin{equation}
        \label{gameflowin}
-          \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}c'_{wv} = \sum\limits_{w \in
-          N^{'-}\left(v\right) \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} - DTr_{w \rightarrow v, j_1}\right) = in_{v, 0}
-          - in_{v, j_1}
+       \begin{gathered}
+          \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}c'_{wv} = \\
+          = \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} -
+          DTr_{w \rightarrow v, j_1}\right) = \\
+          = \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}DTr_{w \rightarrow v, 0} -
+          \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}DTr_{w \rightarrow v, j-1} =  \\
+          = in_{v, 0} - in_{v, j_1}
+       \end{gathered}
        \end{equation}
        and
        \begin{equation}
        \label{gameflowout}
-          \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}c'_{vw} = \sum\limits_{w \in N^{'+}\left(v\right) \setminus
-          \{T\}}\left(DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}\right) = out_{v, 0} - out_{v, j_1} \enspace.
+       \begin{gathered}
+          \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}c'_{vw} = \\
+          = \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}\left(DTr_{v \rightarrow w, 0} -
+          DTr_{v \rightarrow w, j_1}\right) = \\
+          = \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}DTr_{v \rightarrow w, 0} -
+          \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}DTr_{v \rightarrow w, j-1} = \\
+          = out_{v, 0} - out_{v, j_1} \enspace.
+       \end{gathered}
        \end{equation}
        We can suppose that
        \begin{equation}
