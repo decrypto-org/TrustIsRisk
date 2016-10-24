@@ -72,7 +72,7 @@
 
 \pagestyle{plain}
 
-\newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \ \\}
+\newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \bigskip \ \\}
 
 \bibliographystyle{splncs}
 
@@ -543,17 +543,16 @@ consOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactiva
      not engage in evil activity.
 
      We continue with a very useful possible evolution of the game, the Transitive Game. In turn 0, there is already a network
-     in place. Also, all players apart from $A$ and $E$ follow the conservative strategy. Furthermore, the set of players is
-     not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ for any turn $j$ as $\mathcal{V}$.
-     These conventions will hold whenever we use the Transitive Game.
+     in place. All players apart from $A$ and $E$ follow the conservative strategy. Furthermore, the set of players is not
+     modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ for any turn $j$ as $\mathcal{V}$. These
+     conventions will hold whenever we use the Transitive Game.
      \Suppressnumber
      \begin{lstlisting}[label=transitivegame, style=numbers]
 Transitive Game
 Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player
-Output : history (*@$\mathcal{H}$@*) (*@\Reactivatenumber@*)
-Angry = (*@$\emptyset$@*)
+Output : history (*@$\mathcal{H}$@*) (*@\Reactivatenumber@*) #can remove output, this runs forever.
+Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*)
 Happy = (*@$\mathcal{V} \setminus \{A, E\}$@*)
-Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*)
 for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))
   (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
 j = 0
@@ -604,21 +603,23 @@ while (True)
      obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
      stolen more value than she has been stolen, thus she would not be following the conservative strategy.
   \section{Trust Flow}
-     \begin{definition}[Indirect Trust]
-        The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
-        $A$ if $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V} \setminus
-        \{A,B\}$) follows the conservative strategy. More formally, if
-        \begin{equation}
-        \begin{gathered}
-           Strategy\left(A\right) = Idle \wedge Strategy\left(B\right) = Evil \wedge \\
-           \wedge \forall v \in \mathcal{V} \setminus \{A,B\}, Strategy\left(v\right) = Conservative
-        \end{gathered}
-        \end{equation}
-        and $choices$ are the different actions between which the conservative players can choose, then
-        \begin{equation}
-           Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
-        \end{equation}
-     \end{definition}
+    Everything is in place to define the indirect trust, or simply trust, from one player to another.
+    \begin{definition}[Indirect Trust]
+       The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
+       $A$ after turn $j$ if $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V}
+       \setminus \{A,B\}$) follows the conservative strategy. More formally, if
+       \begin{equation}
+       \begin{gathered}
+          Strategy\left(A\right) = Idle \wedge Strategy\left(B\right) = Evil \wedge \\
+          \wedge \forall v \in \mathcal{V} \setminus \{A,B\}, Strategy\left(v\right) = Conservative
+       \end{gathered}
+       \end{equation}
+       and $choices$ are the different actions between which the conservative players can choose, then
+       \begin{equation}
+          Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
+       \end{equation}
+    \end{definition}
+    The following theorem establishes that $Tr_{A \rightarrow B}$ is always finite.
     \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
        Consider a Transitive Game and let $j_0$ be the first turn that $E$ is chosen to play. Given that all players
@@ -632,9 +633,10 @@ while (True)
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
        trust. For the complete proof, see Appendix (Proof \ref{convergenceproof}).
     \end{proofsketch}
-    In games where there exists one evil $E$, one idle player $A$ and the rest of the players are conservative, we define
-    $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is not
-    the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
+
+    In games where there exists one evil player $E$, one idle player $A$ and the rest of the players are conservative, we
+    define $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
+    not the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
     executions and the conservative players are free to choose which incoming trusts they will steal and how much from each.
 
     Let $G$ be a weighted directed graph. According to \cite{clrs} p. 709, if we consider each edge's capacity as its weight
@@ -650,10 +652,19 @@ while (True)
        \forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
        \enspace.
     \end{equation}
+    The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is proven to be equal to
+    $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum possible flow from
+    $A$ to $B$, namely $MaxFlow\left(A, B\right)$. This algorithm evidently needs full knowledge of the graph. The fastest
+    version of this algorithm runs in $O\left(|\mathcal{V}||\mathcal{E}|\right)$ time \cite{maxflownm}. For more details on
+    this algorithm, please refer to \cite{clrs} p. 708 and on. We refer to the flow value of $MaxFlow\left(A, B\right)$ as
+    $maxFlow\left(A, B\right)$.
+
+    We will now introduce two lemmas that will be used to prove the one of the central results of this work, the Trust Flow
+    Theorem.
     \begin{lemma}[MaxFlows Are Transitive Games] \ \\
        \label{maxflowgame}
        Let $\mathcal{G}_{j_0}$ be a game graph at a specific turn $j_0$, let $A, E \in \mathcal{V}_{j_0}$ and
-       $maxFlow\left(A, E\right)$ the maximum flow from $A$ to $E$ executed on $\mathcal{G}_{j_0}$. There exists an execution
+       $MaxFlow\left(A, E\right)$ the maximum flow from $A$ to $E$ executed on $\mathcal{G}_{j_0}$. There exists an execution
        of \texttt{TransitiveGame(}$\mathcal{G}_{j_0}, A, E$\texttt{)} such that
        \begin{equation}
           maxFlow\left(A, E\right) \leq Loss_A \enspace.
@@ -676,7 +687,7 @@ while (True)
        \end{equation}
     \end{lemma}
     \begin{proofsketch}
-       If we remove the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
+       If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
        $A$ to $E$. For the complete proof, see Appendix (Proof \ref{gameflowproof}).
     \end{proofsketch}
     \begin{theorem}[Trust Flow Theorem] \ \\
@@ -886,8 +897,11 @@ while (True)
 %        OLD PROOF END
 
 
-     Note: The maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the same
-     player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
+     We note that the maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the
+     same player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
+
+     Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
+     unknown, parties.
      \begin{theorem}[Risk Invariance]
      \label{riskinv}
         Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $V$ the desired value to be transferred from $A$ to $B$,
@@ -917,6 +931,9 @@ while (True)
         larger by $V$ in $\mathcal{G}''$. Thus the two $MaxFlow$s will choose the same flow, except for $\left(A, B\right)$,
         where it will be $x''_{AB} = x'_{AB} + V$.
      \end{proofsketch}
+     It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
+     (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
+     leave this calculation as part of further research.
      \begin{sepproof} (Risk Invariance Theorem (\ref{riskinv}))
         Let
         \begin{align}
@@ -1890,6 +1907,9 @@ while (True)
      \url{https://bitcoinmagazine.com/articles/multisig-future-bitcoin-1394686504}
      \bibitem{loc}
      Sanchez W.: Lines of Credit (2016) \url{https://gist.github.com/drwasho/2c40b91e169f55988618#part-3-web-of-credit}
+     \bibitem{maxflownm}
+     Orlin J. B.: Max flows in O(nm) time, or better. STOC '13 Proceedings of the forty-fifth annual ACM symposium on Theory
+     of computing, pp.765–774, ACM, New York (2013). doi:10.1145/2488608.2488705
      \bibitem{deanonymisation}
      Narayanan A., Shmatikov V.: De-anonymizing Social Networks. SP '09 Proceedings of the 2009 30th IEEE Symposium on
      Security and Privacy, pp. 173-187, 10.1109/SP.2009.22 (2009)
