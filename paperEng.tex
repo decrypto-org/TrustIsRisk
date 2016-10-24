@@ -95,7 +95,7 @@
      Reputation in centralized systems uses stars and review-based trust. Such systems require manual intervention and
      secrecy to avoid manipulation. In autonomous and open source decentralized systems this luxury is not available.
      Previous peer-to-peer reputation systems do not allow for financial arguments pertaining to reputation. We propose a
-     concrete sybil-resilient decentralized reputation system in which direct trust is defined as lines-of-credit using
+     concrete Sybil-resilient decentralized reputation system in which direct trust is defined as lines-of-credit using
      bitcoin's 1-of-2 multisig. We introduce a new model for bitcoin wallets in which user coins are split among trusted
      associates. Indirect trust is subsequently defined transitively. This enables formal game theoretic arguments pertaining
      to risk analysis. We prove that risk and max flows are equivalent in our model. Our system allows for concrete financial
@@ -997,8 +997,10 @@ while (True)
         The proposition is proved.
      \end{sepproof}
   \section{Sybil Resilience}
-     One of the primary aims of this system is to mitigate the danger for sybil attacks [citation needed] whilst maintaining
+     One of the primary aims of this system is to mitigate the danger for Sybil attacks [citation needed] whilst maintaining
      fully decentralized autonomy.
+
+     Here we extend the definition of indirect trust to many players.
      \begin{definition}[Indirect Trust to Multiple Players]
         The indirect trust from player $A$ to a set of players, $S \subset \mathcal{V}$ is defined as the maximum possible
         value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows the idle strategy and
@@ -1015,27 +1017,29 @@ while (True)
            Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{\left[out_{A,j} - out_{A,j'}\right]}
         \end{equation}
      \end{definition}
-    \begin{theorem}[Multi-Player Trust Flow] \ \\
-       \label{trustmany}
-       Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
-       \begin{equation}
-          \forall B \in S, DTr_{B \rightarrow T} = \infty \enspace.
-       \end{equation}
-       It holds that
-       \begin{equation}
-          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow\left(A, T\right) \enspace.
-       \end{equation}
-    \end{theorem}       
-    \begin{proof}
-       If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have to
-       steal all their incoming direct trust, thus they will act in a way identical to following the evil strategy as far as
-       $MaxFlow$ is concerned. The theorem follows thus from the Trust Flow Theorem.
-%       \begin{equation}
-%          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
-%          \enspace.
-%       \end{equation}
-    \end{proof}
-     Let Eve be a possible attacker.
+     We now extend Trust Flow Theorem (\ref{trustflow}) to many players.
+     \begin{theorem}[Multi-Player Trust Flow] \ \\
+        \label{trustmany}
+        Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
+        \begin{equation}
+           \forall B \in S, DTr_{B \rightarrow T} = \infty \enspace.
+        \end{equation}
+        It holds that
+        \begin{equation}
+           \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow\left(A, T\right) \enspace.
+        \end{equation}
+     \end{theorem}       
+     \begin{proof}
+        If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have
+        to steal all their incoming direct trust since they have suffered an infinite loss, thus they will act in a way
+        identical to following the evil strategy as far as $MaxFlow$ is concerned. The theorem follows thus from the Trust
+        Flow Theorem.
+ %       \begin{equation}
+ %          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
+ %          \enspace.
+ %       \end{equation}
+     \end{proof}
+     We now define several useful notions to tackle the problem of Sybil attacks. Let Eve be a possible attacker.
      \begin{definition}[Corrupted Set]
         Let $\mathcal{G}$ be a game graph and let Eve have a set of players $\mathcal{B} \subset \mathcal{V}$ corrupted, so
         that she fully controls their outgoing direct trusts to any player in $\mathcal{V}$ and can also steal all incoming
@@ -1089,6 +1093,9 @@ while (True)
        Appendix (Proof \ref{sybilproof}).
     \end{proofsketch}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
+
+    With this we have successfully delivered our promise for a Sybil-resilient decentralized financial trust system with
+    invariant risk when making a purchase.
 
   \section{Related Work}
 
