@@ -404,7 +404,7 @@ j = 0
 while (True)
   j = j + 1
   (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
-  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
+  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*))
   ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
       ProvisionalTurn)
     \end{lstlisting}
@@ -469,13 +469,16 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
     \end{lstlisting}
     It is straightforward to verify the compatibility of the previous algorithms with the corresponding definitions.
   \section{Trust Transitivity}
+     In this section we define some strategies, along with their oracles. Then we define the Transitive Game that represents
+     the worst-case scenario for an honest player when another player decides to depart from the network with her money and
+     all the money entrusted to her.
      \begin{definition}[Idle Strategy]
         A player $A$ is said to follow the idle strategy if she passes in her turn. 
      \end{definition}
      \Suppressnumber
      \begin{lstlisting}[label=idleoracle, style=numbers]
 Idle Oracle
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*)
 Output : (*@$Turn_j$@*)
 idleOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   return((*@$\emptyset$@*))
@@ -487,7 +490,7 @@ idleOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactiva
      \Suppressnumber
      \begin{lstlisting}[label=eviloracle, style=numbers]
 Evil Oracle
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*)
 Output : (*@$Turn_j$@*)
 evilOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
@@ -496,14 +499,15 @@ evilOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactiva
   return((*@$Turn_j$@*))
      \end{lstlisting}
      \begin{definition}[Conservative Strategy]
-        Let $j$ be the current turn and $x$ the value that has been stolen from player $A$ since the previous turn she
-        played. Player $A$ is said to follow the conservative strategy if she replenishes her lost value by stealing
-        from others that trust her as much as she can up to $x$ and she takes no other action.
+%        Let $j$ be the current turn and $x$ the value that has been stolen from player $A$ since the previous turn she
+%        played.
+        Player $A$ is said to follow the conservative strategy if she replenishes the value she lost since the previous turn,
+        $Damage_A$, by stealing from others that trust her as much as she can up to $Damage_A$ and she takes no other action.
      \end{definition}
      \Suppressnumber
      \begin{lstlisting}[label=conservativeoracle, style=numbers]
 Conservative Oracle
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*)
 Output : (*@$Turn_j$@*)
 consOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
@@ -556,7 +560,7 @@ j = 0
 while (True)
   j = j + 1
   (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
-  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
+  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
