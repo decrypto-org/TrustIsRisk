@@ -404,12 +404,13 @@ j = 0
 while (True)
   j = j + 1
   (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
-  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
+  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
   ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
       ProvisionalTurn)
     \end{lstlisting}
-    The following algorithm has read access to direct trusts in $\mathcal{G}_{j-1}$ and write access to direct trusts in
-    $\mathcal{G}_j$.
+%    The following algorithm has read access to direct trusts in $\mathcal{G}_{j-1}$ and write access to direct trusts in
+%    $\mathcal{G}_j$.
+    This algorithm calls the necessary functions to prepare the new graph.
     \Suppressnumber
     \begin{lstlisting}[label=executeturn, style=numbers]
 Execute Turn
@@ -419,6 +420,8 @@ executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Provisio
   ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), ProvisionalTurn)
   return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
     \end{lstlisting}
+    The following algorithm validates that the provisional turn produced by the oracle respects the rules imposed on turns.
+    If the turn is invalid, an empty turn is returned.
     \Suppressnumber
     \begin{lstlisting}[label=validateturn, style=numbers]
 Validate Turn
@@ -444,10 +447,12 @@ validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Provisi
   else
     return(ProvisionalTurn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
     \end{lstlisting}
+    Finally, this algorithm applies the turn to the old graph and returns the new graph, along with the updated capital and
+    history.
     \Suppressnumber
     \begin{lstlisting}[label=committurn, style=numbers]
 Commit Turn
-Input : player old graph (*@$\mathcal{G}_{j-1}$@*), (*@$A \in \mathcal{V}_{j-1}$@*), (*@$Turn_j$@*), NewCap
+Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), (*@$Turn_j$@*), NewCap
 Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
 commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
   for (((*@$v$@*), (*@$w$@*)) (*@$\in \mathcal{E}_j$@*))
@@ -462,6 +467,7 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
   (*@$\mathcal{H}_j$@*) = ((*@$A$@*), (*@$Turn_j$@*))
   return((*@$\mathcal{G}_j$@*), (*@$Cap_{A, j}$@*), (*@$\mathcal{H}_j$@*))
     \end{lstlisting}
+    It is straightforward to verify the compatibility of the previous algorithms with the corresponding definitions.
   \section{Trust Transitivity}
      \begin{definition}[Idle Strategy]
         A player $A$ is said to follow the idle strategy if she passes in her turn. 
@@ -469,9 +475,9 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
      \Suppressnumber
      \begin{lstlisting}[label=idleoracle, style=numbers]
 Idle Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
-idleOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+idleOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   return((*@$\emptyset$@*))
      \end{lstlisting}
      \begin{definition}[Evil Strategy]
@@ -481,9 +487,9 @@ idleOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reac
      \Suppressnumber
      \begin{lstlisting}[label=eviloracle, style=numbers]
 Evil Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
-evilOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+evilOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
   Adds = (*@$\bigcup\limits_{v \in N^{+}\left(A\right)_{j-1}}\{Add(-DTr_{A \rightarrow v, j-1}, v)\}$@*)
   (*@$Turn_j$@*) = Steals(*@$\: \cup \:$@*)Adds
@@ -497,9 +503,9 @@ evilOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reac
      \Suppressnumber
      \begin{lstlisting}[label=conservativeoracle, style=numbers]
 Conservative Oracle
-Input : previous graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\mathcal{H}$@*)
 Output : (*@$Turn_j$@*)
-consOracle((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+consOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
   if (Damage > 0)
     if (Damage >= (*@$in_{A, j-1}$@*))
@@ -550,7 +556,7 @@ j = 0
 while (True)
   j = j + 1
   (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
-  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
+  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\mathcal{H}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
