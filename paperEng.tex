@@ -132,37 +132,43 @@
      will be done by explicitly entrusting a certain amount of money to another user, say $Bob$. If $Bob$ has already
      entrusted an amount of money to a third user, $Charlie$, then we indirectly trust $Charlie$ since if the latter wished
      to play unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic
-     interaction with $Charlie$.
-     \begin{center}
-        \begin{tikzpicture}
-        \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.57]
-           digraph G {
-             #size="0.01,0.01?"
-             rankdir=LR
-             subgraph cluster0 {
-                labelloc="c"
-                label="Ex.1:\\ Alice\\ trusts\\ Charlie\\ 10"
-                Alice1 -> Bob1 [label="10"]
-                Bob1 -> Charlie1 [label="20"]
-                Alice1 [label="Alice"]
-                Bob1 [label="Bob"]
-                Charlie1 [label="Charlie"]
-             }
-             subgraph cluster1 {
-                labelloc="t"
-                label="Ex.2:\\ Alice\\ trusts\\ Charlie\\ 5"
-                Alice2 -> Bob2 [label="10"]
-                Bob2 -> Charlie2 [label="5"]
-                Alice2 [label="Alice"]
-                Bob2 [label="Bob"]
-                Charlie2 [label="Charlie"]
-             }
-             Charlie1 -> Alice2 [style=invisible]
-           }
-        \end{dot2tex}
-        \end{tikzpicture}
-     \end{center} \ \\
-
+     interaction with $Charlie$. \medskip \ \\
+\begin{tikzpicture}[>=latex,line join=bevel,scale=0.60,transform shape]
+%%
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (8.0bp,8.0bp) -- (8.0bp,83.0bp) -- (286.0bp,83.0bp) -- (286.0bp,8.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (147.0bp,19.5bp) node {\LARGE \textbf{Fig.1:} A trusts C 10\bitcoin};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (307.0bp,8.0bp) -- (307.0bp,83.0bp) -- (578.0bp,83.0bp) -- (578.0bp,8.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (442.5bp,19.5bp) node {\LARGE \textbf{Fig.2:} A trusts C 5\bitcoin};
+\end{scope}
+  \node (Alice2) at (342.0bp,57.0bp) [draw,ellipse] {\LARGE A};
+  \node (Alice1) at (43.0bp,57.0bp) [draw,ellipse] {\LARGE A};
+  \node (Charlie2) at (543.0bp,57.0bp) [draw,ellipse] {\LARGE C};
+  \node (Charlie1) at (251.0bp,57.0bp) [draw,ellipse] {\LARGE C};
+  \node (Bob2) at (446.0bp,57.0bp) [draw,ellipse] {\LARGE B};
+  \node (Bob1) at (147.0bp,57.0bp) [draw,ellipse] {\LARGE B};
+  \draw [->] (Bob1) -- (Charlie1);
+  \draw (199.0bp,64.5bp) node {\LARGE 20\bitcoin};
+  \draw [->] (Alice2) -- (Bob2);
+  \draw (394.0bp,64.5bp) node {\LARGE 10\bitcoin};
+  \draw [->] (Alice1) -- (Bob1);
+  \draw (95.0bp,64.5bp) node {\LARGE 10\bitcoin};
+  \draw [->] (Bob2) -- (Charlie2);
+  \draw (494.5bp,64.5bp) node {\LARGE 5\bitcoin};
+%
+\end{tikzpicture} \smallskip \ \\
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
      construction that permits any one of two pre-designated users to spend the coins contained therein \cite{multisig}. We
      will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by either $Alice$ or $Bob$.
