@@ -58,6 +58,9 @@
     \vrule height .3ex width .15ex\hfil}
     \vbox{\copy2\box0}\box2}}
 
+\makeatletter 
+\newcommand\semihuge{\@setfontsize\semihuge{19.22}{23.88}}
+\makeatother
 %\tikzset{every picture/.append style={font=\fontsize{100}{120}\selectfont}}
 %\tikzset{
 %  font={\fontsize{10pt}{12}\selectfont}}
@@ -145,7 +148,7 @@
   \draw (8.0bp,8.0bp) -- (8.0bp,83.0bp) -- (286.0bp,83.0bp) -- (286.0bp,8.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (147.0bp,19.5bp) node {\LARGE \textbf{Fig.1:} A trusts C 10\bitcoin};
+  \draw (147.0bp,19.5bp) node {\semihuge \textbf{Fig.1:} A trusts C 10\bitcoin};
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
@@ -154,22 +157,22 @@
   \draw (307.0bp,8.0bp) -- (307.0bp,83.0bp) -- (578.0bp,83.0bp) -- (578.0bp,8.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (442.5bp,19.5bp) node {\LARGE \textbf{Fig.2:} A trusts C 5\bitcoin};
+  \draw (442.5bp,19.5bp) node {\semihuge \textbf{Fig.2:} A trusts C 5\bitcoin};
 \end{scope}
-  \node (Alice2) at (342.0bp,57.0bp) [draw,ellipse] {\LARGE A};
-  \node (Alice1) at (43.0bp,57.0bp) [draw,ellipse] {\LARGE A};
-  \node (Charlie2) at (543.0bp,57.0bp) [draw,ellipse] {\LARGE C};
-  \node (Charlie1) at (251.0bp,57.0bp) [draw,ellipse] {\LARGE C};
-  \node (Bob2) at (446.0bp,57.0bp) [draw,ellipse] {\LARGE B};
-  \node (Bob1) at (147.0bp,57.0bp) [draw,ellipse] {\LARGE B};
+  \node (Alice2) at (342.0bp,57.0bp) [draw,ellipse] {\semihuge A};
+  \node (Alice1) at (43.0bp,57.0bp) [draw,ellipse] {\semihuge A};
+  \node (Charlie2) at (543.0bp,57.0bp) [draw,ellipse] {\semihuge C};
+  \node (Charlie1) at (251.0bp,57.0bp) [draw,ellipse] {\semihuge C};
+  \node (Bob2) at (446.0bp,57.0bp) [draw,ellipse] {\semihuge B};
+  \node (Bob1) at (147.0bp,57.0bp) [draw,ellipse] {\semihuge B};
   \draw [->] (Bob1) -- (Charlie1);
-  \draw (199.0bp,67.5bp) node {\LARGE 20\bitcoin};
+  \draw (199.0bp,67.5bp) node {\semihuge 20\bitcoin};
   \draw [->] (Alice2) -- (Bob2);
-  \draw (394.0bp,67.5bp) node {\LARGE 10\bitcoin};
+  \draw (394.0bp,67.5bp) node {\semihuge 10\bitcoin};
   \draw [->] (Alice1) -- (Bob1);
-  \draw (95.0bp,67.5bp) node {\LARGE 10\bitcoin};
+  \draw (95.0bp,67.5bp) node {\semihuge 10\bitcoin};
   \draw [->] (Bob2) -- (Charlie2);
-  \draw (494.5bp,67.5bp) node {\LARGE 5\bitcoin};
+  \draw (494.5bp,67.5bp) node {\semihuge 5\bitcoin};
 %
 \end{tikzpicture} \smallskip \ \\
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
@@ -268,16 +271,16 @@
   \coordinate (Z1) at (344.19bp,283.0bp);
   \coordinate (Z2) at (344.19bp,222.0bp);
   \coordinate (Z3) at (344.19bp,161.0bp);
-  \node (A) at (34.0bp,160.0bp) [draw,ellipse] {\LARGE A};
-  \node (C) at (113.0bp,137.0bp) [draw,ellipse] {\LARGE C};
-  \node (B) at (199.0bp,181.0bp) [draw,ellipse] {\LARGE B};
-  \node (E) at (199.0bp,118.0bp) [draw,ellipse] {\LARGE E};
-  \node (D) at (113.0bp,191.0bp) [draw,ellipse] {\LARGE D};
-  \node (a1) at (428.99bp,283.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a3) at (428.99bp,161.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a2) at (428.99bp,222.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a5) at (428.99bp,39.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a4) at (428.99bp,100.0bp) [draw,ellipse] {\LARGE tx};
+  \node (A) at (34.0bp,160.0bp) [draw,ellipse] {\semihuge A};
+  \node (C) at (113.0bp,137.0bp) [draw,ellipse] {\semihuge C};
+  \node (B) at (199.0bp,181.0bp) [draw,ellipse] {\semihuge B};
+  \node (E) at (199.0bp,118.0bp) [draw,ellipse] {\semihuge E};
+  \node (D) at (113.0bp,191.0bp) [draw,ellipse] {\semihuge D};
+  \node (a1) at (428.99bp,283.0bp) [draw,ellipse] {\semihuge tx};
+  \node (a3) at (428.99bp,161.0bp) [draw,ellipse] {\semihuge tx};
+  \node (a2) at (428.99bp,222.0bp) [draw,ellipse] {\semihuge tx};
+  \node (a5) at (428.99bp,39.0bp) [draw,ellipse] {\semihuge tx};
+  \node (a4) at (428.99bp,100.0bp) [draw,ellipse] {\semihuge tx};
   \coordinate (J1) at (232.85bp,161.0bp);
   \coordinate (J2) at (307.54bp,161.0bp);
   \coordinate (Y1) at (552.44bp,283.0bp);
@@ -286,47 +289,47 @@
   \coordinate (Y5) at (552.44bp,39.0bp);
   \coordinate (Y4) at (552.44bp,100.0bp);
   \draw [->] (a4) ..controls (445.3bp,100.0bp) and (461.02bp,100.0bp)  .. (Y4);
-  \draw (488.99bp,89.5bp) node {\LARGE 1/\{C,B\}};
-  \draw (488.99bp,109.5bp) node {\LARGE 3\bitcoin};
+  \draw (488.99bp,89.5bp) node {\semihuge 1/\{C,B\}};
+  \draw (488.99bp,109.5bp) node {\semihuge 3\bitcoin};
   \draw [->] (Z3) ..controls (377.14bp,161.0bp) and (392.28bp,161.0bp)  .. (a3);
-  \draw (377.99bp,150.5bp) node {\LARGE C};
-  \draw (377.99bp,170.5bp) node {\LARGE 10\bitcoin};
+  \draw (377.99bp,150.5bp) node {\semihuge C};
+  \draw (377.99bp,170.5bp) node {\semihuge 10\bitcoin};
   \draw [->] (a3) ..controls (445.3bp,161.0bp) and (461.02bp,161.0bp)  .. (Y3);
-  \draw (488.99bp,150.5bp) node {\LARGE 1/\{C,E\}};
-  \draw (488.99bp,170.5bp) node {\LARGE 10\bitcoin};
+  \draw (488.99bp,150.5bp) node {\semihuge 1/\{C,E\}};
+  \draw (488.99bp,170.5bp) node {\semihuge 10\bitcoin};
   \draw [<->] (J1) ..controls (265.65bp,161.0bp) and (274.33bp,161.0bp)  .. (J2);
   \draw [->] (a2) ..controls (445.3bp,222.0bp) and (541.02bp,222.0bp)  .. (Y2);
-  \draw (488.99bp,211.5bp) node {\LARGE 1/\{A,D\}};
-  \draw (488.99bp,231.5bp) node {\LARGE 6\bitcoin};
+  \draw (488.99bp,211.5bp) node {\semihuge 1/\{A,D\}};
+  \draw (488.99bp,231.5bp) node {\semihuge 6\bitcoin};
   \draw [->] (C) ..controls (134.77bp,124.17bp) and (141.98bp,120.776bp)  .. (149.0bp,119.0bp) .. controls (157.28bp,116.905bp) and (166.61bp,116.3bp)  .. (E);
-  \draw (156.0bp,127.5bp) node {\LARGE 10\bitcoin};
+  \draw (156.0bp,127.5bp) node {\semihuge 10\bitcoin};
   \draw [->] (a5) ..controls (445.3bp,39.0bp) and (541.02bp,39.0bp)  .. (Y5);
-  \draw (488.99bp,28.5bp) node {\LARGE 1/\{D,B\}};
-  \draw (488.99bp,48.5bp) node {\LARGE 2\bitcoin};
+  \draw (488.99bp,28.5bp) node {\semihuge 1/\{D,B\}};
+  \draw (488.99bp,48.5bp) node {\semihuge 2\bitcoin};
   \draw [->] (C) ..controls (142.79bp,152.08bp) and (162.28bp,162.29bp)  .. (B);
-  \draw (156.0bp,170.5bp) node {\LARGE 3\bitcoin};
+  \draw (156.0bp,170.5bp) node {\semihuge 3\bitcoin};
   \draw [->] (Z5) ..controls (377.14bp,39.0bp) and (392.28bp,39.0bp)  .. (a5);
-  \draw (377.99bp,28.5bp) node {\LARGE D};
-  \draw (377.99bp,48.5bp) node {\LARGE 2\bitcoin};
+  \draw (377.99bp,28.5bp) node {\semihuge D};
+  \draw (377.99bp,48.5bp) node {\semihuge 2\bitcoin};
   \draw [->] (Z2) ..controls (377.14bp,222.0bp) and (392.28bp,222.0bp)  .. (a2);
-  \draw (377.99bp,211.5bp) node {\LARGE A};
-  \draw (377.99bp,231.5bp) node {\LARGE 6\bitcoin};
+  \draw (377.99bp,211.5bp) node {\semihuge A};
+  \draw (377.99bp,231.5bp) node {\semihuge 6\bitcoin};
   \draw [->] (A) ..controls (62.311bp,171.0bp) and (77.709bp,177.19bp)  .. (D);
-  \draw (73.5bp,187.5bp) node {\LARGE 6\bitcoin};
+  \draw (73.5bp,187.5bp) node {\semihuge 6\bitcoin};
   \draw [->] (a1) ..controls (445.3bp,283.0bp) and (541.02bp,283.0bp)  .. (Y1);
-  \draw (488.99bp,272.5bp) node {\LARGE 1/\{A,C\}};
-  \draw (488.99bp,292.5bp) node {\LARGE 5\bitcoin};
+  \draw (488.99bp,272.5bp) node {\semihuge 1/\{A,C\}};
+  \draw (488.99bp,292.5bp) node {\semihuge 5\bitcoin};
   \draw [->] (Z4) ..controls (377.14bp,100.0bp) and (392.28bp,100.0bp)  .. (a4);
-  \draw (377.99bp,89.5bp) node {\LARGE C};
-  \draw (377.99bp,109.5bp) node {\LARGE 3\bitcoin};
+  \draw (377.99bp,89.5bp) node {\semihuge C};
+  \draw (377.99bp,109.5bp) node {\semihuge 3\bitcoin};
   \draw [->] (A) ..controls (62.483bp,151.79bp) and (77.403bp,147.33bp)  .. (C);
-  \draw (73.5bp,157.5bp) node {\LARGE 5\bitcoin};
+  \draw (73.5bp,157.5bp) node {\semihuge 5\bitcoin};
   \draw [->] (Z1) ..controls (377.14bp,283.0bp) and (392.28bp,283.0bp)  .. (a1);
-  \draw (377.99bp,272.5bp) node {\LARGE A};
-  \draw (377.99bp,292.5bp) node {\LARGE 5\bitcoin};
+  \draw (377.99bp,272.5bp) node {\semihuge A};
+  \draw (377.99bp,292.5bp) node {\semihuge 5\bitcoin};
   \draw [->] (D) ..controls (143.64bp,187.47bp) and (161.02bp,185.4bp)  .. (B);
-  \draw (156.0bp,194.5bp) node {\LARGE 2\bitcoin};
-  \draw (270.5bp,0.0bp) node {\LARGE \textbf{Fig.3:} TrustIsRisk Game Graph and Equivalent Bitcoin UTXO};
+  \draw (156.0bp,194.5bp) node {\semihuge 2\bitcoin};
+  \draw (270.5bp,0.0bp) node {\semihuge \textbf{Fig.3:} TrustIsRisk Game Graph and Equivalent Bitcoin UTXO};
 %
 \end{tikzpicture}
      \end{center} \smallskip \ \\
@@ -1843,7 +1846,7 @@ while (True)
 %       \end{gathered}
 %       \end{equation}
 %       for the first and likewise for the second game. \\
-       According to /heorem (\ref{trustmany}),
+       According to Theorem (\ref{trustmany}),
        \begin{equation}
        \label{trmaxflow}
           Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow_1\left(A, T_1\right) \wedge
@@ -1943,7 +1946,7 @@ while (True)
      Narayanan A., Shmatikov V.: De-anonymizing Social Networks. SP '09 Proceedings of the 2009 30th IEEE Symposium on
      Security and Privacy, pp. 173-187, 10.1109/SP.2009.22 (2009)
      \bibitem{toposort}
-     Kahn Arthu.r B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
+     Kahn Arthur B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
      New York (1962)
      \bibitem{dionyziz}
      Zindros D. S.: Trust in decentralized anonymous marketplaces (2015)
