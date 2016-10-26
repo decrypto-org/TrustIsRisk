@@ -253,9 +253,13 @@
         \end{equation}
      \end{definition}
      Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
+     We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
+     trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
+     respectively. For a reference of common definitions, see Appendix. An example graph with its corresponding transactions
+     in the UTXO can be seen below. [Image]
      \begin{center}
      \begin{tikzpicture}
-     \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.6]
+     \begin{dot2tex}[dot,tikz,scale=0.6]
         digraph G  {
            rankdir=LR;
            edge [arrowsize=0.6];
@@ -263,43 +267,43 @@
            compound=true;
            subgraph cluster0 {
               color=none;
-              label = "TrustIsRisk\\ game\\ graph";
-              A -> C [label="5BTC"];
-              A -> D [label="6BTC"];
-              C -> B [label="3BTC"];
-              C -> E [label="10BTC"];
-              D -> B [label="2BTC"];
+              label = "TrustIsRisk\ game\ graph";
+              A -> C [label="5"];
+              A -> D [label="6"];
+              C -> B [label="3"];
+              C -> E [label="10"];
+              D -> B [label="2"];
            }
            J1 [style=invisible];
            J2 [style=invisible];
            J1 -> J2 [dir=both];
            subgraph cluster1 {
               rank=same;
-              label="Bitcoin\\ UTXO";
+              label="Bitcoin\ UTXO";
               Z1 [style=invisible];
-              a1 [label="5BTC"];
+              a1 [label="5"];
               Y1 [style=invisible];
-              a1 -> Y1 [label="1/\\{A,C\\}"];
+              a1 -> Y1 [label="1/{A,C}"];
               Z1 -> a1 [label="A"];
               Z2 [style=invisible];
-              a2 [label="6BTC"];
+              a2 [label="6"];
               Y2 [style=invisible];
-              a2 -> Y2 [label="1/\\{A,D\\}"];
+              a2 -> Y2 [label="1/{A,D}"];
               Z2 -> a2 [label="A"];
               Z3 [style=invisible];
-              a3 [label="10BTC"];
+              a3 [label="10"];
               Y3 [style=invisible];
-              a3 -> Y3 [label="1/\\{C,E\\}"];
+              a3 -> Y3 [label="1/{C,E}"];
               Z3 -> a3 [label="C"];
               Z4 [style=invisible];
-              a4 [label="3BTC"];
+              a4 [label="3"];
               Y4 [style=invisible];
-              a4 -> Y4 [label="1/\\{C,B\\}"];
+              a4 -> Y4 [label="1/{C,B}"];
               Z4 -> a4 [label="C"];
               Z5 [style=invisible];
-              a5 [label="2BTC"];
+              a5 [label="2"];
               Y5 [style=invisible];
-              a5 -> Y5 [label="1/\\{D,B\\}"];
+              a5 -> Y5 [label="1/{D,B}"];
               Z5 -> a5 [label="D"];
            }
            B  -> J1 [style=invisible]
@@ -308,43 +312,6 @@
      \end{dot2tex}
      \end{tikzpicture}
      \end{center} \ \\
-%     \begin{center}
-%     \begin{tikzpicture}
-%     \begin{dot2tex}[dot,tikz,options=-s -tmath,scale=0.5]
-%digraph G {
-%  subgraph cluster_level1 {
-%    label="Level 1"
-%    subgraph cluster_room1 {
-%        label="Room 1"
-%        a -> b
-%    }
-%    subgraph cluster_room2 {
-%        label="Room 2"
-%        c -> d
-%    }
-%  }
-%  subgraph cluster_level2 {
-%    label="Level 2"
-%    subgraph cluster_room2_1 {
-%        label="Room 1"
-%        e -> f
-%    }
-%    subgraph cluster_room2_2 {
-%        label="Room 2"
-%        g -> h
-%    }
-%  }
-%  {edge[style=invis]
-%    {b d} -> {g e}
-%  }
-%}
-%     \end{dot2tex}
-%     \end{tikzpicture}
-%     \end{center}
-     We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
-     trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-     respectively. For a reference of common definitions, see Appendix. An example graph with its corresponding transactions
-     in the UTXO can be seen below. [Image]
   \section{Evolution of Trust}
      \begin{definition}[Turns]
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
@@ -396,11 +363,49 @@
         \end{equation}
      \end{definition}
      Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
-     game. Building on the previous example, we can see the resulting graph when $D$ plays
+     game. Building on the example of Figure 3, we can see the resulting graph when $D$ plays
      \begin{equation}
         Turn_1 = \{Steal\left(1, B\right), Add\left(4, C\right)\} \enspace.
      \end{equation}
-     [Image]
+\begin{center}
+\begin{tikzpicture}[>=latex,line join=bevel,scale=1.0,transform shape]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (133.5bp,11.5bp) node {\textbf{Fig.4:} Game Graph after application of $Turn_1$};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
+  \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,135.0bp) -- (267.0bp,135.0bp) -- (267.0bp,0.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (133.5bp,11.5bp) node {\textbf{Fig.4:} Game Graph after $Turn_1$ passes on the Graph of Figure 3};
+\end{scope}
+  \node (A) at (51.0bp,85.0bp) [draw,ellipse] {A};
+  \node (C) at (130.0bp,45.0bp) [draw,ellipse] {C};
+  \node (B) at (216.0bp,106.0bp) [draw,ellipse] {B};
+  \node (E) at (216.0bp,41.0bp) [draw,ellipse] {E};
+  \node (D) at (130.0bp,117.0bp) [draw,ellipse] {D};
+  \draw [->] (C) ..controls (153.77bp,42.809bp) and (160.15bp,42.31bp)  .. (166.0bp,42.0bp) .. controls (174.23bp,41.564bp) and (183.25bp,41.314bp)  .. (E);
+  \draw (173.0bp,49.5bp) node {10\bitcoin};
+  \draw [->] (C) ..controls (159.21bp,65.487bp) and (180.58bp,81.004bp)  .. (B);
+  \draw (173.0bp,87.5bp) node {3\bitcoin};
+  \draw [->] (A) ..controls (79.311bp,96.35bp) and (94.709bp,102.75bp)  .. (D);
+  \draw (90.5bp,109.5bp) node {6\bitcoin};
+  \draw [->] (D) ..controls (130.0bp,89.666bp) and (130.0bp,78.836bp)  .. (C);
+  \draw (119.5bp,81.0bp) node {4\bitcoin};
+  \draw [->] (A) ..controls (78.919bp,71.016bp) and (95.226bp,62.545bp)  .. (C);
+  \draw (90.5bp,74.5bp) node {5\bitcoin};
+  \draw [->] (D) ..controls (160.64bp,113.12bp) and (178.02bp,110.84bp)  .. (B);
+  \draw (173.0bp,119.5bp) node {1\bitcoin};
+%
+\end{tikzpicture}
+\end{center}
      In its initial form TrustIsRisk is controlled by an algorithm that chooses a player at random, receives the turn that
      this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely.
      \Suppressnumber
