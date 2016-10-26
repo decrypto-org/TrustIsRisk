@@ -313,36 +313,21 @@
 %     \end{tikzpicture}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
 %%
-%\begin{scope}
-%  \pgfsetstrokecolor{black}
-%  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
-%  \pgfsetstrokecolor{strokecol}
-%  \draw (8.0bp,70.0bp) -- (8.0bp,218.0bp) -- (225.0bp,218.0bp) -- (225.0bp,70.0bp) -- cycle;
-%  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-%  \pgfsetstrokecolor{strokecol}
-%  \draw (116.5bp,206.5bp) node {TrustIsRisk game graph};
-%\end{scope}
-%\begin{scope}
-%  \pgfsetstrokecolor{black}
-%  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-%  \pgfsetstrokecolor{strokecol}
-%  \draw (528.64bp,321.5bp) node {Bitcoin UTXO};
-%\end{scope}
   \coordinate (Z4) at (344.19bp,98.0bp);
   \coordinate (Z5) at (344.19bp,37.0bp);
   \coordinate (Z1) at (344.19bp,281.0bp);
   \coordinate (Z2) at (344.19bp,220.0bp);
   \coordinate (Z3) at (344.19bp,159.0bp);
-  \node (A) at (34.0bp,138.0bp) [draw,ellipse] {A};
-  \node (C) at (113.0bp,115.0bp) [draw,ellipse] {C};
-  \node (B) at (199.0bp,159.0bp) [draw,ellipse] {B};
-  \node (E) at (199.0bp,96.0bp) [draw,ellipse] {E};
-  \node (D) at (113.0bp,169.0bp) [draw,ellipse] {D};
-  \node (a1) at (428.99bp,281.0bp) [draw,ellipse] {tx};
-  \node (a3) at (428.99bp,159.0bp) [draw,ellipse] {tx};
-  \node (a2) at (428.99bp,220.0bp) [draw,ellipse] {tx};
-  \node (a5) at (428.99bp,37.0bp) [draw,ellipse] {tx};
-  \node (a4) at (428.99bp,98.0bp) [draw,ellipse] {tx};
+  \node (A) at (34.0bp,138.0bp) [draw,ellipse] {\LARGE A};
+  \node (C) at (113.0bp,115.0bp) [draw,ellipse] {\LARGE C};
+  \node (B) at (199.0bp,159.0bp) [draw,ellipse] {\LARGE B};
+  \node (E) at (199.0bp,96.0bp) [draw,ellipse] {\LARGE E};
+  \node (D) at (113.0bp,169.0bp) [draw,ellipse] {\LARGE D};
+  \node (a1) at (428.99bp,281.0bp) [draw,ellipse] {\LARGE tx};
+  \node (a3) at (428.99bp,159.0bp) [draw,ellipse] {\LARGE tx};
+  \node (a2) at (428.99bp,220.0bp) [draw,ellipse] {\LARGE tx};
+  \node (a5) at (428.99bp,37.0bp) [draw,ellipse] {\LARGE tx};
+  \node (a4) at (428.99bp,98.0bp) [draw,ellipse] {\LARGE tx};
   \coordinate (J1) at (232.85bp,159.0bp);
   \coordinate (J2) at (307.54bp,159.0bp);
   \coordinate (Y1) at (552.44bp,281.0bp);
@@ -351,39 +336,50 @@
   \coordinate (Y5) at (552.44bp,37.0bp);
   \coordinate (Y4) at (552.44bp,98.0bp);
   \draw [->] (a4) ..controls (445.3bp,98.0bp) and (461.02bp,98.0bp)  .. (Y4);
-  \draw (488.99bp,105.5bp) node {1/\{C,B\}};
+  \draw (488.99bp,87.5bp) node {\LARGE 1/\{C,B\}};
+  \draw (488.99bp,107.5bp) node {\LARGE 3\bitcoin};
   \draw [->] (Z3) ..controls (377.14bp,159.0bp) and (392.28bp,159.0bp)  .. (a3);
-  \draw (377.99bp,166.5bp) node {C};
+  \draw (377.99bp,148.5bp) node {\LARGE C};
+  \draw (377.99bp,168.5bp) node {\LARGE 10\bitcoin};
   \draw [->] (a3) ..controls (445.3bp,159.0bp) and (461.02bp,159.0bp)  .. (Y3);
-  \draw (488.99bp,166.5bp) node {1/\{C,E\}};
+  \draw (488.99bp,148.5bp) node {\LARGE 1/\{C,E\}};
+  \draw (488.99bp,168.5bp) node {\LARGE 10\bitcoin};
   \draw [<->] (J1) ..controls (265.65bp,159.0bp) and (274.33bp,159.0bp)  .. (J2);
   \draw [->] (a2) ..controls (445.3bp,220.0bp) and (541.02bp,220.0bp)  .. (Y2);
-  \draw (488.99bp,227.5bp) node {1/\{A,D\}};
+  \draw (488.99bp,209.5bp) node {\LARGE 1/\{A,D\}};
+  \draw (488.99bp,229.5bp) node {\LARGE 6\bitcoin};
   \draw [->] (C) ..controls (134.77bp,102.17bp) and (141.98bp,98.776bp)  .. (149.0bp,97.0bp) .. controls (157.28bp,94.905bp) and (166.61bp,94.3bp)  .. (E);
-  \draw (156.0bp,104.5bp) node {10\bitcoin};
+  \draw (156.0bp,105.5bp) node {\LARGE 10\bitcoin};
   \draw [->] (a5) ..controls (445.3bp,37.0bp) and (541.02bp,37.0bp)  .. (Y5);
-  \draw (488.99bp,44.5bp) node {1/\{D,B\}};
+  \draw (488.99bp,26.5bp) node {\LARGE 1/\{D,B\}};
+  \draw (488.99bp,46.5bp) node {\LARGE 2\bitcoin};
   \draw [->] (C) ..controls (142.79bp,130.08bp) and (162.28bp,140.29bp)  .. (B);
-  \draw (156.0bp,148.5bp) node {3\bitcoin};
+  \draw (156.0bp,148.5bp) node {\LARGE 3\bitcoin};
   \draw [->] (Z5) ..controls (377.14bp,37.0bp) and (392.28bp,37.0bp)  .. (a5);
-  \draw (377.99bp,44.5bp) node {D};
+  \draw (377.99bp,26.5bp) node {\LARGE D};
+  \draw (377.99bp,46.5bp) node {\LARGE 2\bitcoin};
   \draw [->] (Z2) ..controls (377.14bp,220.0bp) and (392.28bp,220.0bp)  .. (a2);
-  \draw (377.99bp,227.5bp) node {A};
+  \draw (377.99bp,209.5bp) node {\LARGE A};
+  \draw (377.99bp,229.5bp) node {\LARGE 6\bitcoin};
   \draw [->] (A) ..controls (62.311bp,149.0bp) and (77.709bp,155.19bp)  .. (D);
-  \draw (73.5bp,162.5bp) node {6\bitcoin};
+  \draw (73.5bp,165.5bp) node {\LARGE 6\bitcoin};
   \draw [->] (a1) ..controls (445.3bp,281.0bp) and (541.02bp,281.0bp)  .. (Y1);
-  \draw (488.99bp,288.5bp) node {1/\{A,C\}};
+  \draw (488.99bp,270.5bp) node {\LARGE 1/\{A,C\}};
+  \draw (488.99bp,290.5bp) node {\LARGE 5\bitcoin};
   \draw [->] (Z4) ..controls (377.14bp,98.0bp) and (392.28bp,98.0bp)  .. (a4);
-  \draw (377.99bp,105.5bp) node {C};
+  \draw (377.99bp,87.5bp) node {\LARGE C};
+  \draw (377.99bp,107.5bp) node {\LARGE 3\bitcoin};
   \draw [->] (A) ..controls (62.483bp,129.79bp) and (77.403bp,125.33bp)  .. (C);
-  \draw (73.5bp,135.5bp) node {5\bitcoin};
+  \draw (73.5bp,135.5bp) node {\LARGE 5\bitcoin};
   \draw [->] (Z1) ..controls (377.14bp,281.0bp) and (392.28bp,281.0bp)  .. (a1);
-  \draw (377.99bp,288.5bp) node {A};
+  \draw (377.99bp,270.5bp) node {\LARGE A};
+  \draw (377.99bp,290.5bp) node {\LARGE 5\bitcoin};
   \draw [->] (D) ..controls (143.64bp,165.47bp) and (161.02bp,163.4bp)  .. (B);
-  \draw (156.0bp,172.5bp) node {2\bitcoin};
+  \draw (156.0bp,172.5bp) node {\LARGE 2\bitcoin};
+  \draw (270.5bp,0.0bp) node {\LARGE \textbf{Fig.3:} TrustIsRisk Game Graph and Equivalent Bitcoin UTXO};
 %
 \end{tikzpicture}
-     \end{center} \ \\
+     \end{center} \smallskip \ \\
   \section{Evolution of Trust}
      \begin{definition}[Turns]
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
