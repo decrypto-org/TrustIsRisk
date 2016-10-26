@@ -715,8 +715,8 @@ while (True)
        trust. For the complete proof, see Appendix (Proof \ref{convergenceproof}).
     \end{proofsketch}
 
-    In games where there exists one evil player $E$, one idle player $A$ and the rest of the players are conservative, we
-    define $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
+    In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
+    $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
     not the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
     executions and the conservative players are free to choose which incoming trusts they will steal and how much from each.
 
@@ -1078,7 +1078,7 @@ while (True)
         The proposition is proved.
      \end{sepproof}
   \section{Sybil Resilience}
-     One of the primary aims of this system is to mitigate the danger for Sybil attacks [citation needed] whilst maintaining
+     One of the primary aims of this system is to mitigate the danger for Sybil attacks \cite{sybilattack} whilst maintaining
      fully decentralized autonomy.
 
      Here we extend the definition of indirect trust to many players.
@@ -1987,6 +1987,8 @@ while (True)
      \bibitem{maxflownm}
      Orlin J. B.: Max flows in O(nm) time, or better. STOC '13 Proceedings of the forty-fifth annual ACM symposium on Theory
      of computing, pp.765–774, ACM, New York (2013). doi:10.1145/2488608.2488705
+     \bibitem{sybilattack}
+     Douceur J. R.: The Sybil Attack (PDF). International workshop on Peer-To-Peer Systems (2002)
      \bibitem{deanonymisation}
      Narayanan A., Shmatikov V.: De-anonymizing Social Networks. SP '09 Proceedings of the 2009 30th IEEE Symposium on
      Security and Privacy, pp. 173-187, 10.1109/SP.2009.22 (2009)
