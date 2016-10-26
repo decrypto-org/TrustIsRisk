@@ -720,9 +720,9 @@ while (True)
     not the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
     executions and the conservative players are free to choose which incoming trusts they will steal and how much from each.
 
-    Let $G$ be a weighted directed graph. According to \cite{clrs} p. 709, if we consider each edge's capacity as its weight
-    ($\forall e \in E, c_e = c(e)$), we say that a flow assignment $X = [x_{vw}]_{V \times V}$ with a source $A$
-    and a sink $B$ is valid when:
+    Let $G$ be a weighted directed graph. We will investigate the maximum flow on this graph. For an introduction to the
+    maximum flow problem see \cite{clrs} p. 708. Considering each edge's capacity as its weight, a flow assignment
+    $X = [x_{vw}]_{V \times V}$ with a source $A$ and a sink $B$ is valid when:
     \begin{equation}
     \label{flow1}
        \forall (v, w) \in E, x_{vw} \leq c_{vw}
@@ -736,9 +736,8 @@ while (True)
     The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is proven to be equal to
     $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum possible flow from
     $A$ to $B$, namely $MaxFlow\left(A, B\right)$. This algorithm evidently needs full knowledge of the graph. The fastest
-    version of this algorithm runs in $O\left(|V||E|\right)$ time \cite{maxflownm}. For more details on
-    this algorithm, please refer to \cite{clrs} p. 708 and on. We refer to the flow value of $MaxFlow\left(A, B\right)$ as
-    $maxFlow\left(A, B\right)$.
+    version of this algorithm runs in $O\left(|V||E|\right)$ time \cite{maxflownm}. We refer to the flow value of
+    $MaxFlow\left(A, B\right)$ as $maxFlow\left(A, B\right)$.
 
     We will now introduce two lemmas that will be used to prove the one of the central results of this work, the Trust Flow
     Theorem.
