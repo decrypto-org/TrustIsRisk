@@ -160,13 +160,13 @@
   \node (Bob2) at (446.0bp,57.0bp) [draw,ellipse] {\LARGE B};
   \node (Bob1) at (147.0bp,57.0bp) [draw,ellipse] {\LARGE B};
   \draw [->] (Bob1) -- (Charlie1);
-  \draw (199.0bp,64.5bp) node {\LARGE 20\bitcoin};
+  \draw (199.0bp,67.5bp) node {\LARGE 20\bitcoin};
   \draw [->] (Alice2) -- (Bob2);
-  \draw (394.0bp,64.5bp) node {\LARGE 10\bitcoin};
+  \draw (394.0bp,67.5bp) node {\LARGE 10\bitcoin};
   \draw [->] (Alice1) -- (Bob1);
-  \draw (95.0bp,64.5bp) node {\LARGE 10\bitcoin};
+  \draw (95.0bp,67.5bp) node {\LARGE 10\bitcoin};
   \draw [->] (Bob2) -- (Charlie2);
-  \draw (494.5bp,64.5bp) node {\LARGE 5\bitcoin};
+  \draw (494.5bp,67.5bp) node {\LARGE 5\bitcoin};
 %
 \end{tikzpicture} \smallskip \ \\
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
@@ -228,7 +228,7 @@
         \rightarrow \mathbb{R}^{+}$.
      \end{definition}
      The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
-     value attatched to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
+     value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
      represents the corresponding turn.
      \begin{definition}[Players]
         The set $\mathcal{V}_j = V\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise understood
@@ -256,61 +256,133 @@
      We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
      trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
      respectively. For a reference of common definitions, see Appendix. An example graph with its corresponding transactions
-     in the UTXO can be seen below. [Image]
+     in the UTXO can be seen below.
      \begin{center}
-     \begin{tikzpicture}
-     \begin{dot2tex}[dot,tikz,scale=0.6]
-        digraph G  {
-           rankdir=LR;
-           edge [arrowsize=0.6];
-           node [shape=circle];
-           compound=true;
-           subgraph cluster0 {
-              color=none;
-              label = "TrustIsRisk\ game\ graph";
-              A -> C [label="5"];
-              A -> D [label="6"];
-              C -> B [label="3"];
-              C -> E [label="10"];
-              D -> B [label="2"];
-           }
-           J1 [style=invisible];
-           J2 [style=invisible];
-           J1 -> J2 [dir=both];
-           subgraph cluster1 {
-              rank=same;
-              label="Bitcoin\ UTXO";
-              Z1 [style=invisible];
-              a1 [label="5"];
-              Y1 [style=invisible];
-              a1 -> Y1 [label="1/{A,C}"];
-              Z1 -> a1 [label="A"];
-              Z2 [style=invisible];
-              a2 [label="6"];
-              Y2 [style=invisible];
-              a2 -> Y2 [label="1/{A,D}"];
-              Z2 -> a2 [label="A"];
-              Z3 [style=invisible];
-              a3 [label="10"];
-              Y3 [style=invisible];
-              a3 -> Y3 [label="1/{C,E}"];
-              Z3 -> a3 [label="C"];
-              Z4 [style=invisible];
-              a4 [label="3"];
-              Y4 [style=invisible];
-              a4 -> Y4 [label="1/{C,B}"];
-              Z4 -> a4 [label="C"];
-              Z5 [style=invisible];
-              a5 [label="2"];
-              Y5 [style=invisible];
-              a5 -> Y5 [label="1/{D,B}"];
-              Z5 -> a5 [label="D"];
-           }
-           B  -> J1 [style=invisible]
-           J2 -> Z3 [style=invisible]
-        }
-     \end{dot2tex}
-     \end{tikzpicture}
+%     \begin{tikzpicture}
+%     \begin{dot2tex}[dot,tikz,scale=0.6]
+%        digraph G  {
+%           rankdir=LR;
+%           edge [arrowsize=0.6];
+%           node [shape=circle];
+%           compound=true;
+%           subgraph cluster0 {
+%              color=none;
+%              label = "TrustIsRisk\ game\ graph";
+%              A -> C [label="5",weight=1];
+%              A -> D [label="6",weight=1];
+%              C -> B [label="3",weight=1];
+%              C -> E [label="10",weight=1];
+%              D -> B [label="2",weight=1];
+%           }
+%           J1 [style=invisible,weight=100];
+%           J2 [style=invisible,weight=100];
+%           J1 -> J2 [dir=both];
+%           subgraph cluster1 {
+%              rank=same;
+%              label="Bitcoin\ UTXO";
+%              Z1 [style=invisible];
+%              a1 [label="tx"];
+%              Y1 [style=invisible];
+%              a1 -> Y1 [label="1/{A,C}",weight=1];
+%              Z1 -> a1 [label="A",weight=1];
+%              Z2 [style=invisible];
+%              a2 [label="tx"];
+%              Y2 [style=invisible];
+%              a2 -> Y2 [label="1/{A,D}",weight=1];
+%              Z2 -> a2 [label="A",weight=1];
+%              Z3 [style=invisible];
+%              a3 [label="tx"];
+%              Y3 [style=invisible];
+%              a3 -> Y3 [label="1/{C,E}",weight=1];
+%              Z3 -> a3 [label="C",weight=1];
+%              Z4 [style=invisible];
+%              a4 [label="tx"];
+%              Y4 [style=invisible];
+%              a4 -> Y4 [label="1/{C,B}",weight=1];
+%              Z4 -> a4 [label="C",weight=1];
+%              Z5 [style=invisible];
+%              a5 [label="tx"];
+%              Y5 [style=invisible];
+%              a5 -> Y5 [label="1/{D,B}",weight=1];
+%              Z5 -> a5 [label="D",weight=1];
+%           }
+%           B  -> J1 [style=invisible,weight=100]
+%           J2 -> Z3 [style=invisible,weight=100]
+%        }
+%     \end{dot2tex}
+%     \end{tikzpicture}
+\begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
+%%
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (8.0bp,70.0bp) -- (8.0bp,218.0bp) -- (225.0bp,218.0bp) -- (225.0bp,70.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (116.5bp,206.5bp) node {TrustIsRisk game graph};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (528.64bp,321.5bp) node {Bitcoin UTXO};
+\end{scope}
+  \coordinate (Z4) at (344.19bp,98.0bp);
+  \coordinate (Z5) at (344.19bp,37.0bp);
+  \coordinate (Z1) at (344.19bp,281.0bp);
+  \coordinate (Z2) at (344.19bp,220.0bp);
+  \coordinate (Z3) at (344.19bp,159.0bp);
+  \node (A) at (34.0bp,138.0bp) [draw,ellipse] {A};
+  \node (C) at (113.0bp,115.0bp) [draw,ellipse] {C};
+  \node (B) at (199.0bp,159.0bp) [draw,ellipse] {B};
+  \node (E) at (199.0bp,96.0bp) [draw,ellipse] {E};
+  \node (D) at (113.0bp,169.0bp) [draw,ellipse] {D};
+  \node (a1) at (428.99bp,281.0bp) [draw,ellipse] {tx};
+  \node (a3) at (428.99bp,159.0bp) [draw,ellipse] {tx};
+  \node (a2) at (428.99bp,220.0bp) [draw,ellipse] {tx};
+  \node (a5) at (428.99bp,37.0bp) [draw,ellipse] {tx};
+  \node (a4) at (428.99bp,98.0bp) [draw,ellipse] {tx};
+  \coordinate (J1) at (232.85bp,159.0bp);
+  \coordinate (J2) at (307.54bp,159.0bp);
+  \coordinate (Y1) at (552.44bp,281.0bp);
+  \coordinate (Y3) at (552.44bp,159.0bp);
+  \coordinate (Y2) at (552.44bp,220.0bp);
+  \coordinate (Y5) at (552.44bp,37.0bp);
+  \coordinate (Y4) at (552.44bp,98.0bp);
+  \draw [->] (a4) ..controls (377.3bp,98.0bp) and (461.02bp,98.0bp)  .. (Y4);
+  \draw (488.99bp,105.5bp) node {1/\{C,B\}};
+  \draw [->] (Z3) ..controls (377.14bp,159.0bp) and (392.28bp,159.0bp)  .. (a3);
+  \draw (377.99bp,166.5bp) node {C};
+  \draw [->] (a3) ..controls (377.3bp,159.0bp) and (461.02bp,159.0bp)  .. (Y3);
+  \draw (488.99bp,166.5bp) node {1/\{C,E\}};
+  \draw [<->] (J1) ..controls (265.65bp,159.0bp) and (274.33bp,159.0bp)  .. (J2);
+  \draw [->] (a2) ..controls (377.3bp,220.0bp) and (541.02bp,220.0bp)  .. (Y2);
+  \draw (488.99bp,227.5bp) node {1/\{A,D\}};
+  \draw [->] (C) ..controls (134.77bp,102.17bp) and (141.98bp,98.776bp)  .. (149.0bp,97.0bp) .. controls (157.28bp,94.905bp) and (166.61bp,94.3bp)  .. (E);
+  \draw (156.0bp,104.5bp) node {10};
+  \draw [->] (a5) ..controls (377.3bp,37.0bp) and (541.02bp,37.0bp)  .. (Y5);
+  \draw (488.99bp,44.5bp) node {1/\{D,B\}};
+  \draw [->] (C) ..controls (142.79bp,130.08bp) and (162.28bp,140.29bp)  .. (B);
+  \draw (156.0bp,148.5bp) node {3};
+  \draw [->] (Z5) ..controls (377.14bp,37.0bp) and (392.28bp,37.0bp)  .. (a5);
+  \draw (377.99bp,44.5bp) node {D};
+  \draw [->] (Z2) ..controls (377.14bp,220.0bp) and (392.28bp,220.0bp)  .. (a2);
+  \draw (377.99bp,227.5bp) node {A};
+  \draw [->] (A) ..controls (62.311bp,149.0bp) and (77.709bp,155.19bp)  .. (D);
+  \draw (73.5bp,162.5bp) node {6};
+  \draw [->] (a1) ..controls (377.3bp,281.0bp) and (541.02bp,281.0bp)  .. (Y1);
+  \draw (488.99bp,288.5bp) node {1/\{A,C\}};
+  \draw [->] (Z4) ..controls (377.14bp,98.0bp) and (392.28bp,98.0bp)  .. (a4);
+  \draw (377.99bp,105.5bp) node {C};
+  \draw [->] (A) ..controls (62.483bp,129.79bp) and (77.403bp,125.33bp)  .. (C);
+  \draw (73.5bp,135.5bp) node {5};
+  \draw [->] (Z1) ..controls (377.14bp,281.0bp) and (392.28bp,281.0bp)  .. (a1);
+  \draw (377.99bp,288.5bp) node {A};
+  \draw [->] (D) ..controls (143.64bp,165.47bp) and (161.02bp,163.4bp)  .. (B);
+  \draw (156.0bp,172.5bp) node {2};
+%
+\end{tikzpicture}
      \end{center} \ \\
   \section{Evolution of Trust}
      \begin{definition}[Turns]
