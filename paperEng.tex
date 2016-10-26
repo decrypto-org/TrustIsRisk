@@ -132,7 +132,7 @@
      will be done by explicitly entrusting a certain amount of money to another user, say $Bob$. If $Bob$ has already
      entrusted an amount of money to a third user, $Charlie$, then we indirectly trust $Charlie$ since if the latter wished
      to play unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic
-     interaction with $Charlie$. \medskip \ \\
+     interaction with $Charlie$. The currency used is Bitcoin \cite{bitcoin}. \medskip \ \\
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.60,transform shape]
 %%
 \begin{scope}
@@ -313,21 +313,21 @@
 %     \end{tikzpicture}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
 %%
-\begin{scope}
-  \pgfsetstrokecolor{black}
-  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (8.0bp,70.0bp) -- (8.0bp,218.0bp) -- (225.0bp,218.0bp) -- (225.0bp,70.0bp) -- cycle;
-  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (116.5bp,206.5bp) node {TrustIsRisk game graph};
-\end{scope}
-\begin{scope}
-  \pgfsetstrokecolor{black}
-  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (528.64bp,321.5bp) node {Bitcoin UTXO};
-\end{scope}
+%\begin{scope}
+%  \pgfsetstrokecolor{black}
+%  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+%  \pgfsetstrokecolor{strokecol}
+%  \draw (8.0bp,70.0bp) -- (8.0bp,218.0bp) -- (225.0bp,218.0bp) -- (225.0bp,70.0bp) -- cycle;
+%  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+%  \pgfsetstrokecolor{strokecol}
+%  \draw (116.5bp,206.5bp) node {TrustIsRisk game graph};
+%\end{scope}
+%\begin{scope}
+%  \pgfsetstrokecolor{black}
+%  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+%  \pgfsetstrokecolor{strokecol}
+%  \draw (528.64bp,321.5bp) node {Bitcoin UTXO};
+%\end{scope}
   \coordinate (Z4) at (344.19bp,98.0bp);
   \coordinate (Z5) at (344.19bp,37.0bp);
   \coordinate (Z1) at (344.19bp,281.0bp);
@@ -350,37 +350,37 @@
   \coordinate (Y2) at (552.44bp,220.0bp);
   \coordinate (Y5) at (552.44bp,37.0bp);
   \coordinate (Y4) at (552.44bp,98.0bp);
-  \draw [->] (a4) ..controls (377.3bp,98.0bp) and (461.02bp,98.0bp)  .. (Y4);
+  \draw [->] (a4) ..controls (445.3bp,98.0bp) and (461.02bp,98.0bp)  .. (Y4);
   \draw (488.99bp,105.5bp) node {1/\{C,B\}};
   \draw [->] (Z3) ..controls (377.14bp,159.0bp) and (392.28bp,159.0bp)  .. (a3);
   \draw (377.99bp,166.5bp) node {C};
-  \draw [->] (a3) ..controls (377.3bp,159.0bp) and (461.02bp,159.0bp)  .. (Y3);
+  \draw [->] (a3) ..controls (445.3bp,159.0bp) and (461.02bp,159.0bp)  .. (Y3);
   \draw (488.99bp,166.5bp) node {1/\{C,E\}};
   \draw [<->] (J1) ..controls (265.65bp,159.0bp) and (274.33bp,159.0bp)  .. (J2);
-  \draw [->] (a2) ..controls (377.3bp,220.0bp) and (541.02bp,220.0bp)  .. (Y2);
+  \draw [->] (a2) ..controls (445.3bp,220.0bp) and (541.02bp,220.0bp)  .. (Y2);
   \draw (488.99bp,227.5bp) node {1/\{A,D\}};
   \draw [->] (C) ..controls (134.77bp,102.17bp) and (141.98bp,98.776bp)  .. (149.0bp,97.0bp) .. controls (157.28bp,94.905bp) and (166.61bp,94.3bp)  .. (E);
-  \draw (156.0bp,104.5bp) node {10};
-  \draw [->] (a5) ..controls (377.3bp,37.0bp) and (541.02bp,37.0bp)  .. (Y5);
+  \draw (156.0bp,104.5bp) node {10\bitcoin};
+  \draw [->] (a5) ..controls (445.3bp,37.0bp) and (541.02bp,37.0bp)  .. (Y5);
   \draw (488.99bp,44.5bp) node {1/\{D,B\}};
   \draw [->] (C) ..controls (142.79bp,130.08bp) and (162.28bp,140.29bp)  .. (B);
-  \draw (156.0bp,148.5bp) node {3};
+  \draw (156.0bp,148.5bp) node {3\bitcoin};
   \draw [->] (Z5) ..controls (377.14bp,37.0bp) and (392.28bp,37.0bp)  .. (a5);
   \draw (377.99bp,44.5bp) node {D};
   \draw [->] (Z2) ..controls (377.14bp,220.0bp) and (392.28bp,220.0bp)  .. (a2);
   \draw (377.99bp,227.5bp) node {A};
   \draw [->] (A) ..controls (62.311bp,149.0bp) and (77.709bp,155.19bp)  .. (D);
-  \draw (73.5bp,162.5bp) node {6};
-  \draw [->] (a1) ..controls (377.3bp,281.0bp) and (541.02bp,281.0bp)  .. (Y1);
+  \draw (73.5bp,162.5bp) node {6\bitcoin};
+  \draw [->] (a1) ..controls (445.3bp,281.0bp) and (541.02bp,281.0bp)  .. (Y1);
   \draw (488.99bp,288.5bp) node {1/\{A,C\}};
   \draw [->] (Z4) ..controls (377.14bp,98.0bp) and (392.28bp,98.0bp)  .. (a4);
   \draw (377.99bp,105.5bp) node {C};
   \draw [->] (A) ..controls (62.483bp,129.79bp) and (77.403bp,125.33bp)  .. (C);
-  \draw (73.5bp,135.5bp) node {5};
+  \draw (73.5bp,135.5bp) node {5\bitcoin};
   \draw [->] (Z1) ..controls (377.14bp,281.0bp) and (392.28bp,281.0bp)  .. (a1);
   \draw (377.99bp,288.5bp) node {A};
   \draw [->] (D) ..controls (143.64bp,165.47bp) and (161.02bp,163.4bp)  .. (B);
-  \draw (156.0bp,172.5bp) node {2};
+  \draw (156.0bp,172.5bp) node {2\bitcoin};
 %
 \end{tikzpicture}
      \end{center} \ \\
@@ -487,7 +487,7 @@ j = 0
 while (True)
   j = j + 1
   (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
-  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*))
+  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
   ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
       ProvisionalTurn)
     \end{lstlisting}
@@ -561,7 +561,7 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
      \Suppressnumber
      \begin{lstlisting}[label=idleoracle, style=numbers]
 Idle Oracle
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
 Output : (*@$Turn_j$@*)
 idleOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   return((*@$\emptyset$@*))
@@ -573,7 +573,7 @@ idleOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactiva
      \Suppressnumber
      \begin{lstlisting}[label=eviloracle, style=numbers]
 Evil Oracle
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
 Output : (*@$Turn_j$@*)
 evilOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
@@ -590,7 +590,7 @@ evilOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactiva
      \Suppressnumber
      \begin{lstlisting}[label=conservativeoracle, style=numbers]
 Conservative Oracle
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*)
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
 Output : (*@$Turn_j$@*)
 consOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
   Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
@@ -642,7 +642,7 @@ j = 0
 while (True)
   j = j + 1
   (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
-  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{k = 1}^{j-1}$@*))
+  (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
@@ -689,15 +689,16 @@ while (True)
     Everything is in place to define the indirect trust, or simply trust, from one player to another.
     \begin{definition}[Indirect Trust]
        The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
-       $A$ after turn $j$ if $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V}
-       \setminus \{A,B\}$) follows the conservative strategy. More formally, if
-       \begin{equation}
-       \begin{gathered}
-          Strategy\left(A\right) = Idle \wedge Strategy\left(B\right) = Evil \wedge \\
-          \wedge \forall v \in \mathcal{V} \setminus \{A,B\}, Strategy\left(v\right) = Conservative
-       \end{gathered}
-       \end{equation}
-       and $choices$ are the different actions between which the conservative players can choose, then
+       $A$ after turn $j$ in the setting of \texttt{TransitiveGame(}$\mathcal{G}_j$\texttt{,}$A$\texttt{,}$B$\texttt{)}.
+%       $B$ follows the evil strategy, $A$ follows the idle strategy and everyone else ($\mathcal{V}
+%       \setminus \{A,B\}$) follows the conservative strategy. More formally, if
+%       \begin{equation}
+%       \begin{gathered}
+%          Strategy\left(A\right) = Idle \wedge Strategy\left(B\right) = Evil \wedge \\
+%          \wedge \forall v \in \mathcal{V} \setminus \{A,B\}, Strategy\left(v\right) = Conservative
+%       \end{gathered}
+%       \end{equation}
+       Let $choices$ be the different actions between which the conservative players can choose.
        \begin{equation}
           Tr_{A \rightarrow B, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
        \end{equation}
@@ -705,8 +706,9 @@ while (True)
     The following theorem establishes that $Tr_{A \rightarrow B}$ is always finite.
     \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
-       Consider a Transitive Game and let $j_0$ be the first turn that $E$ is chosen to play. Given that all players
-       eventually play, there exists a turn $j' > j_0$ such that
+       Consider a Transitive Game.
+%      and let $j_0$ be the first turn that $E$ is chosen to play.
+       Given that all players eventually play, there exists a turn $j'$ such that
        \begin{equation}
           \forall j \geq j', Turn_j = \emptyset \enspace.
        \end{equation}
@@ -1465,7 +1467,7 @@ while (True)
        algorithm on $\mathcal{G}_0$. It is known that for any directed weighted graph $G$ there exists a $MaxFlow$ over $G$
        that is a DAG [citation needed]. We also know that we can apply the topological sort algorithm to any DAG and obtain a
        total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it holds that
-       $v < w \Rightarrow x_{wv} = 0$ [citation needed]. Put differently, there is no flow from larger to smaller nodes. We
+       $v < w \Rightarrow x_{wv} = 0$ \cite{toposort}. Put differently, there is no flow from larger to smaller nodes. We
        execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
        $A$ is the minimum node. $B$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
        minimum since it is the source and thus has no incoming flow from any node. The desired execution of algorithm
@@ -1975,43 +1977,43 @@ while (True)
     \end{sepproof}
 
   \begin{thebibliography}{20}
-     \bibitem{ddosattacks}
-     Patrikakis C., Masikos M., Zouraraki O.: Distributed Denial of Service Attacks. The Internet Protocol Journal, Vol. 7,
-     N. 4,
-     \url{http://www.cisco.com/c/en/us/about/press/internet-protocol-journal/back-issues/table-contents-30/dos-attacks.html}
-     (2004)
-     \bibitem{ebayfees}
-     Standard ebay selling fees, \url{http://pages.ebay.com/help/sell/fees.html}
-     \bibitem{ebayguarantee}
-     ebay money back guarantees, \url{http://pages.ebay.com/ebay-money-back-guarantee/questions.html}
-     \bibitem{openbazaar}
-     What is OpenBazaar, \url{https://blog.openbazaar.org/what-is-openbazaar/}
-     \bibitem{multisigfraud}
-     Can Bitcoin and Multisig Reduce Identity Theft and Fraud?,
-     \url{https://blog.openbazaar.org/can-bitcoin-and-multisig-reduce-identity-theft-and-fraud/}
+     \bibitem{loc}
+     Sanchez W.: Lines of Credit (2016) \url{https://gist.github.com/drwasho/2c40b91e169f55988618#part-3-web-of-credit}
      \bibitem{bitcoin}
      Nakamoto S.: Bitcoin: A Peer-to-Peer Electronic Cash System (2008)
+     \bibitem{multisig}
+     Buterin V.: Bitcoin Multisig Wallet: The Future of Bitcoin. Bitcoin Magazine (2014),
      \bibitem{bitcoinguide}
      Bitcoin Developer Guide, \url{https://bitcoin.org/en/developer-guide}
-     \bibitem{toposort}
-     Kahn Arthu.r B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
-     New York (1962)
      \bibitem{clrs}
      Cormen T. H., Leiserson C. E., Rivest R. L., Stein C.: Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill
      (2009) [1990]
-     \bibitem{dionyziz}
-     Zindros D. S.: Trust in decentralized anonymous marketplaces (2015)
-     \bibitem{multisig}
-     Buterin V.: Bitcoin Multisig Wallet: The Future of Bitcoin. Bitcoin Magazine (2014),
-     \url{https://bitcoinmagazine.com/articles/multisig-future-bitcoin-1394686504}
-     \bibitem{loc}
-     Sanchez W.: Lines of Credit (2016) \url{https://gist.github.com/drwasho/2c40b91e169f55988618#part-3-web-of-credit}
      \bibitem{maxflownm}
      Orlin J. B.: Max flows in O(nm) time, or better. STOC '13 Proceedings of the forty-fifth annual ACM symposium on Theory
      of computing, pp.765–774, ACM, New York (2013). doi:10.1145/2488608.2488705
      \bibitem{deanonymisation}
      Narayanan A., Shmatikov V.: De-anonymizing Social Networks. SP '09 Proceedings of the 2009 30th IEEE Symposium on
      Security and Privacy, pp. 173-187, 10.1109/SP.2009.22 (2009)
+     \bibitem{toposort}
+     Kahn Arthu.r B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
+     New York (1962)
+     \bibitem{dionyziz}
+     Zindros D. S.: Trust in decentralized anonymous marketplaces (2015)
+     \url{https://bitcoinmagazine.com/articles/multisig-future-bitcoin-1394686504}
+%     \bibitem{ddosattacks}
+%     Patrikakis C., Masikos M., Zouraraki O.: Distributed Denial of Service Attacks. The Internet Protocol Journal, Vol. 7,
+%     N. 4,
+%     \url{http://www.cisco.com/c/en/us/about/press/internet-protocol-journal/back-issues/table-contents-30/dos-attacks.html}
+%     (2004)
+%     \bibitem{ebayfees}
+%     Standard ebay selling fees, \url{http://pages.ebay.com/help/sell/fees.html}
+%     \bibitem{ebayguarantee}
+%     ebay money back guarantees, \url{http://pages.ebay.com/ebay-money-back-guarantee/questions.html}
+%     \bibitem{openbazaar}
+%     What is OpenBazaar, \url{https://blog.openbazaar.org/what-is-openbazaar/}
+%     \bibitem{multisigfraud}
+%     Can Bitcoin and Multisig Reduce Identity Theft and Fraud?,
+%     \url{https://blog.openbazaar.org/can-bitcoin-and-multisig-reduce-identity-theft-and-fraud/}
 %     Biryukov A., Khovratovich D., Pustogarov I.: Deanonymisation of clients in Bitcoin P2P network. arXiv:1405.7418 [cs.CR]
 %     (2014)
 %     \url{https://arxiv.org/pdf/1405.7418v3.pdf}
