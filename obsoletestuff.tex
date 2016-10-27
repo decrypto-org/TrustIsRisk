@@ -1,0 +1,406 @@
+
+    \begin{lemma}[No Evil Edges in the $MinCut$] \ \\
+       \label{mincutmany}
+       Let $S \subset \mathcal{V}, A \notin S$. When calculating $MaxFlow\left(A, S\right)$, it is impossible to have an edge
+       $\left(v, w\right) \in MinCut\left(A, S\right) : v \in S$.
+    \end{lemma}
+    \begin{proof}[No Evil Edges in the $MinCut$ Lemma (\ref{mincutmany}]
+    \label{mincutmanyproof}
+       Let $T$ be the auxiliary node. It is
+       \begin{equation}
+          \forall v \in S, c_{vT} = \infty \enspace.
+       \end{equation}
+       We can see that $out_A < \infty$ and thus
+       \begin{equation}
+       \label{maxflowbounded}
+          maxFlow\left(A, S\right) < \infty \enspace.
+       \end{equation}
+       Since all edges in the $MinCut$ are saturated and due to (\ref{maxflowbounded}), we have
+       \begin{equation}
+          \nexists v \in S : \left(v, T\right) \in MinCut \enspace.
+       \end{equation}
+       Suppose that
+       \begin{equation}
+          \exists v \in S, w \in \mathcal{V} : \left(v, w\right) \in MinCut \enspace.
+       \end{equation}
+       Then this edge must be saturated, that is $x_{vw} = c_{vw} > 0$. However, there exists an alternative flow
+       configuration $X'$ where
+       \begin{equation}
+       \begin{gathered}
+          \forall \left(u, u'\right) \in \mathcal{E} \setminus \{\left(v, w\right), \left(v, T\right)\}, x_{u,u'}' =
+          x_{u,u'} \enspace, \\
+          x_{vw}' = 0 \mbox{ and} \\
+          x_{vT}' = x_{vT} + x_{vw} \enspace,
+       \end{gathered}
+       \end{equation}
+       which is valid because
+       \begin{equation}
+          \begin{rcases}
+             \sum\limits_{w \in N^{+}\left(v\right)}x_{vw} = \sum\limits_{w \in N^{+}\left(v\right)}x_{vw}' \\
+             c_{vT} = \infty
+          \end{rcases}
+          \Rightarrow x_{vT}' \leq c_{vT}
+       \end{equation}
+       and $X'$ is maximum as well because it carries exactly the same flow as $X$. Thus
+       \begin{equation}
+          \left(v, w\right) \notin MinCut \enspace.
+       \end{equation}
+       \qed
+    \end{proof}
+
+
+     \href{http://www.ebay.com}{ebay} is
+     centralized and as such it is vulnerable to ddos attacks \cite{ddosattacks} and can be considered as a single point of
+     failure, it charges fees for the use of its services \cite{ebayfees} and maintains a private database of personal data,
+     but it can give money-back guarantees \cite{ebayguarantee} since it is run by a single company that has a financial
+     advantage in keeping its clients satisfied. On the other hand, \href{https://openbazaar.org/}{OpenBazaar} is a
+     decentralized platform built on bitcoin \cite{bitcoin}, where individual stores or its \href{https://duosear.ch}{search
+     engine} are vulnerable to ddos attacks \cite{ddosattacks}, but not the platform as a whole. Additionally, it does not
+     charge fees for its usage \cite{openbazaar} and there is no central agent recording all the transactions alongside with
+     private data \cite{openbazaar} but it is possible for a buyer or a seller colluding with a  moderator to scam the third
+     party and there exists no central authority able to verify the truth of her claim and reimburse her
+     \cite{multisigfraud}. Even though trust (or distrust) should be directed to each store individually, it is very likely
+     that the whole platform will be discarded as untrusted by the scammed party.
+
+       Without loss of generality, we can suppose that the turn in which we are interested is 0 ($\mathcal{G} =
+       \mathcal{G}_0$). First we will show that the $MaxFlow$ can be a result of a valid execution of algorithm
+       \ref{transitivegame} and afterwards we will show that each valid execution of algorithm \ref{transitivegame}
+       corresponds to a valid flow from $A$ to $B$. Thus we will have proven that $Tr_{A \rightarrow B} = maxFlow(A, B)$.
+       \begin{itemize}
+          \item We will first show that there exists an execution of algorithm \ref{transitivegame} such that $Loss_A =
+          maxFlow(A, B)$. Let $X$ be the flows as returned by an execution of the $MaxFlow(A, B)$ algorithm on $\mathcal{G}$.
+          It is known that all flows are DAGs [citation needed] and that all DAGs are a partial order of their nodes based on
+          the partial ordering $x_{vw} \leq 0 \Rightarrow v < w$ [citation needed]. From this partial order, we can create a
+          total order with an algorithm such as topoSort \cite{toposort}. The maximum element of the total order is a node
+          that does not have any outgoing flow. Removing any node from a DAG cannot create a cycle, thus the graph that
+          remains after removing a node from a DAG is also a DAG, thus it has a total order as well, which can be chosen to
+          be the same total order as before removing the node, except for the removed node. If the removed node was maximum
+          or minimum, the new total order is obvious. We will prove our claim using induction. \\
+          \begin{itemize}
+             \item Player $B$ is the maximum node in turn 0 because she is the sink of the MaxFlow algorithm, thus she is the
+             first to be chosen to play and steals all her incoming and outgoing trust. $\forall v \in N^{-}(B)_0, x_{vB}
+             \leq DTr_{v \rightarrow B, 0}$ and $\sum\limits_{v \in N^{-}(B)_0}x_{vB} = maxFlow(A, B)$. The graph
+             $\mathcal{G}_1 = \mathcal{G}_0 \setminus \{B\}$ is also a DAG and corresponds to the previous total order if we
+             remove the maximum element, $B$.
+             \item Suppose that $\forall j \in [k], k > 0$, the player $v$ corresponding to the maximum element is chosen to
+             play for the first time, that $\forall w \in N^{-}(v)_{j-1} (= N^{-}(v)_0), x_{wv} \leq y$ where $Steal(y,w) \in
+             Turn_j \wedge \sum\limits_{w \in N^{-}(v)_0}x_{wv} = \sum\limits_{w \in N^{+}(v)_0}x_{vw}$.
+             \item For $j = k+1$, $Player(k+1) = v'$ corresponds to the maximum element of the previous total order with the
+             element $v$ removed and it is the first time player $v'$ plays, since $v > v'$ in all previous steps thus $v'$
+             was not maximum. It also holds that $\forall w \in N^{-}(v')_0, x_{wv'} \leq DTr_{w \rightarrow v', 0}$ since
+             the $x_{wv'}$ are chosen by the maxFlow algorithm with corresponding capacities the direct trusts and, since
+             $\sum\limits_{w \in N^{-}(v')_0}x_{wv'} = \sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ and player $v'$ has already
+             been stolen value equal to $\sum\limits_{w \in N^{+}(v')_0}x_{v'w}$ (since she has no outgoing flow in turn
+             $j$), player $v'$ can choose to steal from each player $w \in N^{-}(v')_0$ value at least equal to $x_{wv'}$
+             without violating the conservative strategy.
+          \end{itemize}
+          We have proven using induction that if the algorithm chooses only maximum nodes, after exactly $|V(\mathcal{G}_0)|-
+          1$ turns (we do not count idle player $A$) every player except for $A$ will have stolen at least value equal to the
+          flow passing through them and player $A$ will have been stolen value exactly equal to $maxFlow(A, B) \Rightarrow
+          Loss_A = maxFlow(A, B)$.
+          \item We will now show that for any valid execution of algorithm \ref{transitivegame} there exists at least one
+          valid flow from $A$ to $B$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)_0}x_{Av}$. Let $j$ be a turn where
+          \ref{transitivegame} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
+          out_{A, 0} - out_{A, j}$. We create a new graph $\mathcal{G}'$ such that $V(\mathcal{G}') = V(\mathcal{G}) \cup
+          \{T\}, E(\mathcal{G}') = E(\mathcal{G}) \cup \{(T, v) : v \in Sad_j\} \cup (T, A), \forall (v, w) \in E(\mathcal{G}),
+          c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \forall v \in Sad_j, c'_{Tv} = c'_{TA} = \infty$
+          ($T$ is an auxiliary source that trusts infinitely $A$ and all the $Sad$ nodes). We execute the $MaxFlow(T, B)$
+          algorithm on $\mathcal{G}'$ and we get a flow $X' : \forall v,w \in V(\mathcal{G}), x'_{vw} = c'_{vw}$ (all the
+          edges, except for the auxiliary ones, saturated). Thus $\sum\limits_{v \in N^{+}(A)_0}x'_{Av} = Loss_{A, j}$.
+          If we create a new graph $\mathcal{G}''$ with $V(\mathcal{G}'') = V(\mathcal{G}'), E(\mathcal{G}'') =
+          E(\mathcal{G}'), \forall v \in Sad_j, c''_{Tv} = 0, c''_{TA} = \infty, \forall v,w \in V(\mathcal{G}), c''_{vw} =
+          c_{vw}$ (the auxiliary node trusts only $A$) and execute the $MaxFlow(T, B) = X''$ algorithm on $\mathcal{G}''$,
+          $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} = \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$ (the outgoing flow from
+          $A$ will remain the same as in $\mathcal{G}'$) since no capacity accesible from $A$ has been modified (the only
+          changed capacities are those that begin from $T$ and there is no incoming flow to $T$) thus $\sum\limits_{v \in
+          N^{+}(A)_0}x''_{Av} \geq \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$ and $\sum\limits_{v \in N^{+}(A)_0}x'_{Av} =
+          \sum\limits_{v \in N^{+}(A)_0}c'_{Av} = \sum\limits_{v \in N^{+}(A)_0}c''_{Av}$ (the outgoing edges from $A$ were
+          already saturated) thus $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} \leq \sum\limits_{v \in N^{+}(A)_0}x'_{Av}$. Thus
+          the resulting flow is equal to $Loss_{A, j}$, or $\sum\limits_{v \in N^{+}(A)_0}x''_{Av} = \sum\limits_{v \in
+          N^{+}(A)_0}c'_{Av} = Loss_{A, j}$.
+       \end{itemize}
+       We finally conclude that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
+          \begin{itemize}
+             \item The flow $X$ is obviously valid for the initial graph because $\forall (v,w) \in E(FG), c(v,w) = DTr_{v
+             \rightarrow w, 0} \geq DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j} = c'(v,w) \geq x_{vw}$ and it
+             already holds that $\forall v \in V(FG'), \sum\limits_{w \in N^{-}(v)}x'_{wv} = \sum\limits_{w \in N^{+}(v)}
+             x'_{vw}$, thus it also holds for the flows of $X$.
+             \item We can easily see that $Loss_{A,j} \geq \sum\limits_{v \in N{+}(A)}x_{Av}$ because $Loss_{A,j} =
+             out_{A,0} - out_{A,j} = \sum\limits_{v \in N^{+}(A)}c'(A,v)$. To show that $Loss_{A,j} \leq
+             \sum\limits_{v \in N{+}(A)}x_{Av}$, we first suppose that $Loss_{A,j} > \sum\limits_{v \in N{+}(A)}x_{Av}$. We
+             will now prove that there exists a residual path from $A$ to $B$. $Loss_{A,j} = \sum\limits_{v \in N^{+}(A)}
+             (DTr_{A \rightarrow v, 0} - DTr_{A \rightarrow v, j}) = \sum\limits_{v \in N^{+}(A)}c_{Av}$. From the
+             supposition we can see that $\sum\limits_{v \in N^{+}(A)}c_{Av} > \sum\limits_{v \in N^{+}(A)}x_{Av}
+             \Rightarrow \exists v \in N^{+}(A) : c_{Av} > x_{Av}$. \\
+             Since $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{-}(v)}c_{wv} \overset{conservative}{=}
+             \sum\limits_{w \in N^{+}(v)}c_{vw} \wedge \sum\limits_{w \in N^{-}(v)}x_{wv} \overset{flow}{=}
+             \sum\limits_{w \in N^{+}(v)}x_{vw}$, it holds that $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in
+             N^{-}(v)}(c_{wv} - x_{wv}) = \sum\limits_{w \in N^{+}(v)}(c_{vw} - x_{vw})$. \\
+             We will now show that $\forall v \in V(FG) \setminus
+             \{A,B\}, (\exists w \in V(FG) : c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. Suppose
+             that the previous statement is false. Then it would hold that $\exists v \in V(FG) \setminus \{A,B\} :
+             (\exists w \in V(FG) : c_{wv} > x_{wv} \wedge \forall u \in V(FG), c_{vu} = x_{vu})$ (1). But then we have
+             $\sum\limits_{w \in V(FG)}c_{wv} \overset{(1)}{>} \sum\limits_{w \in V(FG)}x_{wv} \overset{flow}{=}
+             \sum\limits_{w \in V(FG)}x_{vw} \overset{(1)}{=} \sum\limits_{w \in V(FG)}c_{vw} \overset{conservative}{=}
+             \sum\limits_{w \in V(FG)}c_{wv} \Rightarrow \sum\limits_{w \in V(FG)}c_{wv} > \sum\limits_{w \in V(FG)}c_{wv}$
+             which is a contradiction. Thus we showed that $\forall v \in V(FG) \setminus \{A,B\}, (\exists w \in V(FG) :
+             c_{wv} > x_{wv} \Rightarrow \exists u \in V(FG) : c_{vu} > x_{vu})$. \\
+             The flow graph that resulted from
+             $MaxFlow(A, B)$ is a DAG, thus there exists a corresponding total ordering, as we saw before.
+             Obviously $A = v_0$ and $B = v_{|V(FG)|}$. When an element $v_k$ is in the $k$-th position in this total
+             ordering, it has incoming flow only from smaller elements and outgoing flow only to bigger elements, that is
+             $\forall l < k, x_{kl} = 0 \wedge \forall m > k, x_{mk} = 0$.
+             Thus the previous result can be rewritten this way: $\forall k \in [|V(FG)|],
+             (\exists l < k : c_{v_lv_k} > x_{v_lv_k} \Rightarrow \exists m > k : c_{v_kv_m} > x_{v_kv_m})$.
+             Thus, the supposition $Loss_{A, j} > \sum\limits_{v \in N^{+}(A)}x_{Av}$ combined with the previous result shows
+             that there exists a residual path from $A$ to $B$ since we can start from $A$ and find a series of sequential
+             edges that all have flows smaller than the corresponding capacities and eventually reach $B$ in at most
+             $|E(FG)|$ steps, thus $X'$ is not a maximum flow, which is a contradiction. Thus $Loss_{A,j} \leq
+             \sum\limits_{v \in N{+}(A)}x_{Av}$ and, since also $Loss_{A,j} \geq \sum\limits_{v \in N{+}(A)}x_{Av}$, we
+             deduce that $Loss_{A,j} = \sum\limits_{v \in N{+}(A)}x_{Av}$.
+          \end{itemize}
+2nd bullet
+          \item We will now show that for any valid execution of algorithm \ref{transitivegame} there exists at least one
+          valid flow from $A$ to $B$, $X$, such that $Loss_A = \sum\limits_{v \in N^{+}(A)}x_{Av}$. Let $j$ be a turn where
+          \ref{transitivegame} has converged ($j$ exists, according to theorem \ref{convergence}). Then $Loss_{A, j} =
+          out_{A, 0} - out_{A, j}$. Let $\forall v \in N^{+}(A)_0, x_{Av} = DTr_{A \rightarrow v, 0} - DTr_{A \rightarrow
+          v, j}$. For any conservative player $v \in N^{+}(A)_0$, let $\forall w \in N^{+}(v)_0, x_{vw} \leq DTr_{v
+          \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \sum\limits_{w \in N^{+}(A)_0}x_{vw} = x_{Av}$. This is possible
+          because $v$ is conservative, thus the value she stole from $A$ must have been stolen previously from her. More
+          generally, $\forall v \in \mathcal{V}_0 \setminus \{A,B\}, \forall w \in N^{+}(v)_0, x_{vw} \leq
+          DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j}, \sum\limits_{w \in N^{+}(v)_0}x_{vw} = \sum\limits_{w \in
+          N^{-}(v)_0}x_{wv}$. Since the graph we build is a DAG in every step, which corresponds to a partial order, there
+          always exists a total order that we can get using an algorithm such as topoSort [citation needed]. Thus, by
+          choosing to calculate the outgoing flows only of the minimum element of this total order, it is possible to create
+          a valid flow network from $A$ to $B$ in exactly $|V(FG)| - 1$ iterations of the above steps.
+OLD
+          \item The flow to $A$ is the flow that results from the following process: After the execution of
+          \ref{transitivegame}, for each sad player iteratively replenish the $DTr$ stolen from the sad player by the one
+          that stole from her (if multiple players stole from the sad player, then replenish all the stolen $DTr$). Repeat
+          the process until the evil player replenishes the initially stolen $DTr$. This is always possible because if there
+          is no player who stole from each one who is replenished, then the $Steal()$ she did in the first place would not be
+          according to the conservative strategy. Also this process will end with the evil player replenishing $DTr$ equal
+          to the sum of $DTr$ that was stolen from sad players because the conservative players cannot avoid replenishing,
+          or else they do not follow the conservative strategy. The $DTr$ stolen from $A$ will not be replenished, since
+          the player(s) that have stolen from $A$ will not replenish the stolen value and, inductively, this value will not
+          be replenished. Thus $A$ will have been stolen the exact same value that the modified evil player has stolen,
+          $\forall w,v \in V(FG), DTr_{v \rightarrow w} \geq x_{vw}$ (1st requirement for flows) and there would be no node
+          that gets more flow than it pushes, except for $A$ and $B$ (2nd requirement for flows), thus it is a valid flow.
+          \item Let $X$ be the flows as returned by an execution of the $maxFlow$ algorithm. The evil player can steal
+          the values denoted by $X$ and every other player can steal exactly as much as the $X$ flows denote, since they
+          have the 1st property and thus are stealable in any strategy and also hold the 2nd property, thus they comply with
+          the conservative strategy. More concretely, $\forall v,w \in V(FG), DTr_{v \rightarrow w}' = x_{vw}$. Then the two
+          properties of flows hold:
+          \begin{itemize}
+             \item $\forall v,w \in V(FG),x_{vw} \leq DTr_{v \rightarrow w}$ and thus any set of strategies that include only
+             $Steal()$ actions such that $\sum\limits_{y : Steal(y,w) \in Turn_j, Player(j) = v}y = DTr_{v \rightarrow w} -
+             x_{vw}$ is feasible.
+             \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} =
+             \sum\limits_{w \in N^{-}(v)}x_{vw}$ thus $\forall v \in V(FG) \setminus \{A,B\}, Strategy(v) = Conservative$.
+          \end{itemize}
+             
+       \end{itemize}
+       Thus the maximum value $A$ can lose if $B$ is evil is $Tr_{A \rightarrow B} = maxFlow(A, B)$.
+\ \\ OLDER
+       \begin{enumerate}
+	   \item We will show that $Tr_{A \rightarrow B} \leq MaxFlow(A, B)$.
+          We know that $MaxFlow(A, B) = MinCut_{A \rightarrow B}$. We will show that, if everybody except
+          A and B follows the conservative strategy,  $Tr_{A \rightarrow B} \leq MinCut_{A \rightarrow B}$. Suppose that in
+          round $i$ all the members of the MinCut, $P$, have stolen the maximum value they can from members that belong
+          in the MaxFlow graph and nobody in the partition in which $A$ belongs has stolen yet any value. Let the total
+          stolen value from the MinCut members be $St$. It is obvious that $St_i \leq MinCut_{A \rightarrow B}$, because
+          otherwise there would exist $u \in P$ that doesn't follow the conservative strategy, since they stole more than they
+          were stolen from. The same argument holds for any round $i' > i$ because in each round an conservative player can
+          steal only up to the value she has been stolen. It is also impossible that the $St$ increase further due to
+          stolen value from members of the partition of $B$ since members of $P$ disconnect the two partitions and have
+          already played their turns, thus $\forall i' > i, St_{i'} \leq St_i$. There exists a round, $k$, when all the
+          conservative players stop stealing, so in the worst case $A$ will have been stolen
+          $Tr_{A \rightarrow B} = St_k \leq MinCut_{A \rightarrow B} = MaxFlow(A, B)$.
+          \item We can see that $Tr_{A \rightarrow B} \geq MaxFlow(A, B)$ because the strategy where each
+          one of the non-idle players steals value equal to the incoming flows from their respective friends is a valid
+          strategy that does not contradict with the conservative strategy, since for every conservative player $w$ it holds that
+          $\sum\limits_{v \in N^{-}(w)}x_{vw} = \sum\limits_{v \in N^{+}(w)}x_{wv}$ and according to the strategy each
+          conservative player will have been stolen value equal to $\sum\limits_{v \in N^{+}(w)}x_{wv}$. More concretely,
+          let $Player(j) = B$ and $Player(j+d) = C :$
+       \end{enumerate}
+       Combining the two results, we see that $Tr_{A \rightarrow B} = MaxFlow(A, B)$.
+        OLD PROOF START
+        \begin{enumerate}
+           \item $Tr_{A \rightarrow B} \geq MaxFlow(A, B)$ because by the definition of $Tr_{A \rightarrow B}$,
+           B leaves taking with him all the incoming trust, so there is no trust flowing towards him after leaving.
+           $Tr_{A \rightarrow B} < MaxFlow(A, B)$ would imply that after B left, there would still remain trust
+           flowing from A to B.
+           \item $Tr_{A \rightarrow B} \leq MaxFlow(A, B)$ \\
+           Suppose that $Tr_{A \rightarrow B} > MaxFlow(A, B)$ (1). Then, using the min cut - max flow theorem we
+           see that there is a set of capacities $U= \{u_1,\dots,u_n\}$ with flows $X = \{x_1,\dots,x_n\}$ such that
+           $\sum\limits_{i=1}^{n}{x_i} = MaxFlow(A, B)$ and, if severed $(\forall i \in [n] \: u_i' = 0)$
+           the flow from A to B would be $0$, or, put differently, there would be no directed trust path from A to B. No
+           strategy followed by B could reduce the value of A, so our supposition (1) cannot be true.
+        \end{enumerate}
+        OLD PROOF END
+
+Before Sybil Resilience Theorem:
+    In short,
+    \begin{equation}
+      \forall D \in \mathcal{B} \cup \mathcal{C}, P \in \mathcal{V}, \mbox{ Eve controls } DTr_{D \rightarrow P}, \mbox{ can
+      steal } DTr_{P \rightarrow D}
+    \end{equation}
+    and can change $|\mathcal{C}|$.
+    Furthermore, the following restriction is true:
+    \begin{equation}
+       \forall C \in \mathcal{C}, A \in \mathcal{V} \setminus \left(\mathcal{B} \cup \mathcal{C}\right), DTr_{A \rightarrow
+       C} = 0 \enspace.
+    \end{equation}
+
+Definition of individual players in neighbourhood
+           \item Let $S \subset \mathcal{V}_j$. Let $N\left(A\right)_{j,i}$ (respectively $N^{+}\left(A\right)_{j,i},
+              N^{-}\left(A\right)_{j,i}, N\left(S\right)_{j,i},$ $N^{+}\left(S\right)_{j,i}, N^{-}\left(S\right)_{j,i}$) be
+              the $i$-th element of set $N\left(A\right)_j$ (respectively of $N^{+}\left(A\right)_j,  N^{-}\left(A\right)_j,
+              N\left(S\right)_j, N^{+}\left(S\right)_j, N^{-}\left(S\right)_j$), according to an arbitrary but fixed
+              enumeration of the set players.
+
+proof that the chosen flow for the transitive game is the maxflow (false since the particular transitive game is not guaranteed to be the max)
+       We will now prove that
+       \begin{equation}
+          X = MaxFlow_{\mathcal{G}}\left(A, B\right) \enspace.
+       \end{equation}
+       \begin{itemize}
+          \item Let $X^A = MaxFlow_{\mathcal{G}}$. If we suppose that
+          \begin{equation}
+             maxFlow_{\mathcal{G}}\left(A, B\right) > \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+          \end{equation}
+          then we can set
+          \begin{equation}
+             X^T = X \cup \{(T, A)\} \mbox{ with}
+          \end{equation}
+          \begin{equation}
+             \forall v, w \in \mathcal{V}'', x^T_{vw} = x^A_{vw} \mbox{ and}
+          \end{equation}
+          \begin{equation}
+             x^T_{TA} = \sum\limits_{v \in \mathcal{V}''}x^A_{Av} \enspace.
+          \end{equation}
+          Since
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}''}x^A_{Av} = maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
+          \end{equation}
+          we see that
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}''}x^T_{Tv} = x^T_{TA} > x''_{TA} \enspace,
+          \end{equation}
+          thus $X''$ is not $MaxFlow_{\mathcal{G}}\left(T, B\right)$, which is a contradiction. Thus
+          \begin{equation}
+             maxFlow_{\mathcal{G}}\left(A, B\right) \leq \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+          \end{equation}
+          therefore
+          \begin{equation}
+             maxFlow_{\mathcal{G}}\left(A, B\right) \leq \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
+          \end{equation}
+          \item If we suppose that
+          \begin{equation}
+             maxFlow_{\mathcal{G}}\left(A, B\right) < \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+          \end{equation}
+          we can likewise choose $X^A$ such that
+          \begin{equation}
+             \forall v, w \in \mathcal{V}'' \setminus \{T\}, x^A_{vw} = x''_{vw} \enspace,
+          \end{equation}
+          thus
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
+          \end{equation}
+          We deduce that
+          \begin{equation}
+             \sum\limits_{v \in \mathcal{V}'' \setminus \{T\}}x^A_{Av} > maxFlow_{\mathcal{G}}\left(A, B\right) \enspace,
+          \end{equation}
+          which is a contradiction. Thus
+          \begin{equation}
+             maxFlow_{\mathcal{G}}\left(A, B\right) \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace,
+          \end{equation}
+          therefore
+          \begin{equation}
+             maxFlow_{\mathcal{G}}\left(A, B\right) \geq \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
+          \end{equation}
+       \end{itemize}
+
+Formalism for colluding players playing consecutively
+       The colluding players follow the evil strategy. Suppose that until some turn $j$ only good players are chosen to play.
+       Starting from turn $j$, suppose that there exist $|\mathcal{B} \cup \mathcal{C}|$ consecutive turns for the first game
+       and $|\mathcal{B}|$ consecutive turns for the second game during which all the colluding players are chosen to play.
+       More formally, suppose that
+       \begin{equation}
+       \begin{gathered}
+          \exists j \in \mathbb{N} : \forall d_1 \in [|\mathcal{B} \cup \mathcal{C}|], Player(j+d) \in \mathcal{B} \cup
+          \mathcal{C} \wedge \\
+          \wedge \forall d_1, d_2 \in [|\mathcal{B} \cup \mathcal{C}|], d_1 \neq d_2, Player(j + d_1) \neq Player(j + d_2)
+          \wedge \\
+          \wedge \forall d \in [|\mathcal{B} \cup \mathcal{C}|], Strategy(Player(j+d)) = Evil \wedge \\
+          \wedge \forall j' \in [j] Player(j') \notin \mathcal{B} \cup \mathcal{C}
+       \end{gathered}
+       \end{equation}
+       for the first and likewise for the second game. \\
+
+unneeded mincut arguments under sybil resilience proof
+       From lemma (\ref{mincutmany}), we know that
+       \begin{equation}
+          \forall \left(v, w\right) \in MinCut_1\left(A, T_1\right), v \notin \mathcal{B} \cup \mathcal{C} \wedge \forall
+          \left(v, w\right) \in MinCut_2\left(A, T_2\right), v \notin \mathcal{B}
+       \end{equation}
+       and thus
+       \begin{equation}
+       \begin{gathered}
+          e \in MinCut_1 \Rightarrow e \in \mathcal{E}_2 \wedge \\
+          \wedge e \in MinCut_2 \Rightarrow e \in \mathcal{E}_1 \wedge \\
+          \wedge \forall e \in MinCut_1 \cup MinCut_2, c_1(e) = c_2(e) \enspace.
+       \end{gathered}
+       \end{equation}
+
+rephrased part of sybil resilience proof
+       used to construct a valid flow of equal value for the first case if we set
+       \begin{align}
+          \forall v \in \mathcal{V}_1 \setminus \left(\mathcal{B} \cup \mathcal{C}\right), \forall w \in \mathcal{V}_1&,
+          x_{vw,1} = x_{vw,2} \enspace, \\
+          \forall v \in \mathcal{B}&, x_{vT_1,1} = \sum\limits_{w \in N^{+}(v)}x_{vw,2} \enspace, \\
+          \forall v \in \mathcal{C}, \forall w \in \mathcal{V}_1&, x_{vw,1} = 0 \enspace.
+       \end{align}
+       Observe that
+       \begin{equation}
+          \forall v \in \mathcal{V}_1 \setminus \left(\mathcal{B} \cup \mathcal{C}\right), \forall w \in \mathcal{C},
+          x_{vw, 1} = 0 \enspace.
+       \end{equation}
+       From these two observations, we deduce that there exists a function, say $F_2(X_1)$, that transforms
+       the $MaxFlow_1$ of the first graph into a valid flow for the second graph that has the same amount of flow as
+       $MaxFlow_1$ and there also exists a similar function $F_1(X_2)$ that transforms the $MaxFlow_2$ of the second graph
+       into a valid flow for the first graph that has the same amount of flow as $MaxFlow_2$. Suppose that
+       \begin{equation}
+         maxFlow_1 < maxFlow_2 \enspace.
+       \end{equation}
+       Then
+       \begin{equation}
+          F_1(MaxFlow_2) > maxFlow_1 \enspace,
+       \end{equation}
+       which is a contradiction. Likewise, suppose that
+       \begin{equation}
+          maxFlow_1 > maxFlow_2 \enspace.
+       \end{equation}
+       Then
+       \begin{equation}
+          F_2(MaxFlow_1) > maxFlow_2 \enspace,
+       \end{equation}
+
+Reduntant bibliography
+     \bibitem{ddosattacks}
+     Patrikakis C., Masikos M., Zouraraki O.: Distributed Denial of Service Attacks. The Internet Protocol Journal, Vol. 7,
+     N. 4,
+     \url{http://www.cisco.com/c/en/us/about/press/internet-protocol-journal/back-issues/table-contents-30/dos-attacks.html}
+     (2004)
+     \bibitem{ebayfees}
+     Standard ebay selling fees, \url{http://pages.ebay.com/help/sell/fees.html}
+     \bibitem{ebayguarantee}
+     ebay money back guarantees, \url{http://pages.ebay.com/ebay-money-back-guarantee/questions.html}
+     \bibitem{openbazaar}
+     What is OpenBazaar, \url{https://blog.openbazaar.org/what-is-openbazaar/}
+     \bibitem{multisigfraud}
+     Can Bitcoin and Multisig Reduce Identity Theft and Fraud?,
+     \url{https://blog.openbazaar.org/can-bitcoin-and-multisig-reduce-identity-theft-and-fraud/}
+     Biryukov A., Khovratovich D., Pustogarov I.: Deanonymisation of clients in Bitcoin P2P network. arXiv:1405.7418 [cs.CR]
+     (2014)
+     \url{https://arxiv.org/pdf/1405.7418v3.pdf}
