@@ -365,8 +365,7 @@
         \\ The set of actions a player makes in turn $j$ is represented with $Turn_j$. The new graph that emerges by applying
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
-     The only requirement we impose to the choice of the player of each turn is that eventually everybody will play in some
-     turn. We will use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and the next turn that
+     We will use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and the next turn that
      is played by $Player(j)$ respectively. A formal definition can be found in the Appendix.
      \begin{definition}[Damage]
         Let $j$ be a turn such that $Player\left(j\right) = A$.
@@ -428,8 +427,9 @@
 %
 \end{tikzpicture}
 \end{center}
-     In its initial form TrustIsRisk is controlled by an algorithm that chooses a player at random, receives the turn that
-     this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely.
+     In its initial form TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
+     this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely. We assume
+     players are chosen in a way that, after her turn, a player will eventually play again later.
      \Suppressnumber
      \begin{lstlisting}[label=trustisriskgame, style=numbers]
 TrustIsRisk Game (*@\Reactivatenumber@*)
@@ -774,9 +774,7 @@ while (True)
     The following theorem establishes that $Tr_{A \rightarrow B}$ is always finite.
     \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
-       Consider a Transitive Game.
-%      and let $j_0$ be the first turn that $E$ is chosen to play.
-       Given that all players eventually play, there exists a turn $j'$ such that
+       Consider a Transitive Game. There exists a turn $j'$ such that
        \begin{equation}
           \forall j \geq j', Turn_j = \emptyset \enspace.
        \end{equation}
