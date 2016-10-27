@@ -132,5 +132,12 @@ v)	current(gk, e, H) = charge(H, content(e)) ∗ AMPs(e) ∗ engagement(s, t, H)
 vi)	posts are ordered based on current
 vii)	Somewhat cryptic paper (and dubious expressions: 'Step forward and kneel young organizing principle, we dub thee Ceptron. Go forth and organize online experiences for the good of all peoples everywhere.')
 
-our solution
-TODO
+Trust and Social Collateral
+MaxFlow as trust mechanism
+i)	Undirected graphs (c(v,u)=c(u,v)), but claims to be extendable to directed ones
+ii)	Encouraging results from fitness in real-life situations
+iii)	Study of dynamics of such networks based on a concrete game-theoretic model of 5 stages. Restricts the game by implying an arrangement between all the intermediate parties between the transaction is completed. This way the network isn't vulnerable to complete breakdown after one Transitive Game.
+iv)	If the borrower steals, then each intermediary can either pay up the preagreed value to the lender, or pay nothing.
+v)	Capacity represents value of friendship and is more subjective than bitcoin
+vi)	"The identity of the borrower and the lender and the value of V are publicly observed by all players."
+vii)	Reaches similar results from a different initial point. Uses game-theoretic arguments.
