@@ -1065,19 +1065,6 @@ while (True)
      available and related experimental results can give more insight on its dynamics. Finally, alternative multisig types,
      such as 2-of-3 can be explored.
 
-  \subsection{Zero knowledge}
-     Our network evaluates indirect trust by computing the max flow in the graph of lines-of-credit. In order to do that,
-     complete information about the network is required. However, disclosing the network topology may be undesirable, as it
-     subverts the identity of the participants even when participants are treated pseudonymously, as deanonymisation
-     techniques can be used \cite{deanonymisation}. To avoid such issues, exploring the ability to calculate flows in a zero
-     knowledge fashion may be desirable. However, performing network queries in zero knowledge may allow an adversary to
-     extract topological information. More research is required to establish how flows can be calculated effectively in zero
-     knowledge and what bounds exist in regards to information revealed in such fashion.
-
-     The current description of TrustIsRisk refers to a static setting where the game evolves in turns. In each turn only one
-     user changes the state of the network. In the dynamic setting, the users should be able to play simultaneously, freely
-     join, leave and disconnect temporarily from the network.
-
   \section*{Appendix}
     \subsection{Common Notation}
      \begin{definition}[Assets]
@@ -1327,11 +1314,11 @@ while (True)
        Without loss of generality, we suppose that the turn of $\mathcal{G}$ is 0. In other words, $\mathcal{G} =
        \mathcal{G}_0$. Let $X =
        \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, B\right)$
-       algorithm on $\mathcal{G}_0$. It is known that for any directed weighted graph $G$ there exists a $MaxFlow$ over $G$
-       that is a DAG [citation needed]. We also know that we can apply the topological sort algorithm to any DAG and obtain a
-       total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it holds that
-       $v < w \Rightarrow x_{wv} = 0$ \cite{toposort}. Put differently, there is no flow from larger to smaller nodes. We
-       execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
+       algorithm on $\mathcal{G}_0$. For any directed weighted graph $G$ there exists a $MaxFlow$ over $G$ that is a DAG,
+       according to the Flow Decomposition Theorem \cite{flowdecomp}. We also know that we can apply the topological sort
+       algorithm to any DAG and obtain a total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it
+       holds that $v < w \Rightarrow x_{wv} = 0$ \cite{toposort}. Put differently, there is no flow from larger to smaller
+       nodes. We execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
        $A$ is the minimum node. $B$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
        minimum since it is the source and thus has no incoming flow from any node. The desired execution of algorithm
        \ref{transitivegame} will choose players following the total order, starting from player $B$. We observe that
@@ -1395,70 +1382,51 @@ while (True)
           \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
        \end{equation}
        \begin{center}
-       \begin{tikzpicture}
-       \begin{dot2tex}
-          digraph G {
-           rankdir=LR;
-           edge [arrowsize=0.6];
-           node [shape=circle];
-           compound=true;
-           T -> {S1 A S2} [label=<&#xe2889e;>];
-          }
-       \end{dot2tex}
-       \end{tikzpicture}
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (193.0bp,11.5bp) node {\textbf{Fig.7:} Graph $\mathcal{G}'$, as $\mathcal{G}$ with Auxiliary Source $T$. $\mathcal{S}$ is the set of sad players.};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
+  \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (386.0bp,168.0bp) -- (386.0bp,0.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (193.0bp,11.5bp) node {\textbf{Fig.7:} Graph $\mathcal{G}'$, as $\mathcal{G}$ with Auxiliary Source $T$. $\mathcal{S}$ is the set of sad players.};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (162.0bp,31.0bp) .. controls (162.0bp,31.0bp) and (298.0bp,31.0bp)  .. (298.0bp,31.0bp) .. controls (304.0bp,31.0bp) and (310.0bp,37.0bp)  .. (310.0bp,43.0bp) .. controls (310.0bp,43.0bp) and (310.0bp,148.0bp)  .. (310.0bp,148.0bp) .. controls (310.0bp,154.0bp) and (304.0bp,160.0bp)  .. (298.0bp,160.0bp) .. controls (298.0bp,160.0bp) and (162.0bp,160.0bp)  .. (162.0bp,160.0bp) .. controls (156.0bp,160.0bp) and (150.0bp,154.0bp)  .. (150.0bp,148.0bp) .. controls (150.0bp,148.0bp) and (150.0bp,43.0bp)  .. (150.0bp,43.0bp) .. controls (150.0bp,37.0bp) and (156.0bp,31.0bp)  .. (162.0bp,31.0bp);
+  \draw (230.0bp,42.5bp) node {$\mathcal{G}$};
+\end{scope}
+  \node (A) at (185.0bp,80.0bp) [draw,ellipse] {A};
+  \node (S) at (185.0bp,134.0bp) [draw,ellipse] {$\mathcal{S}$};
+  \node (T) at (95.0bp,107.0bp) [draw,ellipse] {T};
+  \node (G) at (255.0bp,107.0bp) [draw,ellipse] {$\mathcal{G} \setminus \left(\mathcal{S} \cup \{A\}\right)$};
+  \draw [->] (A) ..controls (220.61bp,90.619bp) and (233.12bp,94.457bp)  .. (G);
+  \draw [->] (S) ..controls (220.61bp,123.38bp) and (233.12bp,119.54bp)  .. (G);
+  \draw [->] (T) ..controls (130.61bp,117.62bp) and (143.12bp,121.46bp)  .. (S);
+  \draw [->] (T) ..controls (130.61bp,96.381bp) and (143.12bp,92.543bp)  .. (A);
+%
+\end{tikzpicture}
        \end{center}
-%#           subgraph cluster0 {
-%#              color=none;
-%#              label = "TrustIsRisk\\ game\\ graph";
-%#              A -> C [label="5BTC"];
-%#              A -> D [label="6BTC"];
-%#              C -> B [label="3BTC"];
-%#              C -> E [label="10BTC"];
-%#              D -> B [label="2BTC"];
-%#           }
-%#           J1 [style=invisible];
-%#           J2 [style=invisible];
-%#           J1 -> J2 [dir=both];
-%#           subgraph cluster1 {
-%#              rank=same;
-%#              label="Bitcoin\\ UTXO";
-%#              Z1 [style=invisible];
-%#              a1 [label="5BTC"];
-%#              Y1 [style=invisible];
-%#              a1 -> Y1 [label="1/\\{B,C\\}"];
-%#              Z1 -> a1 [label="A"];
-%#              Z2 [style=invisible];
-%#              a2 [label="6BTC"];
-%#              Y2 [style=invisible];
-%#              a2 -> Y2 [label="1/\\{B,D\\}"];
-%#              Z2 -> a2 [label="A"];
-%#              Z3 [style=invisible];
-%#              a3 [label="10BTC"];
-%#              Y3 [style=invisible];
-%#              a3 -> Y3 [label="1/\\{C,E\\}"];
-%#              Z3 -> a3 [label="C"];
-%#              Z4 [style=invisible];
-%#              a4 [label="3BTC"];
-%#              Y4 [style=invisible];
-%#              a4 -> Y4 [label="1/\\{C,B\\}"];
-%#              Z4 -> a4 [label="C"];
-%#              Z5 [style=invisible];
-%#              a5 [label="2BTC"];
-%#              Y5 [style=invisible];
-%#              a5 -> Y5 [label="1/\\{D,B\\}"];
-%#              Z5 -> a5 [label="D"];
-%#           }
-%#           B  -> J1 [style=invisible]
-%#           J2 -> Z3 [style=invisible]
        We observe that $\forall v \in \mathcal{V},$
        \begin{equation}
        \label{gameflowin}
        \begin{gathered}
-          \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}c'_{wv} = \\
-          = \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} -
+          \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}c'_{wv} = \\
+          = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} -
           DTr_{w \rightarrow v, j_1}\right) = \\
-          = \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}DTr_{w \rightarrow v, 0} -
-          \sum\limits_{w \in N^{'-}\left(v\right) \setminus \{T\}}DTr_{w \rightarrow v, j-1} =  \\
+          = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, 0} -
+          \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, j-1} =  \\
           = in_{v, 0} - in_{v, j_1}
        \end{gathered}
        \end{equation}
@@ -1466,11 +1434,11 @@ while (True)
        \begin{equation}
        \label{gameflowout}
        \begin{gathered}
-          \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}c'_{vw} = \\
-          = \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}\left(DTr_{v \rightarrow w, 0} -
+          \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}c'_{vw} = \\
+          = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}\left(DTr_{v \rightarrow w, 0} -
           DTr_{v \rightarrow w, j_1}\right) = \\
-          = \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}DTr_{v \rightarrow w, 0} -
-          \sum\limits_{w \in N^{'+}\left(v\right) \setminus \{T\}}DTr_{v \rightarrow w, j-1} = \\
+          = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, 0} -
+          \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, j-1} = \\
           = out_{v, 0} - out_{v, j_1} \enspace.
        \end{gathered}
        \end{equation}
@@ -1554,18 +1522,20 @@ while (True)
        \begin{equation}
           \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
        \end{equation}
-       The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: \\
-       No capacity reachable by $A$ is modified and $T$ has no incoming flow, thus
+       The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: Firstly, using the Flow
+       Decomposition Theorem \cite{flowdecomp} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
+       obtain a flow configuration where the total outgoing flow from $A$ remains invariant, thus
        \begin{equation}
-          \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \mbox{[citation needed] and}
+          \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
        \end{equation}
+       Secondly, we have
        \begin{equation}
           \begin{rcases}
              \sum\limits_{v \in \mathcal{V}''}c''_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = \sum\limits_{v \in
              \mathcal{V}'}x'_{Av} \\
              \sum\limits_{v \in \mathcal{V}''}c''_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
           \end{rcases}
-          \Rightarrow \sum\limits_{v \in \mathcal{V}''}x''_{Av} \leq \sum\limits_{v \in \mathcal{V}'}x'_{Av}
+          \Rightarrow \sum\limits_{v \in \mathcal{V}''}x''_{Av} \leq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
        \end{equation}
        Thus we conclude that
        \begin{equation}
@@ -1685,6 +1655,9 @@ while (True)
      \bibitem{deanonymisation}
      Narayanan A., Shmatikov V.: De-anonymizing Social Networks. SP '09 Proceedings of the 2009 30th IEEE Symposium on
      Security and Privacy, pp. 173-187, 10.1109/SP.2009.22 (2009)
+     \bibitem{flowdecomp}
+     
+     \url{https://ocw.mit.edu/courses/sloan-school-of-management/15-082j-network-optimization-fall-2010/lecture-notes/MIT15_082JF10_lec04.pdf}
      \bibitem{toposort}
      Kahn Arthur B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
      New York (1962)

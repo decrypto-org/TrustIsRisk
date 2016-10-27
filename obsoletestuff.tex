@@ -252,6 +252,20 @@ Before Sybil Resilience Theorem:
        C} = 0 \enspace.
     \end{equation}
 
+Zero knowledge
+     Our network evaluates indirect trust by computing the max flow in the graph of lines-of-credit. In order to do that,
+     complete information about the network is required. However, disclosing the network topology may be undesirable, as it
+     subverts the identity of the participants even when participants are treated pseudonymously, as deanonymisation
+     techniques can be used \cite{deanonymisation}. To avoid such issues, exploring the ability to calculate flows in a zero
+     knowledge fashion may be desirable. However, performing network queries in zero knowledge may allow an adversary to
+     extract topological information. More research is required to establish how flows can be calculated effectively in zero
+     knowledge and what bounds exist in regards to information revealed in such fashion.
+
+     The current description of TrustIsRisk refers to a static setting where the game evolves in turns. In each turn only one
+     user changes the state of the network. In the dynamic setting, the users should be able to play simultaneously, freely
+     join, leave and disconnect temporarily from the network.
+
+
 Definition of individual players in neighbourhood
            \item Let $S \subset \mathcal{V}_j$. Let $N\left(A\right)_{j,i}$ (respectively $N^{+}\left(A\right)_{j,i},
               N^{-}\left(A\right)_{j,i}, N\left(S\right)_{j,i},$ $N^{+}\left(S\right)_{j,i}, N^{-}\left(S\right)_{j,i}$) be
