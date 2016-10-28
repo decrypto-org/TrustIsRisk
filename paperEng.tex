@@ -1067,17 +1067,18 @@ while (True)
      Moreover, extended game theoretic analysis for cases more complex than the Transitive Game is needed to expand our
      comprehension on the proposed system. Obviously an implementation of the wallet is necessary to make the system
      available and related experimental results can give more insight on its dynamics. Finally, alternative multisig types,
-     such as 2-of-3 can be explored.
+     such as 1-of-3 can be explored.
 
      \subsection{Trust Transfer Algorithms}
-        A future paper will address the issue of the method that a client will use to rearrange her direct outgoing trust so
-        that the indirect trust to the vendor remains invariant before and after depositing the funds needed for the
-        purchase, thus fulfilling the supposition (\ref{primetrust}) of Risk Invariance Theorem.
+        If $Alice$ trusts $Bob$ enough to purchase a good from him, she should not directly pay him the value of the good,
+        because then she will increase her trust towards $Bob$. She first has to reduce her outgoing direct trust in a manner
+        such that the supposition (\ref{primetrust}) of Risk Invariance Theorem is satisfied. The methods $Alice$ can use to
+        recalculate her outgoing trust will be discussed in a future paper.
 
      \subsection{Dynamic Setting}
         The current description of TrustIsRisk refers to a static setting where the game evolves in turns. In each turn only
         one user changes the state of the network and the game is controlled by a central algorithm, the TrustIsRisk Game. In
-        the dynamic setting, users should be able to play simultaneously, freely join, leave and disconnect temporarily from
+        the dynamic setting, users should be able to play simultaneously, freely join, depart or disconnect temporarily from
         the network.
 
      \subsection{Zero knowledge}
@@ -1094,8 +1095,8 @@ while (True)
         involving one or more players. Further research to this direction will improve our understanding of TrustIsRisk.
 
      \subsection{Implementation}
-        We are proposing a concrete game and not a theoretical concept. Thus its implementation as a wallet on any blockchain
-        will be most welcome.
+        We are proposing a concrete financial game and not a theoretical concept. Thus its implementation as a wallet on any
+        blockchain will be most welcome.
 
      \subsection{Experimental Results}
         After the implementation and utilisation of TrustIsRisk in a real-world setting, further analysis of the network's
@@ -1104,9 +1105,9 @@ while (True)
 
      \subsection{Alternative Multisigs}
         1-of-2 multisigs correspond intuitively to simple directed weighted graphs. However it can be interesting to explore
-        the trust relations that can arise by using other types of multisig, such as 1-of-3, as vehicle for multi-party trust
-        schemes. Our results do not necessarily hold and the simple relations now represented by directed weighted graphs
-        have to be revised under a new kind of representation.
+        the trust relations that can arise by using other types of multisig, such as 1-of-3, as vessel for multi-party trust
+        schemes. Our results do not necessarily hold for other multisigs and the simple relations now represented by directed
+        weighted graphs have to be revised under a new kind of representation.
 
 
   \section*{Appendix}
