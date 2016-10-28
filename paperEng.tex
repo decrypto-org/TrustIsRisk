@@ -1358,30 +1358,30 @@ while (True)
     \label{maxflowgameproof}
        Without loss of generality, we suppose that the turn of $\mathcal{G}$ is 0. In other words, $\mathcal{G} =
        \mathcal{G}_0$. Let $X =
-       \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, B\right)$
+       \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, E\right)$
        algorithm on $\mathcal{G}_0$. For any directed weighted graph $G$ there exists a $MaxFlow$ over $G$ that is a DAG.
        We can easily prove this using the Flow Decomposition Theorem \cite{flowdecomp}, which states that each flow can be
-       seen as a finite set of $\left(A, B\right)$-paths and cycles, each having a certain flow. We execute $MaxFlow\left(A,
-       B\right)$ and we apply the aforementioned Theorem. Obviously the cycles do not influence the
-       $maxFlow\left(A, B\right)$, thus we can remove these flows. The resulting flow is a $MaxFlow\left(A, B\right)$ without
+       seen as a finite set of paths from $A$ to $E$ and cycles, each having a certain flow. We execute $MaxFlow\left(A,
+       E\right)$ and we apply the aforementioned Theorem. Obviously the cycles do not influence the
+       $maxFlow\left(A, E\right)$, thus we can remove these flows. The resulting flow is a $MaxFlow\left(A, E\right)$ without
        cycles, thus it is a DAG. We also know that we can apply the topological sort
        algorithm to any DAG and obtain a total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it
        holds that $v < w \Rightarrow x_{wv} = 0$ \cite{toposort}. Put differently, there is no flow from larger to smaller
-       nodes. We execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
-       $A$ is the minimum node. $B$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
+       nodes. We execute the topological sort on $X$ and obtain a total order of the nodes, such that $E$ is the maximum and
+       $A$ is the minimum node. $E$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
        minimum since it is the source and thus has no incoming flow from any node. The desired execution of algorithm
-       \ref{transitivegame} will choose players following the total order, starting from player $B$. We observe that
-       $\forall v \in \mathcal{V} \setminus \{A, B\}, \sum\limits_{w \in \mathcal{V}}x_{wv} = \sum\limits_{w \in
-       \mathcal{V}}x_{vw} \leq maxFlow\left(A, B\right) \leq in_{B, 0}$. Player $B$ will follow a modified evil strategy
+       \ref{transitivegame} will choose players following the total order, starting from player $E$. We observe that
+       $\forall v \in \mathcal{V} \setminus \{A, E\}, \sum\limits_{w \in \mathcal{V}}x_{wv} = \sum\limits_{w \in
+       \mathcal{V}}x_{vw} \leq maxFlow\left(A, E\right) \leq in_{E, 0}$. Player $E$ will follow a modified evil strategy
        where she steals value equal to her total incoming flow, not her total incoming trust. Let $j_2$ be the first turn
        when $A$ is chosen to play. We will show using strong induction that there exists a set of valid actions for each
        player according to their respective strategy such that at the end of each turn $j$ the corresponding player $v =
        Player\left(j\right)$ will have stolen value $x_{wv}$ from each in neighbour $w$.
 
-       Base case: In turn 1, $B$ steals value equal to $\sum\limits_{w \in \mathcal{V}}x_{wB}$, following the modified evil
+       Base case: In turn 1, $E$ steals value equal to $\sum\limits_{w \in \mathcal{V}}x_{wE}$, following the modified evil
        strategy.
        \begin{equation}
-          Turn_1 = \bigcup\limits_{v \in N^{-}\left(B\right)_0}\{Steal\left(x_{vB}, v\right)\}
+          Turn_1 = \bigcup\limits_{v \in N^{-}\left(E\right)_0}\{Steal\left(x_{vE}, v\right)\}
        \end{equation}
 
        Induction hypothesis: Let $k \in [j_2 - 2]$. We suppose that $\forall j \in [k]$, there exists a valid set of actions,
@@ -1404,10 +1404,10 @@ while (True)
        \end{equation}
        Thus $Turn_j$ is a valid turn for the conservative player $v$.
 
-       We have proven that in the end of turn $j_2 - 1$, player $B$ and all the conservative players will have stolen value
+       We have proven that in the end of turn $j_2 - 1$, player $E$ and all the conservative players will have stolen value
        exactly equal to their total incoming flow, thus $A$ will have been stolen value equal to her outgoing flow, which is
-       $maxFlow(A, B)$. Since there remains no Angry player, it is obvious that $j_2$ is a turn that Transitive Game has
-       converged thus $Loss_{A, j_2} = Loss_A$. It is also obvious that if $B$ had chosen the original evil strategy, the
+       $maxFlow(A, E)$. Since there remains no Angry player, it is obvious that $j_2$ is a turn that Transitive Game has
+       converged thus $Loss_{A, j_2} = Loss_A$. It is also obvious that if $E$ had chosen the original evil strategy, the
        described actions would still be valid only by supplementing them with additional $Steal\left(\right)$ actions, thus
        $Loss_A$ would further increase. This proves the theorem.
        \qed
