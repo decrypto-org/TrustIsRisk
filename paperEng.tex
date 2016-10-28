@@ -806,30 +806,30 @@ while (True)
     \end{proofsketch}
     \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
-       Let $\mathcal{G}$ be a game graph and $A, B \in \mathcal{V}$. It holds that
+       Let $\mathcal{G}$ be a game graph and $A, E \in \mathcal{V}$. It holds that
        \begin{equation}
-          Tr_{A \rightarrow B} = maxFlow\left(A, B\right) \enspace.
+          Tr_{A \rightarrow E} = maxFlow\left(A, E\right) \enspace.
        \end{equation}
     \end{theorem}
     \begin{proof} \ \\
        From lemma \ref{maxflowgame} we see that there exists an execution of the Transitive Game such that
        \begin{equation}
-          Loss_A = maxFlow\left(A, B\right) \enspace.
+          Loss_A = maxFlow\left(A, E\right) \enspace.
        \end{equation}
-       Since $Tr_{A \rightarrow B}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
+       Since $Tr_{A \rightarrow E}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
        see that
        \begin{equation}
        \label{trgeqmaxflow}
-          Tr_{A \rightarrow B} \geq maxFlow\left(A, B\right) \enspace.
+          Tr_{A \rightarrow E} \geq maxFlow\left(A, E\right) \enspace.
        \end{equation}
        Moreover, there exists an execution of the Transitive Game such that
        \begin{equation}
-          Tr_{A \rightarrow B} = Loss_A \enspace.
+          Tr_{A \rightarrow E} = Loss_A \enspace.
        \end{equation}
        From lemma \ref{gameflow}, this execution corresponds to a flow. Thus
        \begin{equation}
        \label{trleqmaxflow}
-          Tr_{A \rightarrow B} \leq maxFlow\left(A, B\right) \enspace.
+          Tr_{A \rightarrow E} \leq maxFlow\left(A, E\right) \enspace.
        \end{equation}
        The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}).
     \end{proof}
