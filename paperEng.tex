@@ -1359,8 +1359,12 @@ while (True)
        Without loss of generality, we suppose that the turn of $\mathcal{G}$ is 0. In other words, $\mathcal{G} =
        \mathcal{G}_0$. Let $X =
        \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, B\right)$
-       algorithm on $\mathcal{G}_0$. For any directed weighted graph $G$ there exists a $MaxFlow$ over $G$ that is a DAG,
-       according to the Flow Decomposition Theorem \cite{flowdecomp}. We also know that we can apply the topological sort
+       algorithm on $\mathcal{G}_0$. For any directed weighted graph $G$ there exists a $MaxFlow$ over $G$ that is a DAG.
+       We can easily prove this using the Flow Decomposition Theorem \cite{flowdecomp}, which states that each flow can be
+       seen as a finite set of $\left(A, B\right)$-paths and cycles, each having a certain flow. We execute $MaxFlow\left(A,
+       B\right)$ and we apply the aforementioned Theorem. Obviously the cycles do not influence the
+       $maxFlow\left(A, B\right)$, thus we can remove these flows. The resulting flow is a $MaxFlow\left(A, B\right)$ without
+       cycles, thus it is a DAG. We also know that we can apply the topological sort
        algorithm to any DAG and obtain a total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it
        holds that $v < w \Rightarrow x_{wv} = 0$ \cite{toposort}. Put differently, there is no flow from larger to smaller
        nodes. We execute the topological sort on $X$ and obtain a total order of the nodes, such that $B$ is the maximum and
