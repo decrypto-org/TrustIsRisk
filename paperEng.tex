@@ -1069,6 +1069,46 @@ while (True)
      available and related experimental results can give more insight on its dynamics. Finally, alternative multisig types,
      such as 2-of-3 can be explored.
 
+     \subsection{Trust Transfer Algorithms}
+        A future paper will address the issue of the method that a client will use to rearrange her direct outgoing trust so
+        that the indirect trust to the vendor remains invariant before and after depositing the funds needed for the
+        purchase, thus fulfilling the supposition (\ref{primetrust}) of Risk Invariance Theorem.
+
+     \subsection{Dynamic Setting}
+        The current description of TrustIsRisk refers to a static setting where the game evolves in turns. In each turn only
+        one user changes the state of the network and the game is controlled by a central algorithm, the TrustIsRisk Game. In
+        the dynamic setting, users should be able to play simultaneously, freely join, leave and disconnect temporarily from
+        the network.
+
+     \subsection{Zero knowledge}
+        Our network evaluates indirect trust by computing the max flow in the graph of lines-of-credit. In order to do that,
+        complete information about the network is required. However, disclosing the network topology may be undesirable, as
+        it subverts the identity of the participants even when participants are treated pseudonymously, as deanonymisation
+        techniques can be used \cite{deanonymisation}. To avoid such issues, exploring the ability to calculate flows in a
+        zero knowledge fashion may be desirable. However, performing network queries in zero knowledge may allow an adversary
+        to extract topological information. More research is required to establish how flows can be calculated effectively in
+        zero knowledge and what bounds exist in regards to information revealed in such fashion.
+
+     \subsection{Game Theoretic Analysis}
+        The game theoretic analysis we perform here is relatively simple and does not account for more complex strategies
+        involving one or more players. Further research to this direction will improve our understanding of TrustIsRisk.
+
+     \subsection{Implementation}
+        We are proposing a concrete game and not a theoretical concept. Thus its implementation as a wallet on any blockchain
+        will be most welcome.
+
+     \subsection{Experimental Results}
+        After the implementation and utilisation of TrustIsRisk in a real-world setting, further analysis of the network's
+        dynamics can yield interesting experimental results that will help analyzers, developers and users make informed
+        decisions about theoretical approaches, design choices and investment strategies.
+
+     \subsection{Alternative Multisigs}
+        1-of-2 multisigs correspond intuitively to simple directed weighted graphs. However it can be interesting to explore
+        the trust relations that can arise by using other types of multisig, such as 1-of-3, as vehicle for multi-party trust
+        schemes. Our results do not necessarily hold and the simple relations now represented by directed weighted graphs
+        have to be revised under a new kind of representation.
+
+
   \section*{Appendix}
     \subsection{Common Notation}
      \begin{definition}[Assets]
@@ -1632,6 +1672,26 @@ while (True)
        the direct trust from $v$ to $w$ in $\mathcal{G}_1$. \\
        Let also $\mathcal{G}_2$ be the induced graph that results from $\mathcal{G}_1$ if we remove the Sybil set,
        $\mathcal{C}$. We rename $T_1$ to $T_2$ to facilitate comprehension. (Image) \\
+       \begin{tikzpicture}
+       \begin{dot2tex}[dot,tikz]
+          digraph G {
+           rankdir=LR
+           edge [arrowsize=0.6]
+           label = "Fig.7:\ Graph\ G\ with\ Auxiliary\ Source\ T.\ S\ is\ the\ set\ of\ sad\ players."
+           labelloc = "b"
+           subgraph cluster_0 {
+              label="G"
+              labelloc="b"
+              graph[style="rounded"]
+              color=black
+              S -> G
+              A -> G
+              G [label="Gaa"]
+           }
+           T -> {S A}
+          }
+       \end{dot2tex}
+       \end{tikzpicture}
        According to Theorem (\ref{trustmany}),
        \begin{equation}
        \label{trmaxflow}
