@@ -1385,6 +1385,31 @@ while (True)
        \begin{equation}
           \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
        \end{equation}
+\begin{center}
+       \begin{tikzpicture}
+       \begin{dot2tex}[dot,tikz]
+          digraph G {
+           rankdir=LR
+           edge [arrowsize=0.6]
+           label = "Fig.7:\ Graph\ G',\ derived\ from\ G\ with\ Auxiliary\ Source\ T."
+           labelloc = "b"
+           subgraph cluster_0 {
+              label="G"
+              labelloc="b"
+              graph[style="rounded"]
+              color=black
+              S1 -> C
+              A -> B
+              S2 -> D
+              B -> {C D}
+              {C D} -> E
+              {A S1 S2 rank=same}
+           }
+           T -> {S1 A S2}
+          }
+       \end{dot2tex}
+       \end{tikzpicture}
+\end{center}
        \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]
 %%
@@ -1452,14 +1477,14 @@ while (True)
           \forall j \in \mathbb{N}, in_{A, j} = 0 \enspace,
        \end{equation}
        since if we find a valid flow under this assumption, the flow will still be valid for the original graph. \\
-       Next we try to calculate $MaxFlow\left(T, B\right) = X'$ on graph $\mathcal{G}'$. We observe that a flow in which it
+       Next we try to calculate $MaxFlow\left(T, E\right) = X'$ on graph $\mathcal{G}'$. We observe that a flow in which it
        holds that $\forall v, w \in \mathcal{V}, x'_{vw} = c'_{vw}$ can be valid for the following reasons:
        \begin{itemize}
           \item $\forall v,w \in \mathcal{V}, x'_{vw} \leq c'_{vw}$ (Capacity flow requirement (\ref{flow1}) $\forall e \in
           \mathcal{E}$)
           \item Since $\forall v \in Sad_{j_1} \cup \{A\}, c'_{Tv} = \infty$, requirement (\ref{flow1}) holds for any flow
           $x'_{Tv} \geq 0$.
-          \item Let $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, B\}\right)$. According to the conservative
+          \item Let $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, E\}\right)$. According to the conservative
           strategy and since $v \notin Sad_{j_1},$ it holds that
           \begin{equation}
              out_{v, 0} - out_{v, j_1} = in_{v, 0} - in_{v, j_1} \enspace.
@@ -1469,7 +1494,7 @@ while (True)
              \sum\limits_{w \in \mathcal{V}'}c'_{vw} = \sum\limits_{w \in \mathcal{V}'}c'_{wv} \enspace.
           \end{equation}
           (Flow Conservation requirement (\ref{flow2}) $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1}
-          \cup \{T, A, B\}\right)$)
+          \cup \{T, A, E\}\right)$)
           \item Let $v \in Sad_{j_1}$. Since $v$ is sad, we know that
           \begin{equation}
              out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1} \enspace.
@@ -1505,7 +1530,7 @@ while (True)
           (Requirement \ref{flow2} for $A$)
        \end{itemize}
        We saw that for all nodes, the necessary properties for a flow to be valid hold and thus $X'$ is a valid flow for
-       $\mathcal{G}$. Moreover, this flow is equal to $maxFlow(T, B)$ because all incoming flows to $B$ are saturated.
+       $\mathcal{G}$. Moreover, this flow is equal to $maxFlow(T, E)$ because all incoming flows to $E$ are saturated.
        Also we observe that
        \begin{equation}
        \label{xprimeequalloss}
@@ -1522,7 +1547,7 @@ while (True)
        \begin{equation}
           \forall e \in E(\mathcal{G}''), c''_e = c'_e
        \end{equation}
-       If we execute the algorithm $MaxFlow(T, B)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
+       If we execute the algorithm $MaxFlow(T, E)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
        \begin{equation}
           \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
        \end{equation}
