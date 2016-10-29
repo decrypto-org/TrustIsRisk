@@ -942,15 +942,15 @@ while (True)
      \begin{definition}[Indirect Trust to Multiple Players]
         The indirect trust from player $A$ to a set of players, $S \subset \mathcal{V}$ is defined as the maximum possible
         value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows the idle strategy and
-        everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative strategy. More formally,
-        if $S \subset \mathcal{V}$,
-        \begin{equation}
-        \begin{gathered}
-           Strategy\left(A\right) = Idle \wedge \forall E \in S, Strategy\left(E\right) = Evil \wedge \\
-           \wedge \forall v \in \mathcal{V} \setminus \left(S \cup \{A\}\right), Strategy\left(v\right) = Conservative
-        \end{gathered}
-        \end{equation}
-        and $choices$ are the different actions between which the conservative players can choose, then
+        everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative strategy.
+%        More formally, if $S \subset \mathcal{V}$,
+%        \begin{equation}
+%        \begin{gathered}
+%           Strategy\left(A\right) = Idle \wedge \forall E \in S, Strategy\left(E\right) = Evil \wedge \\
+%           \wedge \forall v \in \mathcal{V} \setminus \left(S \cup \{A\}\right), Strategy\left(v\right) = Conservative
+%        \end{gathered}
+%        \end{equation}
+        Let $choices$ be the different actions between which the conservative players can choose, then
         \begin{equation}
            Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{\left[out_{A,j} - out_{A,j'}\right]}
         \end{equation}
@@ -1748,7 +1748,7 @@ while (True)
      (2009) [1990]
      \bibitem{maxflownm}
      Orlin J. B.: Max flows in O(nm) time, or better. STOC '13 Proceedings of the forty-fifth annual ACM symposium on Theory
-     of computing, pp.765–774, ACM, New York (2013). doi:10.1145/2488608.2488705
+     of computing, pp.765-774, ACM, New York (2013). doi:10.1145/2488608.2488705
      \bibitem{sybilattack}
      Douceur J. R.: The Sybil Attack. International workshop on Peer-To-Peer Systems (2002)
      \bibitem{deanonymisation}
