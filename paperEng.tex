@@ -308,13 +308,13 @@
         \begin{enumerate}
            \item Steal value $y_B$ from $B \in N^{-}\left(A\right)_{j-1}$, where
            $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then it is:
-           \begin{equation}
+           \begin{equation*}
               DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \:\: \left(Steal\left(y_B, B\right)\right)
-           \end{equation}
+           \end{equation*}
            \item Add value $y_B$ to $B \in \mathcal{V}$, where $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then it is:
-           \begin{equation}
+           \begin{equation*}
               DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B \:\: \left(Add\left(y_B, B\right)\right)
-           \end{equation}
+           \end{equation*}
            When $y_B < 0$, we say that $A$ reduces her trust to $B$ by $-y_B$, when $y_B > 0$, we say that $A$ increases her
            trust to $B$ by $y_B$. If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$.
         \end{enumerate}
@@ -518,10 +518,10 @@ consOracle((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactiva
   return((*@$Turn_j$@*))
      \end{lstlisting}
      \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
-     \begin{equation}
+     \begin{equation*}
         \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
         y_v \leq DTr_{v \rightarrow A, j-1} \enspace.
-     \end{equation}
+     \end{equation*}
      Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
      each time she calls the function, as long as the above restriction is respected. As we can see, the definition covers a
      multitude of options for the conservative player, since in case $0 < Damage_{A,j} < in_{A,j-1}$ she can choose to
@@ -579,11 +579,12 @@ while (True)
      \end{lstlisting}
      Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
      has been stolen yet (see Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
-     let $v = Player(j)$ and $j' = prev\left(j\right)$. Given that
-     \begin{equation}
-        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
-     \end{equation}
-     the algorithm generates turns:
+     let $v = Player(j)$ and $j' = prev\left(j\right)$.
+%     Given that
+%     \begin{equation}
+%        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
+%     \end{equation}
+     The algorithm generates turns:
      \begin{equation}
         Turn_j =
           \begin{cases}
@@ -592,9 +593,9 @@ while (True)
           \end{cases} \enspace.
      \end{equation}
      In the second case, it is
-     \begin{equation}
+     \begin{equation*}
         \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
-     \end{equation}
+     \end{equation*}
      From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
      obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
      stolen more value than she has been stolen, thus she would not be following the conservative strategy. An example
@@ -739,9 +740,9 @@ while (True)
     \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
        Consider a Transitive Game. There exists a turn $j'$ such that
-       \begin{equation}
+       \begin{equation*}
           \forall j \geq j', Turn_j = \emptyset \enspace.
-       \end{equation}
+       \end{equation*}
     \end{theorem}
     \begin{proofsketch}
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
@@ -780,9 +781,9 @@ while (True)
        Let $\mathcal{G}$ be a game graph, let $A, E \in \mathcal{V}$ and $MaxFlow\left(A, E\right)$ the maximum flow from
        $A$ to $E$ executed on $\mathcal{G}$. There exists an execution of
        \texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} such that
-       \begin{equation}
+       \begin{equation*}
           maxFlow\left(A, E\right) \leq Loss_A \enspace.
-       \end{equation}
+       \end{equation*}
     \end{lemma}
     \begin{proofsketch}
        The desired execution of \texttt{TransitiveGame()} will contain all flows from the $MaxFlow\left(A, E\right)$ as
@@ -796,9 +797,9 @@ while (True)
        Let $\mathcal{H} = $\texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} for some game graph $\mathcal{G}$ and $A,
        E \in \mathcal{V}$. There exists a valid flow
        $X = \{x_{wv}\}_{\mathcal{V} \times \mathcal{V}}$ on $\mathcal{G}_0$ such that
-       \begin{equation}
+       \begin{equation*}
           \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A \enspace.
-       \end{equation}
+       \end{equation*}
     \end{lemma}
     \begin{proofsketch}
        If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
@@ -807,15 +808,15 @@ while (True)
     \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
        Let $\mathcal{G}$ be a game graph and $A, E \in \mathcal{V}$. It holds that
-       \begin{equation}
+       \begin{equation*}
           Tr_{A \rightarrow E} = maxFlow\left(A, E\right) \enspace.
-       \end{equation}
+       \end{equation*}
     \end{theorem}
     \begin{proof} \ \\
        From lemma \ref{maxflowgame} we see that there exists an execution of the Transitive Game such that
-       \begin{equation}
+       \begin{equation*}
           Loss_A \geq maxFlow\left(A, E\right) \enspace.
-       \end{equation}
+       \end{equation*}
        Since $Tr_{A \rightarrow E}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
        see that
        \begin{equation}
@@ -823,9 +824,9 @@ while (True)
           Tr_{A \rightarrow E} \geq maxFlow\left(A, E\right) \enspace.
        \end{equation}
        Moreover, there exists an execution of the Transitive Game such that
-       \begin{equation}
+       \begin{equation*}
           Tr_{A \rightarrow E} = Loss_A \enspace.
-       \end{equation}
+       \end{equation*}
        From lemma \ref{gameflow}, this execution corresponds to a flow. Thus
        \begin{equation}
        \label{trleqmaxflow}
@@ -833,7 +834,6 @@ while (True)
        \end{equation}
        The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}).
     \end{proof}
-
 
      We note that the maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the
      same player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
@@ -844,25 +844,25 @@ while (True)
      \label{riskinv}
         Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $V$ the desired value to be transferred from $A$ to $B$,
         with $V \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ such that
-        \begin{align}
+        \begin{align*}
            \mathcal{V}' &= \mathcal{V} \\
 %           DTr'_{A \rightarrow B} &= DTr_{A \rightarrow B} \\
            \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}'&, DTr'_{v \rightarrow w} =
            DTr_{v \rightarrow w} \enspace.
-        \end{align}
+        \end{align*}
         Furthermore, suppose that there exists an assignment for the outgoing trust of $A, DTr'_{A \rightarrow v}$, such that
         \begin{equation}
         \label{primetrust}
            Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - V \enspace.
         \end{equation}
         Let another game graph, $\mathcal{G}''$, be identical to $\mathcal{G}'$ except for the following change:
-        \begin{equation}
+        \begin{equation*}
            DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + V \enspace.
-        \end{equation}
+        \end{equation*}
         It then holds that
-        \begin{equation}
+        \begin{equation*}
            Tr''_{A \rightarrow B} = Tr_{A \rightarrow B} \enspace.
-        \end{equation}
+        \end{equation*}
      \end{theorem}
      \begin{proofsketch}
         The two graphs $\mathcal{G}'$ and $\mathcal{G}''$ differ only on the weight of the edge $\left(A, B\right)$, which is
@@ -874,10 +874,10 @@ while (True)
      leave this calculation as part of further research.
      \begin{sepproof} (Risk Invariance Theorem (\ref{riskinv}))
         Let
-        \begin{align}
+        \begin{align*}
            \forall v,w \in \mathcal{V}', c'_{vw} &= DTr'_{v \rightarrow w} \mbox{ and} \\
            \forall v,w \in \mathcal{V}'', c''_{vw} &= DTr''_{v \rightarrow w} \enspace.
-        \end{align}
+        \end{align*}
         Then
         \begin{equation}
         \label{ccompare}
@@ -900,10 +900,10 @@ while (True)
            maxFlow_{\mathcal{G}''}\left(A, B\right) > maxFlow_{\mathcal{G}'}\left(A, B\right) + V \enspace.
         \end{equation}
         Then 
-        \begin{equation}
+        \begin{equation*}
            \sum\limits_{v \in N^{-}\left(B\right)'' \setminus \{A\}}x''_{vB} > \sum\limits_{v \in N^{-}\left(B\right)'
            \setminus \{A\}}x'_{vB} \enspace.
-        \end{equation}
+        \end{equation*}
         However, it holds that
         \begin{equation}
         \label{cequal}
@@ -911,9 +911,9 @@ while (True)
         \end{equation}
         and $x_{AB}$ flows directly from $A$ to $B$ without adding to the incoming or outgoing flow of any intermediate node,
         thus $MaxFlow_{\mathcal{G}''}$ can choose
-        \begin{equation}
+        \begin{equation*}
            \forall e \in \mathcal{V} \setminus \{\left(A, B\right)\}, x''_e = x'_e
-        \end{equation}
+        \end{equation*}
         and thus, by contradiction with (\ref{mfsupposition}), it holds that
         \begin{equation}
         \label{singlebigger}
@@ -925,13 +925,13 @@ while (True)
            maxFlow_{\mathcal{G}''}\left(A, B\right) = maxFlow_{\mathcal{G}'}\left(A, B\right) + V \enspace.
         \end{equation}
         Finally, it holds that
-        \begin{equation}
+        \begin{equation*}
         \begin{gathered}
            Tr''_{A \rightarrow B} = maxFlow_{\mathcal{G}''}\left(A, B\right) \overset{\left(\ref{mfequal}\right)}{=} \\
            = maxFlow_{\mathcal{G}'}\left(A, B\right) + V = Tr'_{A \rightarrow B} + V
            \overset{\left(\ref{primetrust}\right)}{=} Tr_{A \rightarrow B} \enspace.
         \end{gathered}
-        \end{equation}
+        \end{equation*}
         The proposition is proved. \qed
      \end{sepproof}
   \section{Sybil Resilience}
@@ -959,13 +959,13 @@ while (True)
      \begin{theorem}[Multi-Player Trust Flow] \ \\
         \label{trustmany}
         Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
-        \begin{equation}
+        \begin{equation*}
            \forall B \in S, DTr_{B \rightarrow T} = \infty \enspace.
-        \end{equation}
+        \end{equation*}
         It holds that
-        \begin{equation}
+        \begin{equation*}
            \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow\left(A, T\right) \enspace.
-        \end{equation}
+        \end{equation*}
      \end{theorem}       
      \begin{proof}
         If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have
@@ -1040,9 +1040,9 @@ while (True)
        \label{sybil}
        Let $\mathcal{G}$ be a game graph and $\left(\mathcal{B}, \mathcal{C}\right)$ be a collusion of players on
        $\mathcal{G}$. It holds that
-       \begin{equation}
+       \begin{equation*}
           Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = Tr_{A \rightarrow \mathcal{B}} \enspace.
-       \end{equation}
+       \end{equation*}
     \end{theorem}
     \begin{proofsketch}
        The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
@@ -1162,49 +1162,49 @@ while (True)
      
      Let $A = Player(j)$. $Turn_j$ Examples:
      \begin{enumerate}
-        \item \begin{equation}
+        \item \begin{equation*}
            Turn_j = \emptyset
-        \end{equation}
-        \item \begin{equation}
+        \end{equation*}
+        \item \begin{equation*}
            Turn_j = \{Steal\left(y, B\right), Add\left(w, B\right)\} \enspace,
-        \end{equation}
+        \end{equation*}
         given that
-        \begin{equation}
+        \begin{equation*}
            DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq
            Cap_{A, j_2-1} \enspace.
-        \end{equation}
-        \item \begin{equation}
+        \end{equation*}
+        \item \begin{equation*}
            Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
-        \end{equation}
+        \end{equation*}
         given that
-        \begin{equation}
+        \begin{equation*}
         \begin{gathered}
            DTr_{B \rightarrow A, j_3 - 1} \leq x \wedge -DTr_{A \rightarrow C, j_3-1} \leq y \wedge \\
            \wedge -DTr_{A \rightarrow D, j_3 - 1} \leq w \wedge x - y - w \leq Cap_{A, j_3-1} \enspace.
         \end{gathered}
-        \end{equation}
-        \item \begin{equation}
+        \end{equation*}
+        \item \begin{equation*}
            Turn_j = \{Steal\left(x, B\right), Steal\left(y, B\right)\}
-        \end{equation}
+        \end{equation*}
         is not a valid turn because it contains two $Steal\left(\right)$ actions against the same player. If
-        \begin{equation}
+        \begin{equation*}
            x + y \leq DTr_{B \rightarrow A} \enspace,
-        \end{equation}
+        \end{equation*}
         the correct alternative would be
-        \begin{equation}
+        \begin{equation*}
            Turn_j = \{Steal\left(x+y, B\right)\} \enspace.
-        \end{equation}
+        \end{equation*}
      \end{enumerate}
      \begin{definition}[Previous/Next Turn]
         Let $j \in \mathbb{N}$ a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
         as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
         $prev\left(j\right) = 0$. More formally, if
-        \begin{equation}
+        \begin{equation*}
            P = \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and}
-        \end{equation}
-        \begin{equation}
+        \end{equation*}
+        \begin{equation*}
            N = \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace,
-        \end{equation}
+        \end{equation*}
         then we define $prev\left(j\right), next\left(j\right)$ as follows:
         \begin{equation}
            prev\left(j\right) = \begin{cases}
@@ -1220,9 +1220,9 @@ while (True)
     \subsection{Proofs, Lemmas and Theorems}
     \begin{lemma}[$Loss$ Equivalent to $Damage$] \ \\
        Let $j \in \mathbb{N}, v \in \mathcal{V}_j \setminus \{A, E\}, v = Player\left(j\right)$. It holds that
-       \begin{equation}
+       \begin{equation*}
           \min\left(in_{v, j}, Loss_{v, j}\right) = \min\left(in_{v, j}, Damage_{v, j}\right) \enspace.
-       \end{equation}
+       \end{equation*}
     \end{lemma}
     \begin{proof}
        \begin{itemize}
@@ -1236,10 +1236,10 @@ while (True)
              \item $in_{v, j} \geq 0$
           \end{enumerate}
           Thus
-          \begin{equation}
+          \begin{equation*}
              v \in Happy_{j-1} \Rightarrow \min\left(in_{v, j}, Damage_{v,j}\right) = \min\left(in_{v, j}, Loss_{v,j}\right)
              = 0 \enspace.
-          \end{equation}
+          \end{equation*}
           \item Let $v \in Sad_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Sad_j$ because $Turn_{j} = \emptyset$, 
@@ -1247,10 +1247,10 @@ while (True)
              \item $Damage_{v, j} \geq 0 \wedge Loss_{v, j} \geq 0$.
           \end{enumerate}
           Thus
-          \begin{equation}
+          \begin{equation*}
              v \in Sad_{j-1} \Rightarrow \min\left(in_{v, j}, Damage_{v,j}\right) = \min\left(in_{v, j}, Loss_{v,j}\right) =
              0 \enspace.
-          \end{equation}
+          \end{equation*}
           \item Let $v \in Angry_{j-1} \wedge v \in Happy_j$. Then the same argument as in the first case holds, if
           we ignore the argument (1).
           \item Let $v \in Angry_{j-1} \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
@@ -1262,31 +1262,31 @@ while (True)
     \begin{sepproof}[Trust Convergence Theorem (\ref{convergence})] \ \\
     \label{convergenceproof}
        First of all,
-       \begin{equation}
+       \begin{equation*}
           \forall j > j_0 : Player\left(j\right) = E \Rightarrow Turn_j = \emptyset
-       \end{equation}
+       \end{equation*}
         because $E$ has already nullified his incoming and outgoing direct trusts in $Turn_{j_0}$, the evil strategy does not
        contain any case where direct trust is increased or where the evil player starts directly trusting another player and
        the other players do not follow a strategy in which they can choose to $Add\left(\right)$ trust to $E$, thus player
        $E$ can do nothing $\forall j > j_0$. We also see that
-       \begin{equation}
+       \begin{equation*}
           \forall j > j_0 : Player(j) = A \Rightarrow Turn_j = \emptyset
-       \end{equation}
+       \end{equation*}
        because of the idle strategy that $A$ follows. As far as the rest of the players are concerned, consider the
        Transitive Game. As we can see from lines~\ref{trsteallossinit} and~\ref{trsteallossincrease}
        -~\ref{trsteallossdecrease}, it is
-       \begin{equation}
+       \begin{equation*}
           \forall j, \sum\limits_{v \in \mathcal{V}_j}Loss_v = in_{E, j_0-1} \enspace.
-       \end{equation}
+       \end{equation*}
        In other words, the total loss is constant and equal to the total value stolen by $E$. Also, as we can see in
        lines~\ref{trstealsadinit} and~\ref{trstealtrueentersad}, which are the only lines where the $Sad$ set is modified,
        once a player enters the $Sad$ set, it is impossible to exit from this set. Also, we can see that players in $Sad
        \cup Happy$ always pass their turn. We will now show that eventually the $Angry$ set will be empty, or equivalently
        that eventually every player will pass their turn. Suppose that it is possible to have an infinite amount of turns
        in which players do not choose to pass. We know that the number of nodes is finite, thus this is possible only if
-       \begin{equation}
+       \begin{equation*}
           \exists j': \forall j \geq j', |Angry_j \cup Happy_j| = c > 0 \wedge Angry_j \neq \emptyset \enspace.
-       \end{equation}
+       \end{equation*}
        This statement is valid because the total number of angry and happy players cannot increase because no player leaves
        the $Sad$ set and if it were to be decreased, it would eventually reach 0. Since $Angry_j \neq \emptyset$, a player
        $v$ that will not pass her turn will eventually be chosen to play. According to the Transitive Game, $v$ will either
@@ -1297,60 +1297,60 @@ while (True)
        stolen will never be reduced and the turns this will happen are infinite, the players must steal an infinite amount of
        value, which is impossible because the direct trusts are finite in number and in value. More precisely, let $j_1$ be
        a turn in which a conservative player is chosen and
-       \begin{equation}
+       \begin{equation*}
           \forall j \in \mathbb{N}, DTr_j = \sum\limits_{w,w' \in \mathcal{V}}DTr_{w \rightarrow w', j} \enspace.
-       \end{equation}
+       \end{equation*}
        Also, without loss of generality, suppose that
-       \begin{equation}
+       \begin{equation*}
           \forall j \geq j_1, out_{A, j} = out_{A, j_1} \enspace.
-       \end{equation}
+       \end{equation*}
        In $Turn_{j_1}$, $v$ steals
-       \begin{equation}
+       \begin{equation*}
           St = \sum\limits_{i=1}^{m}y_i \enspace.
-       \end{equation}
+       \end{equation*}
        We will show using induction that
-       \begin{equation}
+       \begin{equation*}
           \forall n \in \mathbb{N}, \exists j_n \in \mathbb{N} : DTr_{j_n} \leq DTr_{j_1-1} - nSt \enspace.
-       \end{equation}
+       \end{equation*}
 
        Base case: It holds that
-       \begin{equation}
+       \begin{equation*}
           DTr_{j_1} = DTr_{j_1-1} - St \enspace.
-       \end{equation}
+       \end{equation*}
        Eventually there is a turn $j_2$ when every player in $N^{-}(v)_{j-1}$ will have played. Then it holds that
-       \begin{equation}
+       \begin{equation*}
           DTr_{j_2} \leq DTr_{j_1} - St = DTr_{j_1-1} - 2St \enspace,
-       \end{equation}
+       \end{equation*}
        since all players in $N^{-}(v)_{j-1}$ follow the conservative strategy, except for $A$, who will not have been stolen
        anything due to the supposition.
 
        Induction hypothesis: Suppose that
-       \begin{equation}
+       \begin{equation*}
           \exists k > 1 : j_k > j_{k-1} > j_1 \Rightarrow DTr_{j_k} \leq DTr_{j_{k-1}} - St \enspace.
-       \end{equation}
+       \end{equation*}
 
        Induction step: There exists a subset of the $Angry$ players, $S$, that have been stolen at least value $St$ in total
        between the turns $j_{k-1}$ and $j_k$, thus there exists a turn $j_{k+1}$ such that all players in $S$ will have
        played and thus
-       \begin{equation}
+       \begin{equation*}
           DTr_{j_{k+1}} \leq DTr_{j_k} - St \enspace.
-       \end{equation}
+       \end{equation*}
        We have proven by induction that
-       \begin{equation}
+       \begin{equation*}
           \forall n \in \mathbb{N}, \exists j_n \in \mathbb{N} : DTr_{j_n} \leq DTr_{j_1-1} - nSt \enspace.
-       \end{equation}
+       \end{equation*}
        However
-       \begin{equation}
+       \begin{equation*}
           DTr_{j_1-1} \geq 0 \wedge St > 0 \enspace,
-       \end{equation}
+       \end{equation*}
        thus
-       \begin{equation}
+       \begin{equation*}
           \exists n' \in \mathbb{N} : n'St > DTr_{j_1-1} \Rightarrow DTr_{j_{n'}} < 0 \enspace.
-       \end{equation}
+       \end{equation*}
        We have a contradiction because
-       \begin{equation}
+       \begin{equation*}
           \forall w,w' \in \mathcal{V}, \forall j \in \mathbb{N}, DTr_{w \rightarrow w', j} \geq 0 \enspace,
-       \end{equation}
+       \end{equation*}
        thus eventually $Angry = \emptyset$ and everybody passes. \qed
     \end{sepproof}
 
@@ -1380,28 +1380,28 @@ while (True)
 
        Base case: In turn 1, $E$ steals value equal to $\sum\limits_{w \in \mathcal{V}}x_{wE}$, following the modified evil
        strategy.
-       \begin{equation}
+       \begin{equation*}
           Turn_1 = \bigcup\limits_{v \in N^{-}\left(E\right)_0}\{Steal\left(x_{vE}, v\right)\}
-       \end{equation}
+       \end{equation*}
 
        Induction hypothesis: Let $k \in [j_2 - 2]$. We suppose that $\forall j \in [k]$, there exists a valid set of actions,
        $Turn_j$, performed by $v = Player\left(j\right)$ such that $v$ steals from each player $w$ value equal to $x_{wv}$.
-       \begin{equation}
+       \begin{equation*}
           \forall j \in [k], Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(x_{wv}, w\right)\}
-       \end{equation}
+       \end{equation*}
 
        Induction step: Let $j = k + 1, v = Player\left(j\right)$. Since all the players that are greater than $v$ in the
        total order have already played and all of them have stolen value equal to their incoming flow, we deduce that $v$ has
        been stolen value equal to $\sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw}$. Since it is the first time $v$
        plays, $\forall w \in N^{-}\left(v\right)_{j-1}, DTr_{w \rightarrow v, j-1} = DTr_{w \rightarrow v, 0} \geq x_{wv}$, thus
        $v$ is able to choose the following turn:
-       \begin{equation}
+       \begin{equation*}
           Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(x_{wv}, w\right)\}
-       \end{equation}
+       \end{equation*}
        Moreover, this turn satisfies the conservative strategy since
-       \begin{equation}
+       \begin{equation*}
           \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}x_{wv} = \sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw} \enspace.
-       \end{equation}
+       \end{equation*}
        Thus $Turn_j$ is a valid turn for the conservative player $v$.
 
        We have proven that in the end of turn $j_2 - 1$, player $E$ and all the conservative players will have stolen value
@@ -1418,18 +1418,18 @@ while (True)
        Let $Sad, Happy, Angry$ be as defined in the Transitive Game. Let $\mathcal{G}'$ be a directed weighted graph based on
        $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a turn when the Transitive Game has converged. More
        precisely, $\mathcal{G}'$ is defined as follows:
-       \begin{equation}
+       \begin{equation*}
           \mathcal{V}' = \mathcal{V} \cup \{T\}
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           \mathcal{E}' = \mathcal{E} \cup \{(T, A)\} \cup \{(T, v) : v \in Sad_{j_1}\}
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           \forall (v, w) \in \mathcal{E}, c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
-       \end{equation}
+       \end{equation*}
 \begin{center}
        \begin{tikzpicture}
        \begin{dot2tex}[dot,tikz]
@@ -1531,47 +1531,47 @@ while (True)
           $x'_{Tv} \geq 0$.
           \item Let $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, E\}\right)$. According to the conservative
           strategy and since $v \notin Sad_{j_1},$ it holds that
-          \begin{equation}
+          \begin{equation*}
              out_{v, 0} - out_{v, j_1} = in_{v, 0} - in_{v, j_1} \enspace.
-          \end{equation}
+          \end{equation*}
           Combining this observation with (\ref{gameflowin}) and (\ref{gameflowout}), we have that
-          \begin{equation}
+          \begin{equation*}
              \sum\limits_{w \in \mathcal{V}'}c'_{vw} = \sum\limits_{w \in \mathcal{V}'}c'_{wv} \enspace.
-          \end{equation}
+          \end{equation*}
           (Flow Conservation requirement (\ref{flow2}) $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1}
           \cup \{T, A, E\}\right)$)
           \item Let $v \in Sad_{j_1}$. Since $v$ is sad, we know that
-          \begin{equation}
+          \begin{equation*}
              out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1} \enspace.
-          \end{equation}
+          \end{equation*}
           Since $c'_{Tv} = \infty$, we can set
-          \begin{equation}
+          \begin{equation*}
              x'_{Tv} = \left(out_{v, 0} - out_{v, j_1}\right) - \left(in_{v, 0} - in_{v, j_1}\right) \enspace.
-          \end{equation}
+          \end{equation*}
           In this way, we have
-          \begin{equation}
+          \begin{equation*}
              \sum\limits_{w \in \mathcal{V}'}x'_{vw} = out_{v, 0} - out_{v, j_1} \mbox{ and}
-          \end{equation}
-          \begin{equation}
+          \end{equation*}
+          \begin{equation*}
           \begin{gathered}
              \sum\limits_{w \in \mathcal{V}'}x'_{wv} = \sum\limits_{w \in \mathcal{V}' \setminus \{T\}}c'_{wv} + x'_{Tv} =
              in_{v, 0} - in_{v, j_1} + \\ + (out_{v, 0} - out_{v, j_1}) - (in_{v, 0} - in_{v, j_1}) = out_{v, 0} -
              out_{v, j_1} \enspace.
           \end{gathered}
-          \end{equation}
+          \end{equation*}
           thus
-          \begin{equation}
+          \begin{equation*}
              \sum\limits_{w \in \mathcal{V}'}x'_{vw} = \sum\limits_{w \in \mathcal{V}'}x'_{wv} \enspace.
-          \end{equation}
+          \end{equation*}
           (Requirement \ref{flow2} $\forall v \in Sad_{j_1}$)
           \item We set
-          \begin{equation}
+          \begin{equation*}
              x'_{TA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace,
-          \end{equation}
+          \end{equation*}
           thus from (\ref{Aincoming}) we have
-          \begin{equation}
+          \begin{equation*}
              \sum\limits_{v \in \mathcal{V}'}x'_{vA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
-          \end{equation}
+          \end{equation*}
           (Requirement \ref{flow2} for $A$)
        \end{itemize}
        We saw that for all nodes, the necessary properties for a flow to be valid hold and thus $X'$ is a valid flow for
@@ -1583,54 +1583,54 @@ while (True)
           Loss_A \enspace.
        \end{equation}
        We define another graph, $\mathcal{G}''$, based on $\mathcal{G}'$.
-       \begin{equation}
+       \begin{equation*}
           \mathcal{V}'' = \mathcal{V}'
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           E(\mathcal{G}'') = E(\mathcal{G}') \setminus \{(T, v) : v \in Sad_j\}
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           \forall e \in E(\mathcal{G}''), c''_e = c'_e
-       \end{equation}
+       \end{equation*}
        If we execute the algorithm $MaxFlow(T, E)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
-       \begin{equation}
+       \begin{equation*}
           \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
-       \end{equation}
+       \end{equation*}
        The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: Firstly, using the Flow
        Decomposition theorem \cite{flowdecomp} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
        obtain a flow configuration where the total outgoing flow from $A$ remains invariant,\footnote{We thank Kyriakos Axiotis
        for his insights on the Flow Decomposition theorem.} thus
-       \begin{equation}
+       \begin{equation*}
           \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
-       \end{equation}
+       \end{equation*}
        Secondly, we have
-       \begin{equation}
+       \begin{equation*}
           \begin{rcases}
              \sum\limits_{v \in \mathcal{V}''}c''_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = \sum\limits_{v \in
              \mathcal{V}'}x'_{Av} \\
              \sum\limits_{v \in \mathcal{V}''}c''_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
           \end{rcases}
           \Rightarrow \sum\limits_{v \in \mathcal{V}''}x''_{Av} \leq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
-       \end{equation}
+       \end{equation*}
        Thus we conclude that
        \begin{equation}
        \label{primeequaldoubleprime}
           \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
        \end{equation}
        Let $X = X'' \setminus \{(T, A)\}$. Observe that
-       \begin{equation}
+       \begin{equation*}
           \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
-       \end{equation}
+       \end{equation*}
        This flow is valid on graph $\mathcal{G}$ because
-       \begin{equation}
+       \begin{equation*}
           \forall e \in \mathcal{E}, c_e \geq c''_e \enspace.
-       \end{equation}
+       \end{equation*}
        Thus there exists a valid flow for each execution of the Transitive Game such that
-       \begin{equation}
+       \begin{equation*}
           \sum\limits_{v \in \mathcal{V}}x_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av}
           \overset{\left(\ref{primeequaldoubleprime}\right)}{=} \sum\limits_{v \in \mathcal{V}'}x'_{Av}
           \overset{\left(\ref{xprimeequalloss}\right)}{=} Loss_{A, j_1} \enspace,
-       \end{equation}
+       \end{equation*}
        which is the flow $X$. \qed
     \end{sepproof}
 
@@ -1643,17 +1643,17 @@ while (True)
     \end{proofsketch}
     \begin{proof} \ \\
        Suppose that we are interested in graphs $\mathcal{G}_j$. Let $(j_k)$ an increasing sequence of positive integers,
-       \begin{equation}
+       \begin{equation*}
        \begin{gathered}
           \mbox{let } S_{j_k} \subseteq N^{-}\left(Player\left(j_k\right)\right)_{j_k-1} \mbox{ and} \\
           \mbox{let } \forall v \in S_{j_k}, y_{v, j_k} > 0\enspace.
        \end{gathered}
-       \end{equation}
-       Suppose that there exists a subseries of History, $(Turn_{j_k})$, where
-       \begin{equation}
+       \end{equation*}
+       Suppose that there exists a subsequence of History, $(Turn_{j_k})$, where
+       \begin{equation*}
           Turn_{j_k} = \bigcup\limits_{v \in S_{j_k}}\{Steal(y_{v, j_k},v)\} \enspace,
-       \end{equation}
-       This subseries must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative strategy,
+       \end{equation*}
+       This subsequence must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative strategy,
        thus somebody must have stolen from her as well, so $Player(j_1)$ cannot be the initial element. We have a
        contradiction, thus the theorem holds.
     \end{proof}
@@ -1662,18 +1662,18 @@ while (True)
     \begin{sepproof}[Sybil Resilience Theorem (\ref{sybil})] \ \\
     \label{sybilproof}
        Let $\mathcal{G}_1$ be a game graph defined as follows:
-       \begin{equation}
+       \begin{equation*}
           \mathcal{V}_1 = \mathcal{V} \cup \{T_1\} \enspace,
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           \mathcal{E}_1 = \mathcal{E} \cup \{(v, T_1) : v \in \mathcal{B} \cup \mathcal{C}\} \enspace,
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           \forall v,w \in \mathcal{V}_1 \setminus \{T_1\}, DTr^1_{v \rightarrow w} = DTr_{v \rightarrow w} \enspace,
-       \end{equation}
-       \begin{equation}
+       \end{equation*}
+       \begin{equation*}
           \forall v \in \mathcal{B} \cup \mathcal{C}, DTr^1_{v \rightarrow T_1} = \infty \enspace,
-       \end{equation}
+       \end{equation*}
        where $DTr_{v \rightarrow w}$ is the direct trust from $v$ to $w$ in $\mathcal{G}$ and $DTr^1_{v \rightarrow w}$ is
        the direct trust from $v$ to $w$ in $\mathcal{G}_1$. \\
        Let also $\mathcal{G}_2$ be the induced graph that results from $\mathcal{G}_1$ if we remove the Sybil set,
@@ -1707,20 +1707,20 @@ while (True)
        We will show that the $MaxFlow$ of each of the two graphs can be used to construct a valid flow of equal value for the
        other graph. The flow $X_1 = MaxFlow\left(A, T_1\right)$ can be used to construct a valid flow of equal value for the
        second graph if we set
-       \begin{align}
+       \begin{align*}
           \forall v \in \mathcal{V}_2 \setminus \mathcal{B}, \forall w \in \mathcal{V}_2&, x_{vw,2} = x_{vw,1} \enspace, \\
           \forall v \in \mathcal{B}&, x_{vT_2,2} = \sum\limits_{w \in N^{+}_1\left(v\right)}x_{vw,1} \enspace, \\
           \forall v,w \in \mathcal{B}&, x_{vw,2} = 0 \enspace.
-       \end{align}
+       \end{align*}
        Therefore
-       \begin{equation}
+       \begin{equation*}
           maxFlow_1\left(A, T_1\right) \leq maxFlow_2\left(A, T_2\right)
-       \end{equation}
+       \end{equation*}
        Likewise, the flow $X_2 = MaxFlow(A, T_2)$ is a valid flow for $\mathcal{G}_1$ because $\mathcal{G}_2$ is an induced
        subgraph of $\mathcal{G}_1$. Therefore
-       \begin{equation}
+       \begin{equation*}
           maxFlow_1\left(A, T_1\right) \geq maxFlow_2\left(A, T_2\right)
-       \end{equation}
+       \end{equation*}
        We conclude that
        \begin{equation}
        \label{eqmaxflows}
