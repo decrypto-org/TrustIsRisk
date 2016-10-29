@@ -153,15 +153,16 @@
 %
 \end{tikzpicture} \smallskip \ \\
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
-     construction that permits any one of two pre-designated users to spend the coins contained therein \cite{multisig}. We
-     will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by either $Alice$ or $Bob$.
+     construction that permits any one of two pre-designated users to spend the coins contained therein
+     \cite{masteringbitcoin}. We will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by
+     either $Alice$ or $Bob$.
 
      Our approach changes the user experience in a subtle but drastic way. A user no more has to base her trust towards a
      store on stars, ratings or other dubious and non-quantifiable trust metrics. She can simply consult her wallet to
      decide whether the store is trustworthy and, if so, up to what value. This system works as follows: Initially $Alice$
-     migrates her funds from P2PKH addresses in the UTXO \cite{bitcoinguide} to 1-of-2 multisig addresses shared with friends
-     she comfortably trusts. We call this direct trust. Our system is agnostic to the means players use to determine who is
-     trustworthy for these direct 1-of-2 deposits.
+     migrates her funds from P2PKH addresses in the UTXO \cite{masteringbitcoin} to 1-of-2 multisig addresses shared with
+     friends she comfortably trusts. We call this direct trust. Our system is agnostic to the means players use to determine
+     who is trustworthy for these direct 1-of-2 deposits.
 
      Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
      positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely use to
@@ -1721,11 +1722,8 @@ while (True)
      Sanchez W.: Lines of Credit (2016) \url{https://gist.github.com/drwasho/2c40b91e169f55988618#part-3-web-of-credit}
      \bibitem{bitcoin}
      Nakamoto S.: Bitcoin: A Peer-to-Peer Electronic Cash System (2008)
-     \bibitem{multisig}
-     Buterin V.: Bitcoin Multisig Wallet: The Future of Bitcoin. Bitcoin Magazine (2014),
-     \url{https://bitcoinmagazine.com/articles/multisig-future-bitcoin-1394686504}
-     \bibitem{bitcoinguide}
-     Bitcoin Developer Guide, \url{https://bitcoin.org/en/developer-guide}
+     \bibitem{masteringbitcoin}
+     Antonopoulos A. M.: Mastering Bitcoin: unlocking digital cryptocurrencies. O'Reilly Media, Inc. (2014)
      \bibitem{socialcollateral}
      Karlan, D., Mobius, M., Rosenblat, T., Szeidl, A.: Trust and social collateral. The Quarterly Journal of Economics,
      1307-1361 (2009)
