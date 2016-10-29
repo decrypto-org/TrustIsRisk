@@ -1365,7 +1365,7 @@ while (True)
        $maxFlow\left(A, E\right)$, thus we can remove these flows. The resulting flow is a $MaxFlow\left(A, E\right)$ without
        cycles, thus it is a DAG. We also know that we can apply the topological sort
        algorithm to any DAG and obtain a total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it
-       holds that $v < w \Rightarrow x_{wv} = 0$ \cite{toposort}. Put differently, there is no flow from larger to smaller
+       holds that $v < w \Rightarrow x_{wv} = 0$ \cite{clrs}. Put differently, there is no flow from larger to smaller
        nodes. We execute the topological sort on $X$ and obtain a total order of the nodes, such that $E$ is the maximum and
        $A$ is the minimum node. $E$ is maximum since it is the sink and thus has no outgoing flow to any node and $A$ is
        minimum since it is the source and thus has no incoming flow from any node. The desired execution of algorithm
@@ -1743,9 +1743,6 @@ while (True)
      \bibitem{flowdecomp}
      Orlin J.: 15.082J Network Optimization. Massachusetts Institute of Technology: MIT OpenCourseWare,
      \url{https://ocw.mit.edu}. License: Creative Commons BY-NC-SA. (Fall 2010)
-     \bibitem{toposort}
-     Kahn Arthur B.: Topological sorting of large networks. Communications of the ACM Vol. 5, Issue 11, pp. 558-562, ACM,
-     New York (1962)
      \bibitem{dionyziz}
      Zindros D. S.: Trust in decentralized anonymous marketplaces (2015)
   \end{thebibliography}
