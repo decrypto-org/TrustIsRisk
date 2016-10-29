@@ -134,7 +134,7 @@ vii)	Somewhat cryptic paper (and dubious expressions: 'Step forward and kneel yo
 
 Trust and Social Collateral
 MaxFlow as trust mechanism
-i)	Undirected graphs (c(v,u)=c(u,v)), but claims to be extendable to directed ones
+i)	Undirected graphs (c(v,u)=c(u,v)), but claims to be extensible to directed ones
 ii)	Encouraging results from fitness in real-life situations
 iii)	Study of dynamics of such networks based on a concrete game-theoretic model of 5 stages. Restricts the game by implying an arrangement between all the intermediate parties between the transaction is completed. This way the network isn't vulnerable to complete breakdown after one Transitive Game.
 iv)	If the borrower steals, then each intermediary can either pay up the preagreed value to the lender, or pay nothing.
@@ -144,4 +144,17 @@ vii)	Reaches similar results from a different initial point. Uses game-theoretic
 
 TrustDavis
 i)	Trust-as-risk
-)	Reminds TrustIsRisk a lot
+ii)	Reminds TrustIsRisk in a pre-bitcoin era a lot
+
+Money as IOUs
+i)	More of a draft
+ii)	Proposes a set of decentralized currencies, each an IOU between trusted parties
+iii)	Does not address how trust is obtained or how much of it exists
+iv)	I can pay a party that doesn't trust me by finding a chain of trusts and having the last link pay with her IOUs, then reimbursed with IOUs of the second last link and so on until I pay the second link.
+
+Web of Trust
+i)	Good overview of previous work
+ii)	A percentage of trust is assigned to people of whom the public keys I have
+iii)	"for such a model to be valid, the way trust is determined must be standardized, as to make clear what a probability value actually means."
+iv)	Not very clear in its explanation of algorithms for trust calculation
+v)	Does not really have to do with our approach.
