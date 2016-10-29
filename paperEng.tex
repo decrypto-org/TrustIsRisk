@@ -165,16 +165,16 @@
 
      Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
      positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely use to
-     complete a purchase from $Charlie$. We examine exactly how this value is calculated in Trust Flow Theorem
+     complete a purchase from $Charlie$. We examine exactly how this value is calculated in Trust Flow theorem
      (\ref{trustflow}). This monetary value reported by our system maintains the desired security property that, if $Alice$
      makes this purchase, then she is exposed to no more risk than she was willing to expose herself towards her friends.
-     We prove this result in the Risk Invariance Theorem (\ref{riskinv}). Obviously it will not be safe for $Alice$ to buy
+     We prove this result in the Risk Invariance theorem (\ref{riskinv}). Obviously it will not be safe for $Alice$ to buy
      anything from $Charlie$ or any other vendor if she has entrusted no value to any other player.
 
      We see that in TrustIsRisk the money is not invested at the time of the purchase and directly to the vendor, but at an
      earlier point in time and only to parties that are trustworthy for out-of-band reasons. The fact that this system can
      function in a completely decentralized fashion will become clear in the following sections. We prove this result in the
-     Sybil Resilience Theorem (\ref{sybil}).
+     Sybil Resilience theorem (\ref{sybil}).
 
      There are several incentives for a user to join this network. First of all, she can have access to a store that is
      otherwise inaccessible. Moreover, two friends can formalize their mutual trust by entrusting the same amount to each
@@ -578,7 +578,7 @@ while (True)
       Happy = Happy(*@$\:\cup\: \{v\}$@*)
      \end{lstlisting}
      Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
-     has been stolen yet (see Appendix (Theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
+     has been stolen yet (see Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
      let $v = Player(j)$ and $j' = prev\left(j\right)$. Given that
      \begin{equation}
         Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
@@ -746,7 +746,7 @@ while (True)
     \begin{proofsketch}
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
-       trust. For the complete proof, see Appendix (Proof \ref{convergenceproof}).
+       trust. For the complete proof, see Appendix (proof \ref{convergenceproof}).
     \end{proofsketch}
 
     In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
@@ -774,7 +774,7 @@ while (True)
     $MaxFlow\left(A, B\right)$ as $maxFlow\left(A, B\right)$.
 
     We will now introduce two lemmas that will be used to prove the one of the central results of this work, the Trust Flow
-    Theorem.
+    theorem.
     \begin{lemma}[MaxFlows Are Transitive Games] \ \\
        \label{maxflowgame}
        Let $\mathcal{G}$ be a game graph, let $A, E \in \mathcal{V}$ and $MaxFlow\left(A, E\right)$ the maximum flow from
@@ -789,7 +789,7 @@ while (True)
        equivalent $Steal\left(\right)$ actions. The players will play in turns, moving from $E$ back to $A$. Each player will
        steal from his predecessors as much as was stolen from her. The flows and the conservative strategy share the property
        that the total input is equal to the total output. For the complete proof, see Appendix
-       (Proof \ref{maxflowgameproof}).
+       (proof \ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
        \label{gameflow}
@@ -802,7 +802,7 @@ while (True)
     \end{lemma}
     \begin{proofsketch}
        If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
-       $A$ to $E$. For the complete proof, see Appendix (Proof \ref{gameflowproof}).
+       $A$ to $E$. For the complete proof, see Appendix (proof \ref{gameflowproof}).
     \end{proofsketch}
     \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
@@ -950,12 +950,12 @@ while (True)
 %           \wedge \forall v \in \mathcal{V} \setminus \left(S \cup \{A\}\right), Strategy\left(v\right) = Conservative
 %        \end{gathered}
 %        \end{equation}
-        Let $choices$ be the different actions between which the conservative players can choose, then
+        More formally, let $choices$ be the different actions between which the conservative players can choose, then
         \begin{equation}
            Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, configurations}{\left[out_{A,j} - out_{A,j'}\right]}
         \end{equation}
      \end{definition}
-     We now extend Trust Flow Theorem (\ref{trustflow}) to many players.
+     We now extend Trust Flow theorem (\ref{trustflow}) to many players.
      \begin{theorem}[Multi-Player Trust Flow] \ \\
         \label{trustmany}
         Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
@@ -971,7 +971,7 @@ while (True)
         If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have
         to steal all their incoming direct trust since they have suffered an infinite loss, thus they will act in a way
         identical to following the evil strategy as far as $MaxFlow$ is concerned. The theorem follows thus from the Trust
-        Flow Theorem.
+        Flow theorem.
  %       \begin{equation}
  %          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
  %          \enspace.
@@ -1047,7 +1047,7 @@ while (True)
     \begin{proofsketch}
        The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
        $\mathcal{C}$ has no incoming trust from players outside the collusion. For the complete proof, see
-       Appendix (Proof \ref{sybilproof}).
+       Appendix (proof \ref{sybilproof}).
     \end{proofsketch}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
 
@@ -1060,7 +1060,7 @@ while (True)
      While our trust network can form a basis for risk-invariant transactions in the anonymous and decentralized setting,
      more research is required to achieve other desirable properties. Some directions for future research are outlined below.
 
-     First of all, concrete trust manipulation algorithms are needed to make use of Risk Invariance Theorem. Secondly, an
+     First of all, concrete trust manipulation algorithms are needed to make use of Risk Invariance theorem. Secondly, an
      extension of this work to a dynamic setting where players can enter, leave and execute turns simultaneously and where
      there is no need for an algorithm like TrustIsRisk Game. Furthermore, the fact that $MaxFlow$ needs full network
      knowledge may be undesirable for some parties, consequently there should be further research on zero knowledge methods.
@@ -1072,7 +1072,7 @@ while (True)
      \subsection{Trust Transfer Algorithms}
         If $Alice$ trusts $Bob$ enough to purchase a good from him, she should not directly pay him the value of the good,
         because then she will increase her trust towards $Bob$. She first has to reduce her outgoing direct trust in a manner
-        such that the supposition (\ref{primetrust}) of Risk Invariance Theorem is satisfied. The methods $Alice$ can use to
+        such that the supposition (\ref{primetrust}) of Risk Invariance theorem is satisfied. The methods $Alice$ can use to
         recalculate her outgoing trust will be discussed in a future paper.
 
      \subsection{Dynamic Setting}
@@ -1360,9 +1360,9 @@ while (True)
        \mathcal{G}_0$. Let $X =
        \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by the execution of the $MaxFlow\left(A, E\right)$
        algorithm on $\mathcal{G}_0$. For any directed weighted graph $G$ there exists a $MaxFlow$ over $G$ that is a DAG.
-       We can easily prove this using the Flow Decomposition Theorem \cite{flowdecomp}, which states that each flow can be
+       We can easily prove this using the Flow Decomposition theorem \cite{flowdecomp}, which states that each flow can be
        seen as a finite set of paths from $A$ to $E$ and cycles, each having a certain flow. We execute $MaxFlow\left(A,
-       E\right)$ and we apply the aforementioned Theorem. Obviously the cycles do not influence the
+       E\right)$ and we apply the aforementioned theorem. Obviously the cycles do not influence the
        $maxFlow\left(A, E\right)$, thus we can remove these flows. The resulting flow is a $MaxFlow\left(A, E\right)$ without
        cycles, thus it is a DAG. We also know that we can apply the topological sort
        algorithm to any DAG and obtain a total ordering of its nodes with the following property: $\forall$ nodes $v, w$, it
@@ -1597,9 +1597,9 @@ while (True)
           \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
        \end{equation}
        The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: Firstly, using the Flow
-       Decomposition Theorem \cite{flowdecomp} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
+       Decomposition theorem \cite{flowdecomp} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
        obtain a flow configuration where the total outgoing flow from $A$ remains invariant,\footnote{We thank Kyriakos Axiotis
-       for his insights on the Flow Decomposition Theorem.} thus
+       for his insights on the Flow Decomposition theorem.} thus
        \begin{equation}
           \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
        \end{equation}
@@ -1698,7 +1698,7 @@ while (True)
           }
        \end{dot2tex}
        \end{tikzpicture}
-       According to Theorem (\ref{trustmany}),
+       According to theorem (\ref{trustmany}),
        \begin{equation}
        \label{trmaxflow}
           Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow_1\left(A, T_1\right) \wedge
