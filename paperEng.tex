@@ -592,6 +592,9 @@ while (True)
      \begin{equation*}
         \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
      \end{equation*}
+ 
+     We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
+
      From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
      obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
      stolen more value than she has been stolen, thus she would not be following the conservative strategy. An example
