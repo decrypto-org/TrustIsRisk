@@ -1637,26 +1637,13 @@ while (True)
        \label{conservativeworld}
        If everybody follows the conservative strategy, nobody steals any amount from anybody.
     \end{theorem}
-    \begin{proofsketch}
-       If everybody is conservative, nobody can initiate the chain of steals.
-    \end{proofsketch}
-    \begin{proof} \ \\
-       Suppose that we are interested in graphs $\mathcal{G}_j$. Let $(j_k)$ an increasing sequence of positive integers,
-       \begin{equation*}
-       \begin{gathered}
-          \mbox{let } S_{j_k} \subseteq N^{-}\left(Player\left(j_k\right)\right)_{j_k-1} \mbox{ and} \\
-          \mbox{let } \forall v \in S_{j_k}, y_{v, j_k} > 0\enspace.
-       \end{gathered}
-       \end{equation*}
-       Suppose that there exists a subsequence of History, $(Turn_{j_k})$, where
-       \begin{equation*}
-          Turn_{j_k} = \bigcup\limits_{v \in S_{j_k}}\{Steal(y_{v, j_k},v)\} \enspace,
-       \end{equation*}
-       This subsequence must have an initial element, $Turn_{j_1}$. However, $Player(j_1)$ follows the conservative strategy,
-       thus somebody must have stolen from her as well, so $Player(j_1)$ cannot be the initial element. We have a
-       contradiction, thus the theorem holds.
-    \end{proof}
-
+     \begin{proof}
+        Let $\mathcal{H}$ be the game history where all players are conservative and suppose there are some
+        $Steal\left(\right)$ actions taking place. Then let $\mathcal{H}'$ be the subsequence of turns each containing at
+        least one $Steal\left(\right)$ action. This subsequence is evidently nonempty, thus it must have a first element. The
+        player corresponding to that turn, $A$, has chosen a $Steal\left(\right)$ action and no previous player has chosen
+        such an action. However, player $A$ follows the conservative strategy, which is a contradiction.
+     \end{proof}
 
     \begin{sepproof}[Sybil Resilience Theorem (\ref{sybil})] \ \\
     \label{sybilproof}
