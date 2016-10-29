@@ -402,7 +402,7 @@
 TrustIsRisk Game (*@\Reactivatenumber@*)
 j = 0
 while (True)
-  j = j + 1
+  j += 1
   (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
   ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
   ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
@@ -553,7 +553,7 @@ for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))
   (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
 j = 0
 while (True)
-  j = j + 1
+  j += 1
   (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
   (*@$Turn_j$@*) = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
