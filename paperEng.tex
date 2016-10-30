@@ -67,7 +67,7 @@
 
 \pagestyle{plain}
 
-\newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \bigskip \ \\}
+\newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \smallskip \ \\}
 
 \bibliographystyle{splncs}
 
@@ -405,55 +405,51 @@ j = 0
 while (True)
   j += 1
   (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
-  ProvisionalTurn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
-  ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*),
-      ProvisionalTurn)
+  Turn = (*@$v$@*)Oracle((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
+  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{A, j-1}$@*), Turn)
+  ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), NewCap, (*@$Turn_j$@*))
     \end{lstlisting}
-    This algorithm calls the necessary functions to prepare the new graph.
-    \Suppressnumber
-    \begin{lstlisting}[label=executeturn, style=numbers]
-Execute Turn
-Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), ProvisionalTurn
-Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
-executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), ProvisionalTurn) :
-  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), ProvisionalTurn)
-  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
-    \end{lstlisting}
-    The following algorithm validates that the provisional turn produced by the oracle respects the rules imposed on turns.
+%    This algorithm calls the necessary functions to prepare the new graph.
+%    \Suppressnumber
+%    \begin{lstlisting}[label=executeturn, style=numbers]
+%Execute Turn
+%Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), TentativeTurn
+%Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
+%executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn) :
+%  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
+%  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
+%    \end{lstlisting}
+    The following algorithm validates that the tentative turn produced by the oracle respects the rules imposed on turns.
     If the turn is invalid, an empty turn is returned.
     \Suppressnumber
     \begin{lstlisting}[label=validateturn, style=numbers]
 Validate Turn
-Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), ProvisionalTurn
-Output : (*@$Turn_j$@*), new capital (*@$Cap_{A, j}$@*) (*@\Reactivatenumber@*)
-validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), ProvisionalTurn) :
-  (*@$Y_{st}$@*) = 0
-  (*@$Y_{add}$@*) = 0
-  for (action (*@$\in$@*) ProvisionalTurn)
+Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old (*@$Cap_{A, j-1}$@*), Turn
+Output : (*@$Turn_j$@*), new (*@$Cap_{A, j}$@*) (*@\Reactivatenumber@*)
+validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
+  (*@$Y_{st}$@*) = (*@$Y_{add}$@*) = 0
+  for (action (*@$\in$@*) Turn)
     action match do
       case (*@$Steal($@*)y(*@$,w)$@*) do
         if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) || y < 0)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-        else
-          (*@$Y_{st}$@*) = (*@$Y_{st}$@*) + y
+        (*@$Y_{st}$@*) = (*@$Y_{st}$@*) + y
       case (*@$Add($@*)y(*@$,w)$@*) do
         if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*))
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-        else
-          (*@$Y_{add}$@*) = (*@$Y_{add}$@*) + y
+        (*@$Y_{add}$@*) = (*@$Y_{add}$@*) + y
   if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))
     return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-  else
-    return(ProvisionalTurn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
+  return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
     \end{lstlisting}
     Finally, this algorithm applies the turn to the old graph and returns the new graph, along with the updated capital and
     history.
     \Suppressnumber
     \begin{lstlisting}[label=committurn, style=numbers]
 Commit Turn
-Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), (*@$Turn_j$@*), NewCap
-Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
-commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap) :
+Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), NewCap, (*@$Turn_j$@*)
+Output : new (*@$\mathcal{G}_j$@*), new (*@$Cap_{A, j}$@*), new (*@$\mathcal{H}_j$ \Reactivatenumber@*)
+commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
   for (((*@$v$@*), (*@$w$@*)) (*@$\in \mathcal{E}_j$@*))
     (*@$DTr_{v \rightarrow w, j}$@*) = (*@$DTr_{v \rightarrow w, j-1}$@*)
   for (action (*@$\in Turn_j$@*))
@@ -587,7 +583,7 @@ while (True)
 %     \end{equation}
      The algorithm generates turns:
      \begin{equation}
-        Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\}, Damage_{v, j} > 0 \enspace,
+        Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\} \enspace,% Damage_{v, j} > 0 \enspace,
      \end{equation}
      where
      \begin{equation*}
@@ -747,8 +743,11 @@ while (True)
     \begin{proofsketch}
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
-       trust. For the complete proof, see Appendix (proof \ref{convergenceproof}).
+       trust.
+%       For the complete proof, see Appendix (proof \ref{convergenceproof}).
     \end{proofsketch}
+
+    Full proofs of all theorems and lemmas can be found in the Appendix.
 
     In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
     $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
@@ -789,7 +788,8 @@ while (True)
        The desired execution of \texttt{TransitiveGame()} will contain all flows from the $MaxFlow\left(A, E\right)$ as
        equivalent $Steal\left(\right)$ actions. The players will play in turns, moving from $E$ back to $A$. Each player will
        steal from his predecessors as much as was stolen from her. The flows and the conservative strategy share the property
-       that the total input is equal to the total output. For the complete proof, see Appendix
+       that the total input is equal to the total output.
+%       For the complete proof, see Appendix
        (proof \ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
@@ -803,7 +803,8 @@ while (True)
     \end{lemma}
     \begin{proofsketch}
        If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
-       $A$ to $E$. For the complete proof, see Appendix (proof \ref{gameflowproof}).
+       $A$ to $E$.
+%       For the complete proof, see Appendix (proof \ref{gameflowproof}).
     \end{proofsketch}
     \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
@@ -812,28 +813,9 @@ while (True)
           Tr_{A \rightarrow E} = maxFlow\left(A, E\right) \enspace.
        \end{equation*}
     \end{theorem}
-    \begin{proof} \ \\
-       From lemma \ref{maxflowgame} we see that there exists an execution of the Transitive Game such that
-       \begin{equation*}
-          Loss_A \geq maxFlow\left(A, E\right) \enspace.
-       \end{equation*}
-       Since $Tr_{A \rightarrow E}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
-       see that
-       \begin{equation}
-       \label{trgeqmaxflow}
-          Tr_{A \rightarrow E} \geq maxFlow\left(A, E\right) \enspace.
-       \end{equation}
-       Moreover, there exists an execution of the Transitive Game such that
-       \begin{equation*}
-          Tr_{A \rightarrow E} = Loss_A \enspace.
-       \end{equation*}
-       From lemma \ref{gameflow}, this execution corresponds to a flow. Thus
-       \begin{equation}
-       \label{trleqmaxflow}
-          Tr_{A \rightarrow E} \leq maxFlow\left(A, E\right) \enspace.
-       \end{equation}
-       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}).
-    \end{proof}
+    \begin{proofsketch}
+       The theorem follows directly from lemma \ref{maxflowgame} and \ref{gameflow}.
+    \end{proofsketch}
 
      We note that the maxFlow is the same in the following two cases: When a player chooses the evil strategy and when the
      same player chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
@@ -1046,8 +1028,8 @@ while (True)
     \end{theorem}
     \begin{proofsketch}
        The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
-       $\mathcal{C}$ has no incoming trust from players outside the collusion. For the complete proof, see
-       Appendix (proof \ref{sybilproof}).
+       $\mathcal{C}$ has no incoming trust from players outside the collusion.
+%       For the complete proof, see Appendix (proof \ref{sybilproof}).
     \end{proofsketch}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
 
@@ -1633,6 +1615,29 @@ while (True)
           \overset{\left(\ref{xprimeequalloss}\right)}{=} Loss_{A, j_1} \enspace,
        \end{equation*}
        which is the flow $X$. \qed
+    \end{sepproof}
+
+    \begin{sepproof}[Trust Flow Theorem (\ref{trustflow})] \ \\
+       From lemma \ref{maxflowgame} we see that there exists an execution of the Transitive Game such that
+       \begin{equation*}
+          Loss_A \geq maxFlow\left(A, E\right) \enspace.
+       \end{equation*}
+       Since $Tr_{A \rightarrow E}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
+       see that
+       \begin{equation}
+       \label{trgeqmaxflow}
+          Tr_{A \rightarrow E} \geq maxFlow\left(A, E\right) \enspace.
+       \end{equation}
+       Moreover, there exists an execution of the Transitive Game such that
+       \begin{equation*}
+          Tr_{A \rightarrow E} = Loss_A \enspace.
+       \end{equation*}
+       From lemma \ref{gameflow}, this execution corresponds to a flow. Thus
+       \begin{equation}
+       \label{trleqmaxflow}
+          Tr_{A \rightarrow E} \leq maxFlow\left(A, E\right) \enspace.
+       \end{equation}
+       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}). \qed
     \end{sepproof}
 
     \begin{theorem}[Conservative World Theorem] \ \\
