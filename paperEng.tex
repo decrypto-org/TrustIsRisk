@@ -1666,26 +1666,43 @@ while (True)
        the direct trust from $v$ to $w$ in $\mathcal{G}_1$. \\
        Let also $\mathcal{G}_2$ be the induced graph that results from $\mathcal{G}_1$ if we remove the Sybil set,
        $\mathcal{C}$. We rename $T_1$ to $T_2$ to facilitate comprehension. (Image) \\
-       \begin{tikzpicture}
-       \begin{dot2tex}[dot,tikz]
-          digraph G {
-           rankdir=LR
-           edge [arrowsize=0.6]
-           label = "Fig.7:\ Graph\ G\ with\ Auxiliary\ Source\ T.\ S\ is\ the\ set\ of\ sad\ players."
-           labelloc = "b"
-           subgraph cluster_0 {
-              label="G"
-              labelloc="b"
-              graph[style="rounded"]
-              color=black
-              S -> G
-              A -> G
-              G [label="Gaa"]
-           }
-           T -> {S A}
-          }
-       \end{dot2tex}
-       \end{tikzpicture}
+\begin{tikzpicture}
+\begin{dot2tex}[dot,tikz]
+   digraph G {
+     rankdir=LR
+     edge [arrowsize=0.6]
+     node [shape=circle]
+     label = "Fig.8:\ Graphs\ G1\ and\ G2"
+     labelloc = "b"
+     subgraph cluster0 {
+        V1 -> B1
+        label="G1"
+        style=rounded
+        B1 -> C1
+        C1 -> B1
+        B1 -> V1
+        C1 -> V1
+        {B1 C1 rank=same}
+        V1 [label="V"]
+        B1 [label="B"]
+        C1 [label="C"]
+     }
+     {B1 C1} -> T1 [label="infty"]
+     T1 [label="T"]
+     subgraph cluster1 {
+        V2 -> B2
+        label="G2"
+        style=rounded
+        B2 -> V2
+        V2 [label="V"]
+        B2 [label="B"]
+     }
+     B2 -> T2 [label="infty"]
+     T2 [label="T"]
+     T1 -> V2 [style=invisible]
+   }
+\end{dot2tex}
+\end{tikzpicture}
        According to theorem (\ref{trustmany}),
        \begin{equation}
        \label{trmaxflow}
