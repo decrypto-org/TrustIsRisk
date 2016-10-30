@@ -145,6 +145,11 @@ vii)	Reaches similar results from a different initial point. Uses game-theoretic
 TrustDavis
 i)	Trust-as-risk
 ii)	Reminds TrustIsRisk in a pre-bitcoin era a lot
+iii)	For a safe transaction where A pays x to B it must be maxflow(A,B) >= x AND maxflow(B,A) >= x.
+iv)	Before bitcoin, so supposes the honesty of parties
+v)	Trust references do not get automatically depleted when the intermediary has to pay the trusted party
+vi)	Employs differential valuation ideas for motivation (bonds, rates, etc)
+vii)	Mainly proposes broker strategies
 
 Money as IOUs
 i)	More of a draft
@@ -155,6 +160,6 @@ iv)	I can pay a party that doesn't trust me by finding a chain of trusts and hav
 Web of Trust
 i)	Good overview of previous work
 ii)	A percentage of trust is assigned to people of whom the public keys I have
-iii)	"for such a model to be valid, the way trust is determined must be standardized, as to make clear what a probability value actually means."
-iv)	Not very clear in its explanation of algorithms for trust calculation
+iii)	"for such a model to be valid, the way trust is determined must be standardized, as to make clear what a probability value actually means." - does not provide an intuitive trust standard.
+iv)	Not very clear in its explanation of algorithms for trust calculation, but seem as interesting heuristics for subexponential probabilistic calculations.
 v)	Does not really have to do with our approach.
