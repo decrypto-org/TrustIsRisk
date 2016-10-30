@@ -1055,14 +1055,12 @@ while (True)
     invariant risk when making a purchase.
 
   \section{Related Work}
-     The topic of trust has been repeatedly attacked with several approaches: Cryptographic (pgp, pki, byzantine) where
-     trust is rather binary, network trust with various assumptions (Mui, FIRE, Beta [centralized], CORE,
-     DRMCSAMAS-Grunert, DTMAHP2PN - Repantis, Bazaar [centralized, maxflow], Beaver [decentralized ebay with fees], Web of
-     Trust), frameworks that leave trust definition to be defined by use case (open reputation, PACE, GFMDRBTM - 4C),
-     Synereo and PGP pathfinder have trust implications, Trust and Social Collateral gives a sociological justification for
-     the design choice trust=risk and most related with our work are decentralized monetary trust
-     systems (TrustDavis, Money as IOUs). The last two came close to our ideas, but were conceived before the advent of
-     bitcoin and blockchains.
+     The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust
+     is rather binary \cite{pgp,pki}, \cite{byzantine}, trust in networks of users with various assumptions
+     \cite{openrep,mui,fire,beta,core}, \cite{ghkkw,pace,rk,vpc,sdt,bazaar,wot,pathfinder} and in passing while working on
+     other problems \cite{bitcoin}, \cite{beaver,synereo,dionyziz}. \cite{kmrs} gives a sociological justification for the
+     central design choice of identifying trust with risk. \cite{davis,iou} deserve special mention because they use similar
+     ideas with us, but were conceived before the advent of bitcoin and blockchains.
 
   \section{Further Research}
      While our trust network can form a basis for risk-invariant transactions in the anonymous and decentralized setting,
@@ -1720,21 +1718,21 @@ while (True)
        \qed
     \end{sepproof}
 
-  \begin{thebibliography}{20}
+  \begin{thebibliography}{30}
      \bibitem{loc}
      Sanchez W.: Lines of Credit (2016) \url{https://gist.github.com/drwasho/2c40b91e169f55988618#part-3-web-of-credit}
      \bibitem{bitcoin}
      Nakamoto S.: Bitcoin: A Peer-to-Peer Electronic Cash System (2008)
      \bibitem{masteringbitcoin}
-     Antonopoulos A. M.: Mastering Bitcoin: unlocking digital cryptocurrencies. O'Reilly Media, Inc. (2014)
+     Antonopoulos A. M.: Mastering Bitcoin: Unlocking Digital Cryptocurrencies. O'Reilly Media, Inc. (2014)
      \bibitem{socialcollateral}
-     Karlan, D., Mobius, M., Rosenblat, T., Szeidl, A.: Trust and social collateral. The Quarterly Journal of Economics,
+     Karlan D., Mobius M., Rosenblat T., Szeidl A.: Trust and Social Collateral. The Quarterly Journal of Economics,
      1307-1361 (2009)
      \bibitem{clrs}
      Cormen T. H., Leiserson C. E., Rivest R. L., Stein C.: Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill
      (2009) [1990]
      \bibitem{maxflownm}
-     Orlin J. B.: Max flows in O(nm) time, or better. STOC '13 Proceedings of the forty-fifth annual ACM symposium on Theory
+     Orlin J. B.: Max Flows in O(nm) Time, or Better. STOC '13 Proceedings of the forty-fifth annual ACM symposium on Theory
      of computing, pp.765-774, ACM, New York (2013). doi:10.1145/2488608.2488705
      \bibitem{sybilattack}
      Douceur J. R.: The Sybil Attack. International workshop on Peer-To-Peer Systems (2002)
@@ -1744,8 +1742,69 @@ while (True)
      \bibitem{flowdecomp}
      Orlin J.: 15.082J Network Optimization. Massachusetts Institute of Technology: MIT OpenCourseWare,
      \url{https://ocw.mit.edu}. License: Creative Commons BY-NC-SA. (Fall 2010)
+     \bibitem{pgp}
+     Zimmermann P.: PGP Source Code and Internals. The MIT Press (1995)
+     \bibitem{pki}
+     What is a Public Key Infrastructure? \url{http://www.net-security-training.co.uk/what-is-a-public-key-infrastructure/}
+     \bibitem{byzantine}
+     Lamport L., Shostak R., Pease M.: The Byzantine Generals Problem. ACM Transactions on Programming Languages and Systems
+     (TOPLAS) 4.3, pp. 382-401 (1982)
+     \bibitem{openrep}
+     Cannon L.: Open Reputation: the Decentralized Reputation Platform.
+     \url{https://openreputation.net/open-reputation-high-level-whitepaper.pdf} (2015)
+     \bibitem{mui}
+     Mui L., Mohtashemi M., Halberstadt, A.: A Computational Model of Trust and Reputation. System Sciences, 2002. HICSS.
+     Proceedings of the 35th Annual Hawaii International Conference, pp. 2431-2439 IEEE (2002)
+     \bibitem{fire}
+     Huynh T. D., Jennings N. R., Shadbolt, N. R.: An Integrated Trust and Reputation Model for Open Multi-Agent Systems.
+     Autonomous Agents and Multi-Agent Systems, 13(2), pp. 119-154 (2006)
+     \bibitem{beta}
+     Commerce B. E., Jøsang A., Ismail, R.: The Beta Reputation System. Proceedings of the 15th Bled Electronic Commerce
+     Conference (2002)
+     \bibitem{core}
+     Michiardi P., Molva, R.: Core: a Collaborative Reputation Mechanism to Enforce Node Cooperation in Mobile Ad-hoc
+     Networks. Advanced Communications and Multimedia Security, pp. 107-121, Springer US (2002)
+     \bibitem{ghkkw}
+     Grünert A., Hudert S., König S., Kaffille S., Wirtz, G.: Decentralized Reputation Management for Cooperating Software
+     Agents in Open Multi-Agent Systems. ITSSA, 1(4), pp. 363-368 (2006)
+     \bibitem{pace}
+     Suryanarayana G., Erenkrantz J. R., Taylor, R. N.: An Architectural Approach for Decentralized Trust Management. IEEE
+     Internet Computing, 9(6), pp. 16-23 (2005)
+     \bibitem{rk}
+     Repantis T., Kalogeraki V.: Decentralized Trust Management for Ad-hoc Peer-to-Peer Networks. Proceedings of the 4th
+     International Workshop on Middleware for Pervasive and Ad-hoc Computing, MPAC 2006, p. 6, ACM (2006)
+     \bibitem{vpc}
+     Visan A., Pop F., Cristea, V.: Decentralized Trust Management in Peer-to-Peer Systems. 10th International Symposium on
+     Parallel and Distributed Computing, pp. 232-239, IEEE (2011)
+     \bibitem{sdt}
+     Suryanarayana G., Diallo M., Taylor, R. N. A Generic Framework for Modeling Decentralized Reputation-Based Trust Models.
+     14th ACM SigSoft Symposium on Foundations of Software Engineering (2006)
+     \bibitem{bazaar}
+     Post A., Shah V., Mislove, A.: Bazaar: Strengthening User Reputations in Online Marketplaces. Proceedings of NSDI’11:
+     8th USENIX Symposium on Networked Systems Design and Implementation, p. 183 (2011)
+     \bibitem{wot}
+     Caronni G.: Walking the web of trust. Enabling Technologies: Infrastructure for Collaborative Enterprises, WET ICE 2000,
+     Proceedings, IEEE 9th International Workshops, pp. 153-158 (2000)
+     \bibitem{pathfinder}
+     Penning H.P.: PGP pathfinder \url{pgp.cs.uu.nl}
+     \bibitem{beaver}
+     Soska K., Kwon A., Christin N., Devadas S.: Beaver: A Decentralized Anonymous Marketplace with Secure Reputation (2016)
+     \bibitem{synereo}
+     Konforty D., Adam Y., Estrada D., Meredith L. G.: Synereo: The Decentralized and Distributed Social Network (2015)
      \bibitem{dionyziz}
-     Zindros D. S.: Trust in decentralized anonymous marketplaces (2015)
+     Zindros D. S.: Trust in Decentralized Anonymous Marketplaces (2015)
+     \bibitem{kmrs}
+     Karlan D., Mobius M., Rosenblat T., Szeidl A.: Trust and social collateral. The Quarterly Journal of Economics, pp.
+     1307-1361 (2009)
+     \bibitem{davis}
+     DeFigueiredo D. D. B., Barr E. T. TrustDavis: A Non-Exploitable Online Reputation System. CEC, Vol. 5, pp. 274-283
+     (2005)
+     \bibitem{iou}
+     Fugger R.: Money as IOUs in Social Trust Networks \& A Proposal for a Decentralized Currency Network Protocol.
+     \url{http://archive.ripple-project.org/decentralizedcurrency.pdf} (2004)
+     \bibitem{jib}
+     Jøsang A., Ismail R., Boyd, C.: A Survey of Trust and Reputation Systems for Online Service Provision. Decision
+     Support Systems, 43(2), pp. 618-644 (2007)
   \end{thebibliography}
 
 \end{document}
