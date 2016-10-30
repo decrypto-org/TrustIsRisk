@@ -82,7 +82,7 @@ vii)	Confidence concept introduced: More neighbours reporting same reputation fo
 vii)	Beautiful Related Work section
 
 Decentralized Trust Management in Peer-to-Peer Systems - Visan
-i)	Claims to improve on TrsutMe.
+i)	Claims to improve on TrustMe.
 ii)	Structured: Tree with higher (global) trust values closer to the root (SOPSys)
 iii)	New trust calculated with an exact formula, with ratings only in a specified time interval considered
 iv)	Trust communication and storage considered, not trust creation
