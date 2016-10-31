@@ -1347,7 +1347,7 @@ while (True)
        We suppose that the turn of $\mathcal{G}$ is 0. In other words, $\mathcal{G} = \mathcal{G}_0$. Let
        $X = \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by $MaxFlow\left(A, E\right)$. For any graph
        $G$ there exists a $MaxFlow$ that is a DAG. We can easily prove this using the Flow Decomposition theorem
-       \cite{flowdecomp}, which states that each flow can be seen as a finite set of paths from $A$ to $E$ and cycles, each
+       \cite{amo}, which states that each flow can be seen as a finite set of paths from $A$ to $E$ and cycles, each
        having a certain flow. We execute $MaxFlow\left(A, E\right)$ and we apply the aforementioned theorem. The
        cycles do not influence the $maxFlow\left(A, E\right)$, thus we can remove these flows. The resulting flow is a
        $MaxFlow\left(A, E\right)$ without cycles, thus it is a DAG. Topologically sorting this DAG, we obtain a total order
@@ -1394,6 +1394,43 @@ while (True)
        can also see that if $E$ had chosen the original evil strategy, the described actions would still be valid only by
        supplementing them with additional $Steal\left(\right)$ actions, thus $Loss_A$ would further increase. This proves the
        theorem. \qed
+    \end{sepproof}
+
+    \begin{sepproof}[Transitive Games Are Flows Lemma (\ref{gameflow})] \ \\
+       Let $\mathcal{H}$ be an execution of the Transitive Game on graph $\mathcal{G}$ and $j$ the convergence turn. We will
+       show that a flow from $A$ to $B$ can be constructed such that $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av} =
+       Loss_{A, j}$. First, we construct a pseudoflow $X$ on $G$ as follows:
+       \begin{equation*}
+       \begin{gathered}
+          \forall v, w \in \mathcal{V}, x_{vw} = \sum\limits_{\overset{i = 0}{Player\left(i\right) = w}}^jy_i \enspace,
+          \mbox{ where}\\
+          Steal(y_i, v) \in Turn_i
+       \end{gathered}
+       \end{equation*}
+       The configuration described above is a pseudoflow \cite{amo} because 
+       \begin{equation*}
+           \forall v,w \in \mathcal{V}, \sum\limits_{\overset{i = 0}{Player\left(i\right) = w}}^jy_i \leq
+           DTr_{v \rightarrow w, 0} = c_{vw} \enspace.
+       \end{equation*}
+       By the definition of $X$, it holds that
+       \begin{equation}
+       \label{desiredoutgoingflow}
+           \sum\limits_{v \in N^{+}\left(A\right)}x_{Av} = Loss_A \enspace.
+       \end{equation}
+       Suppose that $X$ contains a deficient node $v$. In this node it is
+       \begin{equation*}
+          \sum\limits_{w \in N^{-}\left(v\right)}x_{wv} > \sum\limits_{w \in N^{+}\left(v\right)}x_{vw} \enspace.
+       \end{equation*}
+       By the definition of $X$ however, $v$ stole more than she was stolen, thus does not follow the conservative strategy.
+       We have reached a contradiction, thus there exist no deficient nodes in $X$.\
+
+       Based on the pseudoflow $X$, we can now construct a feasible flow $X'$ by eliminating all excess nodes (aka Sad players) (how exactly? seems we need the
+       auxiliary source construction). Since this does not affect outgoing flows from $A$ (why?) we deduce:
+       \begin{equation*}
+          Loss_A \overset{(\ref{desiredoutgoingflow})}{=} \sum\limits_{v \in N^{+}\left(A\right)}x_{Av} =
+          \sum\limits_{v \in N^{+}(A)}x'_{Av}
+       \end{equation*}
+       This proves the theorem. \qed
     \end{sepproof}
 
     \begin{sepproof}[Transitive Games Are Flows Lemma (\ref{gameflow})] \ \\
@@ -1580,7 +1617,7 @@ while (True)
           \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
        \end{equation*}
        The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: Firstly, using the Flow
-       Decomposition theorem \cite{flowdecomp} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
+       Decomposition theorem \cite{amo} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
        obtain a flow configuration where the total outgoing flow from $A$ remains invariant,\footnote{We thank Kyriakos Axiotis
        for his insights on the Flow Decomposition theorem.} thus
        \begin{equation*}
@@ -1740,7 +1777,7 @@ while (True)
        \qed
     \end{sepproof}
 
-  \begin{thebibliography}{30}
+  \begin{thebibliography}{40}
      \bibitem{loc}
      Sanchez W.: Lines of Credit (2016) \url{https://gist.github.com/drwasho/2c40b91e169f55988618#part-3-web-of-credit}
      \bibitem{bitcoin}
@@ -1761,8 +1798,9 @@ while (True)
      \bibitem{deanonymisation}
      Narayanan A., Shmatikov V.: De-anonymizing Social Networks. SP '09 Proceedings of the 2009 30th IEEE Symposium on
      Security and Privacy, pp. 173-187, 10.1109/SP.2009.22 (2009)
-     \bibitem{flowdecomp}
-     Orlin J.: 15.082J Network Optimization. Massachusetts Institute of Technology: MIT OpenCourseWare,
+     \bibitem{amo}
+     Ahuja R. K., Magnanti T. L., Orlin, J. B.: Network Flows: Theory, Algorithms, and Applications. Prentice-Hall (1993)
+%     Orlin J.: 15.082J Network Optimization. Massachusetts Institute of Technology: MIT OpenCourseWare,
      \url{https://ocw.mit.edu}. License: Creative Commons BY-NC-SA. (Fall 2010)
      \bibitem{pgp}
      Zimmermann P.: PGP Source Code and Internals. The MIT Press (1995)
