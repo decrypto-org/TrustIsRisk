@@ -210,7 +210,14 @@
         The capital of $A$ at the end of turn $j$, $Cap_{A, j}$, is defined as the total value that exists in P2PKH in the
         UTXO and can be spent by $A$ at the end of turn $j$.
      \end{definition}
-     A rational player would like to maximize her capital in the long term. The formal definition of direct trust follows:
+     A rational player would like to maximize her capital in the long term. We also define a player's assets:
+     \begin{definition}[Assets]
+        Sum of $A$'s capital and outgoing trust.
+        \begin{equation}
+           As_{A, j} = Cap_{A, j} + out_{A, j}
+        \end{equation}
+     \end{definition}
+     We consider the outgoing trust of a player as part of her assets. The formal definition of direct trust follows:
      \begin{definition}[Direct Trust]
         Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
         value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
@@ -912,12 +919,6 @@ while (True)
 
   \section*{Appendix}
     \subsection{Common Notation}
-     \begin{definition}[Assets]
-        Sum of $A$'s capital and outgoing trust.
-        \begin{equation}
-           As_{A, j} = Cap_{A, j} + out_{A, j}
-        \end{equation}
-     \end{definition}
      \begin{definition}[Neighbourhood]
         \label{neighbourhood}
         \begin{enumerate}
