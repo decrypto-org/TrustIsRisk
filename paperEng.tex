@@ -325,19 +325,22 @@
            \end{equation*}
            When $y_B < 0$, we say that $A$ reduces her trust to $B$ by $-y_B$, when $y_B > 0$, we say that $A$ increases her
            trust to $B$ by $y_B$. If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$.
+           \item Modify her capital by $y. \left(ModCap\left(y\right)\right)$. If $y > 0$, then $A$ must control at least
+           $y$ bitcoins in the UTXO. Also it must hold that $y \geq -Cap_{A, j-1}$.
         \end{enumerate}
         If player $A$ chooses no action in her turn, we say that she passes her turn. Also, let $Y_{st}, Y_{add}$ be the
-        total value to be stolen and added respectively by $A$ in her turn, $j$. For a turn to be feasible, it must hold
-        that
+        the total value to be stolen and added respectively by $A$ in her turn, $j$, while $Y_{mod}$ is such that
+        $ModCap\left(Y_{mod}\right) \in Turn_j$. For a turn to be feasible, it must hold that
         \begin{equation}
-           Y_{add} - Y_{st} \leq Cap_{A, j-1} \enspace.
+           Y_{add} - Y_{st} \leq Cap_{A, j-1} + Y_{mod} \enspace.
         \end{equation}
         Capital is updated in every turn:
         \begin{equation}
-           Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add} \enspace.
+           Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add} + Y_{mod} \enspace.
         \end{equation}
         Moreover, player $A$ is not allowed to choose two actions of the same kind against the same player in the same turn.
-        \\ The set of actions a player makes in turn $j$ is represented with $Turn_j$. The new graph that emerges by applying
+
+        The set of actions a player makes in turn $j$ is represented with $Turn_j$. The new graph that emerges by applying
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
      We will use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and the next turn that
@@ -967,12 +970,14 @@ while (True)
            Turn_j = \emptyset
         \end{equation*}
         \item \begin{equation*}
-           Turn_j = \{Steal\left(y, B\right), Add\left(w, B\right)\} \enspace,
+           Turn_j = \{Steal\left(y, B\right), Add\left(w, B\right), ModCap\left(x\right)\} \enspace,
         \end{equation*}
         given that
         \begin{equation*}
-           DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge -DTr_{A \rightarrow B, j_2 - 1} \leq w \wedge y - w \leq
-           Cap_{A, j_2-1} \enspace.
+        \begin{gathered}
+           DTr_{B \rightarrow A, j_2 - 1} \leq y \wedge -DTr_{A \rightarrow B, j_2 - 1} \leq w \\
+           \wedge x \geq -Cap_{A, j_2-1} \wedge y - w \leq Cap_{A, j_2-1} + x \enspace.
+        \end{gathered}
         \end{equation*}
         \item \begin{equation*}
            Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
@@ -1700,9 +1705,13 @@ validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
         if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*))
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         (*@$Y_{add}$@*) = (*@$Y_{add}$@*) + y
-  if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))
+      case (*@$ModCap($@*)y(*@$)$@*) do
+        if (y < (*@$Cap_{A, j-1}$@*))
+          return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
+        (*@$Y_{mod}$@*) = y
+  if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*) + (*@$Y_{mod}$@*))
     return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-  return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
+  return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add} + Y_{mod}$@*))
     \end{lstlisting}
     Finally, this algorithm applies the turn to the old graph and returns the new graph, along with the updated capital and
     history.
@@ -1716,7 +1725,7 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
     (*@$DTr_{v \rightarrow w, j}$@*) = (*@$DTr_{v \rightarrow w, j-1}$@*)
   for (action (*@$\in Turn_j$@*))
     action match do
-      case (*@$Steal($@*)y,(*@$,w)$@*) do
+      case (*@$Steal($@*)y(*@$,w)$@*) do
         (*@$DTr_{w \rightarrow A, j}$@*) = (*@$DTr_{w \rightarrow A, j-1} - y$@*)
       case (*@$Add($@*)y(*@$,w)$@*) do
         (*@$DTr_{A \rightarrow w, j}$@*) = (*@$DTr_{A \rightarrow w, j-1} + y$@*)
