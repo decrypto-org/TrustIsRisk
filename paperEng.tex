@@ -1441,31 +1441,31 @@ while (True)
        \begin{equation*}
           \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
        \end{equation*}
-\begin{center}
-       \begin{tikzpicture}
-       \begin{dot2tex}[dot,tikz]
-          digraph G {
-           rankdir=LR
-           edge [arrowsize=0.6]
-           label = "Fig.7:\ Graph\ G',\ derived\ from\ G\ with\ Auxiliary\ Source\ T."
-           labelloc = "b"
-           subgraph cluster_0 {
-              label="G"
-              labelloc="b"
-              graph[style="rounded"]
-              color=black
-              S1 -> C
-              A -> B
-              S2 -> D
-              B -> {C D}
-              {C D} -> E
-              {A S1 S2 rank=same}
-           }
-           T -> {S1 A S2}
-          }
-       \end{dot2tex}
-       \end{tikzpicture}
-\end{center}
+%\begin{center}
+%       \begin{tikzpicture}
+%       \begin{dot2tex}[dot,tikz]
+%          digraph G {
+%           rankdir=LR
+%           edge [arrowsize=0.6]
+%           label = "Fig.7:\ Graph\ G',\ derived\ from\ G\ with\ Auxiliary\ Source\ T."
+%           labelloc = "b"
+%           subgraph cluster_0 {
+%              label="G"
+%              labelloc="b"
+%              graph[style="rounded"]
+%              color=black
+%              S1 -> C
+%              A -> B
+%              S2 -> D
+%              B -> {C D}
+%              {C D} -> E
+%              {A S1 S2 rank=same}
+%           }
+%           T -> {S1 A S2}
+%          }
+%       \end{dot2tex}
+%       \end{tikzpicture}
+%\end{center}
        \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]
 %%
