@@ -416,8 +416,7 @@ while (True)
   j += 1
   (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
   Turn = (*@$v$@*)Strategy((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
-  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{A, j-1}$@*), Turn)
-  ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), NewCap, (*@$Turn_j$@*))
+  ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), Turn)
     \end{lstlisting}
 %    This algorithm calls the necessary functions to prepare the new graph.
 %    \Suppressnumber
@@ -429,7 +428,7 @@ while (True)
 %  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
 %  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
 %    \end{lstlisting}
-    For \texttt{validateTurn()} and \texttt{commitTurn}, see Appendix.
+    For \texttt{executeTurn()}, see Appendix.
   \section{Trust Transitivity}
      In this section we define some strategies. The corresponding algorithms can be seen in Appendix. Then we define the
      Transitive Game that represents the worst-case scenario for an honest player when another player decides to depart from
@@ -1686,6 +1685,16 @@ while (True)
     \end{sepproof}
 
   \subsection{Algorithms}
+    This algorithm calls the necessary functions to prepare the new graph.
+    \Suppressnumber
+    \begin{lstlisting}[label=executeturn, style=numbers]
+Execute Turn
+Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), TentativeTurn
+Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
+executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn) :
+  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
+  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
+    \end{lstlisting}
     The following algorithm validates that the tentative turn produced by the strategy respects the rules imposed on turns.
     If the turn is invalid, an empty turn is returned.
     \Suppressnumber
