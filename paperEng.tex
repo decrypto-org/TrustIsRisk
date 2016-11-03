@@ -232,13 +232,9 @@
      \end{definition}
      This definition agrees with the title of this paper and coincides with the intuition and experimental results
      \cite{socialcollateral} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
-     of danger in which $Alice$ is ready to expose herself to in order to help $Bob$.
+     of danger in which $Alice$ is ready to expose herself to in order to help $Bob$. An example graph with its corresponding
+     transactions in the UTXO can be seen below.
 
-     Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
-     We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
-     trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-     respectively. For a reference of common definitions, see Appendix. An example graph with its corresponding transactions
-     in the UTXO can be seen below.
      \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
 %%
@@ -308,8 +304,13 @@
   \draw (270.5bp,0.0bp) node {\LARGE \textbf{Fig.3:} TrustIsRisk Game Graph and Equivalent Bitcoin UTXO};
 %
 \end{tikzpicture}
-     \end{center} \smallskip \ \\
-  \section{Evolution of Trust}
+     \end{center}
+
+     Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
+     We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
+     trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
+     respectively. For a reference of common definitions, see Appendix.
+   \section{Evolution of Trust}
      \begin{definition}[Turns]
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
         Player\left(j\right)$, chooses an action (according to a certain strategy) that can be one of the following, or a
