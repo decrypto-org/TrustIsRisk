@@ -309,7 +309,7 @@
      Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
      We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
      trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-     respectively. For a reference of common definitions, see Appendix.
+     respectively. For a reference of common definitions, see the Appendix.
    \section{Evolution of Trust}
      \begin{definition}[Turns]
         The game we are describing is turn-based. In each turn $j$ exactly one player $A \in \mathcal{V}, A =
@@ -346,7 +346,7 @@
         the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
      \end{definition}
      We will use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and the next turn that
-     is played by $Player(j)$ respectively. A formal definition can be found in Appendix.
+     is played by $Player(j)$ respectively. A formal definition can be found in the Appendix.
      \begin{definition}[Damage]
         Let $j$ be a turn such that $Player\left(j\right) = A$.
         \begin{equation}
@@ -430,9 +430,9 @@ while (True)
 %  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
 %  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
 %    \end{lstlisting}
-    For \texttt{executeTurn()}, see Appendix.
+    For \texttt{executeTurn()}, see the Appendix.
   \section{Trust Transitivity}
-     In this section we define some strategies. The corresponding algorithms can be seen in Appendix. Then we define the
+     In this section we define some strategies. The corresponding algorithms can be seen in the Appendix. Then we define the
      Transitive Game that represents the worst-case scenario for an honest player when another player decides to depart from
      the network with her money and all the money entrusted to her.
      \begin{definition}[Idle Strategy]
@@ -466,7 +466,7 @@ while (True)
      Moreover, each conservative player can be in one of three states: Happy, Angry or Sad. Happy players have 0 loss, Angry
      players have positive loss and positive incoming trust, thus are able to replenish their loss at least in part and
      Sad players have positive loss, but 0 incoming trust, thus they cannot replenish the loss. These conventions will hold
-     whenever we use the Transitive Game. For the algorithm, see Appendix. An example follows:
+     whenever we use the Transitive Game. For the algorithm, see the Appendix. An example follows:
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.7,transform shape]
 %%
@@ -596,8 +596,8 @@ while (True)
 \end{center}
 
      Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
-     has been stolen yet (see Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
-     let $v = Player(j)$ and $j' = prev\left(j\right)$.
+     has been stolen yet (see the Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact).
+     Moreover, let $v = Player(j)$ and $j' = prev\left(j\right)$.
 %     Given that
 %     \begin{equation}
 %        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
@@ -637,10 +637,10 @@ while (True)
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
        trust.
-%       For the complete proof, see Appendix (proof \ref{convergenceproof}).
+%       For the complete proof, see the Appendix (proof \ref{convergenceproof}).
     \end{proofsketch}
 
-    Full proofs of all theorems and lemmas can be found in Appendix.
+    Full proofs of all theorems and lemmas can be found in the Appendix.
 
     In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
     $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
@@ -682,7 +682,7 @@ while (True)
        equivalent $Steal\left(\right)$ actions. The players will play in turns, moving from $E$ back to $A$. Each player will
        steal from his predecessors as much as was stolen from her. The flows and the conservative strategy share the property
        that the total input is equal to the total output.
-%       For the complete proof, see Appendix
+%       For the complete proof, see the Appendix
        (proof \ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
@@ -697,7 +697,7 @@ while (True)
     \begin{proofsketch}
        If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
        $A$ to $E$.
-%       For the complete proof, see Appendix (proof \ref{gameflowproof}).
+%       For the complete proof, see the Appendix (proof \ref{gameflowproof}).
     \end{proofsketch}
     \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
@@ -860,7 +860,7 @@ while (True)
     \begin{proofsketch}
        The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
        $\mathcal{C}$ has no incoming trust from players outside the collusion.
-%       For the complete proof, see Appendix (proof \ref{sybilproof}).
+%       For the complete proof, see the Appendix (proof \ref{sybilproof}).
     \end{proofsketch}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
 
