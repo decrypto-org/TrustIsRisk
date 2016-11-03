@@ -466,30 +466,7 @@ while (True)
      Moreover, each conservative player can be in one of three states: Happy, Angry or Sad. Happy players have 0 loss, Angry
      players have positive loss and positive incoming trust, thus are able to replenish their loss at least in part and
      Sad players have positive loss, but 0 incoming trust, thus they cannot replenish the loss. These conventions will hold
-     whenever we use the Transitive Game.
-
-     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
-     has been stolen yet (see Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
-     let $v = Player(j)$ and $j' = prev\left(j\right)$.
-%     Given that
-%     \begin{equation}
-%        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
-%     \end{equation}
-     The algorithm generates turns:
-     \begin{equation}
-        Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\} \enspace,% Damage_{v, j} > 0 \enspace,
-     \end{equation}
-     where
-     \begin{equation*}
-        \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
-     \end{equation*}
- 
-     We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
-
-     From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
-     obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
-     stolen more value than she has been stolen, thus she would not be following the conservative strategy. An example
-     follows:
+     whenever we use the Transitive Game. For the algorithm, see Appendix. An example follows:
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.7,transform shape]
 %%
@@ -617,6 +594,28 @@ while (True)
 %
 \end{tikzpicture}
 \end{center}
+
+     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
+     has been stolen yet (see Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact). Moreover,
+     let $v = Player(j)$ and $j' = prev\left(j\right)$.
+%     Given that
+%     \begin{equation}
+%        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
+%     \end{equation}
+     The Transitive Game generates turns:
+     \begin{equation}
+        Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\} \enspace,% Damage_{v, j} > 0 \enspace,
+     \end{equation}
+     where
+     \begin{equation*}
+        \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
+     \end{equation*}
+ 
+     We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
+
+     From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
+     obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
+     stolen more value than she has been stolen, thus she would not be following the conservative strategy.
 %    In the figure above, $D$ is angry after turn 1 and sad after turn 2 and on. $C$ is angry after turns 1 and 2 and happy
 %    after turn 3. $B$ is happy until the end of turn 2 and sad after turn 3. The game converges in turn 4.
   \section{Trust Flow}
