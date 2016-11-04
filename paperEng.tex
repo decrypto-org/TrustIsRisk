@@ -1705,20 +1705,25 @@ Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), o
 Output : (*@$Turn_j$@*), new (*@$Cap_{A, j}$@*) (*@\Reactivatenumber@*)
 validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
   (*@$Y_{st}$@*) = (*@$Y_{add}$@*) = 0
+  Stolen = Added = (*@$\emptyset$@*)
+  CapModified = FALSE
   for (action (*@$\in$@*) Turn)
     action match do
       case (*@$Steal($@*)y(*@$,w)$@*) do
-        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) || y < 0)
+        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) || y < 0 || (*@$w \in$@*) Stolen)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         (*@$Y_{st}$@*) = (*@$Y_{st}$@*) + y
+        Stolen = Stolen(*@$\:\cup \: \{w\}$@*)
       case (*@$Add($@*)y(*@$,w)$@*) do
-        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*))
+        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*) || (*@$w \in$@*) Added)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         (*@$Y_{add}$@*) = (*@$Y_{add}$@*) + y
+        Added = Added(*@$\: \cup \: \{w\}$@*)
       case (*@$ModCap($@*)y(*@$)$@*) do
-        if (y < (*@$Cap_{A, j-1}$@*))
+        if (y < (*@$Cap_{A, j-1}$@*) || CapModified == TRUE)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         (*@$Y_{mod}$@*) = y
+        CapModified = TRUE
   if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*) + (*@$Y_{mod}$@*))
     return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
   return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add} + Y_{mod}$@*))
