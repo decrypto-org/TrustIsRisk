@@ -230,7 +230,7 @@
               \end{cases}
         \end{equation}
      \end{definition}
-     This definition agrees with the title of this paper and coincides with the intuition and experimental results
+     This definition agrees with the title of this paper and coincides with the intuition and experimental results of
      \cite{socialcollateral} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
      of danger in which $Alice$ is ready to expose herself to in order to help $Bob$. An example graph with its corresponding
      transactions in the UTXO can be seen below.
@@ -717,7 +717,7 @@ while (True)
      unknown, parties.
      \begin{theorem}[Risk Invariance]
      \label{riskinv}
-        Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $V$ the desired value to be transferred from $A$ to $B$,
+        Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $l$ the desired value to be transferred from $A$ to $B$,
         with $V \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ such that
         \begin{align*}
            \mathcal{V}' &= \mathcal{V} \\
@@ -728,11 +728,11 @@ while (True)
         Furthermore, suppose that there exists an assignment for the outgoing trust of $A, DTr'_{A \rightarrow v}$, such that
         \begin{equation}
         \label{primetrust}
-           Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - V \enspace.
+           Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - l \enspace.
         \end{equation}
         Let another game graph, $\mathcal{G}''$, be identical to $\mathcal{G}'$ except for the following change:
         \begin{equation*}
-           DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + V \enspace.
+           DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + l \enspace.
         \end{equation*}
         It then holds that
         \begin{equation*}
@@ -1510,17 +1510,17 @@ while (True)
        $MaxFlow\left(A, B\right)$ chooses $x_{AB} = c_{AB}$, thus
        \begin{equation}
        \label{xcompare}
-          x''_{AB} = x'_{AB} + V \enspace.
+          x''_{AB} = x'_{AB} + l \enspace.
        \end{equation}
        From (\ref{ccompare}) and (\ref{xcompare}) we see that
        \begin{equation}
        \label{doublebigger}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) \geq maxFlow_{\mathcal{G}'}\left(A, B\right) + V \enspace.
+          maxFlow_{\mathcal{G}''}\left(A, B\right) \geq maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
        \end{equation}
        Now suppose that
        \begin{equation}
        \label{mfsupposition}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) > maxFlow_{\mathcal{G}'}\left(A, B\right) + V \enspace.
+          maxFlow_{\mathcal{G}''}\left(A, B\right) > maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
        \end{equation}
        Then 
        \begin{equation*}
@@ -1540,18 +1540,18 @@ while (True)
        and thus, by contradiction with (\ref{mfsupposition}), it holds that
        \begin{equation}
        \label{singlebigger}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) \leq maxFlow_{\mathcal{G}'}\left(A, B\right) + V \enspace.
+          maxFlow_{\mathcal{G}''}\left(A, B\right) \leq maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
        \end{equation}
        From (\ref{doublebigger}) and (\ref{singlebigger}) we get
        \begin{equation}
        \label{mfequal}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) = maxFlow_{\mathcal{G}'}\left(A, B\right) + V \enspace.
+          maxFlow_{\mathcal{G}''}\left(A, B\right) = maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
        \end{equation}
        Finally, it holds that
        \begin{equation*}
        \begin{gathered}
           Tr''_{A \rightarrow B} = maxFlow_{\mathcal{G}''}\left(A, B\right) \overset{\left(\ref{mfequal}\right)}{=} \\
-          = maxFlow_{\mathcal{G}'}\left(A, B\right) + V = Tr'_{A \rightarrow B} + V
+          = maxFlow_{\mathcal{G}'}\left(A, B\right) + l = Tr'_{A \rightarrow B} + l
           \overset{\left(\ref{primetrust}\right)}{=} Tr_{A \rightarrow B} \enspace.
        \end{gathered}
        \end{equation*}
