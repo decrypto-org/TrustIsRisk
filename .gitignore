@@ -1,8 +1,8 @@
 *.aux
 *.log
 *.out
-.paperEng.tex.*
+*.swp
+*.swo
 *dot*
-*tikz*
 misc
 Makefile
