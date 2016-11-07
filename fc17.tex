@@ -715,7 +715,7 @@ while (True)
 
      Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
      unknown, parties.
-     \begin{theorem}[Risk Invariance]
+     \begin{theorem}[Risk Invariance Theorem]
      \label{riskinv}
         Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $l$ the desired value to be transferred from $A$ to $B$,
         with $V \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ such that
@@ -739,11 +739,11 @@ while (True)
            Tr''_{A \rightarrow B} = Tr_{A \rightarrow B} \enspace.
         \end{equation*}
      \end{theorem}
-     \begin{proofsketch}
+     \begin{proof}
         The two graphs $\mathcal{G}'$ and $\mathcal{G}''$ differ only on the weight of the edge $\left(A, B\right)$, which is
-        larger by $V$ in $\mathcal{G}''$. Thus the two $MaxFlow$s will choose the same flow, except for $\left(A, B\right)$,
-        where it will be $x''_{AB} = x'_{AB} + V$.
-     \end{proofsketch}
+        larger by $l$ in $\mathcal{G}''$. Thus the two $MaxFlow$s will choose the same flow, except for $\left(A, B\right)$,
+        where it will be $x''_{AB} = x'_{AB} + l$.
+     \end{proof}
      It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
      (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
      leave this calculation as part of further research.
@@ -1493,69 +1493,6 @@ while (True)
           Tr_{A \rightarrow E} \leq maxFlow\left(A, E\right) \enspace.
        \end{equation}
        The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}). \qed
-    \end{sepproof}
-
-    \begin{sepproof} (Risk Invariance Theorem (\ref{riskinv}))
-       Let
-       \begin{align*}
-          \forall v,w \in \mathcal{V}', c'_{vw} &= DTr'_{v \rightarrow w} \mbox{ and} \\
-          \forall v,w \in \mathcal{V}'', c''_{vw} &= DTr''_{v \rightarrow w} \enspace.
-       \end{align*}
-       Then
-       \begin{equation}
-       \label{ccompare}
-          \forall v, w \in \mathcal{V}, c'_{vw} \leq c''_{vw}
-       \end{equation}
-       and any valid flow on $\mathcal{G}'$ is a valid flow on $\mathcal{G}''$ as well. Furthermore, any
-       $MaxFlow\left(A, B\right)$ chooses $x_{AB} = c_{AB}$, thus
-       \begin{equation}
-       \label{xcompare}
-          x''_{AB} = x'_{AB} + l \enspace.
-       \end{equation}
-       From (\ref{ccompare}) and (\ref{xcompare}) we see that
-       \begin{equation}
-       \label{doublebigger}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) \geq maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
-       \end{equation}
-       Now suppose that
-       \begin{equation}
-       \label{mfsupposition}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) > maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
-       \end{equation}
-       Then 
-       \begin{equation*}
-          \sum\limits_{v \in N^{-}\left(B\right)'' \setminus \{A\}}x''_{vB} > \sum\limits_{v \in N^{-}\left(B\right)'
-          \setminus \{A\}}x'_{vB} \enspace.
-       \end{equation*}
-       However, it holds that
-       \begin{equation}
-       \label{cequal}
-          \forall e \in \mathcal{V} \setminus \{\left(A, B\right)\}, c'_e = c''_e \enspace,
-       \end{equation}
-       and $x_{AB}$ flows directly from $A$ to $B$ without adding to the incoming or outgoing flow of any intermediate node,
-       thus $MaxFlow_{\mathcal{G}''}$ can choose
-       \begin{equation*}
-          \forall e \in \mathcal{V} \setminus \{\left(A, B\right)\}, x''_e = x'_e
-       \end{equation*}
-       and thus, by contradiction with (\ref{mfsupposition}), it holds that
-       \begin{equation}
-       \label{singlebigger}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) \leq maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
-       \end{equation}
-       From (\ref{doublebigger}) and (\ref{singlebigger}) we get
-       \begin{equation}
-       \label{mfequal}
-          maxFlow_{\mathcal{G}''}\left(A, B\right) = maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
-       \end{equation}
-       Finally, it holds that
-       \begin{equation*}
-       \begin{gathered}
-          Tr''_{A \rightarrow B} = maxFlow_{\mathcal{G}''}\left(A, B\right) \overset{\left(\ref{mfequal}\right)}{=} \\
-          = maxFlow_{\mathcal{G}'}\left(A, B\right) + l = Tr'_{A \rightarrow B} + l
-          \overset{\left(\ref{primetrust}\right)}{=} Tr_{A \rightarrow B} \enspace.
-       \end{gathered}
-       \end{equation*}
-       The proposition is proved. \qed
     \end{sepproof}
 
     \begin{theorem}[Conservative World Theorem] \ \\
