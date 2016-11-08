@@ -448,6 +448,25 @@ while (True)
         Player $A$ is said to follow the conservative strategy if she replenishes the value she lost since the previous turn,
         $Damage_A$, by stealing from others that trust her as much as she can up to $Damage_A$ and she takes no other action.
      \end{definition}
+
+     \Suppressnumber
+     \begin{lstlisting}[label=conservativestrategy, style=numbers]
+Conservative Strategy
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
+Output : (*@$Turn_j$@*)
+consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+  Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
+  if (Damage > 0)
+    if (Damage >= (*@$in_{A, j-1}$@*))
+      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
+    else
+      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = (*@$\{y_v : v \in N^{-}\left(A\right)_{j-1}\}$@*)
+      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(y_v, v\right)\}$@*)
+  else
+    (*@$Turn_j$@*) = (*@$\emptyset$@*)
+  return((*@$Turn_j$@*))
+     \end{lstlisting}
+
      As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_{A,j}
      < in_{A,j-1}$ she can choose to distribute the $Steal\left(\right)$ actions in any way she chooses.
 
@@ -474,7 +493,6 @@ while (True)
      \begin{lstlisting}[label=transitivegame, style=numbers]
 Transitive Game
 Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player
-Output : history (*@$\mathcal{H}$@*) (*@\Reactivatenumber@*) #can remove output, this runs forever.
 Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*);  Happy = (*@$\mathcal{V} \setminus \{A, E\}$@*)
 for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))
   (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
@@ -1742,23 +1760,6 @@ evilStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reacti
   return((*@$Turn_j$@*))
      \end{lstlisting}
 
-     \Suppressnumber
-     \begin{lstlisting}[label=conservativestrategy, style=numbers]
-Conservative Strategy
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
-Output : (*@$Turn_j$@*)
-consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
-  Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
-  if (Damage > 0)
-    if (Damage >= (*@$in_{A, j-1}$@*))
-      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(DTr_{v \rightarrow A, j-1}, v\right)\}$@*)
-    else
-      (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = (*@$\{y_v : v \in N^{-}\left(A\right)_{j-1}\}$@*)
-      (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(y_v, v\right)\}$@*)
-  else
-    (*@$Turn_j$@*) = (*@$\emptyset$@*)
-  return((*@$Turn_j$@*))
-     \end{lstlisting}
      \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
      \begin{equation*}
         \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
