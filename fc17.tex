@@ -364,7 +364,7 @@
      \end{definition}
      Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
      game. Building on the example of Figure 3, we can see the resulting graph when $D$ plays
-\newpage
+     \newpage
      \begin{equation}
      \label{turnexample}
         Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
@@ -408,7 +408,7 @@
 %
 \end{tikzpicture}
 \end{center}
-     In its initial form TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
+     TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
      this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely. We assume
      players are chosen in a way that, after her turn, a player will eventually play again later.
      \Suppressnumber
@@ -416,8 +416,7 @@
 TrustIsRisk Game (*@\Reactivatenumber@*)
 j = 0
 while (True)
-  j += 1
-  (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
+  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
   Turn = (*@$v$@*)Strategy((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
   ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), Turn)
     \end{lstlisting}
@@ -474,23 +473,21 @@ while (True)
 Transitive Game
 Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player
 Output : history (*@$\mathcal{H}$@*) (*@\Reactivatenumber@*) #can remove output, this runs forever.
-Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*)
-Happy = (*@$\mathcal{V} \setminus \{A, E\}$@*)
+Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*);  Happy = (*@$\mathcal{V} \setminus \{A, E\}$@*)
 for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))
   (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
 j = 0
 while (True)
-  j += 1
-  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
+  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
   (*@$Turn_j$@*) = (*@$v$@*)Strategy((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
       case (*@$Steal($@*)y(*@$,w)$@*) do
         exchange = y
-        (*@$Loss_w$@*) = (*@$Loss_w$@*) + exchange (*@\label{trsteallossincrease}@*)
+        (*@$Loss_w$@*) += exchange (*@\label{trsteallossincrease}@*)
         if ((*@$v$@*) != (*@$E$@*))
-          (*@$Loss_v$@*) = (*@$Loss_v$@*) - exchange (*@\label{trsteallossdecrease}@*)
+          (*@$Loss_v$@*) -= exchange (*@\label{trsteallossdecrease}@*)
         if ((*@$w$@*) != (*@$A$@*))
           Happy = Happy(*@$\:\setminus\: \{w\}$@*)
           if ((*@$in_{w, j}$@*) == 0)
