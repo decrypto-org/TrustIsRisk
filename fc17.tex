@@ -462,8 +462,7 @@ consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reacti
     else
       (*@$y$@*) = SelectSteal((*@$G_j$@*), (*@$A$@*), Damage)    #(*@$y$@*) = (*@$\{y_v : v \in N^{-}\left(A\right)_{j-1}\}$@*)
       (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(y_v, v\right)\}$@*)
-  else
-    (*@$Turn_j$@*) = (*@$\emptyset$@*)
+  else (*@$Turn_j$@*) = (*@$\emptyset$@*)
   return((*@$Turn_j$@*))
      \end{lstlisting}
 
@@ -492,10 +491,9 @@ consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reacti
      \Suppressnumber
      \begin{lstlisting}[label=transitivegame, style=numbers]
 Transitive Game
-Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player
+Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player (*@\Reactivatenumber@*)
 Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*);  Happy = (*@$\mathcal{V} \setminus \{A, E\}$@*)
-for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))
-  (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
+for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))  (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
 j = 0
 while (True)
   j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
@@ -506,20 +504,15 @@ while (True)
       case (*@$Steal($@*)y(*@$,w)$@*) do
         exchange = y
         (*@$Loss_w$@*) += exchange (*@\label{trsteallossincrease}@*)
-        if ((*@$v$@*) != (*@$E$@*))
-          (*@$Loss_v$@*) -= exchange (*@\label{trsteallossdecrease}@*)
+        if ((*@$v$@*) != (*@$E$@*)) (*@$Loss_v$@*) -= exchange (*@\label{trsteallossdecrease}@*)
         if ((*@$w$@*) != (*@$A$@*))
           Happy = Happy(*@$\:\setminus\: \{w\}$@*)
-          if ((*@$in_{w, j}$@*) == 0)
-            Sad = Sad(*@$\:\cup\: \{w\}$@*)
-          else
-            Angry = Angry(*@$\:\cup\: \{w\}$@*)
+          if ((*@$in_{w, j}$@*) == 0) Sad = Sad(*@$\:\cup\: \{w\}$@*)
+          else Angry = Angry(*@$\:\cup\: \{w\}$@*)
   if ((*@$v$@*) != (*@$E$@*))
     Angry = Angry(*@$\:\setminus\: \{v\}$@*)
-    if ((*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*) 
-      Sad = Sad(*@$\:\cup\: \{v\}$@*)                  #(*@$in_{v, j}$@*) should be zero (*@\label{trstealtrueentersad}@*)
-    if ((*@$Loss_v$@*) == 0)
-      Happy = Happy(*@$\:\cup\: \{v\}$@*)
+    if ((*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)  Sad = Sad(*@$\:\cup\: \{v\}$@*)        #(*@$in_{v, j}$@*) should be zero (*@\label{trstealtrueentersad}@*)
+    if ((*@$Loss_v$@*) == 0)  Happy = Happy(*@$\:\cup\: \{v\}$@*)
      \end{lstlisting}
 
      Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
@@ -1697,25 +1690,18 @@ Output : (*@$Turn_j$@*), new (*@$Cap_{A, j}$@*) (*@\Reactivatenumber@*)
 validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
   (*@$Y_{st}$@*) = (*@$Y_{add}$@*) = 0
   Stolen = Added = (*@$\emptyset$@*)
-  CapModified = FALSE
   for (action (*@$\in$@*) Turn)
     action match do
       case (*@$Steal($@*)y(*@$,w)$@*) do
-        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) || y < 0 || (*@$w \in$@*) Stolen)
+        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) OR y < 0 OR (*@$w \in$@*) Stolen)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-        else
-          (*@$Y_{st}$@*) += y
-          Stolen = Stolen(*@$\:\cup \: \{w\}$@*)
+        else  (*@$Y_{st}$@*) += y;  Stolen = Stolen(*@$\:\cup \: \{w\}$@*)
       case (*@$Add($@*)y(*@$,w)$@*) do
-        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*) || (*@$w \in$@*) Added)
+        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*) OR (*@$w \in$@*) Added)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-        else
-          (*@$Y_{add}$@*) += y
-          Added = Added(*@$\: \cup \: \{w\}$@*)
-  if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))
-    return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-  else
-    return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
+        else  (*@$Y_{add}$@*) += y;  Added = Added(*@$\: \cup \: \{w\}$@*)
+  if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))  return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
+  else  return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
     \end{lstlisting}
     Finally, this algorithm applies the turn to the old graph and returns the new graph, along with the updated capital and
     history.
@@ -1725,16 +1711,12 @@ Commit Turn
 Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), NewCap, (*@$Turn_j$@*)
 Output : new (*@$\mathcal{G}_j$@*), new (*@$Cap_{A, j}$@*), new (*@$\mathcal{H}_j$ \Reactivatenumber@*)
 commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
-  for (((*@$v$@*), (*@$w$@*)) (*@$\in \mathcal{E}_j$@*))
-    (*@$DTr_{v \rightarrow w, j}$@*) = (*@$DTr_{v \rightarrow w, j-1}$@*)
+  for (((*@$v$@*), (*@$w$@*)) (*@$\in \mathcal{E}_j$@*))  (*@$DTr_{v \rightarrow w, j}$@*) = (*@$DTr_{v \rightarrow w, j-1}$@*)
   for (action (*@$\in Turn_j$@*))
     action match do
-      case (*@$Steal($@*)y(*@$,w)$@*) do
-        (*@$DTr_{w \rightarrow A, j}$@*) = (*@$DTr_{w \rightarrow A, j-1} - y$@*)
-      case (*@$Add($@*)y(*@$,w)$@*) do
-        (*@$DTr_{A \rightarrow w, j}$@*) = (*@$DTr_{A \rightarrow w, j-1} + y$@*)
-  (*@$Cap_{A, j}$@*) = NewCap
-  (*@$\mathcal{H}_j$@*) = ((*@$A$@*), (*@$Turn_j$@*))
+      case (*@$Steal($@*)y(*@$,w)$@*) do  (*@$DTr_{w \rightarrow A, j}$@*) = (*@$DTr_{w \rightarrow A, j-1} - y$@*)
+      case (*@$Add($@*)y(*@$,w)$@*) do  (*@$DTr_{A \rightarrow w, j}$@*) = (*@$DTr_{A \rightarrow w, j-1} + y$@*)
+  (*@$Cap_{A, j}$@*) = NewCap;  (*@$\mathcal{H}_j$@*) = ((*@$A$@*), (*@$Turn_j$@*))
   return((*@$\mathcal{G}_j$@*), (*@$Cap_{A, j}$@*), (*@$\mathcal{H}_j$@*))
     \end{lstlisting}
     It is straightforward to verify the compatibility of the previous algorithms with the corresponding definitions.
