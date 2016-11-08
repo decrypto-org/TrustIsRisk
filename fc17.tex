@@ -208,13 +208,13 @@
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
      the node possesses exclusively and nobody else can spend.
      \begin{definition}[Capital]
-        The initial capital of $A$, $Cap_{A, 0}$, is defined as the total value that exists in P2PKH in the UTXO and can be
-        spent by $A$ at the beginning of the game.
+        The initial capital of $A$, $Cap_{A, 0}$, is defined as the total value that belongs to $A$ and exists in P2PKH in
+        the UTXO at the beginning of the game.
 %        The capital of $A$ at the end of turn $j$, $Cap_{A, j}$, is defined as the total value that exists in P2PKH in the
 %        UTXO and can be spent by $A$ at the end of turn $j$.
      \end{definition}
-     The capital of $A$ is subsequently modified only during her turns, according to her actions. A rational player would
-     like to maximize her capital in the long term. We also define a player's assets:
+     The capital of $A$ is subsequently modified only during her turns, according to her actions. We also define a player's
+     assets:
      \begin{definition}[Assets]
         Sum of $A$'s capital and outgoing trust.
         \begin{equation}
@@ -628,10 +628,10 @@ while (True)
     $Tr_{A \rightarrow B}$ is always finite.
     \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
-       Consider a Transitive Game. There exists a turn $j'$ such that
-       \begin{equation*}
-          \forall j \geq j', Turn_j = \emptyset \enspace.
-       \end{equation*}
+       Consider a Transitive Game. There exists a turn such that all subsequent turns are empty.
+%       \begin{equation*}
+%          \forall j \geq j', Turn_j = \emptyset \enspace.
+%       \end{equation*}
     \end{theorem}
     \begin{proofsketch}
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
