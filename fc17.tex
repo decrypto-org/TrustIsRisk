@@ -80,7 +80,7 @@
 
 \begin{document}
 \title{Trust Is Risk: \\ A Decentralized Financial Trust Platform}
-\author{Anonymized sumbission}
+\author{Anonymized submission}
 \institute{}
 %\author{Orfeas Stefanos Thyfronitis Litos\inst{1}% \fnmsep \thanks{We thank Kyriakos Axiotis for his insights on flows.}
 %        \and Dionysis Zindros\inst{2} \fnmsep \thanks{Research supported by ERC project CODAMODA, project \#259152}}
@@ -418,7 +418,7 @@ j = 0
 while (True)
   j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
   Turn = (*@$v$@*)Strategy((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
-  ((*@$G_j$@*), (*@$Cap_{v, j}$@*), (*@$H_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), Turn)
+  ((*@$\mathcal{G}_j$@*), (*@$Cap_{v, j}$@*), (*@$\mathcal{H}_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), Turn)
     \end{lstlisting}
 %    This algorithm calls the necessary functions to prepare the new graph.
 %    \Suppressnumber
@@ -430,7 +430,9 @@ while (True)
 %  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
 %  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
 %    \end{lstlisting}
-    For \texttt{executeTurn()}, see the Appendix.
+     \texttt{executeTurn()} checks the validity of \texttt{Turn} and substitutes it with an empty turn if invalid.
+     Subsequently, it creates the new graph $\mathcal{G}_j$ and updates the history accordingly. For the routine code,
+     see the Appendix.
   \section{Trust Transitivity}
      In this section we define some strategies. The corresponding algorithms can be seen in the Appendix. Then we define the
      Transitive Game that represents the worst-case scenario for an honest player when another player decides to depart from
@@ -501,7 +503,26 @@ while (True)
     if ((*@$Loss_v$@*) == 0)
       Happy = Happy(*@$\:\cup\: \{v\}$@*)
      \end{lstlisting}
-     An example execution follows:
+
+     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
+     has been stolen yet (see the Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact).
+     Moreover, let $v = Player(j)$ and $j' = prev\left(j\right)$.
+%     Given that
+%     \begin{equation}
+%        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
+%     \end{equation}
+     The Transitive Game generates turns:
+     \begin{equation}
+        Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\} \enspace,% Damage_{v, j} > 0 \enspace,
+     \end{equation}
+     where
+     \begin{equation*}
+        \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
+     \end{equation*}
+ 
+     We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
+
+     An example execution of the Transitive Game follows:
 
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.7,transform shape]
@@ -631,24 +652,6 @@ while (True)
 \end{tikzpicture}
 \end{center}
 
-     Let $j_0$ be the first turn on which $E$ is chosen to play. Until then, all players will pass their turn since nothing
-     has been stolen yet (see the Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact).
-     Moreover, let $v = Player(j)$ and $j' = prev\left(j\right)$.
-%     Given that
-%     \begin{equation}
-%        Damage_{v,j} = out_{v, j'} - out_{v, j-1} \enspace,
-%     \end{equation}
-     The Transitive Game generates turns:
-     \begin{equation}
-        Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\} \enspace,% Damage_{v, j} > 0 \enspace,
-     \end{equation}
-     where
-     \begin{equation*}
-        \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
-     \end{equation*}
- 
-     We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
-
      From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
      obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
      stolen more value than she has been stolen, thus she would not be following the conservative strategy.
@@ -718,8 +721,6 @@ while (True)
        equivalent $Steal\left(\right)$ actions. The players will play in turns, moving from $E$ back to $A$. Each player will
        steal from his predecessors as much as was stolen from her. The flows and the conservative strategy share the property
        that the total input is equal to the total output.
-%       For the complete proof, see the Appendix
-       (proof \ref{maxflowgameproof}).
     \end{proofsketch}
     \begin{lemma}[Transitive Games Are Flows] \ \\
        \label{gameflow}
