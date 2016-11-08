@@ -204,8 +204,8 @@
      value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
      represents the corresponding turn.
      \begin{definition}[Players]
-        The set $\mathcal{V}_j = V\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise understood
-        as the set of all pseudonymous identities.
+        The set $\mathcal{V}_j = \mathcal{V}\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise
+        understood as the set of all pseudonymous identities.
      \end{definition}
      Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
      the node possesses exclusively and nobody else can spend.
@@ -215,15 +215,17 @@
 %        The capital of $A$ at the end of turn $j$, $Cap_{A, j}$, is defined as the total value that exists in P2PKH in the
 %        UTXO and can be spent by $A$ at the end of turn $j$.
      \end{definition}
-     The capital of $A$ is subsequently modified only during her turns, according to her actions. We also define a player's
-     assets:
-     \begin{definition}[Assets]
-        Sum of $A$'s capital and outgoing trust.
-        \begin{equation}
-           As_{A, j} = Cap_{A, j} + out_{A, j}
-        \end{equation}
-     \end{definition}
-     We consider the outgoing trust of a player as part of her assets. The formal definition of direct trust follows:
+     The capital of $A$ is subsequently modified only during her turns, according to her actions. We also note that a
+     player's assets are the sum of her capital and her total outgoing trust.
+
+%     \begin{definition}[Assets]
+%        Sum of $A$'s capital and outgoing trust.
+%        \begin{equation}
+%           As_{A, j} = Cap_{A, j} + out_{A, j}
+%        \end{equation}
+%     \end{definition}
+%     We consider the outgoing trust of a player as part of her assets.
+     The formal definition of direct trust follows:
      \begin{definition}[Direct Trust]
         Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
         value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
