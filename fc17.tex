@@ -1233,14 +1233,14 @@ while (True)
        \label{desiredoutgoingflow}
            \sum\limits_{v \in N^{+}\left(A\right)}x_{Av} = Loss_A \enspace.
        \end{equation}
-       Suppose that $X$ contains a deficient node $v$. In this node it is
+       Suppose that $X$ contains a excess node $v$. In this node it is
        \begin{equation*}
           \sum\limits_{w \in N^{-}\left(v\right)}x_{wv} > \sum\limits_{w \in N^{+}\left(v\right)}x_{vw} \enspace.
        \end{equation*}
        By the definition of $X$ however, $v$ stole more than she was stolen, thus does not follow the conservative strategy.
-       We have reached a contradiction, thus there exist no deficient nodes in $X$.\
+       We have reached a contradiction, thus there exist no excess nodes in $X$.\
 
-       Based on the pseudoflow $X$, we can now construct a feasible flow $X'$ by eliminating all excess nodes (aka Sad players) (how exactly? seems we need the
+       Based on the pseudoflow $X$, we can now construct a feasible flow $X'$ by eliminating all deficit nodes (aka Sad players) (how exactly? seems we need the
        auxiliary source construction). Since this does not affect outgoing flows from $A$ (why?) we deduce:
        \begin{equation*}
           Loss_A \overset{(\ref{desiredoutgoingflow})}{=} \sum\limits_{v \in N^{+}\left(A\right)}x_{Av} =
