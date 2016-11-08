@@ -660,11 +660,11 @@ while (True)
        \forall v \in V \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
        \enspace.
     \end{equation}
-    The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is proven to be equal to
-    $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum possible flow from
-    $A$ to $B$, namely $MaxFlow\left(A, B\right)$. This algorithm evidently needs full knowledge of the graph. The fastest
-    version of this algorithm runs in $O\left(|V||E|\right)$ time \cite{maxflownm}. We refer to the flow value of
-    $MaxFlow\left(A, B\right)$ as $maxFlow\left(A, B\right)$.
+    We do not suppose any skew symmetry in $X$. The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is
+    proven to be equal to $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum
+    possible flow from $A$ to $B$, namely $MaxFlow\left(A, B\right)$. This algorithm evidently needs full knowledge of the
+    graph. The fastest version of this algorithm runs in $O\left(|V||E|\right)$ time \cite{maxflownm}. We refer to the flow
+    value of $MaxFlow\left(A, B\right)$ as $maxFlow\left(A, B\right)$.
 
     We will now introduce two lemmas that will be used to prove the one of the central results of this work, the Trust Flow
     theorem.
