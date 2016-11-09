@@ -440,21 +440,37 @@ while (True)
      \begin{definition}[Idle Strategy]
         A player $A$ is said to follow the idle strategy if she passes in her turn. 
      \end{definition}
+
+     \Suppressnumber
+     \begin{lstlisting}[label=idlestrategy, style=numbers]
+Idle Strategy
+Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
+Output : (*@$Turn_j$ \Reactivatenumber@*)
+idleStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) :
+  return((*@$\emptyset$@*))
+     \end{lstlisting}
+     The inputs and outputs are identical to those of \texttt{idleStrategy()} for the rest of the strategies, thus we avoid
+     repeating them.
      \begin{definition}[Evil Strategy]
         A player $A$ is said to follow the evil strategy if she steals all incoming direct trust and nullifies her outgoing
         direct trust in her turn.
      \end{definition}
+
+     \begin{lstlisting}[label=evilstrategy, style=numbers]
+evilStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) :
+  Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
+  Adds = (*@$\bigcup\limits_{v \in N^{+}\left(A\right)_{j-1}}\{Add(-DTr_{A \rightarrow v, j-1}, v)\}$@*)
+  (*@$Turn_j$@*) = Steals(*@$\: \cup \:$@*)Adds
+  return((*@$Turn_j$@*))
+     \end{lstlisting}
+
      \begin{definition}[Conservative Strategy]
         Player $A$ is said to follow the conservative strategy if she replenishes the value she lost since the previous turn,
         $Damage_A$, by stealing from others that trust her as much as she can up to $Damage_A$ and she takes no other action.
      \end{definition}
 
-     \Suppressnumber
      \begin{lstlisting}[label=conservativestrategy, style=numbers]
-Conservative Strategy
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
-Output : (*@$Turn_j$@*)
-consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
+consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) :
   Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
   if (Damage > 0)
     if (Damage >= (*@$in_{A, j-1}$@*))
@@ -773,13 +789,11 @@ while (True)
      \begin{theorem}[Risk Invariance Theorem]
      \label{riskinv}
         Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $l$ the desired value to be transferred from $A$ to $B$,
-        with $V \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ such that
-        \begin{align*}
-           \mathcal{V}' &= \mathcal{V} \\
-%           DTr'_{A \rightarrow B} &= DTr_{A \rightarrow B} \\
-           \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}'&, DTr'_{v \rightarrow w} =
+        with $l \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ with the same nodes as $\mathcal{G}$ such that
+        \begin{equation*}
+           \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}', DTr'_{v \rightarrow w} =
            DTr_{v \rightarrow w} \enspace.
-        \end{align*}
+        \end{equation*}
         Furthermore, suppose that there exists an assignment for the outgoing trust of $A, DTr'_{A \rightarrow v}$, such that
         \begin{equation}
         \label{primetrust}
@@ -826,10 +840,7 @@ while (True)
      We now extend Trust Flow theorem (\ref{trustflow}) to many players.
      \begin{theorem}[Multi-Player Trust Flow] \ \\
         \label{trustmany}
-        Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that
-        \begin{equation*}
-           \forall B \in S, DTr_{B \rightarrow T} = \infty \enspace.
-        \end{equation*}
+        Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that $\forall B \in S, DTr_{B \rightarrow T} = \infty$.
         It holds that
         \begin{equation*}
            \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow\left(A, T\right) \enspace.
@@ -1727,27 +1738,6 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
   return((*@$\mathcal{G}_j$@*), (*@$Cap_{A, j}$@*), (*@$\mathcal{H}_j$@*))
     \end{lstlisting}
     It is straightforward to verify the compatibility of the previous algorithms with the corresponding definitions.
-
-     \Suppressnumber
-     \begin{lstlisting}[label=idlestrategy, style=numbers]
-Idle Strategy
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
-Output : (*@$Turn_j$@*)
-idleStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
-  return((*@$\emptyset$@*))
-     \end{lstlisting}
-
-     \Suppressnumber
-     \begin{lstlisting}[label=evilstrategy, style=numbers]
-Evil Strategy
-Input : initial graph (*@$\mathcal{G}_0$@*), player (*@$A$@*), history (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*)
-Output : (*@$Turn_j$@*)
-evilStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) : (*@\Reactivatenumber@*)
-  Steals = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal(DTr_{v \rightarrow A, j-1}, v)\}$@*)
-  Adds = (*@$\bigcup\limits_{v \in N^{+}\left(A\right)_{j-1}}\{Add(-DTr_{A \rightarrow v, j-1}, v)\}$@*)
-  (*@$Turn_j$@*) = Steals(*@$\: \cup \:$@*)Adds
-  return((*@$Turn_j$@*))
-     \end{lstlisting}
 
   \begin{thebibliography}{40}
      \bibitem{loc}
