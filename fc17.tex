@@ -953,14 +953,11 @@ while (True)
      \cite{iou} which also illustrates financial trust transitivity. 
 
   \section{Further Research}
-     Our trust network can form a basis for risk-invariant transactions in a pseudonymous and decentralized setting.
-     More research is required to achieve other desirable properties.
 
      %\subsection{Trust Transfer Algorithms}
-        If $Alice$ trusts $Bob$ enough to purchase a good from him, she should not directly pay him the value of the good,
-        because then she will increase her trust towards $Bob$. She first has to reduce her outgoing direct trust in a manner
-        such that the supposition (\ref{primetrust}) of Risk Invariance theorem is satisfied. The methods $Alice$ can use to
-        recalculate her outgoing trust will be discussed in a future paper.
+        When $Alice$ makes a purchase from $Bob$, she has to reduce her outgoing direct trust in a manner such that the
+        supposition (\ref{primetrust}) of Risk Invariance theorem is satisfied. How $Alice$ can recalculate her outgoing
+        trust will be discussed in a future paper.
 
      %\subsection{Dynamic Setting}
         Our game is static. In a future dynamic setting, users should be able to play simultaneously, freely join, depart or
@@ -975,20 +972,11 @@ while (True)
         Our game theoretic analysis is simple. An interesting analysis would involve modelling repeated purchases with the
         respective edge updates on the trust graph and treating trust on the network as part of the utility function.
 
-     %\subsection{Implementation}
-        We are proposing a concrete financial game and not a theoretical concept. Thus its implementation as a wallet on any
-        blockchain will be most welcome.
-
-     %\subsection{Experimental Results}
-        A simulation or actual implementation of TrustIsRisk, combined with analysis of the resulting dynamics can yield
-        interesting experimental results. Subsequently, our trust network can be used in other applications, such as
-        decentralized social networks \cite{synereo}.
-
-     %\subsection{Alternative Multisigs}
-%        1-of-2 multisigs correspond intuitively to simple directed weighted graphs. However it can be interesting to explore
-%        the trust relations that can arise by using other types of multisig, such as 1-of-3, as vessel for multi-party trust
-%        schemes. Our results do not necessarily hold for other multisigs and the simple relations now represented by directed
-%        weighted graphs have to be revised under a new kind of representation.
+     %\subsection{Implementation and Experimental Results}
+        An implementation as a wallet on any blockchain of our financial game is most welcome. A simulation or actual
+        implementation of TrustIsRisk, combined with analysis of the resulting dynamics can yield interesting experimental
+        results. Subsequently, our trust network can be used in other applications, such as decentralized social networks
+        \cite{synereo}.
 
 
   \section*{Appendix}
