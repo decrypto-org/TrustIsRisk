@@ -85,7 +85,7 @@
 %\author{Orfeas Stefanos Thyfronitis Litos\inst{1}% \fnmsep \thanks{We thank Kyriakos Axiotis for his insights on flows.}
 %        \and Dionysis Zindros\inst{2} \fnmsep \thanks{Research supported by ERC project CODAMODA, project \#259152}}
 %\institute{National Technical University of Athens \and National and Kapodistrian University of Athens \\
-%           \email{orfeas.litos@hotmail.com}, \email{dionyziz@di.uoa.gr}}
+%           \email{olitos@corelab.ntua.gr}, \email{dionyziz@di.uoa.gr}}
 \maketitle
 \thispagestyle{plain}
   \begin{abstract}
@@ -238,7 +238,7 @@
         \end{equation}
      \end{definition}
      This definition agrees with the title of this paper and coincides with the intuition and experimental results of
-     \cite{socialcollateral} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
+     \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
      of danger in which $Alice$ is ready to expose herself to in order to help $Bob$. An example graph with its corresponding
      transactions in the UTXO can be seen below.
 
@@ -932,11 +932,23 @@ while (True)
 
   \section{Related Work}
      The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust
-     is rather binary \cite{pgp,pki}, \cite{byzantine}, trust in networks of users with various assumptions
-     \cite{openrep,mui,fire,beta,core}, \cite{ghkkw,pace,rk,vpc,sdt,bazaar,wot,dionyziz,pathfinder} and in passing while
-     working on other problems \cite{bitcoin}, \cite{beaver,synereo}. \cite{kmrs} gives a sociological justification for the
-     central design choice of identifying trust with risk. \cite{davis,iou} deserve special mention because they use similar
-     ideas with us, but were conceived before the advent of bitcoin and blockchains.
+     is rather binary and transitivity is not possible is explored in PGP \cite{pgp}. A transitive web-of-trust for fighting
+     spam is explored in Freenet \cite{freenet}. Other systems require central trusted
+     third parties, such as PKI \cite{pki} and Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership
+     \cite{byzantine}. While other trust systems attempt to be decentralized, they do not prove any Sybil resilience
+     properties and hence may be Sybil attackable. Such systems are FIRE \cite{fire}, CORE \cite{core} and others
+     \cite{openrep,ghkkw,rk}. Other systems that define trust in a non-financal way are
+     \cite{mui,beta,pace,vpc,sdt,wot,pathfinder}. The Beaver marketplace \cite{beaver} includes a trust model that relies on
+     fees to discourage Sybil attacks. We chose to avoid fees in our system and mitigate Sybil attacks in a different manner.
+     Our motivating application for exploring trust in a decentralized setting is the OpenBazaar marketplace. Transitive
+     financial trust for OpenBazaar has previously been explored by \cite{dionyziz}. This work however does not define trust
+     as a monetary value. We are strongly inspired by \cite{kmrs}
+     which gives a sociological justification for the central design choice of identifying trust with
+     risk. We greatly appreciate the work in TrustDavis \cite{davis}, which proposes a financial trust system that exhibits
+     transitive properties and in which trust is defined as lines-of-credit, similar to our system. We were able to extend
+     their work by using the blockchain for automated proofs-of-risk, a feature not available to them at the time. Our
+     conservative strategy and the Transitive Game are very similar to the mechanism proposed by the economic paper
+     \cite{iou} which also illustrates financial trust transitivity. 
 
   \section{Further Research}
      While our trust network can form a basis for risk-invariant transactions in the anonymous and decentralized setting,
@@ -974,7 +986,8 @@ while (True)
      %\subsection{Experimental Results}
         After the implementation and utilisation of TrustIsRisk in a real-world setting, further analysis of the network's
         dynamics can yield interesting experimental results that will help analyzers, developers and users make informed
-        decisions about theoretical approaches, design choices and investment strategies.
+        decisions about theoretical approaches, design choices and investment strategies. Once experimental results are
+        established, our trust network can be used in other applications, such as decentralized social networks \cite{synereo}.
 
      %\subsection{Alternative Multisigs}
         1-of-2 multisigs correspond intuitively to simple directed weighted graphs. However it can be interesting to explore
@@ -1743,12 +1756,9 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
      Nakamoto S.: Bitcoin: A Peer-to-Peer Electronic Cash System (2008)
      \bibitem{masteringbitcoin}
      Antonopoulos A. M.: Mastering Bitcoin: Unlocking Digital Cryptocurrencies. O'Reilly Media, Inc. (2014)
-     \bibitem{socialcollateral}
-     Karlan D., Mobius M., Rosenblat T., Szeidl A.: Trust and Social Collateral. The Quarterly Journal of Economics,
-     1307-1361 (2009)
      \bibitem{clrs}
      Cormen T. H., Leiserson C. E., Rivest R. L., Stein C.: Introduction to Algorithms (3rd ed.). MIT Press and McGraw-Hill
-     (2009) [1990]
+     (2009)
      \bibitem{maxflownm}
      Orlin J. B.: Max Flows in O(nm) Time, or Better. STOC '13 Proceedings of the forty-fifth annual ACM symposium on Theory
      of computing, pp.765-774, ACM, New York (2013). doi:10.1145/2488608.2488705
@@ -1824,6 +1834,10 @@ commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
      \bibitem{jib}
      Jøsang A., Ismail R., Boyd, C.: A Survey of Trust and Reputation Systems for Online Service Provision. Decision
      Support Systems, 43(2), pp. 618-644 (2007)
+     \bibitem{freenet}
+     Clarke I., Sandberg O., Wiley B., Hong, T. W. Freenet: A Distributed Anonymous Information Storage and
+     Retrieval System. H. Federrath, Designing Privacy Enhancing Technologies pp. 46-66, Berkeley, USA: Springer-Verlag
+     Berlin Heidelberg (2001)
   \end{thebibliography}
 
 \end{document}
