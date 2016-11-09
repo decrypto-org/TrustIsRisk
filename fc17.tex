@@ -688,18 +688,18 @@ while (True)
      We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
 
      From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, we see
-     that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
+     that $Damage_{v,j} \geq 0$. Also, it is $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
      stolen more value than she has been stolen, thus she would not be following the conservative strategy.
 %    In the figure above, $D$ is angry after turn 1 and sad after turn 2 and on. $C$ is angry after turns 1 and 2 and happy
 %    after turn 3. $B$ is happy until the end of turn 2 and sad after turn 3. The game converges in turn 4.
   \section{Trust Flow}
-    Everything is in place to define the indirect trust, or simply trust, from one player to another.
+    We can now define the indirect trust, or simply trust, from $A$ to $B$.
     \begin{definition}[Indirect Trust]
        The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
        $A$ after turn $j$ in the setting of \texttt{TransitiveGame(}$\mathcal{G}_j$\texttt{,}$A$\texttt{,}$B$\texttt{)}.
     \end{definition}
-    It is obvious that $Tr_{A \rightarrow B} \geq DTr_{A \rightarrow B}$. The following theorem establishes that
-    $Tr_{A \rightarrow B}$ is always finite.
+    \noindent It is $Tr_{A \rightarrow B} \geq DTr_{A \rightarrow B}$. The next theorem shows that
+    $Tr_{A \rightarrow B}$ is finite.
     \begin{theorem}[Trust Convergence Theorem] \ \\
        \label{convergence}
        Consider a Transitive Game. There exists a turn such that all subsequent turns are empty.
@@ -725,9 +725,8 @@ while (True)
     $X = [x_{vw}]_{V \times V}$ with a source $A$ and a sink $B$ is valid when:
     \begin{equation}
     \label{flow1}
-       \forall (v, w) \in E, x_{vw} \leq c_{vw}
+       \forall (v, w) \in E, x_{vw} \leq c_{vw} \mbox{ and}
     \end{equation}
-    and
     \begin{equation}
     \label{flow2}
        \forall v \in V \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
