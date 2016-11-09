@@ -964,31 +964,31 @@ while (True)
 
      %\subsection{Dynamic Setting}
         Our game is static. In a future dynamic setting, users should be able to play simultaneously, freely join, depart or
-        disconnect temporarily from the network.
+        disconnect temporarily from the network. Other types of multisigs, such as 1-of-3, can be explored for the
+        implementation of multi-party trust.
 
      %\subsection{Zero knowledge}
         MaxFlow in our case needs complete network knowledge, which can lead to privacy issues through deanonymisation
         techniques \cite{deanonymisation}. Calculating the flows in zero knowledge remains an open question.
 
      %\subsection{Game Theoretic Analysis}
-        The game theoretic analysis we perform here is relatively simple and does not account for more complex strategies
-        involving one or more players. Further research to this direction will improve our understanding of TrustIsRisk.
+        Our game theoretic analysis is simple. An interesting analysis would involve modelling repeated purchases with the
+        respective edge updates on the trust graph and treating trust on the network as part of the utility function.
 
      %\subsection{Implementation}
         We are proposing a concrete financial game and not a theoretical concept. Thus its implementation as a wallet on any
         blockchain will be most welcome.
 
      %\subsection{Experimental Results}
-        After the implementation and utilisation of TrustIsRisk in a real-world setting, further analysis of the network's
-        dynamics can yield interesting experimental results that will help analyzers, developers and users make informed
-        decisions about theoretical approaches, design choices and investment strategies. Once experimental results are
-        established, our trust network can be used in other applications, such as decentralized social networks \cite{synereo}.
+        A simulation or actual implementation of TrustIsRisk, combined with analysis of the resulting dynamics can yield
+        interesting experimental results. Subsequently, our trust network can be used in other applications, such as
+        decentralized social networks \cite{synereo}.
 
      %\subsection{Alternative Multisigs}
-        1-of-2 multisigs correspond intuitively to simple directed weighted graphs. However it can be interesting to explore
-        the trust relations that can arise by using other types of multisig, such as 1-of-3, as vessel for multi-party trust
-        schemes. Our results do not necessarily hold for other multisigs and the simple relations now represented by directed
-        weighted graphs have to be revised under a new kind of representation.
+%        1-of-2 multisigs correspond intuitively to simple directed weighted graphs. However it can be interesting to explore
+%        the trust relations that can arise by using other types of multisig, such as 1-of-3, as vessel for multi-party trust
+%        schemes. Our results do not necessarily hold for other multisigs and the simple relations now represented by directed
+%        weighted graphs have to be revised under a new kind of representation.
 
 
   \section*{Appendix}
