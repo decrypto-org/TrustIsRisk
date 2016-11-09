@@ -1674,11 +1674,11 @@ validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
   for (action (*@$\in$@*) Turn)
     action match do
       case (*@$Steal($@*)y(*@$,w)$@*) do
-        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) OR y < 0 OR (*@$w \in$@*) Stolen)
+        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) or y < 0 or (*@$w \in$@*) Stolen)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         else  (*@$Y_{st}$@*) += y;  Stolen = Stolen(*@$\:\cup \: \{w\}$@*)
       case (*@$Add($@*)y(*@$,w)$@*) do
-        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*) OR (*@$w \in$@*) Added)
+        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*) or (*@$w \in$@*) Added)
           return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
         else  (*@$Y_{add}$@*) += y;  Added = Added(*@$\: \cup \: \{w\}$@*)
   if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))  return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
