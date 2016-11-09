@@ -482,12 +482,13 @@ consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) :
   return((*@$Turn_j$@*))
      \end{lstlisting}
      \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
-     \begin{equation*}
+     \begin{equation}
+     \label{stealrestriction}
         \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
         y_v \leq DTr_{v \rightarrow A, j-1} \enspace.
-     \end{equation*}
-     Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
-     each time she calls the function, as long as the above restriction is respected. 
+     \end{equation}
+     Player $A$ can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
+     each time she calls the function, as long as (\ref{stealrestriction}) is respected. 
 
      As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_{A,j}
      < in_{A,j-1}$ she can choose to distribute the $Steal\left(\right)$ actions in any way she chooses.
