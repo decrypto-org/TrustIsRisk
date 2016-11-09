@@ -712,7 +712,6 @@ while (True)
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
        trust.
     \end{proofsketch}
-
     Full proofs of all theorems and lemmas can be found in the Appendix.
 
     In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
@@ -744,10 +743,10 @@ while (True)
        \label{maxflowgame}
        Let $\mathcal{G}$ be a game graph, let $A, E \in \mathcal{V}$ and $MaxFlow\left(A, E\right)$ the maximum flow from
        $A$ to $E$ executed on $\mathcal{G}$. There exists an execution of
-       \texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} such that
-       \begin{equation*}
-          maxFlow\left(A, E\right) \leq Loss_A \enspace.
-       \end{equation*}
+       \texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} such that $maxFlow\left(A, E\right) \leq Loss_A$.
+%       \begin{equation*}
+%          maxFlow\left(A, E\right) \leq Loss_A \enspace.
+%       \end{equation*}
     \end{lemma}
     \begin{proofsketch}
        The desired execution of \texttt{TransitiveGame()} will contain all flows from the $MaxFlow\left(A, E\right)$ as
@@ -760,9 +759,10 @@ while (True)
        Let $\mathcal{H} = $\texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} for some game graph $\mathcal{G}$ and $A,
        E \in \mathcal{V}$. There exists a valid flow
        $X = \{x_{wv}\}_{\mathcal{V} \times \mathcal{V}}$ on $\mathcal{G}_0$ such that
-       \begin{equation*}
-          \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A \enspace.
-       \end{equation*}
+       $\sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A$.
+%       \begin{equation*}
+%          \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A \enspace.
+%       \end{equation*}
     \end{lemma}
     \begin{proofsketch}
        If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
