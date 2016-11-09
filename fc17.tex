@@ -687,8 +687,8 @@ while (True)
  
      We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
 
-     From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, it is
-     obvious that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
+     From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, we see
+     that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
      stolen more value than she has been stolen, thus she would not be following the conservative strategy.
 %    In the figure above, $D$ is angry after turn 1 and sad after turn 2 and on. $C$ is angry after turns 1 and 2 and happy
 %    after turn 3. $B$ is happy until the end of turn 2 and sad after turn 3. The game converges in turn 4.
@@ -711,7 +711,6 @@ while (True)
        If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
        stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
        trust.
-%       For the complete proof, see the Appendix (proof \ref{convergenceproof}).
     \end{proofsketch}
 
     Full proofs of all theorems and lemmas can be found in the Appendix.
@@ -769,7 +768,6 @@ while (True)
     \begin{proofsketch}
        If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
        $A$ to $E$.
-%       For the complete proof, see the Appendix (proof \ref{gameflowproof}).
     \end{proofsketch}
     \begin{theorem}[Trust Flow Theorem] \ \\
        \label{trustflow}
