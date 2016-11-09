@@ -775,9 +775,27 @@ while (True)
           Tr_{A \rightarrow E} = maxFlow\left(A, E\right) \enspace.
        \end{equation*}
     \end{theorem}
-    \begin{proofsketch}
-       The theorem follows directly from lemma \ref{maxflowgame} and \ref{gameflow}.
-    \end{proofsketch}
+    \begin{proof}%[Trust Flow Theorem (\ref{trustflow})] \ \\
+       From lemma (\ref{maxflowgame}) there exists an execution of the Transitive Game such that
+       $Loss_A \geq maxFlow\left(A, E\right)$.
+       Since $Tr_{A \rightarrow E}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
+       see that
+       \begin{equation}
+       \label{trgeqmaxflow}
+          Tr_{A \rightarrow E} \geq maxFlow\left(A, E\right) \enspace.
+       \end{equation}
+       But some execution of the Transitive Game gives $Tr_{A \rightarrow E} = Loss_A$.
+       From lemma (\ref{gameflow}), this execution corresponds to a flow. Thus
+       \begin{equation}
+       \label{trleqmaxflow}
+          Tr_{A \rightarrow E} \leq maxFlow\left(A, E\right) \enspace.
+       \end{equation}
+       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}).
+    \end{proof}
+
+%    \begin{proofsketch}
+%       The theorem follows directly from lemma \ref{maxflowgame} and \ref{gameflow}.
+%    \end{proofsketch}
      Note that the maxFlow is the same in the following two cases: If a player chooses the evil strategy and if that player
      chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
 
@@ -1325,31 +1343,6 @@ while (True)
        \begin{equation*}
           \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
        \end{equation*}
-%\begin{center}
-%       \begin{tikzpicture}
-%       \begin{dot2tex}[dot,tikz]
-%          digraph G {
-%           rankdir=LR
-%           edge [arrowsize=0.6]
-%           label = "Fig.7:\ Graph\ G',\ derived\ from\ G\ with\ Auxiliary\ Source\ T."
-%           labelloc = "b"
-%           subgraph cluster_0 {
-%              label="G"
-%              labelloc="b"
-%              graph[style="rounded"]
-%              color=black
-%              S1 -> C
-%              A -> B
-%              S2 -> D
-%              B -> {C D}
-%              {C D} -> E
-%              {A S1 S2 rank=same}
-%           }
-%           T -> {S1 A S2}
-%          }
-%       \end{dot2tex}
-%       \end{tikzpicture}
-%\end{center}
        \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]
 %%
@@ -1528,29 +1521,6 @@ while (True)
           \overset{\left(\ref{xprimeequalloss}\right)}{=} Loss_{A, j_1} \enspace,
        \end{equation*}
        which is the flow $X$. \qed
-    \end{sepproof}
-
-    \begin{sepproof}[Trust Flow Theorem (\ref{trustflow})] \ \\
-       From lemma \ref{maxflowgame} we see that there exists an execution of the Transitive Game such that
-       \begin{equation*}
-          Loss_A \geq maxFlow\left(A, E\right) \enspace.
-       \end{equation*}
-       Since $Tr_{A \rightarrow E}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
-       see that
-       \begin{equation}
-       \label{trgeqmaxflow}
-          Tr_{A \rightarrow E} \geq maxFlow\left(A, E\right) \enspace.
-       \end{equation}
-       Moreover, there exists an execution of the Transitive Game such that
-       \begin{equation*}
-          Tr_{A \rightarrow E} = Loss_A \enspace.
-       \end{equation*}
-       From lemma \ref{gameflow}, this execution corresponds to a flow. Thus
-       \begin{equation}
-       \label{trleqmaxflow}
-          Tr_{A \rightarrow E} \leq maxFlow\left(A, E\right) \enspace.
-       \end{equation}
-       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}). \qed
     \end{sepproof}
 
     \begin{theorem}[Conservative World Theorem] \ \\
