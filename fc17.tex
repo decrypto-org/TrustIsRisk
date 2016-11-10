@@ -1109,9 +1109,8 @@ while (True)
           \min\left(in_{v, j}, Loss_{v, j}\right) = \min\left(in_{v, j}, Damage_{v, j}\right) \enspace.
        \end{equation*}
     \end{lemma}
-    \begin{proof} \
-       \begin{itemize}
-          \item Let $v \in Happy_{j-1}$. Then
+    \begin{proof} \ \\
+          \textbf{Case 1:} Let $v \in Happy_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Happy_j$ because $Turn_{j} = \emptyset$,
              \item $Loss_{v, j} = 0$ because otherwise $v \notin Happy_j$,
@@ -1122,27 +1121,26 @@ while (True)
           \end{enumerate}
           Thus
           \begin{equation*}
-             v \in Happy_{j-1} \Rightarrow \min\left(in_{v, j}, Damage_{v,j}\right) = \min\left(in_{v, j}, Loss_{v,j}\right)
-             = 0 \enspace.
+             \min\left(in_{v, j}, Loss_{v,j}\right) = \min\left(in_{v, j}, Damage_{v,j}\right) = 0 \enspace.
           \end{equation*}
-          \item Let $v \in Sad_{j-1}$. Then
+          \textbf{Case 2:} Let $v \in Sad_{j-1}$. Then
           \begin{enumerate}
              \item $v \in Sad_j$ because $Turn_{j} = \emptyset$, 
-             \item $in_{v, j} = 0$ (lines~\ref{trstealifentersad} -~\ref{trstealtrueentersad}),
+             \item $in_{v, j} = 0$ (line~\ref{trstealifentersad}),
              \item $Damage_{v, j} \geq 0 \wedge Loss_{v, j} \geq 0$.
           \end{enumerate}
           Thus
           \begin{equation*}
-             v \in Sad_{j-1} \Rightarrow \min\left(in_{v, j}, Damage_{v,j}\right) = \min\left(in_{v, j}, Loss_{v,j}\right) =
-             0 \enspace.
+             \min\left(in_{v, j}, Loss_{v,j}\right) = \min\left(in_{v, j}, Damage_{v,j}\right) = 0 \enspace.
           \end{equation*}
-          \item Let $v \in Angry_{j-1} \wedge v \in Happy_j$. Then the same argument as in the first case holds, if
-          we ignore the argument (1).
-          \item Let $v \in Angry_{j-1} \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
-          we ignore the argument (1).
-       \end{itemize}
-       Thus the theorem holds in every case.
-    \end{proof}
+          If $v \in Angry_{j-1}$ then the same argument as in cases 1 and 2 hold when $v \in Happy_j$ and $v \in Sad_j$
+          respectively if we ignore the argument (1). Thus the theorem holds in every case.
+%          Let $v \in Angry_{j-1} \wedge v \in Happy_j$. Then the same argument as in the first case holds, if
+%          we ignore the argument (1).
+%          Let $v \in Angry_{j-1} \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
+%          we ignore the argument (1).
+     
+           \end{proof}
 
     \begin{sepproof}{Proof of Theorem \ref{convergence}: Trust Convergence} \ \\
     \label{convergenceproof}
