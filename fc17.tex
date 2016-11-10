@@ -1407,7 +1407,7 @@ while (True)
              \sum\limits_{w \in \mathcal{V}'}x'_{vw} = \sum\limits_{w \in \mathcal{V}'}x'_{wv} \enspace.
           \end{equation*}
           (Requirement \ref{flow2} $\forall v \in Sad_{j_1}$)
-          \item We set
+          \item Since $c'_{TA} = \infty$, we can set
           \begin{equation*}
              x'_{TA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace,
           \end{equation*}
@@ -1435,7 +1435,7 @@ while (True)
        \begin{equation*}
           \forall e \in E(\mathcal{G}''), c''_e = c'_e
        \end{equation*}
-       If we execute the algorithm $MaxFlow(T, E)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
+       If we execute $MaxFlow(T, E)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
        \begin{equation*}
           \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
        \end{equation*}
