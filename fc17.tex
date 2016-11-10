@@ -1135,27 +1135,15 @@ while (True)
           \end{equation*}
           If $v \in Angry_{j-1}$ then the same argument as in cases 1 and 2 hold when $v \in Happy_j$ and $v \in Sad_j$
           respectively if we ignore the argument (1). Thus the theorem holds in every case.
-%          Let $v \in Angry_{j-1} \wedge v \in Happy_j$. Then the same argument as in the first case holds, if
-%          we ignore the argument (1).
-%          Let $v \in Angry_{j-1} \wedge v \in Sad_j$. Then the same argument as in the second case holds, if 
-%          we ignore the argument (1).
-     
-           \end{proof}
+    \end{proof}
 
     \begin{sepproof}{Proof of Theorem \ref{convergence}: Trust Convergence} \ \\
     \label{convergenceproof}
-       First of all,
-       \begin{equation*}
-          \forall j > j_0 : Player\left(j\right) = E \Rightarrow Turn_j = \emptyset
-       \end{equation*}
-        because $E$ has already nullified his incoming and outgoing direct trusts in $Turn_{j_0}$, the evil strategy does not
+       First of all, after turn $j_0$ player $E$ will always pass her turn
+       because she has already nullified her incoming and outgoing direct trusts in $Turn_{j_0}$, the evil strategy does not
        contain any case where direct trust is increased or where the evil player starts directly trusting another player and
-       the other players do not follow a strategy in which they can choose to $Add\left(\right)$ trust to $E$, thus player
-       $E$ can do nothing $\forall j > j_0$. We also see that
-       \begin{equation*}
-          \forall j > j_0 : Player(j) = A \Rightarrow Turn_j = \emptyset
-       \end{equation*}
-       because of the idle strategy that $A$ follows. As far as the rest of the players are concerned, consider the
+       the other players do not follow a strategy in which they can choose to $Add\left(\right)$ trust to $E$. The same holds
+       for player $A$ because she follows the idle strategy. As far as the rest of the players are concerned, consider the
        Transitive Game. As we can see from lines~\ref{trsteallossinit} and~\ref{trsteallossincrease}
        -~\ref{trsteallossdecrease}, it is
        \begin{equation*}
