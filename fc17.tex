@@ -65,9 +65,11 @@
 \theoremstyle{definition}
 \newtheorem*{sepproof}{Proof}
 
-\pagestyle{plain}
+\renewcommand{\thesubsection}{\arabic{subsection}}
 
 \newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \smallskip \ \\}
+
+\pagestyle{plain}
 
 \bibliographystyle{splncs}
 
