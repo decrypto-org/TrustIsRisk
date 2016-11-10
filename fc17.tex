@@ -100,8 +100,8 @@
      to risk analysis. We prove that risk and max flows are equivalent in our model. Our system allows for concrete financial
      decisions on the monetary amount a pseudonymous party can be trusted with. Through algorithmic trust redistribution, the
      risk incurred from making a purchase from a pseudonymous party in this manner remains invariant.
-%     \keywords{decentralized $\cdot$ trust $\cdot$ web-of-trust $\cdot$ bitcoin $\cdot$ multisig $\cdot$ line-of-credit
-%               $\cdot$ trust-as-risk $\cdot$ flow $\cdot$ reputation}
+     \keywords{decentralized $\cdot$ trust $\cdot$ web-of-trust $\cdot$ bitcoin $\cdot$ multisig $\cdot$ line-of-credit
+               $\cdot$ trust-as-risk $\cdot$ flow $\cdot$ reputation}
   \end{abstract}
 
   \section{Introduction}
@@ -366,7 +366,6 @@
      \end{definition}
      Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
      game. Building on the example of Figure 3, we can see the resulting graph when $D$ plays
-     \newpage
      \begin{equation}
      \label{turnexample}
         Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
@@ -935,20 +934,20 @@ while (True)
     \begin{theorem}[Sybil Resilience] \ \\
        \label{sybil}
        Let $\mathcal{G}$ be a game graph and $\left(\mathcal{B}, \mathcal{C}\right)$ be a collusion of players on
-       $\mathcal{G}$. It holds that
+       $\mathcal{G}$. It is
        \begin{equation*}
           Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = Tr_{A \rightarrow \mathcal{B}} \enspace.
        \end{equation*}
     \end{theorem}
     \begin{proofsketch}
        The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
-       $\mathcal{C}$ has no incoming trust from players outside the collusion.
+       $\mathcal{C}$ has no incoming trust from $\mathcal{V} \setminus \left(\mathcal{B} \cup \mathcal{C}\right)$.%players outside the collusion.
 %       For the complete proof, see the Appendix (proof \ref{sybilproof}).
     \end{proofsketch}
     We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
 
-    With this we have successfully delivered our promise for a Sybil-resilient decentralized financial trust system with
-    invariant risk when making a purchase.
+    We have successfully delivered our promise for a Sybil-resilient decentralized financial trust system with
+    invariant risk for purchases.
 
   \section{Related Work}
      The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust
@@ -997,7 +996,6 @@ while (True)
         implementation of TrustIsRisk, combined with analysis of the resulting dynamics can yield interesting experimental
         results. Subsequently, our trust network can be used in other applications, such as decentralized social networks
         \cite{synereo}.
-        \newpage
 
   \section*{Appendix}
     \subsection{Common Notation}
