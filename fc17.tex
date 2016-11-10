@@ -1100,12 +1100,13 @@ while (True)
      \end{definition}
     \subsection{Proofs, Lemmas and Theorems}
     \begin{lemma}[$Loss$ Equivalent to $Damage$] \ \\
-       Consider a Transitive Game. Let $j \in \mathbb{N}$ and $v = Player\left(j\right)$. It holds that
+       Consider a Transitive Game. Let $j \in \mathbb{N}$ and $v = Player\left(j\right)$ such that $v$ is following the
+       conservative strategy. It holds that
        \begin{equation*}
           \min\left(in_{v, j}, Loss_{v, j}\right) = \min\left(in_{v, j}, Damage_{v, j}\right) \enspace.
        \end{equation*}
     \end{lemma}
-    \begin{proof} \ \\
+    \begin{proof} \
        \begin{itemize}
           \item Let $v \in Happy_{j-1}$. Then
           \begin{enumerate}
