@@ -17,6 +17,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usetikzlibrary{shapes,arrows}
+\usepackage{color}
 \usepackage{hyperref}
 \usepackage{import}
 
@@ -81,8 +82,11 @@
 \bibliographystyle{splncs}
 
 %PDF bookmarks
-\usepackage{color,hyperref}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.3}
 \hypersetup{colorlinks,breaklinks,
     linkcolor=darkblue,urlcolor=darkblue,
     anchorcolor=darkblue,citecolor=darkblue}
+
+%custom figures counter
+\newcounter{figcount}
+\newcommand{\figlabel}[1]{\refstepcounter{figcount}\arabic{figcount}\label{#1}}
