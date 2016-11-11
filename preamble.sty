@@ -18,6 +18,7 @@
 \usepackage{pgfplots}
 \usetikzlibrary{shapes,arrows}
 \usepackage{hyperref}
+\usepackage{import}
 
 %code options with \lstlisting
 \lstset{frame=tb,
@@ -65,7 +66,7 @@
 \makeatother
 
 %environment for separate proof
-\newenvironment{sepproof}[1]{\noindent \textbf{#1}}{\smallskip \ \\}
+\newenvironment{sepproof}[1]{\noindent \textbf{#1}}{\qed \smallskip \ \\}
 
 %environment for proof sketch
 \newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \smallskip \ \\}
