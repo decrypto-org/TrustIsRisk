@@ -1,0 +1,90 @@
+  \section{Introduction}
+     Modern online marketplaces can be roughly categorized as centralized and decentralized.
+     Two major examples of each category are \href{http://www.ebay.com}{ebay} and \href{https://openbazaar.org/}{OpenBazaar}.
+     The common denominator of established online marketplaces is that the reputation of each vendor and client is either
+     expressed in the form of stars and user-generated reviews that are viewable by the whole network, or not expressed at
+     all inside the marketplace and instead is entirely built on word-of-mouth or other out-of-band means.
+
+     Our goal is to create a decentralized marketplace where the trust each user gives to the rest of the users is
+     quantifiable, measurable and expressable in monetary terms. The central concept used throughout this paper is
+     that trust is equivalent to risk, or the proposition that $Alice$'s \textit{trust} to another user $Bob$ is defined to
+     be the \textit{maximum sum of money} that $Alice$ can lose when $Bob$ is free to choose any strategy he wants. To flesh
+     out this concept, we will use \textit{lines of credit} as proposed by Washington Sanchez \cite{loc}, not to be confused
+     with the synonymous financial product. Joining the network
+     will be done by explicitly entrusting a certain amount of money to another user, say $Bob$. If $Bob$ has already
+     entrusted an amount of money to a third user, $Charlie$, then we indirectly trust $Charlie$ since if the latter wished
+     to play unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic
+     interaction with $Charlie$. The currency used is Bitcoin \cite{bitcoin}. \medskip \ \\
+\begin{tikzpicture}[>=latex,line join=bevel,scale=0.60,transform shape]
+%%
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (8.0bp,8.0bp) -- (8.0bp,83.0bp) -- (286.0bp,83.0bp) -- (286.0bp,8.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (147.0bp,19.5bp) node {\semihuge \textbf{Fig.1:} A trusts C 10\bitcoin};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (307.0bp,8.0bp) -- (307.0bp,83.0bp) -- (578.0bp,83.0bp) -- (578.0bp,8.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (442.5bp,19.5bp) node {\semihuge \textbf{Fig.2:} A trusts C 5\bitcoin};
+\end{scope}
+  \node (Alice2) at (342.0bp,57.0bp) [draw,ellipse] {\semihuge A};
+  \node (Alice1) at (43.0bp,57.0bp) [draw,ellipse] {\semihuge A};
+  \node (Charlie2) at (543.0bp,57.0bp) [draw,ellipse] {\semihuge C};
+  \node (Charlie1) at (251.0bp,57.0bp) [draw,ellipse] {\semihuge C};
+  \node (Bob2) at (446.0bp,57.0bp) [draw,ellipse] {\semihuge B};
+  \node (Bob1) at (147.0bp,57.0bp) [draw,ellipse] {\semihuge B};
+  \draw [->] (Bob1) -- (Charlie1);
+  \draw (199.0bp,67.5bp) node {\semihuge 20\bitcoin};
+  \draw [->] (Alice2) -- (Bob2);
+  \draw (394.0bp,67.5bp) node {\semihuge 10\bitcoin};
+  \draw [->] (Alice1) -- (Bob1);
+  \draw (95.0bp,67.5bp) node {\semihuge 10\bitcoin};
+  \draw [->] (Bob2) -- (Charlie2);
+  \draw (494.5bp,67.5bp) node {\semihuge 5\bitcoin};
+%
+\end{tikzpicture} \smallskip \ \\
+     We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
+     construction that permits any one of two pre-designated users to spend the coins contained therein
+     \cite{masteringbitcoin}. We will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by
+     either $Alice$ or $Bob$.
+
+     Our approach changes the user experience in a subtle but drastic way. A user no more has to base her trust towards a
+     store on stars, ratings or other dubious and non-quantifiable trust metrics. She can simply consult her wallet to
+     decide whether the store is trustworthy and, if so, up to what value. This system works as follows: Initially $Alice$
+     migrates her funds from P2PKH addresses in the UTXO \cite{masteringbitcoin} to 1-of-2 multisig addresses shared with
+     friends she comfortably trusts. We call this direct trust. Our system is agnostic to the means players use to determine
+     who is trustworthy for these direct 1-of-2 deposits.
+
+     Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
+     positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely use to
+     complete a purchase from $Charlie$. We examine exactly how this value is calculated in Trust Flow theorem
+     (\ref{trustflow}). This monetary value reported by our system maintains the desired security property that, if $Alice$
+     makes this purchase, then she is exposed to no more risk than she was willing to expose herself towards her friends.
+     We prove this result in the Risk Invariance theorem (\ref{riskinv}). Obviously it will not be safe for $Alice$ to buy
+     anything from $Charlie$ or any other vendor if she has entrusted no value to any other player.
+
+     We see that in TrustIsRisk the money is not invested at the time of the purchase and directly to the vendor, but at an
+     earlier point in time and only to parties that are trustworthy for out-of-band reasons. The fact that this system can
+     function in a completely decentralized fashion will become clear in the following sections. We prove this result in the
+     Sybil Resilience theorem (\ref{sybil}).
+
+     There are several incentives for a user to join this network. First of all, she can have access to a store that is
+     otherwise inaccessible. Moreover, two friends can formalize their mutual trust by entrusting the same amount to each
+     other. A large company that casually subcontracts other companies to complete various tasks can express its trust
+     towards them using this method. A government can choose to entrust its citizens with money and confront them using a
+     corresponding legal arsenal if they make irresponsible use of this trust. A bank can provide loans as outgoing and
+     manage savings as incoming trust and thus has a unique opportunity of expressing in a formal and absolute way its
+     credence by publishing its incoming and outgoing trust. Last but not least, the network can be viewed as a possible
+     field for investment and speculation since it constitutes a completely new area for financial activity.
+
+     It is worth noting that the same physical person can maintain multiple pseudonymous identities in the same trust network
+     and that multiple independent trust networks for different purposes can coexist. On the other hand, the same
+     pseudonymous identity can be used to establish trust in different contexts.
