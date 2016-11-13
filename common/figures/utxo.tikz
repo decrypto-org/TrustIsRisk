@@ -1,4 +1,4 @@
-     \begin{center}
+\begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
 %%
   \coordinate (Z4) at (344.19bp,100.0bp);
@@ -67,4 +67,4 @@
   \draw (270.5bp,0.0bp) node {\LARGE \textbf{Fig.\figlabel{fig:utxo}:} TrustIsRisk Game Graph and Equivalent Bitcoin UTXO};
 %
 \end{tikzpicture}
-     \end{center}
+\end{center}

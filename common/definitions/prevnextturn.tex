@@ -1,22 +1,22 @@
-    \begin{definition}[Previous/Next Turn]
-       Let $j \in \mathbb{N}$ a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
-       as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
-       $prev\left(j\right) = 0$. More formally, if
-       \begin{equation*}
-          P = \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and}
-       \end{equation*}
-       \begin{equation*}
-          N = \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace,
-       \end{equation*}
-       then we define $prev\left(j\right), next\left(j\right)$ as follows:
-       \begin{equation}
-          prev\left(j\right) = \begin{cases}
-             \max{P}, & P \neq \emptyset \\
-             0, & P = \emptyset
-          \end{cases}
-       \end{equation}
-       \begin{equation}
-          next\left(j\right) = \min{N}
-       \end{equation}
-       $next\left(j\right)$ is always well defined with the assumption that after each turn eventually everybody plays.
-    \end{definition}
+\begin{definition}[Previous/Next Turn]
+   Let $j \in \mathbb{N}$ a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
+   as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
+   $prev\left(j\right) = 0$. More formally, if
+   \begin{equation*}
+      P = \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and}
+   \end{equation*}
+   \begin{equation*}
+      N = \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace,
+   \end{equation*}
+   then we define $prev\left(j\right), next\left(j\right)$ as follows:
+   \begin{equation}
+      prev\left(j\right) = \begin{cases}
+         \max{P}, & P \neq \emptyset \\
+         0, & P = \emptyset
+      \end{cases}
+   \end{equation}
+   \begin{equation}
+      next\left(j\right) = \min{N}
+   \end{equation}
+   $next\left(j\right)$ is always well defined with the assumption that after each turn eventually everybody plays.
+\end{definition}

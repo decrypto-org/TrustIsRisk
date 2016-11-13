@@ -1,4 +1,4 @@
-       \begin{center}
+\begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.7,transform shape]
 %%
 \begin{scope}
@@ -59,4 +59,4 @@
   \draw [->] (B1) ..controls (79.894bp,86.861bp) and (67.729bp,87.031bp)  .. (V1);
 %
 \end{tikzpicture}
-       \end{center}
+\end{center}

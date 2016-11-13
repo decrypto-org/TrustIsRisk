@@ -1,4 +1,4 @@
-    \begin{center}
+\begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]
 %%
 \begin{scope}
@@ -31,4 +31,4 @@
   \draw [->] (C) ..controls (103.56bp,78.024bp) and (104.22bp,84.282bp)  .. (B);
 %
 \end{tikzpicture}
-    \end{center}
+\end{center}

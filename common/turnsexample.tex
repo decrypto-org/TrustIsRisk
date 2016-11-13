@@ -1,35 +1,35 @@
-    Here we add some concrete $Turn_j$ examples. Let $A = Player(j)$.
-    \begin{enumerate}
-       \item \begin{equation*}
-          Turn_j = \emptyset
-       \end{equation*}
-       \item \begin{equation*}
-          Turn_j = \{Steal\left(y, B\right), Add\left(w, B\right)\} \enspace,
-       \end{equation*}
-       given that
-       \begin{equation*}
-          0 \leq y \leq DTr_{B \rightarrow A, j-1} \wedge -DTr_{A \rightarrow B, j-1} \leq w \wedge w - y \leq
-          Cap_{A, j-1} \enspace.
-       \end{equation*}
-       \item \begin{equation*}
-          Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
-       \end{equation*}
-       given that
-       \begin{equation*}
-       \begin{gathered}
-          0 \leq x \leq DTr_{B \rightarrow A, j-1} \wedge -DTr_{A \rightarrow C, j-1} \leq y \: \wedge \\
-          \wedge -DTr_{A \rightarrow D, j-1} \leq w \wedge y + w - x \leq Cap_{A, j-1} \enspace.
-       \end{gathered}
-       \end{equation*}
-       \item \begin{equation*}
-          Turn_j = \{Steal\left(x, B\right), Steal\left(y, B\right)\}
-       \end{equation*}
-       is not a valid turn because it contains two $Steal\left(\right)$ actions against the same player. If
-       \begin{equation*}
-          0 \leq x \wedge 0 \leq y \wedge x + y \leq DTr_{B \rightarrow A, j-1} \enspace,
-       \end{equation*}
-       the correct alternative would be
-       \begin{equation*}
-          Turn_j = \{Steal\left(x+y, B\right)\} \enspace.
-       \end{equation*}
-    \end{enumerate}
+Here we add some concrete $Turn_j$ examples. Let $A = Player(j)$.
+\begin{enumerate}
+   \item \begin{equation*}
+      Turn_j = \emptyset
+   \end{equation*}
+   \item \begin{equation*}
+      Turn_j = \{Steal\left(y, B\right), Add\left(w, B\right)\} \enspace,
+   \end{equation*}
+   given that
+   \begin{equation*}
+      0 \leq y \leq DTr_{B \rightarrow A, j-1} \wedge -DTr_{A \rightarrow B, j-1} \leq w \wedge w - y \leq
+      Cap_{A, j-1} \enspace.
+   \end{equation*}
+   \item \begin{equation*}
+      Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
+   \end{equation*}
+   given that
+   \begin{equation*}
+   \begin{gathered}
+      0 \leq x \leq DTr_{B \rightarrow A, j-1} \wedge -DTr_{A \rightarrow C, j-1} \leq y \: \wedge \\
+      \wedge -DTr_{A \rightarrow D, j-1} \leq w \wedge y + w - x \leq Cap_{A, j-1} \enspace.
+   \end{gathered}
+   \end{equation*}
+   \item \begin{equation*}
+      Turn_j = \{Steal\left(x, B\right), Steal\left(y, B\right)\}
+   \end{equation*}
+   is not a valid turn because it contains two $Steal\left(\right)$ actions against the same player. If
+   \begin{equation*}
+      0 \leq x \wedge 0 \leq y \wedge x + y \leq DTr_{B \rightarrow A, j-1} \enspace,
+   \end{equation*}
+   the correct alternative would be
+   \begin{equation*}
+      Turn_j = \{Steal\left(x+y, B\right)\} \enspace.
+   \end{equation*}
+\end{enumerate}

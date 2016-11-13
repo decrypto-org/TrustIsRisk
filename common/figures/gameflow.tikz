@@ -1,4 +1,4 @@
-       \begin{center}
+\begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]
 %%
 \begin{scope}
@@ -35,4 +35,4 @@
   \draw (116.0bp,99.5bp) node {$\infty$};
 %
 \end{tikzpicture}
-       \end{center}
+\end{center}
