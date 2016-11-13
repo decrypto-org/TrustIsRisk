@@ -15,42 +15,7 @@
      entrusted an amount of money to a third user, $Charlie$, then we indirectly trust $Charlie$ since if the latter wished
      to play unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic
      interaction with $Charlie$. The currency used is Bitcoin \cite{bitcoin}. \medskip \ \\
-\begin{tikzpicture}[>=latex,line join=bevel,scale=0.60,transform shape]
-%%
-\begin{scope}
-  \pgfsetstrokecolor{black}
-  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (8.0bp,8.0bp) -- (8.0bp,83.0bp) -- (286.0bp,83.0bp) -- (286.0bp,8.0bp) -- cycle;
-  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (147.0bp,19.5bp) node {\semihuge \textbf{Fig.\figlabel{fig:bottleneckA}:} A trusts C 10\bitcoin};
-\end{scope}
-\begin{scope}
-  \pgfsetstrokecolor{black}
-  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (307.0bp,8.0bp) -- (307.0bp,83.0bp) -- (578.0bp,83.0bp) -- (578.0bp,8.0bp) -- cycle;
-  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (442.5bp,19.5bp) node {\semihuge \textbf{Fig.\figlabel{fig:bottleneckB}:} A trusts C 5\bitcoin};
-\end{scope}
-  \node (Alice2) at (342.0bp,57.0bp) [draw,ellipse] {\semihuge A};
-  \node (Alice1) at (43.0bp,57.0bp) [draw,ellipse] {\semihuge A};
-  \node (Charlie2) at (543.0bp,57.0bp) [draw,ellipse] {\semihuge C};
-  \node (Charlie1) at (251.0bp,57.0bp) [draw,ellipse] {\semihuge C};
-  \node (Bob2) at (446.0bp,57.0bp) [draw,ellipse] {\semihuge B};
-  \node (Bob1) at (147.0bp,57.0bp) [draw,ellipse] {\semihuge B};
-  \draw [->] (Bob1) -- (Charlie1);
-  \draw (199.0bp,67.5bp) node {\semihuge 20\bitcoin};
-  \draw [->] (Alice2) -- (Bob2);
-  \draw (394.0bp,67.5bp) node {\semihuge 10\bitcoin};
-  \draw [->] (Alice1) -- (Bob1);
-  \draw (95.0bp,67.5bp) node {\semihuge 10\bitcoin};
-  \draw [->] (Bob2) -- (Charlie2);
-  \draw (494.5bp,67.5bp) node {\semihuge 5\bitcoin};
-%
-\end{tikzpicture} \smallskip \ \\
+\subimport{../common/figures/}{simpleexample.tikz} \smallskip \ \\
      We thus propose a new kind of wallet where coins are not stored locally, but are placed in 1-of-2 multisigs, a bitcoin
      construction that permits any one of two pre-designated users to spend the coins contained therein
      \cite{masteringbitcoin}. We will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by
