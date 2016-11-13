@@ -1,0 +1,115 @@
+  \section{Sybil Resilience}
+     One of the primary aims of this system is to mitigate the danger for Sybil attacks \cite{sybilattack} whilst maintaining
+     fully decentralized autonomy.
+
+     Here we extend the definition of indirect trust to many players.
+     \begin{definition}[Indirect Trust to Multiple Players]
+        The indirect trust from player $A$ to a set of players, $S \subset \mathcal{V}$ is defined as the maximum possible
+        value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows the idle strategy and
+        everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative strategy.
+%        More formally, if $S \subset \mathcal{V}$,
+%        \begin{equation}
+%        \begin{gathered}
+%           Strategy\left(A\right) = Idle \wedge \forall E \in S, Strategy\left(E\right) = Evil \wedge \\
+%           \wedge \forall v \in \mathcal{V} \setminus \left(S \cup \{A\}\right), Strategy\left(v\right) = Conservative
+%        \end{gathered}
+%        \end{equation}
+        More formally, let $choices$ be the different actions between which the conservative players can choose, then
+        \begin{equation}
+           Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
+        \end{equation}
+     \end{definition}
+     We now extend Trust Flow theorem (\ref{trustflow}) to many players.
+     \begin{theorem}[Multi-Player Trust Flow] \ \\
+        \label{trustmany}
+        Let $S \subset \mathcal{V}$ and $T$ auxiliary player such that $\forall B \in S, DTr_{B \rightarrow T} = \infty$.
+        It holds that
+        \begin{equation*}
+           \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow S} = maxFlow\left(A, T\right) \enspace.
+        \end{equation*}
+     \end{theorem}       
+     \begin{proof}
+        If $T$ chooses the evil strategy and all players in $S$ play according to the conservative strategy, they will have
+        to steal all their incoming direct trust since they have suffered an infinite loss, thus they will act in a way
+        identical to following the evil strategy as far as $MaxFlow$ is concerned. The theorem follows thus from the Trust
+        Flow theorem.
+ %       \begin{equation}
+ %          \forall A \in \mathcal{V} \setminus S, Tr_{A \rightarrow T} = maxFlow\left(A, T\right) = Tr_{A \rightarrow S}
+ %          \enspace.
+ %       \end{equation}
+     \end{proof}
+     We now define several useful notions to tackle the problem of Sybil attacks. Let Eve be a possible attacker.
+     \begin{definition}[Corrupted Set]
+        Let $\mathcal{G}$ be a game graph and let Eve have a set of players $\mathcal{B} \subset \mathcal{V}$ corrupted, so
+        that she fully controls their outgoing direct trusts to any player in $\mathcal{V}$ and can also steal all incoming
+        direct trust to players in $\mathcal{B}$. We call this the corrupted set. The players $\mathcal{B}$ are considered to
+        be legitimate before the corruption, thus they may be directly trusted by any player in $\mathcal{V}$.
+     \end{definition}
+     \begin{definition}[Sybil Set]
+        Let $\mathcal{G}$ be a game graph. Since participation in the network does not require any kind of registration, Eve
+        can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
+        can arbitrarily set the direct trusts of any player in $\mathcal{C}$ to any player and can also steal all
+        incoming direct trust to players in $\mathcal{C}$. However, players $\mathcal{C}$ can be directly trusted only by
+        players $\mathcal{B} \cup \mathcal{C}$ but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$,
+        where $\mathcal{B}$ is a set of players corrupted by Eve.
+     \end{definition}
+     \begin{definition}[Collusion]
+        Let $\mathcal{G}$ be a game graph. Let $\mathcal{B} \subset \mathcal{V}$ be a corrupted set and $\mathcal{C} \subset
+        \mathcal{V}$ be a Sybil set, both controlled by Eve. The tuple $\left(\mathcal{B}, \mathcal{C}\right)$ is called a
+        collusion and is entirely controlled by a single entity in the physical world. From a game theoretic point of view,
+        players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$ perceive the collusion as independent players with a
+        distinct strategy each, whereas in reality they are all subject to a single strategy dictated by the controlling
+        entity, Eve.
+     \end{definition}
+    \begin{center}
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (76.0bp,31.0bp) .. controls (76.0bp,31.0bp) and (104.0bp,31.0bp)  .. (104.0bp,31.0bp) .. controls (110.0bp,31.0bp) and (116.0bp,37.0bp)  .. (116.0bp,43.0bp) .. controls (116.0bp,43.0bp) and (116.0bp,125.0bp)  .. (116.0bp,125.0bp) .. controls (116.0bp,131.0bp) and (110.0bp,137.0bp)  .. (104.0bp,137.0bp) .. controls (104.0bp,137.0bp) and (76.0bp,137.0bp)  .. (76.0bp,137.0bp) .. controls (70.0bp,137.0bp) and (64.0bp,131.0bp)  .. (64.0bp,125.0bp) .. controls (64.0bp,125.0bp) and (64.0bp,43.0bp)  .. (64.0bp,43.0bp) .. controls (64.0bp,37.0bp) and (70.0bp,31.0bp)  .. (76.0bp,31.0bp);
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (76.0bp,31.0bp) .. controls (76.0bp,31.0bp) and (104.0bp,31.0bp)  .. (104.0bp,31.0bp) .. controls (110.0bp,31.0bp) and (116.0bp,37.0bp)  .. (116.0bp,43.0bp) .. controls (116.0bp,43.0bp) and (116.0bp,125.0bp)  .. (116.0bp,125.0bp) .. controls (116.0bp,131.0bp) and (110.0bp,137.0bp)  .. (104.0bp,137.0bp) .. controls (104.0bp,137.0bp) and (76.0bp,137.0bp)  .. (76.0bp,137.0bp) .. controls (70.0bp,137.0bp) and (64.0bp,131.0bp)  .. (64.0bp,125.0bp) .. controls (64.0bp,125.0bp) and (64.0bp,43.0bp)  .. (64.0bp,43.0bp) .. controls (64.0bp,37.0bp) and (70.0bp,31.0bp)  .. (76.0bp,31.0bp);
+  \draw (62.0bp,11.5bp) node {\textbf{Fig.\figlabel{fig:collusion}:} Collusion};
+\end{scope}
+  \node (C) at (90.0bp,57.0bp) [draw,ellipse] {$\mathcal{C}$};
+  \node (B) at (90.0bp,111.0bp) [draw,ellipse] {$\mathcal{B}$};
+  \node (V) at (18.0bp,111.0bp) [draw,ellipse] {$\mathcal{V} \setminus \left(\mathcal{B} \cup \mathcal{C}\right)$};
+  \draw [->] (B) ..controls (76.448bp,90.029bp) and (75.776bp,83.771bp)  .. (C);
+  \draw [->] (B) ..controls (63.4bp,104.15bp) and (60.49bp,106.97bp)  .. (V);
+  \draw [->] (V) ..controls (46.585bp,96.812bp) and (62.033bp,84.876bp)  .. (C);
+  \draw (61bp,95.322bp) -- (49bp,83.322bp) [very thick];
+  \draw (61bp,83.322bp) -- (49bp,95.322bp) [very thick];
+  \draw [->] (C) ..controls (61.68bp,70.995bp) and (46.317bp,82.847bp)  .. (V);
+  \draw [->] (V) ..controls (58.496bp,112.85bp) and (56.403bp,118.03bp)  .. (B);
+  \draw [->] (C) ..controls (103.56bp,78.024bp) and (104.22bp,84.282bp)  .. (B);
+%
+\end{tikzpicture}
+    \end{center}
+    \begin{theorem}[Sybil Resilience] \ \\
+       \label{sybil}
+       Let $\mathcal{G}$ be a game graph and $\left(\mathcal{B}, \mathcal{C}\right)$ be a collusion of players on
+       $\mathcal{G}$. It is
+       \begin{equation*}
+          Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = Tr_{A \rightarrow \mathcal{B}} \enspace.
+       \end{equation*}
+    \end{theorem}
+    \begin{proofsketch}
+       The incoming trust to $\mathcal{B} \cup \mathcal{C}$ cannot be higher than the incoming trust to $\mathcal{B}$ since
+       $\mathcal{C}$ has no incoming trust from $\mathcal{V} \setminus \left(\mathcal{B} \cup \mathcal{C}\right)$.%players outside the collusion.
+%       For the complete proof, see the Appendix (proof \ref{sybilproof}).
+    \end{proofsketch}
+    We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
+
+    We have successfully delivered our promise for a Sybil-resilient decentralized financial trust system with
+    invariant risk for purchases.
+
