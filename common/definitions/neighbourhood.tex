@@ -1,0 +1,32 @@
+     \begin{definition}[Neighbourhood]
+        \label{neighbourhood}
+        \begin{enumerate}
+           \item Let $N^{+}\left(A\right)_j$ be the set of players $B$ that $A$ directly trusts with any positive value at
+              the end of turn $j$. More formally,
+              \begin{equation}
+                 N^{+}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\} \enspace.
+              \end{equation}
+              $N^{+}\left(A\right)_j$ is called out neighbourhood of $A$ on turn $j$. Let $S \subseteq \mathcal{V}_j$. Then
+              \begin{equation}
+                 N^{+}\left(S\right)_j = \bigcup\limits_{A \in S}N^{+}\left(A\right)_j \enspace.
+              \end{equation}
+           \item Let $N^{-}\left(A\right)_j$ be the set of players $B$ that directly trust $A$ with any positive value at the
+              end of turn $j$. More formally,
+              \begin{equation}
+                 N^{-}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\} \enspace.
+              \end{equation}
+              $N^{-}\left(A\right)_j$ is called in neighbourhood of $A$ on turn $j$. Let $S \subseteq \mathcal{V}_j$. Then
+              \begin{equation}
+                 N^{-}\left(S\right)_j = \bigcup\limits_{A \in S}N^{-}\left(A\right)_j \enspace.
+              \end{equation}
+           \item Let $N\left(A\right)_j$ be the set of players $B$ that either directly trust or are directly trusted by $A$
+              with any positive value at the end of turn $j$. More formally,
+              \begin{equation}
+                 N\left(A\right)_j = N^{+}\left(A\right)_j \cup N^{-}\left(A\right)_j \enspace.
+              \end{equation}
+              $N\left(A\right)_j$ is called neighbourhood of $A$ on turn $j$. Let $S \subset \mathcal{V}_j$. Then
+              \begin{equation}
+                 N\left(S\right)_j = N^{+}\left(S\right)_j \cup N^{-}\left(S\right)_j \enspace.
+              \end{equation}
+        \end{enumerate}
+     \end{definition}
