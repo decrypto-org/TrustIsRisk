@@ -1,114 +1,20 @@
-   \section{Evolution of Trust}
-     \begin{definition}[Turns]
-        The game is turn-based. In each turn $j$ a player $A \in \mathcal{V}, A =
-        Player\left(j\right)$, chooses one or more actions from the following two kinds:
-
-        \noindent \textit{\textbf{Steal($y_B$,$\:B$)}}: Steal value $y_B$ from $B \in N^{-}\left(A\right)_{j-1}$, where
-        $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then:
-        \begin{equation*}
-           DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B
-        \end{equation*}
-        \noindent \textit{\textbf{Add($y_B$,$\:B$)}}:
-        Add value $y_B$ to $B \in \mathcal{V}$, where $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then:
-        \begin{equation*}
-           DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B
-        \end{equation*}
-        When $y_B < 0$, we say that $A$ reduces her trust to $B$ by $-y_B$. When $y_B > 0$, we say that $A$ increases her
-        trust to $B$ by $y_B$. If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$.
-        $A$ passes her turn if she chooses no action. Also, let $Y_{st}, Y_{add}$ be the
-        total value to be stolen and added respectively by $A$ in her turn, $j$. For a turn to be feasible, it must hold
-        \begin{equation}
-           Y_{add} - Y_{st} \leq Cap_{A, j-1} \enspace.
-        \end{equation}
-        The capital is updated in every turn: $Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add}$.
-
-        A player cannot choose two actions of the same kind against the same player in one turn.
-        The set of actions of a player in turn $j$ is denoted by $Turn_j$. The graph that emerges by applying
-        the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
-     \end{definition}
-     We use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and next turn respectively played by
-     $Player(j)$. A formal definition is in the Appendix.
-     \begin{definition}[Damage]
-        Let $j$ be a turn such that $Player\left(j\right) = A$.
-        \begin{equation}
-           Damage_{A, j} = out_{A, prev\left(j\right)} - out_{A, j-1}
-        \end{equation}
-        We say that $A$ has been stolen value $Damage_{A, j}$ between $prev\left(j\right)$ and $j$. We omit turn subscripts
-        if they are implied from the context.
-     \end{definition}
-     \begin{definition}[History]
-        We define History, $\mathcal{H} = \left(\mathcal{H}_j\right)$, as the sequence of all tuples containing the sets
-        of actions and the corresponding player.
-        \begin{equation}
-           \mathcal{H}_j = \left(Player\left(j\right), Turn_j\right)
-        \end{equation}
-     \end{definition}
-     Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
-     game. Building on the example of figure \ref{fig:turn}, we can see the resulting graph when $D$ plays
-     \begin{equation}
-     \label{turnexample}
-        Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
-     \end{equation}
-\begin{center}
-\begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
-%%
-\begin{scope}
-  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-  \pgfsetstrokecolor{strokecol}
-\end{scope}
-\begin{scope}
-  \pgfsetstrokecolor{black}
-  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
-  \pgfsetstrokecolor{strokecol}
-  \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
-  \pgfsetfillcolor{fillcol}
-  \filldraw (0.0bp,0.0bp) -- (0.0bp,135.0bp) -- (267.0bp,135.0bp) -- (267.0bp,0.0bp) -- cycle;
-  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
-  \pgfsetstrokecolor{strokecol}
-  \draw (133.5bp,11.5bp) node {\LARGE \textbf{Fig.\figlabel{fig:turn}:} Game Graph after $Turn_1$ (\ref{turnexample}) on the Graph of figure \ref{fig:utxo}};
-\end{scope}
-  \node (A) at (51.0bp,85.0bp) [draw,ellipse] {\LARGE A};
-  \node (C) at (130.0bp,45.0bp) [draw,ellipse] {\LARGE C};
-  \node (B) at (216.0bp,106.0bp) [draw,ellipse] {\LARGE B};
-  \node (E) at (216.0bp,41.0bp) [draw,ellipse] {\LARGE E};
-  \node (D) at (130.0bp,117.0bp) [draw,ellipse] {\LARGE D};
-  \draw [->] (C) ..controls (153.77bp,42.809bp) and (160.15bp,42.31bp)  .. (166.0bp,42.0bp) .. controls (174.23bp,41.564bp) and (183.25bp,41.314bp)  .. (E);
-  \draw (173.0bp,49.5bp) node {\LARGE 10\bitcoin};
-  \draw [->] (C) ..controls (159.21bp,65.487bp) and (180.58bp,81.004bp)  .. (B);
-  \draw (173.0bp,87.5bp) node {\LARGE 3\bitcoin};
-  \draw [->] (A) ..controls (79.311bp,96.35bp) and (94.709bp,102.75bp)  .. (D);
-  \draw (90.5bp,109.5bp) node {\LARGE 5\bitcoin};
-  \draw [->] (D) ..controls (130.0bp,89.666bp) and (130.0bp,78.836bp)  .. (C);
-  \draw (119.5bp,81.0bp) node {\LARGE 4\bitcoin};
-  \draw [->] (A) ..controls (78.919bp,71.016bp) and (95.226bp,62.545bp)  .. (C);
-  \draw (90.5bp,74.5bp) node {\LARGE 5\bitcoin};
-  \draw [->] (D) ..controls (160.64bp,113.12bp) and (178.02bp,110.84bp)  .. (B);
-  \draw (173.0bp,119.5bp) node {\LARGE 2\bitcoin};
-%
-\end{tikzpicture}
-\end{center}
-     TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
-     this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely. We assume
-     players are chosen in a way that, after her turn, a player will eventually play again later.
-     \Suppressnumber
-     \begin{lstlisting}[label=trustisriskgame, style=numbers]
-TrustIsRisk Game (*@\Reactivatenumber@*)
-j = 0
-while (True)
-  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V}_j$@*)
-  Turn = (*@$v$@*)Strategy((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
-  ((*@$\mathcal{G}_j$@*), (*@$Cap_{v, j}$@*), (*@$\mathcal{H}_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), Turn)
-    \end{lstlisting}
-%    This algorithm calls the necessary functions to prepare the new graph.
-%    \Suppressnumber
-%    \begin{lstlisting}[label=executeturn, style=numbers]
-%Execute Turn
-%Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), TentativeTurn
-%Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
-%executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn) :
-%  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
-%  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
-%    \end{lstlisting}
-     \texttt{executeTurn()} checks the validity of \texttt{Turn} and substitutes it with an empty turn if invalid.
-     Subsequently, it creates the new graph $\mathcal{G}_j$ and updates the history accordingly. For the routine code,
-     see the Appendix.
+\section{Evolution of Trust}
+  \subimport{common/definitions/}{turns.tex}
+  We use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and next turn respectively played by
+  $Player(j)$. A formal definition is in the Appendix.
+  \subimport{common/definitions/}{damage.tex}
+  \subimport{common/definitions/}{history.tex}
+  Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
+  game. Building on the example of figure \ref{fig:utxo}, we can see the resulting graph when $D$ plays
+  \begin{equation}
+  \label{turnexample}
+     Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
+  \end{equation}
+  \subimport{common/figures/}{turnexample.tikz}
+  TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
+  this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely. We assume
+  players are chosen in a way that, after her turn, a player will eventually play again later.
+  \subimport{common/algorithms/}{trustisriskgame.tex}
+  \texttt{executeTurn()} checks the validity of \texttt{Turn} and substitutes it with an empty turn if invalid.
+  Subsequently, it creates the new graph $\mathcal{G}_j$ and updates the history accordingly. For the routine code,
+  see the Appendix.

@@ -1,139 +1,51 @@
-  \section{Trust Flow}
-    We can now define the indirect trust, or simply trust, from $A$ to $B$.
-    \begin{definition}[Indirect Trust]
-       The indirect trust from $A$ to $B$ after turn $j$ is defined as the maximum possible value that can be stolen from
-       $A$ after turn $j$ in the setting of \texttt{TransitiveGame(}$\mathcal{G}_j$\texttt{,}$A$\texttt{,}$B$\texttt{)}.
-    \end{definition}
-    \noindent It is $Tr_{A \rightarrow B} \geq DTr_{A \rightarrow B}$. The next theorem shows that
-    $Tr_{A \rightarrow B}$ is finite.
-    \begin{theorem}[Trust Convergence Theorem] \ \\
-       \label{convergence}
-       Consider a Transitive Game. There exists a turn such that all subsequent turns are empty.
-%       \begin{equation*}
-%          \forall j \geq j', Turn_j = \emptyset \enspace.
-%       \end{equation*}
-    \end{theorem}
-    \begin{proofsketch}
-       If the game didn't converge, the $Steal\left(\right)$ actions would continue forever without reduction of the amount
-       stolen over time, thus they would reach infinity. However this is impossible, since there exists only finite total
-       trust.
-    \end{proofsketch}
-    Full proofs of all theorems and lemmas can be found in the Appendix.
+\section{Trust Flow}
+  We can now define the indirect trust, or simply trust, from $A$ to $B$.
+  \subimport{common/definitions/}{indirecttrust.tex}
+  \noindent It is $Tr_{A \rightarrow B} \geq DTr_{A \rightarrow B}$. The next theorem shows that
+  $Tr_{A \rightarrow B}$ is finite.
+  \subimport{common/theorems/}{convergencetheorem.tex}
+  \subimport{common/proofsketches/}{convergenceproofsketch.tex}
+  Full proofs of all theorems and lemmas can be found in the Appendix.
 
-    In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
-    $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
-    not the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
-    executions and the conservative players are free to choose which incoming trusts they will steal and how much from each.
+  In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
+  $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
+  not the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
+  executions and the conservative players are free to choose which incoming trusts they will steal and how much from each.
 
-    Let $G$ be a weighted directed graph. We will investigate the maximum flow on this graph. For an introduction to the
-    maximum flow problem see \cite{clrs} p. 708. Considering each edge's capacity as its weight, a flow assignment
-    $X = [x_{vw}]_{V \times V}$ with a source $A$ and a sink $B$ is valid when:
-    \begin{equation}
-    \label{flow1}
-       \forall (v, w) \in E, x_{vw} \leq c_{vw} \mbox{ and}
-    \end{equation}
-    \begin{equation}
-    \label{flow2}
-       \forall v \in V \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
-       \enspace.
-    \end{equation}
-    We do not suppose any skew symmetry in $X$. The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is
-    proven to be equal to $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum
-    possible flow from $A$ to $B$, namely $MaxFlow\left(A, B\right)$. This algorithm evidently needs full knowledge of the
-    graph. The fastest version of this algorithm runs in $O\left(|V||E|\right)$ time \cite{maxflownm}. We refer to the flow
-    value of $MaxFlow\left(A, B\right)$ as $maxFlow\left(A, B\right)$.
+  Let $G$ be a weighted directed graph. We will investigate the maximum flow on this graph. For an introduction to the
+  maximum flow problem see \cite{clrs} p. 708. Considering each edge's capacity as its weight, a flow assignment
+  $X = [x_{vw}]_{V \times V}$ with a source $A$ and a sink $B$ is valid when:
+  \begin{equation}
+  \label{flow1}
+     \forall (v, w) \in E, x_{vw} \leq c_{vw} \mbox{ and}
+  \end{equation}
+  \begin{equation}
+  \label{flow2}
+     \forall v \in V \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
+     \enspace.
+  \end{equation}
+  We do not suppose any skew symmetry in $X$. The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is
+  proven to be equal to $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum
+  possible flow from $A$ to $B$, namely $MaxFlow\left(A, B\right)$. This algorithm evidently needs full knowledge of the
+  graph. The fastest version of this algorithm runs in $O\left(|V||E|\right)$ time \cite{maxflownm}. We refer to the flow
+  value of $MaxFlow\left(A, B\right)$ as $maxFlow\left(A, B\right)$.
 
-    We will now introduce two lemmas that will be used to prove the one of the central results of this work, the Trust Flow
-    theorem.
-    \begin{lemma}[MaxFlows Are Transitive Games] \ \\
-       \label{maxflowgame}
-       Let $\mathcal{G}$ be a game graph, let $A, E \in \mathcal{V}$ and $MaxFlow\left(A, E\right)$ the maximum flow from
-       $A$ to $E$ executed on $\mathcal{G}$. There exists an execution of
-       \texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} such that $maxFlow\left(A, E\right) \leq Loss_A$.
-%       \begin{equation*}
-%          maxFlow\left(A, E\right) \leq Loss_A \enspace.
-%       \end{equation*}
-    \end{lemma}
-    \begin{proofsketch}
-       The desired execution of \texttt{TransitiveGame()} will contain all flows from the $MaxFlow\left(A, E\right)$ as
-       equivalent $Steal\left(\right)$ actions. The players will play in turns, moving from $E$ back to $A$. Each player will
-       steal from his predecessors as much as was stolen from her. The flows and the conservative strategy share the property
-       that the total input is equal to the total output.
-    \end{proofsketch}
-    \begin{lemma}[Transitive Games Are Flows] \ \\
-       \label{gameflow}
-       Let $\mathcal{H} = $\texttt{TransitiveGame(}$\mathcal{G}, A, E$\texttt{)} for some game graph $\mathcal{G}$ and $A,
-       E \in \mathcal{V}$. There exists a valid flow
-       $X = \{x_{wv}\}_{\mathcal{V} \times \mathcal{V}}$ on $\mathcal{G}_0$ such that
-       $\sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A$.
-%       \begin{equation*}
-%          \sum\limits_{v \in \mathcal{V}}x_{Av} = Loss_A \enspace.
-%       \end{equation*}
-    \end{lemma}
-    \begin{proofsketch}
-       If we exclude the sad players from the game, the $Steal\left(\right)$ actions that remain constitute a valid flow from
-       $A$ to $E$.
-    \end{proofsketch}
-    \begin{theorem}[Trust Flow Theorem] \ \\
-       \label{trustflow}
-       Let $\mathcal{G}$ be a game graph and $A, E \in \mathcal{V}$. It holds that
-       \begin{equation*}
-          Tr_{A \rightarrow E} = maxFlow\left(A, E\right) \enspace.
-       \end{equation*}
-    \end{theorem}
-    \begin{proof}%[Trust Flow Theorem (\ref{trustflow})] \ \\
-       From lemma (\ref{maxflowgame}) there exists an execution of the Transitive Game such that
-       $Loss_A \geq maxFlow\left(A, E\right)$.
-       Since $Tr_{A \rightarrow E}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
-       see that
-       \begin{equation}
-       \label{trgeqmaxflow}
-          Tr_{A \rightarrow E} \geq maxFlow\left(A, E\right) \enspace.
-       \end{equation}
-       But some execution of the Transitive Game gives $Tr_{A \rightarrow E} = Loss_A$.
-       From lemma (\ref{gameflow}), this execution corresponds to a flow. Thus
-       \begin{equation}
-       \label{trleqmaxflow}
-          Tr_{A \rightarrow E} \leq maxFlow\left(A, E\right) \enspace.
-       \end{equation}
-       The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}).
-    \end{proof}
+  We will now introduce two lemmas that will be used to prove the one of the central results of this work, the Trust Flow
+  theorem.
+  \subimport{common/lemmas/}{flowgamelemma.tex}
+  \subimport{common/proofsketches/}{flowgameproofsketch.tex}
+  \subimport{common/lemmas/}{gameflowlemma.tex}
+  \subimport{common/proofsketches/}{gameflowproofsketch.tex}
+  \subimport{common/theorems/}{trustflowtheorem.tex}
+  \subimport{common/proofs/}{trustflowproof.tex}
 
-%    \begin{proofsketch}
-%       The theorem follows directly from lemma \ref{maxflowgame} and \ref{gameflow}.
-%    \end{proofsketch}
-     Note that the maxFlow is the same in the following two cases: If a player chooses the evil strategy and if that player
-     chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
+   Note that the maxFlow is the same in the following two cases: If a player chooses the evil strategy and if that player
+   chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
 
-     Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
-     unknown, parties.
-     \begin{theorem}[Risk Invariance Theorem]
-     \label{riskinv}
-        Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $l$ the desired value to be transferred from $A$ to $B$,
-        with $l \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ with the same nodes as $\mathcal{G}$ such that
-        \begin{equation*}
-           \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}', DTr'_{v \rightarrow w} =
-           DTr_{v \rightarrow w} \enspace.
-        \end{equation*}
-        Furthermore, suppose that there exists an assignment for the outgoing trust of $A, DTr'_{A \rightarrow v}$, such that
-        \begin{equation}
-        \label{primetrust}
-           Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - l \enspace.
-        \end{equation}
-        Let another game graph, $\mathcal{G}''$, be identical to $\mathcal{G}'$ except for the following change:
-        \begin{equation*}
-           DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + l \enspace.
-        \end{equation*}
-        It then holds that
-        \begin{equation*}
-           Tr''_{A \rightarrow B} = Tr_{A \rightarrow B} \enspace.
-        \end{equation*}
-     \end{theorem}
-     \begin{proof}
-        The two graphs $\mathcal{G}'$ and $\mathcal{G}''$ differ only on the weight of the edge $\left(A, B\right)$, which is
-        larger by $l$ in $\mathcal{G}''$. Thus the two $MaxFlow$s will choose the same flow, except for $\left(A, B\right)$,
-        where it will be $x''_{AB} = x'_{AB} + l$.
-     \end{proof}
-     It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
-     (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
-     leave this calculation as part of further research.
+   Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
+   unknown, parties.
+   \subimport{common/theorems/}{riskinvtheorem.tex}
+   \subimport{common/proofs/}{riskinvproof.tex}
+   It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
+   (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
+   leave this calculation as part of further research.

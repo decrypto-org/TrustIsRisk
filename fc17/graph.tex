@@ -1,116 +1,26 @@
-  \section{The Trust Graph}
-     We now engage in the formal description of the proposed system, accompanied by helpful examples.
-     \begin{definition}[Graph]
-        TrustIsRisk is represented by a sequence of directed weighted graphs $\left(\mathcal{G}_j\right)$ where $\mathcal{G}_j
-        = \left(\mathcal{V}_j, \mathcal{E}_j\right), j \in \mathbb{N}$.
-        Also, since the graphs are weighted, there exists a sequence of weight functions $\left(c_j\right)$ with $c_j :
-        \mathcal{E}_j \rightarrow \mathbb{R}^{+}$.
-     \end{definition}
-     The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
-     value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
-     represents the corresponding turn.
-     \begin{definition}[Players]
-        The set $\mathcal{V}_j = \mathcal{V}\left(\mathcal{G}_j\right)$ is the set of all players in the network, otherwise
-        understood as the set of all pseudonymous identities.
-     \end{definition}
-     Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
-     the node possesses exclusively and nobody else can spend.
-     \begin{definition}[Capital]
-        The initial capital of $A$, $Cap_{A, 0}$, is defined as the total value that belongs to $A$ and exists in P2PKH in
-        the UTXO at the beginning of the game.
-     \end{definition}
-     The capital of $A$ is subsequently modified only during her turns, according to her actions. We also note that a
-     player's assets are the sum of her capital and her total outgoing trust.
+\section{The Trust Graph}
+   We now engage in the formal description of the proposed system, accompanied by helpful examples.
+   \subimport{common/definitions/}{gamegraph.tex}
+   The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
+   value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
+   represents the corresponding turn.
+   \subimport{common/definitions/}{players.tex}
+   Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
+   the node possesses exclusively and nobody else can spend.
+   \subimport{common/definitions/}{capital.tex}
+   The capital of $A$ is subsequently modified only during her turns, according to her actions. We also note that a
+   player's assets are the sum of her capital and her total outgoing trust.
 
-     The formal definition of direct trust follows:
-     \begin{definition}[Direct Trust]
-        Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
-        value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
-        \begin{equation}
-           DTr_{A \rightarrow B, j} =
-              \begin{cases}
-                 c_j\left(A, B\right), & if \left(A, B\right) \in \mathcal{E}_j \\
-                 0, & else
-              \end{cases}
-        \end{equation}
-     \end{definition}
-     This definition agrees with the title of this paper and coincides with the intuition and experimental results of
-     \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
-     of danger in which $Alice$ is ready to expose herself to in order to help $Bob$. An example graph with its corresponding
-     transactions in the UTXO can be seen below.
+   The formal definition of direct trust follows:
+   \subimport{common/definitions/}{directtrust.tex}
+   This definition agrees with the title of this paper and coincides with the intuition and experimental results of
+   \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
+   of danger in which $Alice$ is ready to expose herself to in order to help $Bob$. An example graph with its corresponding
+   transactions in the UTXO can be seen below.
 
-     \begin{center}
-\begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
-%%
-  \coordinate (Z4) at (344.19bp,100.0bp);
-  \coordinate (Z5) at (344.19bp,39.0bp);
-  \coordinate (Z1) at (344.19bp,283.0bp);
-  \coordinate (Z2) at (344.19bp,222.0bp);
-  \coordinate (Z3) at (344.19bp,161.0bp);
-  \node (A) at (34.0bp,160.0bp) [draw,ellipse] {\LARGE A};
-  \node (C) at (113.0bp,137.0bp) [draw,ellipse] {\LARGE C};
-  \node (B) at (199.0bp,181.0bp) [draw,ellipse] {\LARGE B};
-  \node (E) at (199.0bp,118.0bp) [draw,ellipse] {\LARGE E};
-  \node (D) at (113.0bp,191.0bp) [draw,ellipse] {\LARGE D};
-  \node (a1) at (428.99bp,283.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a3) at (428.99bp,161.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a2) at (428.99bp,222.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a5) at (428.99bp,39.0bp) [draw,ellipse] {\LARGE tx};
-  \node (a4) at (428.99bp,100.0bp) [draw,ellipse] {\LARGE tx};
-  \coordinate (J1) at (232.85bp,161.0bp);
-  \coordinate (J2) at (307.54bp,161.0bp);
-  \coordinate (Y1) at (552.44bp,283.0bp);
-  \coordinate (Y3) at (552.44bp,161.0bp);
-  \coordinate (Y2) at (552.44bp,222.0bp);
-  \coordinate (Y5) at (552.44bp,39.0bp);
-  \coordinate (Y4) at (552.44bp,100.0bp);
-  \draw [->] (a4) ..controls (445.3bp,100.0bp) and (461.02bp,100.0bp)  .. (Y4);
-  \draw (488.99bp,89.5bp) node {\LARGE 1/\{C,B\}};
-  \draw (488.99bp,109.5bp) node {\LARGE 3\bitcoin};
-  \draw [->] (Z3) ..controls (377.14bp,161.0bp) and (392.28bp,161.0bp)  .. (a3);
-  \draw (377.99bp,150.5bp) node {\LARGE C};
-  \draw (377.99bp,170.5bp) node {\LARGE 10\bitcoin};
-  \draw [->] (a3) ..controls (445.3bp,161.0bp) and (461.02bp,161.0bp)  .. (Y3);
-  \draw (488.99bp,150.5bp) node {\LARGE 1/\{C,E\}};
-  \draw (488.99bp,170.5bp) node {\LARGE 10\bitcoin};
-  \draw [<->] (J1) ..controls (265.65bp,161.0bp) and (274.33bp,161.0bp)  .. (J2);
-  \draw [->] (a2) ..controls (445.3bp,222.0bp) and (541.02bp,222.0bp)  .. (Y2);
-  \draw (488.99bp,211.5bp) node {\LARGE 1/\{A,D\}};
-  \draw (488.99bp,231.5bp) node {\LARGE 6\bitcoin};
-  \draw [->] (C) ..controls (134.77bp,124.17bp) and (141.98bp,120.776bp)  .. (149.0bp,119.0bp) .. controls (157.28bp,116.905bp) and (166.61bp,116.3bp)  .. (E);
-  \draw (156.0bp,127.5bp) node {\LARGE 10\bitcoin};
-  \draw [->] (a5) ..controls (445.3bp,39.0bp) and (541.02bp,39.0bp)  .. (Y5);
-  \draw (488.99bp,28.5bp) node {\LARGE 1/\{D,B\}};
-  \draw (488.99bp,48.5bp) node {\LARGE 2\bitcoin};
-  \draw [->] (C) ..controls (142.79bp,152.08bp) and (162.28bp,162.29bp)  .. (B);
-  \draw (156.0bp,170.5bp) node {\LARGE 3\bitcoin};
-  \draw [->] (Z5) ..controls (377.14bp,39.0bp) and (392.28bp,39.0bp)  .. (a5);
-  \draw (377.99bp,28.5bp) node {\LARGE D};
-  \draw (377.99bp,48.5bp) node {\LARGE 2\bitcoin};
-  \draw [->] (Z2) ..controls (377.14bp,222.0bp) and (392.28bp,222.0bp)  .. (a2);
-  \draw (377.99bp,211.5bp) node {\LARGE A};
-  \draw (377.99bp,231.5bp) node {\LARGE 6\bitcoin};
-  \draw [->] (A) ..controls (62.311bp,171.0bp) and (77.709bp,177.19bp)  .. (D);
-  \draw (73.5bp,187.5bp) node {\LARGE 6\bitcoin};
-  \draw [->] (a1) ..controls (445.3bp,283.0bp) and (541.02bp,283.0bp)  .. (Y1);
-  \draw (488.99bp,272.5bp) node {\LARGE 1/\{A,C\}};
-  \draw (488.99bp,292.5bp) node {\LARGE 5\bitcoin};
-  \draw [->] (Z4) ..controls (377.14bp,100.0bp) and (392.28bp,100.0bp)  .. (a4);
-  \draw (377.99bp,89.5bp) node {\LARGE C};
-  \draw (377.99bp,109.5bp) node {\LARGE 3\bitcoin};
-  \draw [->] (A) ..controls (62.483bp,151.79bp) and (77.403bp,147.33bp)  .. (C);
-  \draw (73.5bp,157.5bp) node {\LARGE 5\bitcoin};
-  \draw [->] (Z1) ..controls (377.14bp,283.0bp) and (392.28bp,283.0bp)  .. (a1);
-  \draw (377.99bp,272.5bp) node {\LARGE A};
-  \draw (377.99bp,292.5bp) node {\LARGE 5\bitcoin};
-  \draw [->] (D) ..controls (143.64bp,187.47bp) and (161.02bp,185.4bp)  .. (B);
-  \draw (156.0bp,194.5bp) node {\LARGE 2\bitcoin};
-  \draw (270.5bp,0.0bp) node {\LARGE \textbf{Fig.\figlabel{fig:utxo}:} TrustIsRisk Game Graph and Equivalent Bitcoin UTXO};
-%
-\end{tikzpicture}
-     \end{center}
+   \subimport{common/figures/}{utxo.tikz}
 
-     Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
-     We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
-     trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-     respectively. For a reference of common definitions, see the Appendix.
+   Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
+   We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
+   trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
+   respectively. For a reference of common definitions, see the Appendix.

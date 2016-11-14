@@ -1,52 +1,11 @@
-  \subsection{Algorithms}
-    This algorithm calls the necessary functions to prepare the new graph.
-    \Suppressnumber
-    \begin{lstlisting}[label=executeturn, style=numbers]
-Execute Turn
-Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), TentativeTurn
-Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
-executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn) :
-  ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
-  return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
-    \end{lstlisting}
-    The following algorithm validates that the tentative turn produced by the strategy respects the rules imposed on turns.
-    If the turn is invalid, an empty turn is returned.
-    \Suppressnumber
-    \begin{lstlisting}[label=validateturn, style=numbers]
-Validate Turn
-Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old (*@$Cap_{A, j-1}$@*), Turn
-Output : (*@$Turn_j$@*), new (*@$Cap_{A, j}$@*) (*@\Reactivatenumber@*)
-validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
-  (*@$Y_{st}$@*) = (*@$Y_{add}$@*) = 0
-  Stolen = Added = (*@$\emptyset$@*)
-  for (action (*@$\in$@*) Turn)
-    action match do
-      case (*@$Steal($@*)y(*@$,w)$@*) do
-        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) or y < 0 or (*@$w \in$@*) Stolen)
-          return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-        else  (*@$Y_{st}$@*) += y;  Stolen = Stolen(*@$\:\cup \: \{w\}$@*)
-      case (*@$Add($@*)y(*@$,w)$@*) do
-        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*) or (*@$w \in$@*) Added)
-          return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-        else  (*@$Y_{add}$@*) += y;  Added = Added(*@$\: \cup \: \{w\}$@*)
-  if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))  return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
-  else  return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
-    \end{lstlisting}
-    Finally, this algorithm applies the turn to the old graph and returns the new graph, along with the updated capital and
-    history.
-    \Suppressnumber
-    \begin{lstlisting}[label=committurn, style=numbers]
-Commit Turn
-Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), NewCap, (*@$Turn_j$@*)
-Output : new (*@$\mathcal{G}_j$@*), new (*@$Cap_{A, j}$@*), new (*@$\mathcal{H}_j$ \Reactivatenumber@*)
-commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
-  for (((*@$v$@*), (*@$w$@*)) (*@$\in \mathcal{E}_j$@*))  (*@$DTr_{v \rightarrow w, j}$@*) = (*@$DTr_{v \rightarrow w, j-1}$@*)
-  for (action (*@$\in Turn_j$@*))
-    action match do
-      case (*@$Steal($@*)y(*@$,w)$@*) do  (*@$DTr_{w \rightarrow A, j}$@*) = (*@$DTr_{w \rightarrow A, j-1} - y$@*)
-      case (*@$Add($@*)y(*@$,w)$@*) do  (*@$DTr_{A \rightarrow w, j}$@*) = (*@$DTr_{A \rightarrow w, j-1} + y$@*)
-  (*@$Cap_{A, j}$@*) = NewCap;  (*@$\mathcal{H}_j$@*) = ((*@$A$@*), (*@$Turn_j$@*))
-  return((*@$\mathcal{G}_j$@*), (*@$Cap_{A, j}$@*), (*@$\mathcal{H}_j$@*))
-    \end{lstlisting}
-    It is straightforward to verify the compatibility of the previous algorithms with the corresponding definitions.
+\subsection{Algorithms}
+  This algorithm calls the necessary functions to prepare the new graph.
+  \subimport{common/algorithms/}{executeturn.tex}
+  The following algorithm validates that the tentative turn produced by the strategy respects the rules imposed on turns.
+  If the turn is invalid, an empty turn is returned.
+  \subimport{common/algorithms/}{validateturn.tex}
+  Finally, this algorithm applies the turn to the old graph and returns the new graph, along with the updated capital and
+  history.
+  \subimport{common/algorithms/}{committurn.tex}
+  It is straightforward to verify the compatibility of the previous algorithms with the corresponding definitions.
 
