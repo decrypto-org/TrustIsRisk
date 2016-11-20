@@ -1,0 +1,37 @@
+Alternative transitive games are flows proof with pseudoflows
+    \begin{sepproof}[Transitive Games Are Flows Lemma (\ref{gameflow})] \ \\
+       Let $\mathcal{H}$ be an execution of the Transitive Game on graph $\mathcal{G}$ and $j$ the convergence turn. We will
+       show that a flow from $A$ to $B$ can be constructed such that $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av} =
+       Loss_{A, j}$. First, we construct a pseudoflow $X$ on $G$ as follows:
+       \begin{equation*}
+       \begin{gathered}
+          \forall v, w \in \mathcal{V}, x_{vw} = \sum\limits_{\overset{i = 0}{Player\left(i\right) = w}}^jy_i \enspace,
+          \mbox{ where}\\
+          Steal(y_i, v) \in Turn_i
+       \end{gathered}
+       \end{equation*}
+       The configuration described above is a pseudoflow \cite{amo} because 
+       \begin{equation*}
+           \forall v,w \in \mathcal{V}, \sum\limits_{\overset{i = 0}{Player\left(i\right) = w}}^jy_i \leq
+           DTr_{v \rightarrow w, 0} = c_{vw} \enspace.
+       \end{equation*}
+       By the definition of $X$, it holds that
+       \begin{equation}
+       \label{desiredoutgoingflow}
+           \sum\limits_{v \in N^{+}\left(A\right)}x_{Av} = Loss_A \enspace.
+       \end{equation}
+       Suppose that $X$ contains a excess node $v$. In this node it is
+       \begin{equation*}
+          \sum\limits_{w \in N^{-}\left(v\right)}x_{wv} > \sum\limits_{w \in N^{+}\left(v\right)}x_{vw} \enspace.
+       \end{equation*}
+       By the definition of $X$ however, $v$ stole more than she was stolen, thus does not follow the conservative strategy.
+       We have reached a contradiction, thus there exist no excess nodes in $X$.\
+
+     \begin{definition}[Assets]
+        Sum of $A$'s capital and outgoing trust.
+        \begin{equation}
+           As_{A, j} = Cap_{A, j} + out_{A, j}
+        \end{equation}
+     \end{definition}
+     We consider the outgoing trust of a player as part of her assets.
+
