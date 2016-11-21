@@ -11,5 +11,5 @@ thesis.pdf: thesis/* common/*
 	pdflatex -shell-escape thesis.tex; \
 	pdflatex -shell-escape thesis.tex
 
-clear:
+clean:
 	rm -rf *.aux *.log *.out *.pdf
