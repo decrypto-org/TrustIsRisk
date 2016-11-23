@@ -1,0 +1,26 @@
+     \Suppressnumber
+     \begin{lstlisting}[label=transitivegame, style=numbers]
+Transitive Game
+Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$E \in \mathcal{V}$@*) evil player (*@\Reactivatenumber@*)
+Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*);  Happy = (*@$\mathcal{V} \setminus \{A, E\}$@*)
+for ((*@$v \in \mathcal{V} \setminus \{E\}$@*))  (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
+j = 0
+while (True)
+  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
+  (*@$Turn_j$@*) = (*@$v$@*)Strategy((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
+  executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
+  for (action (*@$\in Turn_j$@*))
+    action match do
+      case (*@$Steal($@*)y(*@$,w)$@*) do
+        exchange = y
+        (*@$Loss_w$@*) += exchange (*@\label{trsteallossincrease}@*)
+        if ((*@$v$@*) != (*@$E$@*)) (*@$Loss_v$@*) -= exchange (*@\label{trsteallossdecrease}@*)
+        if ((*@$w$@*) != (*@$A$@*))
+          Happy = Happy(*@$\:\setminus\: \{w\}$@*)
+          if ((*@$in_{w, j}$@*) == 0) Sad = Sad(*@$\:\cup\: \{w\}$@*)
+          else Angry = Angry(*@$\:\cup\: \{w\}$@*)
+  if ((*@$v$@*) != (*@$E$@*))
+    Angry = Angry(*@$\:\setminus\: \{v\}$@*)
+    if ((*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)  Sad = Sad(*@$\:\cup\: \{v\}$@*)        #(*@$in_{v, j}$@*) should be zero (*@\label{trstealtrueentersad}@*)
+    if ((*@$Loss_v$@*) == 0)  Happy = Happy(*@$\:\cup\: \{v\}$@*)
+     \end{lstlisting}

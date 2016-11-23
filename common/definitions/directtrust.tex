@@ -1,0 +1,11 @@
+\begin{definition}[Direct Trust]
+   Direct trust from $A$ to $B$ at the end of turn $j$, $DTr_{A \rightarrow B, j}$, is defined as the total amount of
+   value that exists in 1/$\{A,B\}$ multisigs in the UTXO in the end of turn $j$, where the money is deposited by $A$.
+   \begin{equation}
+      DTr_{A \rightarrow B, j} =
+         \begin{cases}
+            c_j\left(A, B\right), & if \left(A, B\right) \in \mathcal{E}_j \\
+            0, & else
+         \end{cases}
+   \end{equation}
+\end{definition}
