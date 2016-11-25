@@ -1,7 +1,7 @@
 \section{Evolution of Trust}
-  \subimport{common/definitions/}{turns.tex}
+  \subimport{thesis/definitions/}{turns.tex}
   We use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and next turn respectively played by
-  $Player(j)$. A formal definition is in the Appendix.
+  $Player(j)$. A formal definition can be found in the Appendix.
   \subimport{common/definitions/}{damage.tex}
   \subimport{common/definitions/}{history.tex}
   Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
@@ -11,10 +11,10 @@
      Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
   \end{equation}
   \subimport{common/figures/}{turnexample.tikz}
-  TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
+  In the form presented here, TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
   this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely. We assume
   players are chosen in a way that, after her turn, a player will eventually play again later.
-  \subimport{common/algorithms/}{trustisriskgame.tex}
+  \subimport{thesis/algorithms/}{trustisriskgame.tex}
   \texttt{executeTurn()} checks the validity of \texttt{Turn} and substitutes it with an empty turn if invalid.
   Subsequently, it creates the new graph $\mathcal{G}_j$ and updates the history accordingly. For the routine code,
   see the Appendix.
