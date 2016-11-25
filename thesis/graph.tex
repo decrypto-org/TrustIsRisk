@@ -8,10 +8,10 @@
    Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
    the node possesses exclusively and nobody else can spend.
    \subimport{common/definitions/}{capital.tex}
-   The capital of $A$ is subsequently modified only during her turns, according to her actions. We also note that a
-   player's assets are the sum of her capital and her total outgoing trust.
-
-   The formal definition of direct trust follows:
+   The capital of $A$ is subsequently modified only during her turns, according to her actions. We also define a player's
+   assets:
+   \subimport{thesis/definitions/}{assets.tex}
+    We consider the outgoing trust of a player as part of her assets. The formal definition of direct trust follows:
    \subimport{common/definitions/}{directtrust.tex}
    This definition agrees with the title of this paper and coincides with the intuition and experimental results of
    \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
