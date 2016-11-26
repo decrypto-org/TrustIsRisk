@@ -1,0 +1,11 @@
+\begin{proof}[Complexity of algorithm \ref{fcfs}]
+   First we will prove that on line~\ref{fcfsreturn} $i \leq n+1$. Suppose that $i > n+1$ on line~\ref{fcfsreturn}. This
+   means that $F_{cur,n}$ exists and $F_{cur,n} = F - \sum\limits_{i=1}^{n}x_i = 0 \leq F - V$ since, according to the
+   condition on line~\ref{fcfsifinputvalid}, $F - V \geq 0$. This means however that the \emph{while} loop on
+   line~\ref{fcfsloop} will break, thus $F_{cur,n+1}$ cannot exist and $i = n + 1$ on line~\ref{fcfsreturn}, which is a
+   contradiction, thus $i \leq n+1$ on line~\ref{fcfsreturn}. Since $i$ is incremented by 1 on every iteration of the
+   \emph{while} loop (line~\ref{fcfsiinc}), the complexity of the \emph{while} loop is $O(n)$ in the worst case. The
+   complexity of lines~\ref{fcfsifinputvalid} -~\ref{fcfsfcurinit} and~\ref{fcfsiinit} is $O(1)$ and the complexity of
+   lines~\ref{fcfsfinit},~\ref{fcfsforcapinit} -~\ref{fcfscapinit} and~\ref{fcfsreturn} is $O(n)$, thus the total
+   complexity of algorithm \ref{fcfs} is $O(n)$.
+\end{proof}

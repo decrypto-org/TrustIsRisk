@@ -1,0 +1,13 @@
+\begin{algorithm}[H]
+   \label{prop}
+   \SetKwInOut{Input}{Input}
+   \SetKwInOut{Output}{Output}
+   \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
+   \Output{$u_i'$ capacities}
+   \caption{Proportional equality trust transfer}
+   $F \gets \sum\limits_{i=1}^{n}x_i$ \label{propfinit} \\
+   \If{$F < V$ \label{propifinputvalid}}{\Return $\bot$ \label{propinputinvalid}}
+   \For{$i \gets 1$ to $n$ \label{proploop}}
+      {$u_i' \gets x_i - \frac{V}{F} x_i$ \label{propcapmodify}}
+   \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{propreturn}
+\end{algorithm}

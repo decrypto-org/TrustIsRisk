@@ -1,0 +1,7 @@
+\begin{proof}[Complexity of function \ref{binsearch}]
+   Lines~\ref{bsifboteqtop} -~\ref{bsretbot} have complexity $O(1)$, lines~\ref{bsforcapset} -~\ref{bscapset} have
+   complexity $O(n)$, lines~\ref{bsiflow} -~\ref{bsretmid} have complexity $O(maxFlow) + O(BinSearch)$. As we saw in the
+   proof of correctness for function \ref{binsearch}, we need at most $\log_2(\frac{top - bot}{\epsilon_1 +
+   \epsilon_2})$ recursive calls of \texttt{BinSearch}. Thus the function \ref{binsearch} has worst-case complexity
+   $O((maxFlow + n)\log_2(\frac{top - bot}{\epsilon_1 + \epsilon_2}))$.
+\end{proof}

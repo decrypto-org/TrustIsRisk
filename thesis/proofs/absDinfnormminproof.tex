@@ -1,0 +1,7 @@
+\begin{proof}[Proof that algorithm \ref{abs} minimizes the $||\Delta_i||_\infty$ norm]
+   Suppose that $U'$ is the result of an execution of algorithm \ref{abs} that does not minimize the $||\Delta_i||_\infty$
+   norm. Suppose that $W$ is a valid solution that minimizes the $||\Delta_i||_\infty$ norm. Let $\delta$ be the minimum
+   value of this norm. There exists $i \in [n]$ such that $x_i - w_i = \delta$ and $u_i' < w_i$. Because both $U'$
+   and $W$ are valid solutions ($\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}w_i = F - V$), there must exist a set
+   $S \subset U'$ such that $\forall u_j' \in S, u_j' > w_j$ TOCOMPLETE.
+\end{proof}

@@ -1,0 +1,20 @@
+\begin{algorithm}[H]
+   \label{binsearch}
+   \SetKwFunction{BinSearch}{BinSearch}
+   \SetKwInOut{Input}{Input}
+   \SetKwInOut{Output}{Output}
+   \Input{$bot$, $top$, $F'$, $n$, $X$, $\epsilon_1$, $\epsilon_2$}
+   \Output{$\delta^*$}
+   \caption*{\textbf{function} \texttt{BinSearch} }
+   \If{$bot = top$ \label{bsifboteqtop}}{\Return $bot$ \label{bsretbot}}
+   \Else{
+      \For{$i \gets 1$ to $n$ \label{bsforcapset}}
+          {$u_i' \gets \max{(0,u_i - \frac{top + bot}{2})}$ \label{bscapset}}
+      \If{$maxFlow < F' - \epsilon_1$ \label{bsiflow}}
+         {\Return \BinSearch{$bot$, $\frac{top+bot}{2}$,$F'$,$n$,$X$,$\epsilon_1$,$\epsilon_2$} \label{bsreclow}}
+      \ElseIf{$maxFlow > F' + \epsilon_2$ \label{bsifhigh}}
+         {\Return \BinSearch{$\frac{top+bot}{2}$, $top$,$F'$,$n$,$X$.$\epsilon_1$,$\epsilon_2$} \label{bsrechigh}}
+      \Else
+         {\Return $\frac{top + bot}{2}$\label{bsretmid}}
+   }
+\end{algorithm}

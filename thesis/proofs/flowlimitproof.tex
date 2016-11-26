@@ -1,0 +1,7 @@
+\begin{proof}
+   Suppose a configuration where $\exists i : x_i > F_{A_i \rightarrow B}$. If we reduce the capacities $u_k, k \neq i$
+   the flow that passes from $i$ in no case has to be reduced. Thus we can set $\forall k \neq i, u_k' = 0$ and $u_i' =
+   u_i$. Then $\forall k \neq i,x_k' = 0, x_i' = x_i$ is a valid configuration and thus by definition $F_{A_i \rightarrow
+   B} = x_i' = x_i > F_{A_i \rightarrow B}$, which is a contradiction. Thus $\forall i \in [|N^{+}(A)|], x_i \leq
+   F_{A_i \rightarrow B}$.
+\end{proof}

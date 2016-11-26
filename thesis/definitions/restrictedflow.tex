@@ -1,0 +1,10 @@
+\begin{definition}[Restricted Flow]
+   Let $A, B \in \mathcal{V}, i \in [|N^{+}(A)|]$. 
+   \begin{enumerate} 
+      \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$ 
+         ($x_i'$) when $u_i' = u_i,$ \\ $u_k' = 0 \:\forall k \in [|N^{+}(A)|] \wedge k \neq i$. 
+      \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as 
+         calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S, 
+         u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$. 
+   \end{enumerate} 
+\end{definition} 

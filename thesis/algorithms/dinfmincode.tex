@@ -1,0 +1,19 @@
+\begin{algorithm}[H]
+   \label{dinf}
+   \SetKwInOut{Input}{Input}
+   \SetKwInOut{Output}{Output}
+   \SetKwFunction{BinSearch}{BinSearch}
+   \Input{$X = \{x_i\}$ flows, $n = |N^{+}(s)|$, $V$ value, $\epsilon_1$, $\epsilon_2$}
+   \Output{$u_i'$ capacities}
+   \caption{$||\delta_i||_\infty$ minimizer}
+   \If{$\epsilon_1 < 0 \vee \epsilon_2 < 0$ \label{dinfifepsilonsvalid}}
+      {\Return $\bot$ \label{dinfepsilonsinvalid}}
+   $F \gets \sum\limits_{i=1}^{n}x_i$ \label{dinffinit} \\
+   \If{$F < V$ \label{dinfifvvalid}}
+      {\Return $\bot$ \label{dinfvinvalid}}
+   $\delta_{max} \gets \max\limits_{i \in [n]}\{u_i\}$ \label{dinfdeltainit} \\
+   $\delta^* \gets$ \BinSearch{0,$\delta_{max}$,F-V,n,X,$\epsilon_1$,$\epsilon_2$} \label{dinfcallbs} \\
+   \For{$i \gets 1$ to $n$ \label{dinfforcap}}
+      {$u_i' \gets \max{(u_i - \delta^*, 0)}$ \label{dinfcapset}}
+   \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{dinfreturn}
+\end{algorithm}

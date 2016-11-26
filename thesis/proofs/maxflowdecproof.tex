@@ -1,0 +1,18 @@
+\begin{proof}[Proof that $maxFlow(\delta)$ is strictly decreasing for $\delta: maxflow(\delta) < F$] \ \\
+   Let $maxFlow(\delta)$ be the $maxFlow$ with $\forall i \in [n], u_i' = max(0, u_i - \delta)$.
+   We will prove that the function $maxFlow(\delta)$ is strictly decreasing for all $\delta \leq \max\limits_{i \in
+   [n]}\{u_i\}$ such that $maxFlow(\delta) < F$. \\
+   Supppose that $\exists \delta_1, \delta_2 : \delta_1 < \delta_2 \wedge maxFlow(\delta_1) \leq maxFlow(\delta_2) < F$.
+   We will work with configurations of $x_{i,j}'$ such that $x_{i,j}' \leq x_i, j \in \{1,2\}$. \\
+   Let $S_j = \{i \in N^{+}(s) : i \in MinCut_j\}$. It holds that $S_1 \neq \emptyset$ because otherwise $MinCut_1 =
+   MinCut_{\delta = 0}$ which is a contradiction because then $maxFlow(\delta_1) = F$. Moreover, it holds that
+   $S_1 \subseteq S_2$, since $\forall u_{i,2}' > 0,u_{i,2}' < u_{i,1}'$. Every node in the $MinCut_j$ is saturated, thus
+   $\forall i \in S_1, x_{i,j}' = u_{i,j}'$. Thus $\sum\limits_{i \in S_1} x_{i,2} < \sum\limits_{i \in S_1}x_{i,1}$ and,
+   since $maxFlow(\delta_1) \leq maxFlow(\delta_2)$, we conclude that for the same configurations,
+   $\sum\limits_{i \in N^{+}(s) \setminus S_1} x_{i,2} > \sum\limits_{i \in N^{+}(s) \setminus S_1}x_{i,1}$.
+   However, since $x_{i,j}' \leq x_i, j \in \{1,2\}$, the configuration
+   $[x_{i,1}'' = x_{i,2}', i \in N^{+}(s) \setminus S_1], [x_{i,1}'' = x_{i,1}', i \in S_1]$ is valid for
+   $\delta = \delta_1$ and then $\sum\limits_{i \in S_1}x_{i,1}'' + \sum\limits_{i \in N^{+}(s) \setminus S_1}x_{i,1}'' =
+   \sum\limits_{i \in S_1}x_{i,1}' + \sum\limits_{i \in N^{+}(s) \setminus S_1}x_{i,2}' > maxFlow(\delta_1)$,
+   contradiction. Thus $maxFlow(\delta)$ is strictly decreasing.
+\end{proof}

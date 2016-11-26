@@ -1,0 +1,21 @@
+\begin{proof}[Proof of correctness for algorithm \ref{fcfs}]
+   \begin{itemize}
+      \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
+      Let $i \in [n]$. In line~\ref{fcfscapinit} we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
+      is in line~\ref{capmod} where it is never increased $(reduce \geq 0)$, thus we see that, when returned,
+      $u_i' \leq x_i$.
+      \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
+      $F_{cur,0} = F$ \\
+      If $F_{cur,i} \geq F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
+      $F_{cur,i}$. \\
+      Else $F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)}$. \\
+      If for some $i, \min{(x_{i+1}, F_{cur,i} - F + V)} = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
+      $F_{cur,i+1}$ exists, then $\forall k < i, F_{cur,k} = F_{cur,k-1} - x_k \Rightarrow F_{cur,i} =
+      F - \sum\limits_{k=1}^{i}x_k$ \\
+      Furthermore, if $F_{cur,i+1} = F - V$ then $u_{i+1}' = x_{i+1} - F_{cur,i} + F - V =
+      x_i - F + \sum\limits_{k=1}^{i-1}x_k + F - V = \sum\limits_{k=1}^{i}x_k - V$, $\forall k \leq i, u_k' = 0$
+      and $\forall k > i+1, u_k' = x_k$. \\
+      In total, we have $\sum\limits_{k=1}^{n}u_k' = \sum\limits_{k=1}^{i}x_k - V + \sum\limits_{k=i+1}^{n}x_k =
+      \sum\limits_{k=1}^{n}x_k - V \Rightarrow \sum\limits_{k=1}^{n}u_k' = F - V$.
+   \end{itemize}
+\end{proof}

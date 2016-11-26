@@ -1,0 +1,27 @@
+\begin{algorithm}[H]
+   \label{abs}
+   \SetKwInOut{Input}{Input}
+   \SetKwInOut{Output}{Output}
+   \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
+   \Output{$u_i'$ capacities}
+   \caption{Absolute equality trust transfer ($||\Delta_i||_\infty$ minimizer)}
+   $F \gets \sum\limits_{i=1}^{n}x_i$ \\
+   \If{$F < V$}{\Return $\bot$}
+   \For{$i \gets 1$ to $n$}
+      {$u_i' \gets x_i$ \label{abscapinit}}
+   $reduce \gets {V \over n}$ \\
+   $reduction \gets 0$ \\
+   $empty \gets 0$ \\
+   $i \gets 0$ \label{absiinit} \\
+   \While{$reduction < V$ \label{absloop}}
+      {\If{$u_i' > 0$ \label{absifcappositive}}{\If{$x_i < reduce$ \label{absifflowlessreduce}}
+            {$empty \gets empty + 1$ \label{absemptyincrement} \\
+             \If{$empty < n$ \label{absifemptylessn}}
+                {$reduce \gets reduce + \frac{reduce - x_i}{n - empty}$ \label{absreducemodify}}
+             $reduction \gets reduction + u_i'$ \label{absreductionincrease} \\
+             $u_i' \gets 0$ \label{abscapzero} \\}
+       \ElseIf{$x_i \geq reduce$}{$reduction \gets reduction + u_i' - (x_i - reduce)$ \label{absreductionmodify} \\
+             $u_i' \gets x_i - reduce$ \label{abscapreduce}}}
+       $i \gets (i + 1) mod \:n$ \label{absiincrement}}
+   \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{absreturn}
+\end{algorithm}

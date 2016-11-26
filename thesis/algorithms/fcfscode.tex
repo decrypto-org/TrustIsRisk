@@ -1,0 +1,20 @@
+\begin{algorithm}[H]
+   \label{fcfs}
+   \SetKwInOut{Input}{Input}
+   \SetKwInOut{Output}{Output}
+   \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
+   \Output{$u_i'$ capacities}
+   \caption{First-come, first-served trust transfer}
+   $F \gets \sum\limits_{i=1}^{n}x_i$ \label{fcfsfinit}\\
+   \If{$F < V$ \label{fcfsifinputvalid}}{\Return $\bot$}
+   $F_{cur} \gets F$ \label{fcfsfcurinit}\\
+   \For{$i \gets 1$ to $n$ \label{fcfsforcapinit}}
+      {$u_i' \gets x_i$} \label{fcfscapinit}
+   $i \gets 1$ \label{fcfsiinit}\\
+   \While{$F_{cur} > F - V$ \label{fcfsloop}}
+      {$reduce \gets \min{(x_i, F_{cur} - F + V)}$ \\
+       $F_{cur} \gets F_{cur} - reduce$ \\
+       $u_i' \gets x_i - reduce$ \label{capmod}\\
+       $i \gets i + 1$ \label{fcfsiinc}}
+   \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{fcfsreturn}
+\end{algorithm}

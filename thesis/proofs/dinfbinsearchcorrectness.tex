@@ -1,0 +1,57 @@
+\begin{proof}[Proof of correctness for function \ref{binsearch}]
+   Supposing that $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$, or equivalently
+   $maxFlow(top) \leq F' - \epsilon_1 \wedge maxFlow(bot) \geq F' + \epsilon_2$, we will prove that
+   $maxFlow(\delta^*) \in [F' - \epsilon_1, F' + \epsilon_2]$. \\
+   First of all, we should note that if an invocation of \texttt{BinSearch} returns without calling \texttt{BinSearch}
+   again (line~\ref{bsretbot} or~\ref{bsretmid}), its return value will be equal to the return value of the initial
+   invocation of \texttt{BinSearch}, as we can see on lines~\ref{bsreclow} and~\ref{bsrechigh}, where the return value of
+   the invoked \texttt{BinSearch} is returned without any modification. The case where \texttt{BinSearch} is called again
+   is analyzed next:
+   \begin{itemize}
+      \item If $maxFlow(\frac{top+bot}{2}) < F' - \epsilon_1 < F'$ (line~\ref{bsiflow}) then, since $maxFlow(\delta)$ is
+      strictly decreasing, $\delta^* \in [bot,\frac{top+bot}{2})$. As we see on line~\ref{bsreclow}, the interval
+      $(\frac{top+bot}{2}, top]$ is discarded when the next \texttt{BinSearch} is called. Since $F' + \epsilon_2 \leq
+      maxFlow(bot)$, we have $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(\frac{top+bot}{2}), maxFlow(bot)]$ and
+      the length of the available interval is divided by 2.
+      \item Similarly, if $maxFlow(\frac{top+bot}{2}) > F' + \epsilon_2 > F'$ (line~\ref{bsifhigh}) then $\delta^* \in
+      (\frac{top+bot}{2}, top]$. According to line~\ref{bsrechigh}, the interval $[bot, \frac{top+bot}{2})$ is discarded
+      when the next \texttt{BinSearch} is called. Since $F'- \epsilon_1 \geq maxFlow(top)$, we have $[F' - \epsilon_1, F'
+      + \epsilon_2] \subset (maxFlow(top),$ $maxFlow(\frac{top+bot}{2})]$ and the length of the available interval is
+      divided by 2.
+   \end{itemize}
+   As we saw, $[F' - \epsilon_1, F' + \epsilon_2] \subset [maxFlow(top),maxFlow(bot)]$ in every recursive call and
+   $top - bot$ is divided by 2 in every call. From topology we know that $A \subset B \Rightarrow |A| < |B|$, so the
+   recursive calls cannot continue infinitely. $|[F' - \epsilon_1, F' + \epsilon_2]| = \epsilon_1 + \epsilon_2$. Let
+   $bot_0, top_0$ the input values given to the initial invocation of \texttt{BinSearch}, $bot_j,top_j$ the input
+   values given to the $j$-th recursive call of \texttt{BinSearch} and $len_j =|[bot_j, top_j]| = top_j - bot_j$. We have
+   $\forall j > 0, len_j = top_j - bot_j = \frac{top_{j-1} - bot_{j-1}}{2} \Rightarrow \forall j >0, len_j =
+   \frac{top_0 - bot_0}{2^j}$. We understand that in the worst case $len_j = \epsilon_1 + \epsilon_2 \Rightarrow
+   2^j = \frac{top_0-bot_0}{\epsilon_1 + \epsilon_2} \Rightarrow j = \log_2(\frac{top_0-bot_0}{\epsilon_1+\epsilon_2})$.
+   Also, as we saw earlier, $\delta^*$ is always in the available interval, thus $maxFlow(\delta^*) \in [F' - \epsilon_1,
+   F' + \epsilon_2]$.
+%       We will show that the output of \ref{binsearch}, $\delta \in [bot_0, top_0]$, is such that
+%\subset [0, \max\limits_{i \in [n]}\{u_i\}]
+%       $\sum\limits_{i=1}^{n}\max{(u_i - \delta, 0)} = F' = F - V$. \\
+%       We can easily see that $\delta_1 < \delta_2 \Rightarrow \sum\limits_{i=1}^{n}\max{(u_i - \delta_1, 0)} >
+%       \sum\limits_{i=1}^{n}\max{(u_i - \delta_2, 0)} \Rightarrow maxFlow_{\delta_1} \geq maxFlow_{\delta_2} (1)$.
+%       The recursive function starts backtracking either on line 11, where $maxFlow = F'$, or on line 2 where $bot_j=top_j$.
+%       In the latter case, it is $round(\frac{bot_{j-1}+top_{j-1}}{2}) = bot_j$ and we have either $bot_{j-1} = bot_j$ or
+%       $top_{j-1} = top_j$.
+%       \begin{itemize}
+%          \item $bot_{j-1} = bot_j \Rightarrow round(\frac{bot_j + top_{j-1}}{2}) = bot_j \xRightarrow{top_{j-1} > bot_j}
+%          bot_j < \frac{bot_j + top_{j-1}}{2} < bot_j + 0.5 \Rightarrow bot_j < top_{j-1} < bot_j + 1$ impossible.
+%          \item $top_{j-1} = top_j \Rightarrow round(\frac{bot_{j-1} + top_j}{2}) = top_j \xRightarrow{top_j > bot_{j-1}}
+%          top_j - 0.5 \leq \frac{bot_{j-1} + top_j}{2} < top_j \Rightarrow top_j - 1 \leq bot_{j-1} < top_j
+%          \Rightarrow bot_{j-1} = top_j - 1$. In this case $round(\frac{bot_{j-1} + top_{j-1}}{2}) =
+%          round(\frac{top_j - 1 + top_j}{2}) = round(top_j - 0.5) = top_j \Rightarrow
+%          maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} = maxFlow_{bot_j}$. Since $bot_j$ exists, \\
+%          $maxFlow_{\frac{bot_{j-1} + top_{j-1}}{2}} \neq F'$.
+%       \end{itemize}
+%$bot_{j-1} = bot_j - 1 \wedge top_{j-1} = top_j$ or $bot_{j-1} = bot_j \wedge
+%       top_{j-1} = top_j + 1$.
+%       \begin{itemize}
+%          \item If $bot_{j-1} = bot_j - 1 \wedge top_{j-1} = top_j, maxFlow_{\frac{top_{j-1}+bot_{j-1}}{2}} >F',
+%          (1) \Rightarrow maxFlow_{bot_j} \leq maxFlow_{\frac{top_{j-1}+bot_{j-1}}{2}}$
+%       \end{itemize}
+%$\forall \delta': 0 \leq \delta' < bot_j, maxFlow > F'$ because $\exists i \in [0,j):bot_i \leq \delta' \leq top_i$
+\end{proof}

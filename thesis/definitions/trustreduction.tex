@@ -1,0 +1,14 @@
+\begin{definition}[Trust Reduction]
+   Let $A, B \in \mathcal{V}$ and $x_i$ flow to $N^{+}(A)_i$ resulting from $maxFlow(A,B), u_i = 
+   DTr_{A \rightarrow N^{+}(A)_i,j-1}, u_i' = DTr_{A \rightarrow N^{+}(A)_i,j},$ \\ $i \in [|N^{+}(A)|], 
+   j \in \mathbb{N}$. 
+   \begin{enumerate} 
+      \item The Trust Reduction on neighbour $i, \delta_i$ is defined as $\delta_i = u_i - u_i'$. 
+      \item The Flow Reduction on neigbour $i, \Delta_i$ is defined as $\Delta_i = x_i - u_i'$. 
+   \end{enumerate} 
+   We will also use the standard notation for 1-norm and $\infty$-norm, that is: 
+   \begin{enumerate} 
+      \item $||\delta_i||_1 = \sum\limits_{i \in N^{+}(A)}\delta_i$ 
+      \item $||\delta_i||_\infty = \max\limits_{i \in N^{+}(A)}\delta_i$. 
+   \end{enumerate} 
+\end{definition} 
