@@ -1,50 +1,5 @@
 \documentclass[11pt]{llncs}
-\usepackage{graphicx}
-\usepackage[linesnumbered,ruled,noend]{algorithm2e}
-\usepackage[english]{babel}
-\usepackage{amsmath}
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{hyperref}
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
-\usepackage{listings}
-
-\lstset{frame=tb,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle=\ttfamily,
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3,
-  escapeinside={(*@}{@*)},
-  frame=n
-}
-\lstdefinestyle{numbers}{numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt}
-\let\origthelstnumber\thelstnumber
-\makeatletter
-\newcommand*\Suppressnumber{%
-  \lst@AddToHook{OnNewLine}{%
-    \let\thelstnumber\relax%
-     \advance\c@lstnumber-\@ne\relax%
-    }%
-}
-
-\newcommand*\Reactivatenumber{%
-  \lst@AddToHook{OnNewLine}{%
-   \let\thelstnumber\origthelstnumber%
-   \advance\c@lstnumber\@ne\relax}%
-}
-
-\bibliographystyle{splncs}
-\usepackage{color,hyperref}
-\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
-\hypersetup{colorlinks,breaklinks,
-    linkcolor=darkblue,urlcolor=darkblue,
-    anchorcolor=darkblue,citecolor=darkblue}
+\usepackage{preamble}
 
 \begin{document}
 
