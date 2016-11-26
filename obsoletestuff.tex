@@ -480,14 +480,17 @@ rephrased part of sybil resilience proof
           F_2(MaxFlow_1) > maxFlow_2 \enspace,
        \end{equation}
 
-     Our trust network can form a basis for risk-invariant transactions in a pseudonymous and decentralized setting.
-     More research is required to achieve other desirable properties.
-
-     %\subsection{Alternative Multisigs}
-        1-of-2 multisigs correspond intuitively to simple directed weighted graphs. However it can be interesting to explore
-        the trust relations that can arise by using other types of multisig, such as 1-of-3, as vessel for multi-party trust
-        schemes. Our results do not necessarily hold for other multisigs and the simple relations now represented by directed
-        weighted graphs have to be revised under a new kind of representation.
+requirement for new capacities corollary and proof
+   \begin{corollary}[Requirement for $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V$, $u_{s, i}' \leq x_{s, i}$] \ \\
+      In the setting of \ref{trusttransfer}, it is impossible to have $maxFlow' = F - V$ if
+      $\sum\limits_{i=1}^{n}{u_{s, i}'} > F - V \wedge \forall i \in [n],u_{s, i}' \leq x_{s, i}$.
+   \end{corollary}
+   \begin{proof}
+      Due to \ref{trusttransfer}, $maxFlow' = F - V$ if $\sum\limits_{i=1}^{n}{u_{s, i}'} = F - V
+      \wedge \forall i \in [n], u_{s, i}' \leq x_{s, i}$. If we create new capacities such that
+      $\forall i \in [n], u_{s,i}'' \leq x_{s,i}$, then obviously $maxFlow'' = \sum\limits_{i=1}^{n}{u_{s,i}''}$. If
+      additionally $\sum\limits_{i=1}^{n}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
+   \end{proof}
 
 Reduntant bibliography
      \bibitem{ddosattacks}
