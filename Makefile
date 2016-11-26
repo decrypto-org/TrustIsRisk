@@ -1,4 +1,4 @@
-all: fc17.pdf thesis.pdf #algorithms.pdf
+all: fc17.pdf thesis.pdf riskinvalgs.pdf
 
 #.ONESHELL:
 fc17.pdf: fc17/* common/*
@@ -15,12 +15,12 @@ thesis.pdf: thesis/* common/*
 	pdflatex -shell-escape thesis.tex; \
 	rm -rf thesis.aux thesis.log thesis.out
 
-algorithms.pdf: thesis/* common/*
+riskinvalgs.pdf: thesis/* common/*
 	echo "lalalaaaaaaaaa!!!!!!!!"; \
 	export TEXINPUTS=.:./thesis//:./common//:; \
-	pdflatex -shell-escape algorithms.tex; \
-	pdflatex -shell-escape algorithms.tex; \
-	rm -rf algorithms.aux algorithms.log algorithms.out
+	pdflatex -shell-escape riskinvalgs.tex; \
+	pdflatex -shell-escape riskinvalgs.tex; \
+	rm -rf riskinvalgs.aux riskinvalgs.log riskinvalgs.out
 	
 clean:
 	rm -rf *.aux *.log *.out *.pdf
