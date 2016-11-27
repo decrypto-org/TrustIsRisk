@@ -1,12 +1,14 @@
 \begin{proof}
-   $\forall i \in [n], x_i' > u_i'$ is impossible because a flow cannot be higher than its 
-   corresponding capacity. Thus $\forall i \in [n], x_i' \leq u_i'$. (1) \\ 
-   In the initial configuration of $u_i$ and according to the flow problem setting, a combination of flows 
-   $y_i$ such that $\forall i \in [n], y_i = u_i'$ is a valid, albeit not necessarily maximum, 
-   configuration with a flow $\sum\limits_{i=1}^{n}y_i$. Suppose that $\exists k \in [n] : x_k' 
-   < u_k'$ as calculated by the maxFlow algorithm with the new direct trusts, $u_i'$. Then for the new 
-   maxFlow $F'$ it holds that $F' = \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_k' < y_k$ 
-   and (1) which is impossible because the configuration $\forall i \in [n], x_i' = y_i$ is valid since  
-   $\forall i \in [n], y_i = u_i'$ and also has a higher flow, thus the maxFlow algorithm will 
-   prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' = u_i'$.
+   From the flow definition we know that
+   \begin{equation}
+   \label{saturation:flowleqcap}
+      \forall i \in [n], x'_i \leq c'_i \enspace.
+   \end{equation}
+   In turn $j-1$, there exists some valid flow $Y$ such that
+   \begin{equation*}
+      \forall i \in [n], y_i = c'_i
+   \end{equation*}
+   with a flow value $\sum\limits_{i=1}^{n}y_i$ (NEEDS PROOF/ARGUMENT). $Y$ is also obviously valid for turn $j$ and, since
+   all capacities $c'_i$ are saturated, there can be no more outgoing flow from the source, thus $Y$ is a maximum flow in
+   $\mathcal{G}_j$.
 \end{proof}
