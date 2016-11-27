@@ -6,7 +6,7 @@
       $u_i' \leq x_i$.
       \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
       $F_{cur,0} = F$ \\
-      If $F_{cur,i} \geq F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
+      If $F_{cur,i} \leq F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
       $F_{cur,i}$. \\
       Else $F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)}$. \\
       If for some $i, \min{(x_{i+1}, F_{cur,i} - F + V)} = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
