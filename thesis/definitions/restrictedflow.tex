@@ -1,10 +1,37 @@
 \begin{definition}[Restricted Flow]
-   Let $A, B \in \mathcal{V}, i \in [|N^{+}(A)|]$. 
-   \begin{enumerate} 
-      \item Let $F_{A_i \rightarrow B}$ be the flow from $A$ to $N^{+}(A)_i$ as calculated by the $maxFlow(A,B)$ 
-         ($x_i'$) when $u_i' = u_i,$ \\ $u_k' = 0 \:\forall k \in [|N^{+}(A)|] \wedge k \neq i$. 
-      \item Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be the sum of flows from $A$ to $S$ as 
-         calculated by the $maxFlow(A,B)$ ($\sum\limits_{i=1}^{|S|}x_i'$) when $u_C' = u_C \: \forall C \in S, 
-         u_D' = 0 \: \forall D \in N^{+}(A) \setminus S$. 
-   \end{enumerate} 
-\end{definition} 
+
+   Let $i \in [n]$. Let $F_{A_i \rightarrow B}$ be $x_i'$ when:
+   \begin{equation*}
+   \begin{gathered}
+      c'_i = c_i \mbox{ and} \\
+      \forall k \in [n] \setminus \{i\}, c'_k = 0 \enspace.
+   \end{gathered}
+   \end{equation*}
+   This definition can be rephrased equivalently as follows: \\
+   Let $v \in N^{+}\left(A\right)$. Let $F_{A_v \rightarrow B}$ be $x'_{Av}$ when:
+   \begin{equation*}
+   \begin{gathered}
+      c'_{Av} = c_{Av} \mbox{ and} \\
+      \forall w \in N^{+}\left(A\right) \setminus \{v\}, c'_{Aw} = 0 \enspace.
+   \end{gathered}
+   \end{equation*}
+
+   Let $L \subset [n]$. Let $F_{A_L \rightarrow B}$ be $\sum\limits_{i \in L}x'_i$ when:
+   \begin{equation*}
+   \begin{gathered}
+      \forall i \in L, c'_i = c_i \mbox{ and} \\ 
+      \forall i \in [n] \setminus L, c'_i = 0 \enspace.
+   \end{gathered}
+   \end{equation*} 
+   The latter definition can be rephrased equivalently as follows: \\
+   Let $S \subset N^{+}(A)$. Let $F_{A_S \rightarrow B}$ be
+   $\sum\limits_{v \in S}x'_{Av}$ when:
+   \begin{equation*}
+   \begin{gathered}
+      \forall v \in S, c'_{Av} = c_{Av} \mbox{ and} \\
+      \forall v \in N^{+}(A) \setminus S, c'_{Av} = 0 \enspace.
+   \end{gathered}
+   \end{equation*}
+   The choice of the definition will depend on whether $K$ in $F_{A_K \rightarrow B}$ is a node, an index or a set of nodes
+   or indices.
+\end{definition}
