@@ -492,6 +492,14 @@ requirement for new capacities corollary and proof
       additionally $\sum\limits_{i=1}^{n}{u_{s,i}''} > F - V$, then $maxFlow'' > F - V$.
    \end{proof}
 
+Old saturation proof
+   Suppose that $\exists k \in [n] : x_k' 
+   < u_k'$ as calculated by $MaxFlow_{\mathcal{G}_j}$. Then $maxFlow_{\mathcal{G}_j} =
+   \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_k' < y_k$ and (\ref{saturation:flowleqcap}).
+   This however is impossible because the configuration $\forall i \in [n], x_i' = y_i$ is valid in $\mathcal{G}_j$ since
+   $\forall i \in [n], y_i = c_i'$ and also has a higher flow, thus the maxFlow algorithm will 
+   prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' = c_i'$.
+
 Reduntant bibliography
      \bibitem{ddosattacks}
      Patrikakis C., Masikos M., Zouraraki O.: Distributed Denial of Service Attacks. The Internet Protocol Journal, Vol. 7,
