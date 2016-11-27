@@ -3,11 +3,13 @@
 
 \begin{document}
   Let $A \in \mathcal{V}$ source, $B \in \mathcal{V}$ sink. For the following, we suppose that $Turn_{j-1}$ has just finished
-  and $A = Player(j)$ is currently deciding $Turn_j$. We use the following notation:
+  and $A = Player\left(j\right)$ is currently deciding $Turn_j$. We use the following notation:
   \begin{align*}
      c_{Av} &= DTr_{A \rightarrow v, j-1} \\
      c'_{Av} &= DTr_{A \rightarrow v, j}
   \end{align*}
+  Moreover, $X, X'$ will be a flow returned by some execution of $MaxFlow_{\mathcal{G}_{j-1}}\left(A, B\right),
+  MaxFlow_{\mathcal{G}_j}\left(A, B\right)$ respectively.
 
   Furthermore, we suppose an arbitrary ordering of the members of $N^{+}\left(A\right)$. We set $n = |N^{+}\left(A\right)|$.
   Thus
@@ -22,7 +24,6 @@
      \end{array}
      \mbox{ where } i \in [n]
   \end{equation*}
-  We always choose $x_i$ as the result of some execution of $MaxFlow(A,B)$.
 
   \import{thesis/definitions/}{trustreduction.tex}
   \import{thesis/definitions/}{restrictedflow.tex}
