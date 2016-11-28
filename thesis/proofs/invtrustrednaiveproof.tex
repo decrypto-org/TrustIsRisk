@@ -1,6 +1,11 @@
 \begin{proof}
-   Since $\forall i \in [n],u_i' \leq x_i$ it is (according to \ref{saturation}) $x_i' = u_i'$, thus
-   $\delta_i = u_i - x_i'$. We know that $\sum\limits_{i=1}^{n}x_i' = F - V$, so we have $||\delta_i||_1 =
-   \sum\limits_{i=1}^{n}\delta_i = \sum\limits_{i=1}^{n}(u_i - x_i') = \sum\limits_{i=1}^{n}u_i - F + V$ independent
-   from $x_i', u_i'$
+   Since $\forall i \in [n],c'_i \leq x_i$, by applying the Saturation theorem (\ref{saturation}) we see that $x_i' = c_i'$,
+   thus $\delta_i = c_i - x_i'$ and $\Delta_i = x_i - x'_i$. We know that $\sum\limits_{i=1}^{n}x_i' = F - V$, so we have
+   \begin{align*}
+      ||\delta_i||_1 = \sum\limits_{i=1}^{n}\delta_i &= \sum\limits_{i=1}^{n}(c_i - x_i') = \sum\limits_{i=1}^{n}c_i - F + V
+      \mbox{ and} \\
+      ||\Delta_i||_1 = \sum\limits_{i=1}^{n}\Delta_i &= \sum\limits_{i=1}^{n}(x_i - x_i') = \sum\limits_{i=1}^{n}x_i - F + V
+      \enspace.
+   \end{align*}
+   thus $||\delta_i||_1, ||\Delta_i||_1$ are independent from $x_i'$ and $c_i'$.
 \end{proof}
