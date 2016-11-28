@@ -1,5 +1,12 @@
 \begin{theorem}[Trust Saving Theorem] \ \\
    \label{trustsave}
-   A configuration $U' : u_i' = F_{A_i \rightarrow B}$ for some $i \in [|N^{+}(A)|]$ can yield the same $maxFlow$ with a
-   configuration $U'' : u_i'' = u_i, \forall k \in [|N^{+}(A)|], k \neq i, u_k'' = u_k'$.
+   Suppose some $i \in [n]$ and two alternative capacities configurations, say $C'_1$ and $C'_2$ such that
+   \begin{equation*}
+   \begin{gathered}
+      c_{1,i}' = F_{A_i \rightarrow B} \enspace, \\
+      c_{2,i}' = c_i \enspace, \\
+      \forall k \in [n] \setminus \{i\}, c'_{1,k} = c'_{2,k} \enspace.
+   \end{gathered}
+   \end{equation*}
+   Then $maxFlow_1 = maxFlow_2$.
 \end{theorem}
