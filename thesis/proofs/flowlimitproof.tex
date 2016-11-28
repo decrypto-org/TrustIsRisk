@@ -1,6 +1,18 @@
 \begin{proof}
-   Suppose a configuration where $\exists i \in [n] : x_i > F_{A_i \rightarrow B}$. If for any $k \neq i$ we reduce $c_k$, then
-   $x_i$ will not be reduced. We set $\forall k \neq i, c_k' = 0$ and $c_i' = c_i$. Then $\forall k \neq i, x_k' = 0, 
-   x_i' = x_i$ is a valid flow for $\mathcal{G}_{j-1}$ and thus by definition $F_{A_i \rightarrow B} = x_i' = x_i >
-   F_{A_i \rightarrow B}$, which is a contradiction. Thus $\forall i \in [n], x_i \leq F_{A_i \rightarrow B}$.
+   Suppose a flow where $\exists i \in [n] : x_i > F_{A_i \rightarrow B}$. If for any $k \neq i$ we choose $c'_k < c_k$, then
+   $x'_i \geq x_i$. We set the new capacities as follows:
+   \begin{align*}
+      \forall k \neq i, c_k' &= 0 \mbox{ and} \\
+      c_i' &= c_i \enspace.
+   \end{align*}
+   Then for $X'$ we will have
+   \begin{align*}
+      \forall k \neq i, x_k' &= 0 \mbox{ and} \\
+      x_i' &= x_i \enspace,
+   \end{align*}
+   which is also a valid flow for $\mathcal{G}_{j-1}$ and thus by definition
+   \begin{equation*}
+      F_{A_i \rightarrow B} = x_i' = x_i > F_{A_i \rightarrow B} \enspace,
+   \end{equation*}
+   which is a contradiction. Thus the proposition holds.
 \end{proof}
