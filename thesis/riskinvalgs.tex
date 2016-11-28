@@ -45,8 +45,15 @@
 
 
   Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
-  a trusted party. To prove the correctness of the algorithms, it suffices to prove that $\forall i \in [n] \:
-  u_i' \leq x_i$ and that $\sum\limits_{i=1}^{n}u_i' = F - V$ where $F = \sum\limits_{i=1}^{n}x_i$. \\
+  a trusted party. Let $F = \sum\limits_{i=1}^{n}x_i$. To prove the correctness of the algorithms, it suffices to prove that
+  \begin{equation}
+  \label{naive:req1}
+     \forall i \in [n], c'_i \leq x_i \mbox{ and}
+  \end{equation}
+  \begin{equation}
+  \label{naive:req2}
+     \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
+  \end{equation}
   \import{thesis/algorithms/}{fcfscode.tex}
   \import{thesis/proofs/}{fcfscorrectness.tex}
   \import{thesis/proofs/}{fcfscomplexity.tex}
