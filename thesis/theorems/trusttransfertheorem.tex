@@ -1,29 +1,12 @@
 \begin{theorem}[Trust transfer theorem (flow terminology)] \ \\
    \label{trusttransfer}
-   Let $s$ source, $t$ sink, $n = N^{+}(s)$ \\
-   $X = \{x_1, \dots, x_n\}$ outgoing flows from $s$, \\
-   $U = \{u_1, \dots, u_n\}$ outgoing capacities from $s$, \\
-   $V$ the value to be transferred. \\
-   Nodes apart from $s$, $t$ follow the conservative strategy. \\
-   Obviously $maxFlow = F = \sum\limits_{i=1}^{n}{x_i}$.
-   {\em \begin{lstlisting}
-        /                      ....                     \
-       / x_s1/u_s1                         x_1t/u_1t     \
-      /                                                   \
-     /                                                     \
-    / x_s2/u_s2                               x_2t/u_2t     \
-   s-------------              ....          ------------t
-    \      .                                           .    /
-     \     .                                           .   /
-      \    .                                           .  /
-       \ x_sn/u_sn             ....        x_mt/u_mt     /
-        \                                               /
-   \end{lstlisting}}
-   We create a new graph where
-   \begin{enumerate}
-     \item  $\sum\limits_{i=1}^{n}{u_i'} = F - V$
-     \item $\forall i \in [n] \: u_i' \leq x_i$
-   \end{enumerate}
+   Let $A$ source, $B$ sink. We create a new graph where
+   \begin{equation*}
+   \begin{gathered}
+     \forall i \in [n], c_i' \leq x_i \mbox{ and}\\
+     \sum\limits_{i=1}^{n}{c_i'} = F - V \enspace.
+   \end{gathered}
+   \end{equation*}
 
-   It holds that $maxFlow' = F' = F - V$.
+   It then holds that $maxFlow_{\mathcal{G}_j}\left(A, B\right) = F' = F - V$.
 \end{theorem}
