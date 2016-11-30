@@ -1,20 +1,22 @@
-\begin{algorithm}[H]
-   \label{fcfs}
-   \SetKwInOut{Input}{Input}
-   \SetKwInOut{Output}{Output}
-   \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
-   \Output{$u_i'$ capacities}
-   \caption{First-come, first-served trust transfer}
-   $F \gets \sum\limits_{i=1}^{n}x_i$ \label{fcfsfinit}\\
-   \If{$F < V$ \label{fcfsifinputvalid}}{\Return $\bot$}
-   $F_{cur} \gets F$ \label{fcfsfcurinit}\\
-   \For{$i \gets 1$ to $n$ \label{fcfsforcapinit}}
-      {$u_i' \gets x_i$} \label{fcfscapinit}
-   $i \gets 1$ \label{fcfsiinit}\\
-   \While{$F_{cur} > F - V$ \label{fcfsloop}}
-      {$reduce \gets \min{(x_i, F_{cur} - F + V)}$ \\
-       $F_{cur} \gets F_{cur} - reduce$ \\
-       $u_i' \gets x_i - reduce$ \label{capmod}\\
-       $i \gets i + 1$ \label{fcfsiinc}}
-   \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{fcfsreturn}
-\end{algorithm}
+\Suppressnumber
+\begin{lstlisting}[label=fcfs, style=numbers]
+First Come First Served Trust Transfer
+Input : old flows (*@$x_i$@*), value V
+Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
+fcfs((*@$\left(x_i\right)$@*), V) :
+  n = length((*@$x_i$@*))
+  F = (*@$\sum\limits_{i=1}^{n}x_i$ \label{fcfs:finit}@*)
+  if (F < V)
+    return((*@$\bot$@*))
+  F(*@$_{cur}$@*) = F (*@\label{fcfs:fcurinit}@*)
+  for (i = 1 to n) (*@\label{fcfs:forcapinit}@*)
+    (*@$c'_i$@*) = (*@$x_i$@*) (*@\label{fcfs:capinit}@*)
+  i = 1 (*@\label{fcfs:iinit}@*)
+  while (F(*@$_{cur}$@*) > F - V) (*@\label{fcfs:loop}@*)
+    reduce = min((*@$x_i$@*), F(*@$_{cur}$@*) - (F - V))
+    F(*@$_{cur}$@*) = F(*@$_{cur}$@*) - reduce
+    (*@$c'_i$@*) = (*@$x_i$@*) - reduce (*@\label{fcfs:capmod}@*)
+    i += 1 (*@\label{fcfs:iinc}@*)
+  U(*@$'$@*) = (*@$\bigcup\limits_{i=1}^n\{c'_i\}$@*)
+  return(U(*@$'$@*)) (*@\label{fcfs:return}@*)
+\end{lstlisting}
