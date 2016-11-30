@@ -1,21 +1,37 @@
 \begin{proof}[Proof of correctness for fcfs] \
-   \begin{itemize}
-      \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
-      Let $i \in [n]$. In line~\ref{fcfs:capinit} we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
-      is in line~\ref{fcfs:capmod} where it is never increased $(reduce \geq 0)$, thus we see that, when returned,
-      $u_i' \leq x_i$.
-      \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
-      $F_{cur,0} = F$ \\
-      If $F_{cur,i} \leq F - V$, then $F_{cur,i+1}$ does not exist because the \emph{while} loop breaks after calculating
-      $F_{cur,i}$. \\
-      Else $F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)}$. \\
-      If for some $i, \min{(x_{i+1}, F_{cur,i} - F + V)} = F_{cur,i} - F + V$, then $F_{cur,i+1} = F - V$, so if
-      $F_{cur,i+1}$ exists, then $\forall k < i, F_{cur,k} = F_{cur,k-1} - x_k \Rightarrow F_{cur,i} =
-      F - \sum\limits_{k=1}^{i}x_k$ \\
-      Furthermore, if $F_{cur,i+1} = F - V$ then $u_{i+1}' = x_{i+1} - F_{cur,i} + F - V =
-      x_i - F + \sum\limits_{k=1}^{i-1}x_k + F - V = \sum\limits_{k=1}^{i}x_k - V$, $\forall k \leq i, u_k' = 0$
-      and $\forall k > i+1, u_k' = x_k$. \\
-      In total, we have $\sum\limits_{k=1}^{n}u_k' = \sum\limits_{k=1}^{i}x_k - V + \sum\limits_{k=i+1}^{n}x_k =
-      \sum\limits_{k=1}^{n}x_k - V \Rightarrow \sum\limits_{k=1}^{n}u_k' = F - V$.
-   \end{itemize}
+
+   We will first show that at the end of the execution, $i \leq n+1$. Suppose that $i > n+1$ on line~\ref{fcfs:return}. This
+   means that $F_{cur,n}$ exists and $F_{cur,n} = F - \sum\limits_{i=1}^{n}x_i = 0 \leq F - V$ since, according to the
+   condition on line~\ref{fcfs:ifinputvalid}, $F - V \geq 0$. This means however that the \texttt{while} loop on
+   line~\ref{fcfs:loop} will break, thus $F_{cur,n+1}$ cannot exist and $i = n + 1$ on line~\ref{fcfs:return}, which is a
+   contradiction, thus the first proposition holds. We can also note that, even if $i = n + 1$ at the end of the execution,
+   the \texttt{while} loop will break right after the last incrementation, thus the algorithm will never try to read or
+   write the nonexistent objects $x_{n+1}, c'_{n+1}$.
+
+   We will now show that $\forall i \in [n], c'_i \leq x_i$, as per the requirement (\ref{naive:req1}). Let $i \in [n]$.
+   In line~\ref{fcfs:capinit} we can see that $c'_i = x_i$ and the only other occurence of $c'_i$ is in
+   line~\ref{fcfs:setcap} where it is never increased $(reduce \geq 0)$, thus we see that the requirement (\ref{naive:req1})
+   is satisfied.
+
+   We will finally show that $\sum\limits_{i=1}^{n}c'_i = F - V$. From line~\ref{fcfs:finit} we see that $F_{cur,0} = F$.
+   Let $i \in [n]$ such that $F_{cur, i}$ exists. If $F_{cur, i} \leq F - V$, then $F_{cur,i+1}$ does not exist because the
+   \texttt{while} loop (line~\ref{fcfs:loop}) breaks after calculating $F_{cur,i}$. Else
+   \begin{equation*}
+      F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)} \enspace.
+      \mbox{ (lines~\ref{fcfs:setreduce}-~\ref{fcfs:setfcur})}
+   \end{equation*}
+   If $\nexists i \in [n]: \min{\left(x_{i+1}, F_{cur, i} - \left(F - V\right)\right)} = F_{cur,i} - \left(F - V\right)$,
+   then $\forall i \in [n], \min{\left(x_{i+1}, F_{cur, i} - \left(F - V\right)\right)} = x_{i+1}$, thus
+   from line~\ref{fcfs:setcap} it will be $\forall i \in [n], c'_i = 0$ and from line~\ref{fcfs:setfcur}, $F_{cur, n} = 0$.
+   However, 
+   If $\exists i \in \mathbb{N}: \min{\left(x_{i+1}, F_{cur, i} - \left(F - V\right)\right)} = F_{cur,i} - \left(F - V\right)$, then
+   $F_{cur,i+1} = F - V$, so if $F_{cur,i+1}$ exists, then
+   \begin{equation*}
+      \forall 0 \leq k < i, F_{cur,k} = F_{cur,k-1} - x_k \Rightarrow F_{cur,i} = F - \sum\limits_{k=1}^{i}x_k \enspace.
+   \end{equation*}
+   Furthermore, if $F_{cur,i+1} = F - V$ then $u_{i+1}' = x_{i+1} - F_{cur,i} + F - V =
+   x_i - F + \sum\limits_{k=1}^{i-1}x_k + F - V = \sum\limits_{k=1}^{i}x_k - V$, $\forall k \leq i, u_k' = 0$
+   and $\forall k > i+1, u_k' = x_k$. \\
+   In total, we have $\sum\limits_{k=1}^{n}u_k' = \sum\limits_{k=1}^{i}x_k - V + \sum\limits_{k=i+1}^{n}x_k =
+   \sum\limits_{k=1}^{n}x_k - V \Rightarrow \sum\limits_{k=1}^{n}u_k' = F - V$.
 \end{proof}
