@@ -1,8 +1,8 @@
-\begin{proof}[Proof of correctness for algorithm \ref{fcfs}]
+\begin{proof}[Proof of correctness for fcfs] \
    \begin{itemize}
       \item We will show that $\forall i \in [n] \: u_i' \leq x_i$. \\
-      Let $i \in [n]$. In line~\ref{fcfscapinit} we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
-      is in line~\ref{capmod} where it is never increased $(reduce \geq 0)$, thus we see that, when returned,
+      Let $i \in [n]$. In line~\ref{fcfs:capinit} we can see that $u_i' = x_i$ and the only other occurence of $u_i'$
+      is in line~\ref{fcfs:capmod} where it is never increased $(reduce \geq 0)$, thus we see that, when returned,
       $u_i' \leq x_i$.
       \item We will show that $\sum\limits_{i=1}^{n}u_i' = F - V$. \\
       $F_{cur,0} = F$ \\
