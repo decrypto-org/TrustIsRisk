@@ -20,18 +20,40 @@
       F_{cur,i+1} = F_{cur,i} - \min{(x_{i+1}, F_{cur,i} - F + V)} \enspace.
       \mbox{ (lines~\ref{fcfs:setreduce}-~\ref{fcfs:setfcur})}
    \end{equation*}
-   If $\nexists i \in [n]: \min{\left(x_{i+1}, F_{cur, i} - \left(F - V\right)\right)} = F_{cur,i} - \left(F - V\right)$,
-   then $\forall i \in [n], \min{\left(x_{i+1}, F_{cur, i} - \left(F - V\right)\right)} = x_{i+1}$, thus
-   from line~\ref{fcfs:setcap} it will be $\forall i \in [n], c'_i = 0$ and from line~\ref{fcfs:setfcur}, $F_{cur, n} = 0$.
-   However, 
-   If $\exists i \in \mathbb{N}: \min{\left(x_{i+1}, F_{cur, i} - \left(F - V\right)\right)} = F_{cur,i} - \left(F - V\right)$, then
-   $F_{cur,i+1} = F - V$, so if $F_{cur,i+1}$ exists, then
+   If $\nexists i \in [n]: \min{\left(x_i, F_{cur, i-1} - \left(F - V\right)\right)} = F_{cur,i-1} - \left(F - V\right)$,
+   then $\forall i \in [n], \min{\left(x_i, F_{cur, i} - \left(F - V\right)\right)} = x_i$, thus from line~\ref{fcfs:setcap}
+   it will be $\forall i \in [n], c'_i = 0$ and from line~\ref{fcfs:setfcur}, $F_{cur, n} = 0$. However, we have
    \begin{equation*}
-      \forall 0 \leq k < i, F_{cur,k} = F_{cur,k-1} - x_k \Rightarrow F_{cur,i} = F - \sum\limits_{k=1}^{i}x_k \enspace.
+   \begin{gathered}
+   \begin{rcases}
+      min\left(x_n, F_{cur, n-1} - \left(F - V\right)\right) \neq F_{cur, n-1} - \left(F - V\right) \\
+      F_{cur, n-1} = x_n
+   \end{rcases} \Rightarrow \\
+   \Rightarrow x_n < x_n - \left(F - V\right) \Rightarrow F < V
+   \end{gathered}
    \end{equation*}
-   Furthermore, if $F_{cur,i+1} = F - V$ then $u_{i+1}' = x_{i+1} - F_{cur,i} + F - V =
-   x_i - F + \sum\limits_{k=1}^{i-1}x_k + F - V = \sum\limits_{k=1}^{i}x_k - V$, $\forall k \leq i, u_k' = 0$
-   and $\forall k > i+1, u_k' = x_k$. \\
-   In total, we have $\sum\limits_{k=1}^{n}u_k' = \sum\limits_{k=1}^{i}x_k - V + \sum\limits_{k=i+1}^{n}x_k =
-   \sum\limits_{k=1}^{n}x_k - V \Rightarrow \sum\limits_{k=1}^{n}u_k' = F - V$.
+   which is a contradiction, since if this were the case the algorithm would have failed on lines~\ref{fcfs:ifinputvalid}
+   -~\ref{fcfs:inputinvalid}. Thus
+   \begin{equation*}
+      \exists i \in [n]: \min{\left(x_{i+1}, F_{cur, i} - \left(F - V\right)\right)} = F_{cur,i} - \left(F - V\right)
+   \end{equation*}
+   That is the only $i \in [n]$ such that $F_{cur,i+1} = F - V$, so
+   \begin{equation*}
+      \forall 0 < k < i, F_{cur,k} = F_{cur,k-1} - x_k \Rightarrow F_{cur,i} = F - \sum\limits_{k=1}^{i-1}x_k \enspace.
+   \end{equation*}
+   Furthermore, since $F_{cur,i+1} = F - V$, it is
+   \begin{equation*}
+   \begin{gathered}
+      c'_{i+1} = x_{i+1} - F_{cur,i} + F - V = x_i - F + \sum\limits_{k=1}^{i-1}x_k + F - V \Rightarrow \\
+      \Rightarrow c'_{i+1} = \sum\limits_{k=1}^{i}x_k - V \enspace, \\
+      \forall k \leq i, c_k' = 0 \mbox{ and} \\
+      \forall k > i+1, c_k' = x_k \enspace.
+   \end{gathered}
+   \end{equation*}
+   In total, we have
+   \begin{equation*}
+      \sum\limits_{k=1}^{n}c_k' = \sum\limits_{k=1}^{i}x_k - V + \sum\limits_{k=i+1}^{n}x_k =
+   \sum\limits_{k=1}^{n}x_k - V \Rightarrow \sum\limits_{k=1}^{n}c_k' = F - V \enspace.
+   \end{equation*}
+   Thus the requirement (\ref{naive:req2}) is satisfied.
 \end{proof}
