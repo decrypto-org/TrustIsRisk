@@ -66,46 +66,9 @@
   \import{thesis/proofs/}{fcfscomplexity.tex}
 
   \import{thesis/algorithms/}{abscode.tex}
-  \noindent
-  We will start by showing some results useful for the following proofs. Let $j$ be the number of iterations of the
-  \textbf{while} loop for the rest of the proofs for algorithm \ref{abs} (think of $i$ from line~\ref{absiincrement}
-  without the $mod\:n$).\\
-  First we will show that $empty \leq n$. $empty$ is only modified on line~\ref{absemptyincrement} where it is
-  incremented by 1. This happens only when $u_i' > 0$ (line~\ref{absifcappositive}), which is assigned the value 0 on
-  line~\ref{abscapzero}. We can see that the incrementation of $empty$ can happen at most $n$ times because
-  $|U'| = n$. Since $empty_0 = 0$, $empty \leq n$ at all times of the execution. \\
-  Next we will derive the recursive formulas for the various variables. \\
-  $empty_0 = 0$ \\
-  $empty_{j+1} = 
-     \begin{cases}
-        empty_j, & u_{(j+1)\:mod\:n}' = 0 \\
-        empty_j+1, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} < reduce_j \\
-        empty_j, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} \geq reduce_j
-     \end{cases}$ \\ \ \\
-  $reduce_0 = \frac{V}{n}$ \\
-  $reduce_{j+1} =
-     \begin{cases}
-        reduce_j, & u_{(j+1)\:mod\:n}' = 0 \\
-        reduce_j + \frac{reduce_j-x_{(j+1)\:mod\:n}}{n-empty_{j+1}}, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \:
-           x_{(j+1) \:mod\:n} < reduce_j \\
-        reduce_j, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} \geq reduce_j
-     \end{cases}$ \\ \ \\
-  $reduction_0 = 0$ \\
-  $reduction_{j+1} =
-     \begin{cases}
-        reduction_j, & u_{(j+1)\:mod\:n}' = 0 \\
-        reduction_j + u_{(j+1)\:mod\:n}', & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} < reduce_j \\
-        reduction_j + u_{(j+1)\:mod\:n}' - x_{(j+1)\:mod\:n} + reduce_{j+1}, &
-           u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} \geq reduce_j
-     \end{cases}$ \\
-  In the end, $r = reduce$ is such that $r = \frac{V - \sum\limits_{x \in S}x}{n - |S|}$ where
-  $S = \{\text{flows } y \text{ from } s \text{ to } N^{+}(s) \text{ according to } maxFlow : y < r\}$. Also,
-  $\sum\limits_{i=1}^{n}u_i' = \sum\limits_{i=1}^{n}\max{(0,x_i - r)}$. TOPROVE
   \import{thesis/proofs/}{abscorrectness.tex}
   \import{thesis/proofs/}{abscomplexity.tex}
 
-  A variation of this algorithm using a Fibonacci heap with complexity $O(n)$ can be created, but that is part of
-  further research.
   \import{thesis/proofs/}{absDinfnormminproof.tex}
 
   \import{thesis/algorithms/}{propcode.tex}
