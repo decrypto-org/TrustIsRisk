@@ -28,3 +28,21 @@ abs((*@$\left(x_i\right)$@*), V) :
     (*@$c'_i$@*) = max(0, (*@$x_i$@*) - reduction) (*@\label{abs:setcap}@*)
   return((*@$\bigcup\limits_{i=1}^n\{c'_i\}$@*)) (*@\label{abs:return}@*)
 \end{lstlisting}
+
+The function \texttt{preprocess(}$x_i$\texttt{)} returns a data structure \texttt{X} containing the set of flows
+$\left(x_i\right)$, such that the corresponding function \texttt{popMin(X)} is able to repeatedly return the index of a tuple
+consisiting of the index of the minimum element and a new data structure missing exactly the minimum element. Examples of
+such pairs of functions are:
+\begin{equation*}
+\begin{gathered}
+  \begin{cases}
+    \texttt{preprocess = quickSort} \\
+    \texttt{popMin = (}x_1\texttt{, X}\setminus x_1\texttt{)}
+  \end{cases}
+  \mbox{ and} \\
+  \begin{cases}
+    \texttt{preprocess = FibonacciHeap} \\
+    \texttt{popMin = (find-min(X),delete-min(X))}
+  \end{cases} \enspace.
+\end{gathered}
+\end{equation*}
