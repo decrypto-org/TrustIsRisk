@@ -20,7 +20,7 @@ abs((*@$\left(x_i\right)$@*), V) :
       F(*@$_{cur}$@*) = F(*@$_{prov}$@*) (*@\label{abs:setfcur}@*)
     else (*@\label{abs:elsefprovsmall}@*)
       aux = reduction (*@\label{abs:saveprevreduction}@*)
-      reduction += (*@$\frac{\mbox{F}_{cur}\mbox{ - (F - V)}}{\mbox{n - empty}}$@*) (*@\label{abs:setfinalreduction}@*)
+      reduction += (*@$\frac{\mbox{F}_{cur}\mbox{ - (F - V)}}{\mbox{n - empty}}$@*) (*@\label{abs:setlastreduction}@*)
       F(*@$_{cur}$@*) -= (n - empty)*(reduction - aux) (*@\label{abs:setlastfcur}@*)
       #lines(*@~\ref{abs:saveprevreduction}@*) &(*@~\ref{abs:setlastfcur}@*) can be replaced by break. In this
       #case, the loop (line(*@~\ref{abs:loop}@*)) can become while (TRUE).
