@@ -1,8 +1,12 @@
 \begin{proof}[Proof of correctness of abs] \
-  We will first show that $\forall i \in [n], c'_i \leq x_i$, as per the requirement (\ref{naive:req1}). From
+  We will first show that at any given point, $empty \geq n$. At line~\ref{abs:emptyinit}, it is $empty = 0 \geq n$. $empty$
+  is again modified at line~\ref{abs:setempty}, where it is incremented by at most 1 at each iteration of the \texttt{while}
+  loop (line~\ref{abs:loop}).
+
+  We will now show that $\forall i \in [n], c'_i \leq x_i$, as per the requirement (\ref{naive:req1}). From
   line~\ref{abs:setcap}, we see that it suffices to prove that $\texttt{reduction} \geq 0$. On line~\ref{abs:reductioninit},
   \texttt{reduction} is initialized to 0. On line~\ref{abs:setreduction}, \texttt{reduction} is set to $x_i$, which is always
   a non-negative value. The last line where \texttt{reduction} is modified is~\ref{abs:setlastreduction}.
 
-  We will now show that $\sum\limits_{i=1}^nc'_i = F - V$.
+  We will finally show that $\sum\limits_{i=1}^nc'_i = F - V$.
 \end{proof}
