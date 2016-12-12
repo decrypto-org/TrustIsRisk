@@ -1,12 +1,82 @@
 \begin{proof}[Proof of correctness of abs] \
-  We will first show that at any given point, $empty \geq n$. At line~\ref{abs:emptyinit}, it is $empty = 0 \geq n$. $empty$
-  is again modified at line~\ref{abs:setempty}, where it is incremented by at most 1 at each iteration of the \texttt{while}
-  loop (line~\ref{abs:loop}).
+  First of all, we can note that, if $F_{prov} \leq F - V$ in line~\ref{abs:iffprovbig}, then the execution will enter the
+  \texttt{else} clause of line~\ref{abs:elsefprovsmall}. Therefore, in line~\ref{abs:setlastfcur}, $F_{cur}$ will get the
+  value $F - V$, as we can see by executing the lines~\ref{abs:saveprevreduction} -~\ref{abs:setlastfcur} by hand. This in
+  turn means that the loop in line~\ref{abs:loop} will break right after the \texttt{else} clause is executed. Furthermore,
+  the assignment in line~\ref{abs:setfcur} in combination with the truth of the statement $F_{prov} > F - V$ in
+  line~\ref{abs:iffprovbig} shows that, if the execution enters the \texttt{if} clause of line~\ref{abs:iffprovbig}, then
+  the loop of line~\ref{abs:loop} will be executed at least once more. These two observations amount to the fact that the
+  \texttt{else} clause will be executed exactly one time and afterwards the \texttt{while} loop will break.
 
-  We will now show that $\forall i \in [n], c'_i \leq x_i$, as per the requirement (\ref{naive:req1}). From
-  line~\ref{abs:setcap}, we see that it suffices to prove that $\texttt{reduction} \geq 0$. On line~\ref{abs:reductioninit},
-  \texttt{reduction} is initialized to 0. On line~\ref{abs:setreduction}, \texttt{reduction} is set to $x_i$, which is always
-  a non-negative value. The last line where \texttt{reduction} is modified is~\ref{abs:setlastreduction}.
+  We use the notation $F_{cur, 0}$, $reduction_0$ and $empty_0$ to refer to the initial values of the corresponding
+  variables, as set in lines~\ref{abs:finit},~\ref{abs:reductioninit} and~\ref{abs:emptyinit} respectively. Furthermore, the
+  notation $empty_j$, $reduction_j$, $F_{cur, j}$ and $i_j$ is used to refer to the values of the corresponding variables
+  after the $j$-th iteration of the \texttt{while} loop. $i_j$ is chosen in line~\ref{abs:popmin}. From
+  lines~\ref{abs:setfprov},~\ref{abs:setreduction},~\ref{abs:setfcur},~\ref{abs:iffprovbig} and~\ref{abs:saveprevreduction}
+  to~\ref{abs:setlastfcur} we see that
+  \begin{equation*}
+    F_{cur, j} =
+    \begin{cases}
+       F_{prov, j},& F_{prov, j} > F - V \\
+       F - V ,& F_{prov, j} \leq F - V
+    \end{cases} \enspace, \mbox{ where}
+  \end{equation*}
+  \begin{equation*}
+  \begin{gathered}
+    F_{prov, j} = F_{cur, j-1} - (n - empty_{j-1})(x_{i_j} - x_{i_{j-1}}), j \geq 1 \mbox{ and} \\
+    x_{i_0} = 0 \enspace.
+  \end{gathered}
+  \end{equation*}
 
-  We will finally show that $\sum\limits_{i=1}^nc'_i = F - V$.
+  It is worth noting that the maximum number of iterations is $n$, or else $j \leq n$. This holds because, if we suppose that
+  $F_{cur, n+1}$ exists, it is
+  \begin{equation}
+  \label{abs:fnreq}
+    F_{cur, n} > F - V \geq 0
+  \end{equation}
+  However, we can easily see that in this case
+  \begin{equation*}
+  \begin{gathered}
+    F_{cur, n} = F_{cur, 0} - \sum\limits_{j=1}^n(n - (j-1))(x_{i_j} - x_{i_{j-1}}) = \\
+    = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^n(n - (j - 1))x_{i_j} + \sum\limits_{j=1}^{n-1}(n - j)x_{i_j} = \\
+    = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^{n-1}[(n - (j - 1)) - (n - j)]x_{i_j} - (n - (n - 1))x_{i_n} = \\
+    = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^{n-1}x_{i_j} - x_{i_n} = 0\enspace,
+  \end{gathered}
+  \end{equation*}
+  which is a contradiction to (\ref{abs:fnreq}), thus $F_{cur, n+1}$ does not exist and $j \leq n$. This means that
+  \texttt{popMin()} will never fail.
+
+  We will now show that $\forall j \in [n], empty_j < n$. At line~\ref{abs:emptyinit}, it is $empty_0 = 0 < n$. $empty$
+  is again modified in line~\ref{abs:setempty}, where it is incremented by at most 1 at each iteration of the \texttt{while}
+  loop (line~\ref{abs:loop}). As we saw above, the iterations cannot exceed $n$ and $empty$ is not incremented in the last
+  iteration which consists of the \texttt{else} clause, thus $\forall j \in [n], empty_j < n$.
+
+  Next, we will show that $\forall i \in [n], c'_i \leq x_i$, as per the requirement (\ref{naive:req1}). From
+  line~\ref{abs:setcap}, we see that it suffices to prove that $reduction \geq 0$. In line~\ref{abs:reductioninit},
+  $reduction$ is initialized to 0. In line~\ref{abs:setreduction}, $reduction$ is set to $x_i$, which is always
+  a non-negative value. The last line where $reduction$ is modified is~\ref{abs:setlastreduction}. In this line, it is
+  $F_{cur} > F - V$ or else the \texttt{while} loop would have broken before beginning this iteration and $n > empty$ as we
+  previously saw. Thus the non-negative variable $reduction$ is increased and the resulting value is always positive.
+
+  We will finally show that $\sum\limits_{i=1}^nc'_i = F - V$, which satisfies the requirement (\ref{naive:req2}). Let
+  $k, 0 \leq k \leq n$ be such that at the end of the execution
+  \begin{equation*}
+    \forall j \leq k, c_{i_j} = 0 \wedge \forall j > k, c_{i_j} > 0 \enspace.
+  \end{equation*}
+  The following holds:
+  \begin{equation*}
+  \begin{gathered}
+    \sum\limits_{j=1}^nc'_{i_j} = \sum\limits_{j=k+1}^nc'_{i_j} = \sum\limits_{j=k+1}^n(x_{i_j} - reduction_{k+1}) = \\
+    = \sum\limits_{j=k+1}^n(x_{i_j} - (x_{i_k} + \frac{F_{cur, k} - (F - V)}{n - k})) = \\
+    = \sum\limits_{j=k+1}^n(x_{i_j} - (x_{i_k} + \frac{F_{cur, 0} - \sum\limits_{l=1}^k(n - (l - 1))(x_{i_l} - x_{i_{l-1}})
+    - F + V}{n - k})) = \\
+    = \sum\limits_{j=k+1}^n(x_{i_j} - (x_{i_k} + \frac{F - \sum\limits_{l=1}^k(n - l + 1)x_{i_l} +
+    \sum\limits_{l=1}^{k-1}(n - l)x_{i_l} - F + V}{n - k})) = \\
+    = \sum\limits_{j=k+1}^nx_{i_j} - (n - k)x_{i_k} - \frac{n - k}{n - k}(-\sum\limits_{l=1}^{k-1}x_{i_l} -
+    (n - k + 1)x_{i_k} + V) = \\
+    = \sum\limits_{j=k+1}^nx_{i_j} - (n - k)x_{i_k} + \sum\limits_{j=1}^{k-1}x_{i_j} + (n - k + 1)x_{i_k} - V = \\
+    = \sum\limits_{j=1}^nx_{i_j} - V = F - V \enspace,
+  \end{gathered}
+  \end{equation*}
+  thus the desired property holds.
 \end{proof}
