@@ -1,0 +1,9 @@
+\begin{proof}[Complexity of algorithm abs]
+  Lines~\ref{abs:ifinputvalid} -~\ref{abs:inputinvalid},~\ref{abs:emptyinit} -~\ref{abs:reductioninit} and~\ref{abs:setfprov}
+  -~\ref{abs:setlastfcur} have a complexity of $O(1)$. Lines~\ref{abs:setlength} -~\ref{abs:finit} and~\ref{abs:forsetcap}
+  -~\ref{abs:return} have a complexity of $O(n)$. The \texttt{while} loop of line~\ref{abs:loop} is repeated at most $n$
+  times, as we saw in the proof of correctness. Thus the total complexity is $O(preprocess) + O(n)O(popMin)$. If the flows
+  are first sorted, it would be $O(preprocess) = O(quicksort) = O(nlogn)$ and $O(popMin) = O(1)$, amounting to a total
+  complexity of $O(nlogn)$. In the case a Fibonacci heap is used, it is $O(preprocess) = O(FibonacciHeap) = O(n)$ and
+  $O(popMin) = O(find-min) + O(delete-min) = O(1) + O(logn) = O(logn)$, thus the total complexity is again $O(nlogn)$.
+\end{proof}
