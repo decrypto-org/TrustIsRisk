@@ -4,7 +4,7 @@ Absolute Equality Trust Transfer ( (*@$||\Delta_i||_{\infty}$@*) minimizer)
 Input : old flows (*@$x_i$@*), value V
 Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
 abs((*@$\left(x_i\right)$@*), V) :
-  n = length((*@$x_i$@*))
+  n = length((*@$x_i$@*)) (*@\label{abs:setlength}@*)
   F(*@$_{cur}$@*) = F = (*@$\sum\limits_{i=1}^nx_i$ \label{abs:finit}@*)
   if (F < V) (*@\label{abs:ifinputvalid}@*)
     return((*@$\bot$@*)) (*@\label{abs:inputinvalid}@*)
