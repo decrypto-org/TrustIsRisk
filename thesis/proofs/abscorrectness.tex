@@ -70,15 +70,15 @@
   \begin{gathered}
     \sum\limits_{j=1}^nc'_{i_j} = \sum\limits_{j=k+1}^nc'_{i_j} = \sum\limits_{j=k+1}^n\left(x_{i_j} -
     reduction_{k+1}\right) = \\
-    = \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F_{cur, k} - \left(F - V\right)}{n - k}\right)\right) = \\
-    = \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F_{cur, 0} - \sum\limits_{l=1}^k\left(n
-    - \left(l - 1\right)\right)\left(x_{i_l} - x_{i_{l-1}}\right) - F + V}{n - k}\right)\right) = \\
-    = \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F - \sum\limits_{l=1}^k\left(n - l + 1\right)x_{i_l} +
-    \sum\limits_{l=1}^{k-1}\left(n - l\right)x_{i_l} - F + V}{n - k}\right)\right) = \\
-    = \sum\limits_{j=k+1}^nx_{i_j} - \left(n - k\right)x_{i_k} - \frac{n - k}{n - k}\left(-\sum\limits_{l=1}^{k-1}x_{i_l} -
-    \left(n - k + 1\right)x_{i_k} + V\right) = \\
-    = \sum\limits_{j=k+1}^nx_{i_j} - \left(n - k\right)x_{i_k} + \sum\limits_{j=1}^{k-1}x_{i_j} +
-    \left(n - k + 1\right)x_{i_k} - V = \\
+    \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F_{cur, k} - \left(F - V\right)}{n - k}\right)\right) \\
+    \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F_{cur, 0} - \sum\limits_{l=1}^k\left(n
+    - \left(l - 1\right)\right)\left(x_{i_l} - x_{i_{l-1}}\right) - F + V}{n - k}\right)\right) \\
+    \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F - \sum\limits_{l=1}^k\left(n - l + 1\right)x_{i_l} +
+    \sum\limits_{l=1}^{k-1}\left(n - l\right)x_{i_l} - F + V}{n - k}\right)\right) \\
+    \sum\limits_{j=k+1}^nx_{i_j} - \left(n - k\right)x_{i_k} - \frac{n - k}{n - k}\left(-\sum\limits_{l=1}^{k-1}x_{i_l} -
+    \left(n - k + 1\right)x_{i_k} + V\right) \\
+    \sum\limits_{j=k+1}^nx_{i_j} - \left(n - k\right)x_{i_k} + \sum\limits_{j=1}^{k-1}x_{i_j} +
+    \left(n - k + 1\right)x_{i_k} - V \\
     = \sum\limits_{j=1}^nx_{i_j} - V = F - V \enspace,
   \end{gathered}
   \end{equation*}

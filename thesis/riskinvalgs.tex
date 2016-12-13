@@ -101,14 +101,15 @@
   complete in a finite number of steps. \\
   \import{thesis/algorithms/}{dinfbinsearchcode.tex}
   \import{thesis/proofs/}{maxflowdecproof.tex}
-  We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in (0, \max\limits_{i \in [n]}\{u_i\}]:
-  maxFlow(\delta)= F' \Rightarrow \delta = \min||\delta_i||_\infty : maxFlow(||\delta_i||_\infty) = F'$.
+  We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in \left(0, \max\limits_{i \in [n]}\{u_i\}\right]:
+  maxFlow\left(\delta\right) = F' \Rightarrow \delta = \min||\delta_i||_\infty :
+  maxFlow\left(||\delta_{i}||_{\infty}\right) = F'$.
 
   \import{thesis/proofs/}{dinfbinsearchcorrectness.tex}
   \import{thesis/proofs/}{dinfbinsearchcomplexity.tex}
   \import{thesis/proofs/}{dinfmincorrectness.tex}
   \import{thesis/proofs/}{dinfmincomplexity.tex}
 
-  However, we need to minimize $\sum\limits_{i=1}^{n}(u_i-u_i') = ||\delta_i||_1$.
+  However, we need to minimize $\sum\limits_{i=1}^{n}\left(u_i-u_i'\right) = ||\delta_i||_1$.
 
 \end{document}
