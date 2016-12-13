@@ -1,0 +1,14 @@
+\begin{proof}[Proof that abs minimizes $||\Delta_i||_{\infty}$]
+  Let $reduction$ be the final value of the corresponding variable. It holds that
+  \begin{equation*}
+  \begin{gathered}
+    \forall i \in [n] : c'_i > 0, x_i - c'_i = reduction \enspace, \\
+    \forall i \in [n] : c'_i = 0, x_i - c'_i = x_i \mbox{ and} \\
+    \forall i \in [n] : c'_i = 0, reduction \geq x_i \enspace,
+  \end{gathered}
+  \end{equation*}
+  thus we deduce that
+  \begin{equation*}
+    ||\Delta_i||_{\infty} = \max\limits_{1 \leq i \leq n}{x_i - c'_i} = reduction \enspace.
+  \end{equation*}
+\end{proof}
