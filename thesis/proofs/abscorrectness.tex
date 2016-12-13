@@ -23,7 +23,7 @@
   \end{equation*}
   \begin{equation*}
   \begin{gathered}
-    F_{prov, j} = F_{cur, j-1} - (n - empty_{j-1})(x_{i_j} - x_{i_{j-1}}), j \geq 1 \mbox{ and} \\
+    F_{prov, j} = F_{cur, j-1} - \left(n - empty_{j-1}\right)\left(x_{i_j} - x_{i_{j-1}}\right), j \geq 1 \mbox{ and} \\
     x_{i_0} = 0 \enspace.
   \end{gathered}
   \end{equation*}
@@ -37,14 +37,16 @@
   However, we can easily see that in this case
   \begin{equation*}
   \begin{gathered}
-    F_{cur, n} = F_{cur, 0} - \sum\limits_{j=1}^n(n - (j-1))(x_{i_j} - x_{i_{j-1}}) = \\
-    = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^n(n - (j - 1))x_{i_j} + \sum\limits_{j=1}^{n-1}(n - j)x_{i_j} = \\
-    = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^{n-1}[(n - (j - 1)) - (n - j)]x_{i_j} - (n - (n - 1))x_{i_n} = \\
+    F_{cur, n} = F_{cur, 0} - \sum\limits_{j=1}^n\left(n - \left(j-1\right)\right)\left(x_{i_j} - x_{i_{j-1}}\right) = \\
+    = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^n\left(n - \left(j - 1\right)\right)x_{i_j} +
+    \sum\limits_{j=1}^{n-1}\left(n - j\right)x_{i_j} = \\
+    = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^{n-1}[\left(n - \left(j - 1\right)\right) - \left(n - j\right)]x_{i_j}
+    - \left(n - \left(n - 1\right)\right)x_{i_n} = \\
     = \sum\limits_{j=1}^nx_{i_j} - \sum\limits_{j=1}^{n-1}x_{i_j} - x_{i_n} = 0\enspace,
   \end{gathered}
   \end{equation*}
-  which is a contradiction to (\ref{abs:fnreq}), thus $F_{cur, n+1}$ does not exist and $j \leq n$. This means that
-  \texttt{popMin()} will never fail.
+  which is a contradiction to (\ref{abs:fnreq}), thus $F_{cur, n+1}$ does not exist and $j \leq n$. This means
+  that \texttt{popMin()} will never fail.
 
   We will now show that $\forall j \in [n], empty_j < n$. At line~\ref{abs:emptyinit}, it is $empty_0 = 0 < n$. $empty$
   is again modified in line~\ref{abs:setempty}, where it is incremented by at most 1 at each iteration of the \texttt{while}
@@ -58,23 +60,25 @@
   $F_{cur} > F - V$ or else the \texttt{while} loop would have broken before beginning this iteration and $n > empty$ as we
   previously saw. Thus the non-negative variable $reduction$ is increased and the resulting value is always positive.
 
-  We will finally show that $\sum\limits_{i=1}^nc'_i = F - V$, which satisfies the requirement (\ref{naive:req2}). Let
-  $k, 0 \leq k \leq n$ be such that at the end of the execution
+  We will finally show that $\sum\limits_{i=1}^nc'_i = F - V$, which satisfies the requirement (\ref{naive:req2}).
+  Let $k, 0 \leq k \leq n$ be such that at the end of the execution
   \begin{equation*}
     \forall j \leq k, c_{i_j} = 0 \wedge \forall j > k, c_{i_j} > 0 \enspace.
   \end{equation*}
   The following holds:
   \begin{equation*}
   \begin{gathered}
-    \sum\limits_{j=1}^nc'_{i_j} = \sum\limits_{j=k+1}^nc'_{i_j} = \sum\limits_{j=k+1}^n(x_{i_j} - reduction_{k+1}) = \\
-    = \sum\limits_{j=k+1}^n(x_{i_j} - (x_{i_k} + \frac{F_{cur, k} - (F - V)}{n - k})) = \\
-    = \sum\limits_{j=k+1}^n(x_{i_j} - (x_{i_k} + \frac{F_{cur, 0} - \sum\limits_{l=1}^k(n - (l - 1))(x_{i_l} - x_{i_{l-1}})
-    - F + V}{n - k})) = \\
-    = \sum\limits_{j=k+1}^n(x_{i_j} - (x_{i_k} + \frac{F - \sum\limits_{l=1}^k(n - l + 1)x_{i_l} +
-    \sum\limits_{l=1}^{k-1}(n - l)x_{i_l} - F + V}{n - k})) = \\
-    = \sum\limits_{j=k+1}^nx_{i_j} - (n - k)x_{i_k} - \frac{n - k}{n - k}(-\sum\limits_{l=1}^{k-1}x_{i_l} -
-    (n - k + 1)x_{i_k} + V) = \\
-    = \sum\limits_{j=k+1}^nx_{i_j} - (n - k)x_{i_k} + \sum\limits_{j=1}^{k-1}x_{i_j} + (n - k + 1)x_{i_k} - V = \\
+    \sum\limits_{j=1}^nc'_{i_j} = \sum\limits_{j=k+1}^nc'_{i_j} = \sum\limits_{j=k+1}^n\left(x_{i_j} -
+    reduction_{k+1}\right) = \\
+    = \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F_{cur, k} - \left(F - V\right)}{n - k}\right)\right) = \\
+    = \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F_{cur, 0} - \sum\limits_{l=1}^k\left(n
+    - \left(l - 1\right)\right)\left(x_{i_l} - x_{i_{l-1}}\right) - F + V}{n - k}\right)\right) = \\
+    = \sum\limits_{j=k+1}^n\left(x_{i_j} - \left(x_{i_k} + \frac{F - \sum\limits_{l=1}^k\left(n - l + 1\right)x_{i_l} +
+    \sum\limits_{l=1}^{k-1}\left(n - l\right)x_{i_l} - F + V}{n - k}\right)\right) = \\
+    = \sum\limits_{j=k+1}^nx_{i_j} - \left(n - k\right)x_{i_k} - \frac{n - k}{n - k}\left(-\sum\limits_{l=1}^{k-1}x_{i_l} -
+    \left(n - k + 1\right)x_{i_k} + V\right) = \\
+    = \sum\limits_{j=k+1}^nx_{i_j} - \left(n - k\right)x_{i_k} + \sum\limits_{j=1}^{k-1}x_{i_j} +
+    \left(n - k + 1\right)x_{i_k} - V = \\
     = \sum\limits_{j=1}^nx_{i_j} - V = F - V \enspace,
   \end{gathered}
   \end{equation*}

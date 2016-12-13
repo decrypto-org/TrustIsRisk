@@ -1,24 +1,24 @@
 \begin{proof}[Complexity of algorithm abs]
   Lines~\ref{abs:ifinputvalid} -~\ref{abs:inputinvalid},~\ref{abs:emptyinit} -~\ref{abs:reductioninit} and~\ref{abs:setfprov}
-  -~\ref{abs:setlastfcur} have a complexity of $O(1)$. Lines~\ref{abs:setlength} -~\ref{abs:finit} and~\ref{abs:forsetcap}
-  -~\ref{abs:return} have a complexity of $O(n)$. The \texttt{while} loop of line~\ref{abs:loop} is repeated at most $n$
-  times, as we saw in the proof of correctness. Thus the total complexity is
+  -~\ref{abs:setlastfcur} have a complexity of $O\left(1\right)$. Lines~\ref{abs:setlength} -~\ref{abs:finit}
+  and~\ref{abs:forsetcap} -~\ref{abs:return} have a complexity of $O\left(n\right)$. The \texttt{while} loop of
+  line~\ref{abs:loop} is repeated at most $n$ times, as we saw in the proof of correctness. Thus the total complexity is
   \begin{equation*}
-    O(preprocess) + O(n)O(popMin) \enspace.
+    O\left(preprocess\right) + O\left(n\right)O\left(popMin\right) \enspace.
   \end{equation*}
   If the flows are first sorted, it would be
   \begin{equation*}
   \begin{gathered}
-    O(preprocess) = O(quicksort) = O(nlogn) \mbox{ and} \\
-    O(popMin) = O(1) \enspace,
+    O\left(preprocess\right) = O\left(quicksort\right) = O\left(nlogn\right) \mbox{ and} \\
+    O\left(popMin\right) = O\left(1\right) \enspace,
   \end{gathered}
   \end{equation*}
-  amounting to a total complexity of $O(nlogn)$. In the case a Fibonacci heap is used, it is
+  amounting to a total complexity of $O\left(nlogn\right)$. In the case a Fibonacci heap is used, it is
   \begin{equation*}
   \begin{gathered}
-    O(preprocess) = O(FibonacciHeap) = O(n) \mbox{ and} \\
-    O(popMin) = O(find\mbox{-}min) + O(delete\mbox{-}min) = O(logn) \enspace,
+    O\left(preprocess\right) = O\left(FibonacciHeap\right) = O\left(n\right) \mbox{ and} \\
+    O\left(popMin\right) = O\left(find\mbox{-}min\right) + O\left(delete\mbox{-}min\right) = O\left(logn\right) \enspace,
   \end{gathered}
   \end{equation*}
-  thus the total complexity is again $O(nlogn)$.
+  thus the total complexity is again $O\left(nlogn\right)$.
 \end{proof}
