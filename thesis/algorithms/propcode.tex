@@ -1,13 +1,14 @@
-\begin{algorithm}[H]
-   \label{prop}
-   \SetKwInOut{Input}{Input}
-   \SetKwInOut{Output}{Output}
-   \Input{$x_i$ flows, $n = |N^{+}(s)|$, $V$ value}
-   \Output{$u_i'$ capacities}
-   \caption{Proportional equality trust transfer}
-   $F \gets \sum\limits_{i=1}^{n}x_i$ \label{propfinit} \\
-   \If{$F < V$ \label{propifinputvalid}}{\Return $\bot$ \label{propinputinvalid}}
-   \For{$i \gets 1$ to $n$ \label{proploop}}
-      {$u_i' \gets x_i - \frac{V}{F} x_i$ \label{propcapmodify}}
-   \Return $U' = \bigcup\limits_{k=1}^{n}\{u_k'\}$ \label{propreturn}
-\end{algorithm}
+\Suppressnumber
+\begin{lstlisting}[label=prop, style=numbers]
+Proportional Equality Trust Transfer
+Input : old flows (*@$x_i$@*), value V
+Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
+prop((*@$\left(x_i\right)$@*), V) :
+  n = length((*@$x_i$@*))
+  F = (*@$\sum\limits_{i=1}^nx_i$ \label{prop:finit}@*)
+  if (F < V) (*@\label{prop:ifinputvalid}@*)
+    return((*@$\bot$@*)) (*@\label{prop:inputinvalid}@*)
+  for (i = 1 to n) (*@\label{prop:loop}@*)
+    (*@$c'_i$@*) = (*@$x_i$@*) - (*@$\frac{\mbox{V}}{\mbox{F}}$@*)*(*@$x_i$ \label{prop:setcap}@*)
+  return((*@$\bigcup\limits_{i=1}^n\{c'_i\}$@*)) (*@\label{prop:return}@*)
+\end{lstlisting}
