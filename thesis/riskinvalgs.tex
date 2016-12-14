@@ -65,6 +65,11 @@
   \import{thesis/proofs/}{fcfscorrectness.tex}
   \import{thesis/proofs/}{fcfscomplexity.tex}
 
+  Note that we choose to calculate the complexity of the \texttt{length()} function as $O\left(n\right)$. Whereas this
+  complexity is implementation-dependent, even with the most naive approaches it cannot be higher than $O\left(n\right)$,
+  thus we use this worst-case complexity in our analysis to cover all cases. This approach will be implicitly used in all
+  subsequent complexity analyses.
+
   \import{thesis/algorithms/}{abscode.tex}
 
   The function \texttt{preprocess(}$x_i$\texttt{)} returns a data structure \texttt{X} containing the set of flows
