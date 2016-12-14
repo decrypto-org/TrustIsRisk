@@ -9,7 +9,7 @@ fcfs((*@$\left(x_i\right)$@*), V) :
   if (F < V) (*@\label{fcfs:ifinputvalid}@*)
     return((*@$\bot$@*)) (*@\label{fcfs:inputinvalid}@*)
   for (i = 1 to n) (*@\label{fcfs:forcapinit}@*)
-    (*@$c'_i$@*) = (*@$x_i$@*) (*@\label{fcfs:capinit}@*)
+    (*@$c'_i$@*) = (*@$x_i$ \label{fcfs:capinit}@*)
   i = 1 (*@\label{fcfs:iinit}@*)
   while (F(*@$_{cur}$@*) > F - V) (*@\label{fcfs:loop}@*)
     reduce = min((*@$x_i$@*), F(*@$_{cur}$@*) - (F - V)) (*@\label{fcfs:setreduce}@*)
