@@ -4,7 +4,7 @@ Proportional Equality Trust Transfer
 Input : old flows (*@$x_i$@*), value V
 Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
 prop((*@$\left(x_i\right)$@*), V) :
-  n = length((*@$x_i$@*))
+  n = length((*@$x_i$@*)) (*@\label{prop:setlength}@*)
   F = (*@$\sum\limits_{i=1}^nx_i$ \label{prop:finit}@*)
   if (F < V) (*@\label{prop:ifinputvalid}@*)
     return((*@$\bot$@*)) (*@\label{prop:inputinvalid}@*)

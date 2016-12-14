@@ -4,7 +4,7 @@ First Come First Served Trust Transfer
 Input : old flows (*@$x_i$@*), value V
 Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
 fcfs((*@$\left(x_i\right)$@*), V) :
-  n = length((*@$x_i$@*))
+  n = length((*@$x_i$@*)) (*@\label{fcfs:setlength}@*)
   F(*@$_{cur}$@*) = F = (*@$\sum\limits_{i=1}^{n}x_i$ \label{fcfs:finit}@*)
   if (F < V) (*@\label{fcfs:ifinputvalid}@*)
     return((*@$\bot$@*)) (*@\label{fcfs:inputinvalid}@*)
