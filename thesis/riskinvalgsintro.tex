@@ -1,0 +1,22 @@
+Let $A \in \mathcal{V}$ source, $B \in \mathcal{V}$ sink. For the following, we suppose that $Turn_{j-1}$ has just finished
+and $A = Player\left(j\right)$ is currently deciding $Turn_j$. We use the following notation:
+\begin{align*}
+   c_{Av} &= DTr_{A \rightarrow v, j-1} \\
+   c'_{Av} &= DTr_{A \rightarrow v, j}
+\end{align*}
+Moreover, $X$ and $X'$ will be the flows returned by some execution of
+$MaxFlow_{\mathcal{G}_{j-1}}\left(A, B\right)$ and $MaxFlow_{\mathcal{G}_j}\left(A, B\right)$ respectively.
+
+Furthermore, we suppose an arbitrary ordering of the members of $N^{+}\left(A\right)$. We set $n = |N^{+}\left(A\right)|$.
+Thus
+\begin{equation*}
+   N^{+}\left(A\right) = \{v_1, ..., v_n\}
+\end{equation*}
+We use these subscripts to refer to the respective capacities (a.k.a. direct trusts) and flows. Thus
+\begin{equation*}
+   \begin{array}{l}
+      x_i = x_{Av_i} \enspace, \\
+      c_i = c_{Av_i} \enspace,
+   \end{array}
+   \mbox{ where } i \in [n]
+\end{equation*}
