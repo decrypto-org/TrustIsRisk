@@ -85,7 +85,12 @@
   on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
   complete in a finite number of steps. \\
   \import{thesis/algorithms/}{dinfbinsearchcode.tex}
-  \import{thesis/proofs/}{maxflowdecproof.tex}
+  Let $C$ capacity configuration and $\delta \in [0, \max\limits_{1 \leq i \leq n}{\{c_i\}}]$. Furthermore, let $C'$ capacity
+  configuration such that $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. We define
+  $maxFlow\left(C, \delta\right) = maxFlow\left(C'\right)$ and $MaxFlow\left(C, \delta\right) = MaxFlow\left(C'\right)$,
+  where $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. 
+  \import{thesis/lemmas/}{maxflowmonotonylemma.tex}
+  \import{thesis/proofs/}{maxflowmonotonyproof.tex}
   We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in \left(0, \max\limits_{i \in [n]}\{u_i\}\right]:
   maxFlow\left(\delta\right) = F' \Rightarrow \delta = \min||\delta_i||_\infty :
   maxFlow\left(||\delta_{i}||_{\infty}\right) = F'$.
