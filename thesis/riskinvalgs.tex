@@ -78,10 +78,10 @@
   Naive algorithms result in $c'_i \leq x_i$, thus according to the Invariability Theorem (\ref{invariability}),
   $||\delta_i||_1$ is invariable for any of the possible results $C'$ of these algorithms and the resulting norm is not
   necessarily the minimum. The following algorithms concentrate on minimizing two $\delta_i$ norms, $||\delta_i||_\infty$ and
-  $||\delta_i||_1$.
+  $||\delta_i||_1$. We start with the $||\delta_i||_\infty$ minimizer.
 
   \import{thesis/algorithms/}{dinfmincode.tex}
-  Since trust should be considered as a continuous unit and binary search dissects the possible interval for the solution
+  Since trust should be considered as a continuous unit and binary search bisects the possible interval for the solution
   on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
   complete in a finite number of steps. \\
   \import{thesis/algorithms/}{dinfbinsearchcode.tex}
