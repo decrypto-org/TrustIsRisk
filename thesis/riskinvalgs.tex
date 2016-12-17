@@ -81,9 +81,9 @@
   $||\delta_i||_1$. We start with the $||\delta_i||_\infty$ minimizer.
 
   \import{thesis/algorithms/}{dinfmincode.tex}
-  Since trust should be considered as a continuous unit and binary search bisects the possible interval for the solution
+  Since trust should be considered as a continuous unit and binary search bisects the interval containing the solution
   on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
-  complete in a finite number of steps. \\
+  complete in a finite number of steps.
   \import{thesis/algorithms/}{dinfbinsearchcode.tex}
   Let $C$ capacity configuration and $\delta \in [0, \max\limits_{1 \leq i \leq n}{\{c_i\}}]$. Furthermore, let $C'$ capacity
   configuration such that $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. We define
