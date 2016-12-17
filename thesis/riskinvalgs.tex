@@ -91,10 +91,10 @@
   where $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. 
   \import{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
   \import{thesis/proofs/}{maxflowmonotonicityproof.tex}
-  We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in \left(0, \max\limits_{i \in [n]}\{c_i\}\right]:
-  maxFlow\left(\delta\right) = F' \Rightarrow \delta = \min||\delta_i||_\infty :
-  maxFlow\left(||\delta_{i}||_{\infty}\right) = F'$.
-
+  Let $C$ a capacity configuration and $F = maxFlow\left(C\right)$. From the previous lemma we deduce that, given a $V, 0 < V
+  < F$, if we determine a $\delta$ such that $maxFlow\left(C, \delta\right) = maxFlow\left(C\right) - V$, this $\delta$ is
+  unique. Let $C'$ capacity configuration such that $\forall i \in [n], c'_i = max{\left(0, c_i - \delta\right)}$. We will
+  see that $\delta = \min{||\delta_i||_\infty} : maxFlow\left(C'\right) = F - V$.
   \import{thesis/proofs/}{dinfbinsearchcorrectness.tex}
   \import{thesis/proofs/}{dinfbinsearchcomplexity.tex}
   \import{thesis/proofs/}{dinfmincorrectness.tex}

@@ -5,7 +5,7 @@ Input : bot, top, F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)
 Output : (*@$\delta^*$ \Reactivatenumber@*)
 BinSearch(bot, top, F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) :
   if (bot == top) (*@\label{bs:ifboteqtop}@*)
-    return(bot) (*@\label{bs:retbot}@*)
+    return(bot) (*@\label{bs:returnbot}@*)
   else
     for (i = 1 to n) (*@\label{bs:forsetcap}@*)
       (*@$c'_i$@*) = max(0, (*@$c_i$@*) - (*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*)) (*@\label{bs:setcap}@*)
