@@ -89,9 +89,9 @@
   configuration such that $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. We define
   $maxFlow\left(C, \delta\right) = maxFlow\left(C'\right)$ and $MaxFlow\left(C, \delta\right) = MaxFlow\left(C'\right)$,
   where $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. 
-  \import{thesis/lemmas/}{maxflowmonotonylemma.tex}
-  \import{thesis/proofs/}{maxflowmonotonyproof.tex}
-  We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in \left(0, \max\limits_{i \in [n]}\{u_i\}\right]:
+  \import{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
+  \import{thesis/proofs/}{maxflowmonotonicityproof.tex}
+  We can see that if $V > 0, F' = F - V < F$ thus if $\delta \in \left(0, \max\limits_{i \in [n]}\{c_i\}\right]:
   maxFlow\left(\delta\right) = F' \Rightarrow \delta = \min||\delta_i||_\infty :
   maxFlow\left(||\delta_{i}||_{\infty}\right) = F'$.
 
