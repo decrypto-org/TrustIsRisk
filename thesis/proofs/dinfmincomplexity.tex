@@ -1,7 +1,9 @@
-\begin{proof}[Complexity of algorithm \ref{dinf}]
-   The complexity of lines~\ref{dinfifepsilonsvalid} -~\ref{dinfepsilonsinvalid} and~\ref{dinfifvvalid}
-   -~\ref{dinfvinvalid} is $O(1)$, the complexity of lines~\ref{dinffinit},~\ref{dinfdeltainit},~\ref{dinfforcap}
-   -~\ref{dinfcapset} and~\ref{dinfreturn} is $O(n)$ and the complexity of line~\ref{dinfcallbs} is $O(BinSearch) =
-   O((maxFlow + n) \log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$, thus the total complexity of algorithm
-   \ref{dinf} is $O((maxFlow + n)\log_2(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}))$.
+\begin{proof}[Complexity of dinfmin]
+   The complexity of lines~\ref{dinfmin:ifepsilonsvalid} -~\ref{dinfmin:epsilonsinvalid} and~\ref{dinfmin:ifvvalid}
+   -~\ref{dinfmin:vinvalid} is $O\left(1\right)$, the complexity of
+   lines~\ref{dinfmin:setlength},~\ref{dinfmin:finit},~\ref{dinfmin:deltainit},~\ref{dinfmin:forsetcap}
+   -~\ref{dinfmin:setcap} and~\ref{dinfmin:return} is $O\left(n\right)$ and the complexity of line~\ref{dinfmin:bs} is
+   $O\left(BinSearch\right) = O\left(\left(maxFlow + n\right) \log_2\left(\frac{\delta_{max}}{\epsilon_1 +
+   \epsilon_2}\right)\right)$, thus the total complexity of dinfmin is $O\left(\left(maxFlow +
+   n\right)\log_2\left(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}\right)\right)$.
 \end{proof}
