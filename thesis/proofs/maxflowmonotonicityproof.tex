@@ -1,11 +1,10 @@
 \begin{proof}
   Supppose that
   \begin{equation*}
-    \exists \delta_1, \delta_2 : \delta_1 < \delta_2 \wedge maxFlow\left(C, \delta_1\right) \leq maxFlow\left(C,
-    \delta_2\right) < F \enspace.
+    \exists \delta_1, \delta_2 : \delta_1 < \delta_2 \wedge maxFlow\left(\delta_1\right) \leq maxFlow\left(\delta_2\right)
+    < F \enspace.
   \end{equation*}
-  Let $X'_1 = MaxFlow\left(C, \delta_1\right)$ and $X'_2 = MaxFlow\left(C, \delta_2\right)$. Without loss of generality (?)
-  we suppose that
+  Without loss of generality (?) we suppose that
   \begin{equation*}
     \forall i \in [n], x'_{1, i} \leq x_i \wedge x'_{2, i} \leq x_i \enspace.
   \end{equation*}
