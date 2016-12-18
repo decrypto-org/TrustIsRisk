@@ -15,7 +15,7 @@
   recursively is analyzed next:
 
   If $maxFlow\left(\frac{top+bot}{2}\right) < F' - \epsilon_1$ (line~\ref{bs:iflow}) then, by the maxFlow monotonicity
-  theorem, $\delta^* \in \left[bot,\frac{top+bot}{2}\right)$. As we see on line~\ref{bs:returnlow}, the interval
+  lemma, $\delta^* \in \left[bot,\frac{top+bot}{2}\right)$. As we see on line~\ref{bs:returnlow}, the interval
   $\left(\frac{top+bot}{2}, top\right]$ is discarded when the next \texttt{BinSearch} is recursively called. Since
   $F' + \epsilon_2 \leq maxFlow\left(bot\right)$, we have
   \begin{equation*}
@@ -25,7 +25,7 @@
   and the length of the available interval is divided by 2.
 
   Similarly, if $maxFlow\left(\frac{top+bot}{2}\right) > F' + \epsilon_2$ (line~\ref{bs:ifhigh}) then, by the maxFlow
-  monotonicity theorem, it holds that $\delta^* \in \left(\frac{top+bot}{2}, top\right]$. According to
+  monotonicity lemma, it holds that $\delta^* \in \left(\frac{top+bot}{2}, top\right]$. According to
   line~\ref{bs:returnhigh}, the interval $\left[bot, \frac{top+bot}{2}\right)$ is discarded when the next
   \texttt{BinSearch} is recursively called. Since $F'- \epsilon_1 \geq maxFlow\left(top\right)$, we have
   \begin{equation*}
