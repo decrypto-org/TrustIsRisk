@@ -1,17 +1,17 @@
 \begin{proof}[Proof of correctness for dinfmin]
   Let $C' = \texttt{dinfmin(}c_i\texttt{, V, } \epsilon_1\texttt{, } \epsilon_2\texttt{)}$. We will show that
   \begin{equation*}
-    maxFlow\left(C'\right) \in [F - V - \epsilon_1, F - V + \epsilon_2] \enspace.
+    F' \in [F - V - \epsilon_1, F - V + \epsilon_2] \enspace.
   \end{equation*}
   We can easily see that
   \begin{align*}
-    maxFlow\left(C, 0\right) &= F \mbox{ and} \\
-    maxFlow\left(C, \max\limits_{i \in [n]}\{c_i\}\right) &= 0 \enspace,
+    maxFlow\left(0\right) &= F \mbox{ and} \\
+    maxFlow\left(\max\limits_{i \in [n]}\{c_i\}\right) &= 0 \enspace,
   \end{align*}
   thus $\delta^* \in
   \max\limits_{i \in [n]}\{u_i\}$. According to the proof of correctness for \texttt{BinSearch}, we know that
-  $maxFlow\left(C, \delta^*\right) \in \left[F - V - \epsilon_1, F - V + \epsilon_2\right]$, given that
+  $maxFlow\left(\delta^*\right) \in \left[F - V - \epsilon_1, F - V + \epsilon_2\right]$, given that
   $\epsilon_1, \epsilon_2$ are chosen so that $F - V - \epsilon_1 \geq 0, F - V + \epsilon_2 \leq F$, so as to satisfy
-  the condition $\left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(C, top\right), maxFlow\left(C,
-  bot\right)\right]$.
+  the condition $\left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right),
+  maxFlow\left(bot\right)\right]$.
 \end{proof}
