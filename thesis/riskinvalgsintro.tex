@@ -4,8 +4,20 @@ and $A = Player\left(j\right)$ is currently deciding $Turn_j$. We use the follow
    C \mbox{ capacity configuration with } c_{Av} &= DTr_{A \rightarrow v, j-1} \\
    C' \mbox{ capacity configuration with } c'_{Av} &= DTr_{A \rightarrow v, j}
 \end{align*}
-Moreover, $X$ and $X'$ will be the flows returned by some execution of
-$MaxFlow_{\mathcal{G}_{j-1}}\left(A, B\right)$ and $MaxFlow_{\mathcal{G}_j}\left(A, B\right)$ respectively.
+
+We will use the following notation for clarity:
+\begin{equation*}
+\begin{gathered}
+  \begin{cases}
+    X = MaxFlow_{\mathcal{G}_{j-1}}\left(A, B\right) \\
+    X' = MaxFlow_{\mathcal{G}_j}\left(A, B\right)
+  \end{cases}, \mbox{ for some } MaxFlow \mbox{ execution} \\
+  \begin{cases}
+    F = maxFlow_{\mathcal{G}_{j-1}}\left(A, B\right) \\
+    F' = maxFlow_{\mathcal{G}_j}\left(A, B\right)
+  \end{cases}
+\end{gathered}
+\end{equation*}
 
 Furthermore, we suppose an arbitrary ordering of the members of $N^{+}\left(A\right)$. We set $n = |N^{+}\left(A\right)|$.
 Thus
