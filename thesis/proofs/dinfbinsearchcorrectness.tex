@@ -1,12 +1,12 @@
 \begin{proof}[Proof of correctness for Binary Search]
   Suppose that
   \begin{equation*}
-    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(C, top\right), maxFlow\left(C, bot\right)\right]
+    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right), maxFlow\left(bot\right)\right]
     \enspace.
   \end{equation*}
   We will prove that
   \begin{equation*}
-    maxFlow\left(C, \delta^*\right) \in \left[F' - \epsilon_1, F' + \epsilon_2\right] \enspace.
+    maxFlow\left(\delta^*\right) \in \left[F' - \epsilon_1, F' + \epsilon_2\right] \enspace.
   \end{equation*}
   First of all, we should note that if an invocation of \texttt{BinSearch} returns without calling \texttt{BinSearch} again
   (line~\ref{bs:returnbot} or~\ref{bs:returnmid}), its return value will be equal to the return value of the initial
@@ -14,22 +14,22 @@
   value of the invoked \texttt{BinSearch} is returned without any modification. The case where \texttt{BinSearch} is called
   recursively is analyzed next:
 
-  If $maxFlow\left(C, \frac{top+bot}{2}\right) < F' - \epsilon_1$ (line~\ref{bs:iflow}) then, by the maxFlow monotonicity
+  If $maxFlow\left(\frac{top+bot}{2}\right) < F' - \epsilon_1$ (line~\ref{bs:iflow}) then, by the maxFlow monotonicity
   theorem, $\delta^* \in \left[bot,\frac{top+bot}{2}\right)$. As we see on line~\ref{bs:returnlow}, the interval
   $\left(\frac{top+bot}{2}, top\right]$ is discarded when the next \texttt{BinSearch} is recursively called. Since
-  $F' + \epsilon_2 \leq maxFlow\left(C, bot\right)$, we have
+  $F' + \epsilon_2 \leq maxFlow\left(bot\right)$, we have
   \begin{equation*}
     \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(\frac{top+bot}{2}\right),
     maxFlow\left(bot\right)\right]
   \end{equation*}
   and the length of the available interval is divided by 2.
 
-  Similarly, if $maxFlow\left(C< \frac{top+bot}{2}\right) > F' + \epsilon_2$ (line~\ref{bs:ifhigh}) then, by the maxFlow
+  Similarly, if $maxFlow\left(\frac{top+bot}{2}\right) > F' + \epsilon_2$ (line~\ref{bs:ifhigh}) then, by the maxFlow
   monotonicity theorem, it holds that $\delta^* \in \left(\frac{top+bot}{2}, top\right]$. According to
   line~\ref{bs:returnhigh}, the interval $\left[bot, \frac{top+bot}{2}\right)$ is discarded when the next
-  \texttt{BinSearch} is recursively called. Since $F'- \epsilon_1 \geq maxFlow\left(C, top\right)$, we have
+  \texttt{BinSearch} is recursively called. Since $F'- \epsilon_1 \geq maxFlow\left(top\right)$, we have
   \begin{equation*}
-    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left(maxFlow\left(C, top\right),
+    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left(maxFlow\left(top\right),
     maxFlow\left(\frac{top+bot}{2}\right)\right]
   \end{equation*}
   and the length of the available interval is divided by 2.
