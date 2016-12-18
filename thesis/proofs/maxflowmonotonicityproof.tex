@@ -8,13 +8,13 @@
   \begin{equation*}
     \forall i \in [n], x'_{1, i} \leq x_i \wedge x'_{2, i} \leq x_i \enspace.
   \end{equation*}
-  Define $MinCut\left(C, \delta\right)$ as the minimum cut set of the $MaxFlow\left(C, \delta\right)$ configuration. Let
+  Define $MinCut\left(\delta\right)$ as the minimum cut set of the $MaxFlow\left(\delta\right)$ configuration. Let
   \begin{equation*}
-    S_j = \{i \in [n] : v_i \in N^{+}\left(A\right) \cap MinCut\left(C, \delta_j\right)\}, j \in \{1, 2\} \enspace.
+    S_j = \{i \in [n] : v_i \in N^{+}\left(A\right) \cap MinCut\left(\delta_j\right)\}, j \in \{1, 2\} \enspace.
   \end{equation*}
   Suppose that $S_j = \emptyset$. Then
   \begin{equation*}
-    MinCut\left(C, \delta_j\right) = MinCut\left(C\right) \Rightarrow maxFlow\left(C, \delta_j\right) = F, j \in \{1, 2\}
+    MinCut\left(\delta_j\right) = MinCut\left(C\right) \Rightarrow maxFlow\left(\delta_j\right) = F, j \in \{1, 2\}
     \enspace,
   \end{equation*}
   which is a contradiction. Thus $S_j \neq \emptyset$.
@@ -22,12 +22,12 @@
   \begin{equation*}
     \forall i \in [n] : c'_{2, i} > 0, c'_{2, i} < c'_{1, i} \enspace.
   \end{equation*}
-  Every node in the $MinCut\left(C, \delta_j\right)$ is saturated, thus
+  Every node in the $MinCut\left(\delta_j\right)$ is saturated, thus
   \begin{equation*}
     \forall i \in S_1, x'_{j, i} = c'_{j, i}, j \in \{1, 2\} \enspace.
   \end{equation*}
   Thus $\sum\limits_{i \in S_1} x'_{2, i} < \sum\limits_{i \in S_1}x'_{1, i}$ and, since $maxFlow(\delta_1) \leq
-  maxFlow(\delta_2)$, we conclude that for $X_1, X_2$ it is $\sum\limits_{i \in [n] \setminus S_1}x'_{2, i} >
+  maxFlow(\delta_2)$, we conclude that for $X'_1, X'_2$ it is $\sum\limits_{i \in [n] \setminus S_1}x'_{2, i} >
   \sum\limits_{i \in [n] \setminus S_1}x'_{1, i}$. However, since $x_{i,j}' \leq x_i, j \in \{1,2\}$, the configuration $X''$
   such that
   \begin{align*}
@@ -37,11 +37,12 @@
   is a valid flow configuration for $C'_1$ and then
   \begin{equation*}
   \begin{gathered}
-    maxFlow\left(C'_1\right) \geq \sum\limits_{i \in S_1}x''_i + \sum\limits_{i \in [n] \setminus S_1}x''_i = \\
-    = \sum\limits_{i \in S_1}x'_{1, i} + \sum\limits_{i \in [n] \setminus S_1}x'_{2, i} > maxFlow(C, \delta_1) \enspace,
+    F'_1 \geq \sum\limits_{i \in S_1}x''_i + \sum\limits_{i \in [n] \setminus S_1}x''_i = \sum\limits_{i \in S_1}x'_{1, i} +
+    \sum\limits_{i \in [n] \setminus S_1}x'_{2, i} > maxFlow\left(\delta_1\right)
+    \enspace,
   \end{gathered}
   \end{equation*}
-  which is a contradiction because $maxFlow\left(C'_1\right) = maxFlow\left(C, \delta_1\right)$ by the hypothesis. Thus
-  $maxFlow\left(C, \delta_1\right) > maxFlow\left(C, \delta_2\right)$ and, since $\delta_1, \delta_2$ were chosen
-  arbitrarily with the restriction $\delta_1 < \delta_2$, we deduce that the proposition holds.
+  which is a contradiction because $F'_1 = maxFlow\left(\delta_1\right)$ by the hypothesis. Thus
+  $maxFlow\left(\delta_1\right) > maxFlow\left(\delta_2\right)$ and, since $\delta_1, \delta_2$ were chosen arbitrarily with
+  the restriction $\delta_1 < \delta_2$, we deduce that the proposition holds.
 \end{proof}
