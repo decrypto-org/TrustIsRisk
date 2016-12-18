@@ -86,10 +86,9 @@
   on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
   complete in a finite number of steps.
   \import{thesis/algorithms/}{dinfbinsearchcode.tex}
-  Let $C$ capacity configuration and $\delta \in [0, \max\limits_{1 \leq i \leq n}{\{c_i\}}]$. Furthermore, let $C'$ capacity
-  configuration such that $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. We define
-  $maxFlow\left(C, \delta\right) = maxFlow\left(C'\right)$ and $MaxFlow\left(C, \delta\right) = MaxFlow\left(C'\right)$,
-  where $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. 
+  Let $\delta \in [0, \max\limits_{1 \leq i \leq n}{\{c_i\}}]$. Furthermore, let $C'$ such that
+  $\forall i \in [n], c'_i = \max{\left(0, c_i - \delta\right)}$. We define $maxFlow\left(\delta\right) = F'$ and
+  $MaxFlow\left(\delta\right) = X'$. 
   \import{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
   \import{thesis/proofs/}{maxflowmonotonicityproof.tex}
   Let $C$ a capacity configuration and $F = maxFlow\left(C\right)$. From the previous lemma we deduce that, given a $V, 0 < V
