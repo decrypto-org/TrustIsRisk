@@ -4,7 +4,7 @@
 Input : old capacities (*@$c_i$@*), value V, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)
 Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
 dinfmin((*@$c_i$@*), V, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) :
-  n = length((*@$c_i$@*))
+  n = length((*@$c_i$@*)) (*@\label{dinfmin:setlength}@*)
   if ((*@$\epsilon_1$@*) < 0 or (*@$\epsilon_2$@*) < 0) (*@\label{dinfmin:ifepsilonsvalid}@*)
     return((*@$\bot$@*)) (*@\label{dinfmin:epsilonsinvalid}@*)
   F = maxFlow(C) (*@\label{dinfmin:finit}@*)
