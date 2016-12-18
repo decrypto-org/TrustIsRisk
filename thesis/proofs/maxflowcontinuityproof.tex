@@ -1,13 +1,11 @@
 \begin{proof}
    Let $C_0 \in \mathcal{C}$. We want to prove that
    \begin{equation*}
-      \forall \epsilon > 0, \exists \delta > 0 : 0 < ||C - C_0||_p < \delta
-      \Rightarrow |maxFlow\left(C\right) - maxFlow\left(C_0\right)| < \epsilon \enspace.
+      \forall \epsilon > 0, \exists \delta > 0 : 0 < ||C - C_0||_p < \delta \Rightarrow |F - F_0| < \epsilon \enspace.
    \end{equation*}
    We will prove it by contradiction. Suppose that
    \begin{equation*}
-      \exists \epsilon > 0 : \forall \delta > 0, 0 < ||C - C_0||_p < \delta
-      \Rightarrow |maxFlow\left(C\right) - maxFlow\left(C_0\right)| \geq \epsilon \enspace.
+      \exists \epsilon > 0 : \forall \delta > 0, 0 < ||C - C_0||_p < \delta \Rightarrow |F - F_0| \geq \epsilon \enspace.
    \end{equation*}
    Let $v_1, u_1 \in V\left(\mathcal{G}\right)$. Let $C$ such that
    \begin{equation*}
@@ -25,17 +23,17 @@
    Any valid flow for $C_0$ is also valid for $C$, thus
    \begin{equation}
    \label{maxflowcont:c0ltc}
-      maxFlow\left(C_0\right) \leq maxFlow\left(C\right) \enspace.
+      F_0 \leq F \enspace.
    \end{equation}
    Also, it is obvious by the way that $C$ was constructed that
    \begin{equation}
    \label{maxflowcont:c0gtc}
-      maxFlow\left(C\right) \leq maxFlow\left(C_0\right) + \frac{\epsilon}{2}
+      F \leq F_0 + \frac{\epsilon}{2}
    \end{equation}
-   From (\ref{maxflowcont:c0ltc}) we have $maxFlow\left(C_0\right) \leq maxFlow\left(C\right) + \frac{\epsilon}{2}$, which,
-   in combination with (\ref{maxflowcont:c0gtc}), gives 
+   From (\ref{maxflowcont:c0ltc}) we have $F_0 \leq F + \frac{\epsilon}{2}$, which, in combination with
+   (\ref{maxflowcont:c0gtc}), gives 
    \begin{equation*}
-      |maxFlow\left(C\right) - maxFlow\left(C_0\right)| \leq \frac{\epsilon}{2} < \epsilon \enspace,
+      |F - F_0| \leq \frac{\epsilon}{2} < \epsilon \enspace,
    \end{equation*}
    which, together with (\ref{maxflowcont:lhr}) contradicts our supposition. Thus $maxFlow$ is continuous on $C_0$. Since
    $C_0$ is arbitrary, the result holds for all $C_0 \in \mathcal{C}$, thus $maxFlow$ is continuous with respect to
