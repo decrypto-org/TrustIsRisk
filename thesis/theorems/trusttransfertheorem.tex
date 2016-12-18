@@ -1,12 +1,12 @@
 \begin{theorem}[Trust Transfer Theorem] \ \\
-   \label{trusttransfer}
-   Let $A$ source, $B$ sink. We create a new graph where
-   \begin{equation*}
-   \begin{gathered}
-     \forall i \in [n], c_i' \leq x_i \mbox{ and}\\
-     \sum\limits_{i=1}^{n}{c_i'} = F - V \enspace.
-   \end{gathered}
-   \end{equation*}
+  \label{trusttransfer}
+  Let $V \in \left[0, F\right]$. We create a $C'$ where
+  \begin{equation*}
+  \begin{gathered}
+    \forall i \in [n], c_i' \leq x_i \mbox{ and}\\
+    \sum\limits_{i=1}^{n}{c_i'} = F - V \enspace.
+  \end{gathered}
+  \end{equation*}
 
-   It then holds that $maxFlow_{\mathcal{G}_j}\left(A, B\right) = F' = F - V$.
+  It then holds that $F' = F - V$.
 \end{theorem}
