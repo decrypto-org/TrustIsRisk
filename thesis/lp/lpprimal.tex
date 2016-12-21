@@ -1,9 +1,13 @@
 Let $A$ source, $B$ sink. The constraints are:
 \begin{alignat*}{3}
-  \forall u \in N^{+}\left(A\right) \left(\mbox{ or } \mathcal{V}\right),&& c'_{Au} &\leq c_{Au} \\
+  \forall u \in \mathcal{V},&& c'_{Au} &\leq c_{Au} \\
   \forall v \in \mathcal{V} \setminus \{A\}, \forall w \in \mathcal{V},&&  c'_{vw} &= c_{vw} \\
   \forall v,w \in \mathcal{V},&&  f'_{vw} &\leq c'_{vw} \\
   \forall u \in \mathcal{V} \setminus \{A, B\},&&
-  \sum\limits_{v \in N^{+}\left(u\right) \left(\mbox{ or } \mathcal{V}\right)}f'_{uv} &=
-  \sum\limits_{v \in N^{-}\left(u\right) \left(\mbox{ or } \mathcal{V}\right)}f'_{vu}
+  \sum\limits_{v \in N^{+}\left(u\right) \mathcal{V}}f'_{uv} &=
+  \sum\limits_{v \in N^{-}\left(u\right) \mathcal{V}}f'_{vu} \\
+  \forall v,w \in \mathcal{V}, && c'_{vw} &\geq 0 \\
+  \forall v,w \in \mathcal{V}, && f'_{vw} &\geq 0
 \end{alignat*}
+
+
