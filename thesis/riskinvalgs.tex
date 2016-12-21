@@ -105,6 +105,12 @@
   $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$. We treat the flow problem as a linear programming problem.
   Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and vector.
   \import{thesis/lp/}{lpprimalconstraints.tex}
-  
+  Since we wish to optimize with regards to two objective functions, we approach the problem as follows: Initially, we ignore
+  the minimization and derive the dual problem with respect to the maximisation. We then substitute the two problems'
+  optimisations with an additional constraint that equates the two objective functions. Due to the Strong Duality theorem of
+  linear programming, this equality can be achieved only by the common optimal solution of the two problems. We see the
+  combination of constraints and variables, along with the newly introduced constraint and the previously ignored
+  $||\delta_i||_1$ minimisation as a new linear problem. For every $v \in \mathcal{V}$, the solution to this problem contains
+  a $c'_{Av}$. These will comprise the new configuration that player $A$ requires.
 
 \end{document}
