@@ -1,13 +1,18 @@
-Let $A$ source, $B$ sink. The constraints are:
+The constraints are:
 \begin{alignat*}{3}
   \forall u \in \mathcal{V},&& c'_{Au} &\leq c_{Au} \\
   \forall v \in \mathcal{V} \setminus \{A\}, \forall w \in \mathcal{V},&&  c'_{vw} &= c_{vw} \\
   \forall v,w \in \mathcal{V},&&  f'_{vw} &\leq c'_{vw} \\
-  \forall u \in \mathcal{V} \setminus \{A, B\},&&
-  \sum\limits_{v \in N^{+}\left(u\right) \mathcal{V}}f'_{uv} &=
-  \sum\limits_{v \in N^{-}\left(u\right) \mathcal{V}}f'_{vu} \\
+  \forall u \in \mathcal{V} \setminus \{A, B\},&& \sum\limits_{v \in \mathcal{V}}f'_{uv} &=
+  \sum\limits_{v \in \mathcal{V}}f'_{vu} \\
+  &&\sum\limits_{v \in \mathcal{V}}f'_{Av} &= F - V \\
   \forall v,w \in \mathcal{V}, && c'_{vw} &\geq 0 \\
   \forall v,w \in \mathcal{V}, && f'_{vw} &\geq 0
 \end{alignat*}
-
-
+We would like to find a solution that maximizes the flow and minimizes $||\delta_i||_\infty$ at the same time.
+\begin{equation*}
+\begin{gathered}
+  \max{\sum\limits_{v \in \mathcal{V}}f'_{Av}} \\
+  \min{\sum\limits_{v \in \mathcal{V}}\left(c_{Av} - c'_{Av}\right)}
+\end{gathered}
+\end{equation*}
