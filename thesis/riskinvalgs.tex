@@ -112,11 +112,12 @@
   \end{equation*}
   as well.
   Since we wish to optimize with regards to two objective functions, we approach the problem as follows: Initially, we ignore
-  the minimization and derive the dual problem with respect to the maximisation. We then substitute the two problems'
-  optimisations with an additional constraint that equates the two objective functions. Due to the Strong Duality theorem of
-  linear programming, this equality can be achieved only by the common optimal solution of the two problems. We see the
-  combination of constraints and variables, along with the newly introduced constraint and the previously ignored
-  $||\delta_i||_1$ minimisation as a new linear problem. For every $v \in \mathcal{V}$, the solution to this problem contains
-  a $c'_{Av}$. These will comprise the new configuration that player $A$ requires.
+  the minimization and derive the dual of the previous problem with respect to the maximisation. We then substitute the two
+  problems' optimisations with an additional constraint that equates the two objective functions. Due to the Strong Duality
+  theorem of linear programming [citation needed], this equality can be achieved only by the common optimal solution of the
+  two problems. Next we treat the combination of constraints and variables of the primal and the dual problem, along with the
+  newly introduced constraint and the previously ignored $||\delta_i||_1$ minimisation as a new linear problem. For every
+  $j \in \left[n\right]$, the solution to this problem contains a $c'_{1j}$. These capacities will comprise the new
+  configuration that player $A$ requires.
 
 \end{document}
