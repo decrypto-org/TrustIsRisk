@@ -105,6 +105,12 @@
   $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$. We treat the flow problem as a linear programming problem.
   Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and vector.
   \import{thesis/lp/}{lpprimal.tex}
+  We would like to find a solution that, except for maximizing the flow, also minimizes $||\delta_i||_\infty$ at the same time.
+  More precisely, we would like to optimize
+  \begin{equation*}
+    \min{\sum\limits_{v \in \mathcal{V}}\left(c_{Av} - c'_{Av}\right)}
+  \end{equation*}
+  as well.
   Since we wish to optimize with regards to two objective functions, we approach the problem as follows: Initially, we ignore
   the minimization and derive the dual problem with respect to the maximisation. We then substitute the two problems'
   optimisations with an additional constraint that equates the two objective functions. Due to the Strong Duality theorem of
