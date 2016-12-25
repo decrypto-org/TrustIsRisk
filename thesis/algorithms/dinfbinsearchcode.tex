@@ -11,7 +11,7 @@ BinSearch(bot, top, F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) :
       (*@$c'_i$@*) = max(0, (*@$c_i$@*) - (*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*)) (*@\label{bs:setcap}@*)
     if (maxFlow(C') < F' - (*@$\epsilon_1$@*)) (*@\label{bs:iflow}@*)
       return(BinSearch(bot, (*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*), F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*))) (*@\label{bs:returnlow}@*)
-    else if (maxFlow(C') < F' + (*@$\epsilon_2$@*)) (*@\label{bs:ifhigh}@*)
+    else if (maxFlow(C') > F' + (*@$\epsilon_2$@*)) (*@\label{bs:ifhigh}@*)
       return(BinSearch((*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*), top, F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*))) (*@\label{bs:returnhigh}@*)
     else
       return((*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*)) (*@\label{bs:returnmid}@*)
