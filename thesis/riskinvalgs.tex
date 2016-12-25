@@ -122,4 +122,15 @@
 
   We will now describe the dual problem in detail.
   \import{thesis/lp/}{lpdual.tex}
+  Everything is now in place to define the linear problem whom the solution $C'$ yields $maxFlow\left(C'\right) = F - V$ and
+  minimizes $||\delta_i||_\infty$. The constraints are (\ref{lp:primal:constraints}) and (\ref{lp:dual:constraints})
+  supplemented with a constraint that equates the two problems' optimality functions:
+  \begin{equation*}
+    \sum\limits_{j \in \left[n\right]}f'_{1j} = \sum\limits_{j \in \left[n\right]}c_{1j}y_{c1j} +
+    \sum\limits_{i \in \left[n\right]}\sum\limits_{j \in \left[n\right]}c_{ij}y_{fcij} + \left(F - V\right)y_F \enspace.
+  \end{equation*}
+  The desired optimisation is
+  \begin{equation*}
+    \min{\sum\limits_{j \in \left[n\right]}\left(c_{1j} - c'_{1j}\right)} \enspace.
+  \end{equation*}
 \end{document}
