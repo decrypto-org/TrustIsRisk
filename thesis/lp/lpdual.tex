@@ -5,62 +5,49 @@ In matrix form, the dual problem can be seen as:
   \min{B^\intercal Y}
 \end{gathered}
 \end{equation*}
-Where:
+Where $A^\intercal, B^\intercal$ and $C^\intercal$ are known and
 \begin{align*}
-  X = &\underbrace{\left[c'_{11} \dots c'_{1j} \dots c'_{1n} \right.}_{n} \\
+  Y = &[\underbrace{y_{c11} \dots y_{c1j} \dots y_{c1n}}_{n} \\
     &\begin{rcases}
-      \underbrace{f'_{11} \dots f'_{1j} \dots f'_{1n}}_{n} \\
+      \underbrace{y_{fc11} \dots y_{fc1j} \dots y_{fc1n}}_{n} \\
       \vdots \\
-      f'_{i1} \dots f'_{ij} \dots f'_{in} \\
+      y_{fci1} \dots y_{fcij} \dots y_{fcin} \\
       \vdots \\
-      \left. f'_{n1} \dots f'_{nj} \dots f'_{nn} \right]^T
-    \end{rcases} n
-\end{align*}
-\begin{equation*}
-  X : \left(n^2 + n\right) \times 1
-\end{equation*}
-
-\begin{align*}
-  B = &[\underbrace{c_{11} \dots c_{1j} \dots c_{1n}}_{n} \\
-    &\begin{rcases}
-      \underbrace{0 \dots 0}_{n} \\
-      \underbrace{c_{21} \dots c_{2j} \dots c_{2n}}_{n} \\
-      \vdots \\
-      c_{i1} \dots c_{ij} \dots c_{in} \\
-      \vdots \\
-      c_{n1} \dots c_{nj} \dots c_{nn}
+      y_{fcn1} \dots y_{fcnj} \dots y_{fcnn}
     \end{rcases} n \\
-    &\underbrace{0 \dots 0}_{n-2} \\
-    &\left. F - V \right]^T
+    &\underbrace{y_{f2} \dots y_{fi} \dots y_{f\left(n-1\right)}}_{n-2} y_F ]^\intercal
 \end{align*}
 \begin{equation*}
-  B : \left(n^2 + 2n - 1\right) \times 1
+  Y : \left(n^2 + 2n - 1\right) \times 1
 \end{equation*}
 
-\begin{equation*}
-  C = [\underbrace{0 \dots 0}_{n}
-      \underbrace{1 \dots 1}_{n}
-      \underbrace{0 \dots 0}_{n\left(n - 1\right)}]
-\end{equation*}
-\begin{equation*}
-  C : 1 \times \left(n^2 + n\right)
-\end{equation*}
-
-$A$ is implied by the following constraints.
-\begin{equation*}
-  A : \left(n^2 + 2n - 1\right) \times \left(n^2 + n\right)
-\end{equation*}
-Let $n = |\mathcal{V}|$, $A$ represented by 1 and $B$ by $n$. The constraints are:
+The constraints of the dual problem are:
 \begin{alignat*}{4}
-  \forall j \in \left[n\right], && c'_{1j} &\leq c_{1j} &&\mbox{ ($n$ constraints)} \\
-  \forall j \in \left[n\right], &\:& f'_{1j} - c'_{1j} &\leq 0 &&\mbox{ ($n$ constraints)} \\
-  \forall i \in \left[n\right] \setminus \left\{1\right\}, \forall j \in \left[n\right], && f_{ij} &\leq c_{ij}
-    &&\mbox{ ($n^2 - n$ constraints)} \\
-  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && \sum\limits_{j \in \left[n\right]}f'_{ij} &=
-    \sum\limits_{j \in \left[n\right]}f'_{ji} &&\mbox{ ($n-2$ constraints)} \\
-  && \sum\limits_{j \in \left[n\right]}f'_{1j} &= F - V &&\mbox{ (1 constraint)}
+  \forall j \in \left[n\right], && y_{c1j} - y_{fc1i} &\geq 0 &&\mbox{ ($n$ constraints)} \\
+  && y_{fc11} + y_F &\geq 1 &&\mbox{ (1 constraint)} \\
+  \forall j \in \left[n\right] \setminus \left\{1, n\right\}, &\:& y_{fc1j} - y_{fj} + y_F &\geq 1 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  && y_{fc1n} + y_F &\geq 1 &&\mbox{ (1 constraint)} \\       
+  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fci1} + y_{fi} &\geq 0 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  \forall i, j \in \left[n\right] \setminus \left\{1, n\right\}, &\:& y_{fcij} + y_{fi} - y_{fj} &\geq 0 &&
+    \mbox{ ($n^2 - 4n + 4$ constraints)} \\
+  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fcin} + y_{fi} &\geq 0 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  && y_{fcn1} &\geq 0 &&\mbox{ (1 constraint)} \\
+  \forall j \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fcnj} - y_{fj} &\geq 0 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  && y_{fcnn} &\geq 0 &&\mbox{ (1 constraint)} \\
 \end{alignat*}
-The constraints are $n^2 + 2n - 1$ in total. The desired optimization is
+The constraints are $n^2 + n$ in total. The special constraints are:
+\begin{alignat*}{4}
+  \forall j \in \left[n\right], && y_{c1j} &\geq 0 \\
+  \forall i, j \in \left[n\right], &\:& y_{fcij} &\geq 0 \\
+  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fi} &\in \mathbb{R} \\
+  && y_F &\in \mathbb{R}
+\end{alignat*}
+The desired optimization is
 \begin{equation*}
-  \max{\sum\limits_{j \in \left[n\right]}f'_{1j}} \enspace.
+  \min{\left\{\sum\limits_{j \in \left[n\right]}c_{1j}y_{c1j} + \sum\limits_{i \in \left[n\right]}\sum\limits_{j \in
+       \left[n\right]}c_{ij}y_{fcij} + \left(F - V\right)y_F\right\}} \enspace.
 \end{equation*}
