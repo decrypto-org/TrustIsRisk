@@ -23,6 +23,7 @@ Where $A^\intercal, B^\intercal$ and $C^\intercal$ are known and
 
 The constraints of the dual problem are:
 \begin{alignat*}{4}
+\label{lp:dual:constraints}
   \forall j \in \left[n\right], && y_{c1j} - y_{fc1i} &\geq 0 &&\mbox{ ($n$ constraints)} \\
   && y_{fc11} + y_F &\geq 1 &&\mbox{ (1 constraint)} \\
   \forall j \in \left[n\right] \setminus \left\{1, n\right\}, &\:& y_{fc1j} - y_{fj} + y_F &\geq 1 &&
