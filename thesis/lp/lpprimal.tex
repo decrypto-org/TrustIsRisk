@@ -60,7 +60,12 @@ Let $n = |\mathcal{V}|$, $A$ represented by 1 and $B$ by $n$. The constraints ar
     \sum\limits_{j \in \left[n\right]}f'_{ji} &&\mbox{ ($n-2$ constraints)} \\
   && \sum\limits_{j \in \left[n\right]}f'_{1j} &= F - V &&\mbox{ (1 constraint)}
 \end{alignat*}
-The constraints are $n^2 + 2n - 1$ in total. The desired optimization is
+The constraints are $n^2 + 2n - 1$ in total. The special constraints are:
+\begin{alignat*}{4}
+  \forall j \in \left[n\right], &\:& c'_{1j} &\geq 0 \\
+  \forall i, j \in \left[n\right], &\:& f'_{ij} &\geq 0
+\end{alignat*}
+The desired optimization is
 \begin{equation*}
   \max{\sum\limits_{j \in \left[n\right]}f'_{1j}} \enspace.
 \end{equation*}
