@@ -22,8 +22,9 @@ Where $A^\intercal, B^\intercal$ and $C^\intercal$ are known and
 \end{equation*}
 
 The constraints of the dual problem are:
-\begin{alignat*}{4}
+\begin{equation}
 \label{lp:dual:constraints}
+\begin{alignedat}{4}
   \forall j \in \left[n\right], && y_{c1j} - y_{fc1i} &\geq 0 &&\mbox{ ($n$ constraints)} \\
   && y_{fc11} + y_F &\geq 1 &&\mbox{ (1 constraint)} \\
   \forall j \in \left[n\right] \setminus \left\{1, n\right\}, &\:& y_{fc1j} - y_{fj} + y_F &\geq 1 &&
@@ -39,7 +40,8 @@ The constraints of the dual problem are:
   \forall j \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fcnj} - y_{fj} &\geq 0 &&
     \mbox{ ($n - 2$ constraints)} \\
   && y_{fcnn} &\geq 0 &&\mbox{ (1 constraint)} \\
-\end{alignat*}
+\end{alignedat}
+\end{equation}
 The constraints are $n^2 + n$ in total. The special constraints are:
 \begin{alignat*}{4}
   \forall j \in \left[n\right], && y_{c1j} &\geq 0 \\
