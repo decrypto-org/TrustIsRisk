@@ -29,7 +29,7 @@
   line~\ref{bs:returnhigh}, the interval $\left[bot, \frac{top+bot}{2}\right)$ is discarded when the next
   \texttt{BinSearch} is recursively called. Since $F'- \epsilon_1 \geq maxFlow\left(top\right)$, we have
   \begin{equation*}
-    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left(maxFlow\left(top\right),
+    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right),
     maxFlow\left(\frac{top+bot}{2}\right)\right]
   \end{equation*}
   and the length of the available interval is divided by 2.
