@@ -1,0 +1,9 @@
+digraph G {
+  graph [bgcolor=transparent]
+  rankdir=LR
+  Alice -> Bob [label="5"]
+  Bob -> Charlie [label="10"]
+  Alice [label="Alice"]
+  Bob [label="Bob"]
+  Charlie [label="Charlie"]
+}
