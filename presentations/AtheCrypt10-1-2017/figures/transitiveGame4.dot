@@ -1,6 +1,9 @@
 digraph G {
   graph [bgcolor=transparent]
   rankdir=LR;
+  B [xlabel="Sad"]
+  C [xlabel="Happy"]
+  D [xlabel="Sad"]
   C [penwidth=4]
   A -> C [label="4"]
   A -> D [style=invisible]
