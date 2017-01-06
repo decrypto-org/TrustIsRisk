@@ -1,14 +1,10 @@
 digraph G {
   graph [bgcolor=transparent]
   rankdir=LR;
-  A -> C [label="6"]
-  A -> D [label="3"]
-  B -> C [label="7"]
-  C -> E [label="3"]
-  D -> E [label="4"]
-  A [label="A"]
-  B [label="B"]
-  C [label="C"]
-  D [label="D"]
-  E [label="E"]
+  C [penwidth=4]
+  A -> C [label="4"]
+  A -> D [style=invisible]
+  B -> C [label="6"]
+  C -> E [style=invisible]
+  D -> E [style=invisible]
 }
