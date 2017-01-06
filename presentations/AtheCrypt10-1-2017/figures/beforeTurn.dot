@@ -2,7 +2,6 @@ digraph G  {
   graph [bgcolor=transparent]
   rankdir=LR;
   A -> D [label="6"];
-  D [penwidth="4"];
   A -> C [label="5"];
   C -> B [label="3"];
   C -> E [label="10"];
