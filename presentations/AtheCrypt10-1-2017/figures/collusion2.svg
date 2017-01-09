@@ -27,12 +27,6 @@
 <g id="edge2" class="edge">
 <title>Corrupted&#45;&gt;Alice</title>
 </g>
-<!-- Sybil -->
-<g id="node3" class="node">
-<title>Sybil</title>
-<ellipse fill="none" stroke="#000000" cx="145.8403" cy="-34" rx="30.5947" ry="18"/>
-<text text-anchor="middle" x="145.8403" y="-30.3" font-family="Times,serif" font-size="14.00" fill="#000000">Sybil</text>
-</g>
 <!-- Corrupted&#45;&gt;Sybil -->
 <g id="edge3" class="edge">
 <title>Corrupted&#45;&gt;Sybil</title>
