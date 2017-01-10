@@ -1,0 +1,11 @@
+digraph G {
+  graph [bgcolor=transparent]
+  rankdir=LR
+  I1 [style=invisible]
+  I1 -> tx [label="10"]
+  I1 -> tx [labelloc="b",label="Bob",style=invisible]
+  I2 [style=invisible]
+  tx -> I2 [label="10"]
+  tx -> I2 [labelloc="b",label="1/\{Bob, Charlie\}",style=invisible]
+  
+}
