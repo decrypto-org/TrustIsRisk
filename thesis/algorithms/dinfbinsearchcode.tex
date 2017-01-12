@@ -1,18 +1,20 @@
 \Suppressnumber
 \begin{lstlisting}[label=binsearch, style=numbers]
 Binary Search Function for (*@$||\delta_i||_\infty$@*) minimizer
-Input : bot, top, F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)
+Input : bot, top, F', n, source A, drain B, capacities C,
+           (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)
 Output : (*@$\delta^*$ \Reactivatenumber@*)
 BinSearch(bot, top, F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) :
   if (bot == top) (*@\label{bs:ifboteqtop}@*)
     return(bot) (*@\label{bs:returnbot}@*)
   else
+    mid = (*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*)
     for (i = 1 to n) (*@\label{bs:forsetcap}@*)
-      (*@$c'_i$@*) = max(0, (*@$c_i$@*) - (*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*)) (*@\label{bs:setcap}@*)
-    if (maxFlow(C') < F' - (*@$\epsilon_1$@*)) (*@\label{bs:iflow}@*)
-      return(BinSearch(bot, (*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*), F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*))) (*@\label{bs:returnlow}@*)
-    else if (maxFlow(C') > F' + (*@$\epsilon_2$@*)) (*@\label{bs:ifhigh}@*)
-      return(BinSearch((*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*), top, F', n, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*))) (*@\label{bs:returnhigh}@*)
+      (*@$c'_i$@*) = max(0, (*@$c_i$@*) - mid) (*@\label{bs:setcap}@*)
+    if (maxFlow(A, B, C') < F' - (*@$\epsilon_1$@*)) (*@\label{bs:iflow}@*)
+      return(BinSearch(bot, mid, F', n, A, B, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*))) (*@\label{bs:returnlow}@*)
+    else if (maxFlow(A, B, C') > F' + (*@$\epsilon_2$@*)) (*@\label{bs:ifhigh}@*)
+      return(BinSearch(mid, top, F', n, A, B, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*))) (*@\label{bs:returnhigh}@*)
     else
-      return((*@$\frac{\mbox{top + bot}}{\mbox{2}}$@*)) (*@\label{bs:returnmid}@*)
+      return(mid) (*@\label{bs:returnmid}@*)
 \end{lstlisting}
