@@ -4,10 +4,14 @@
     \exists \delta_1, \delta_2 : \delta_1 < \delta_2 \wedge maxFlow\left(\delta_1\right) \leq maxFlow\left(\delta_2\right)
     < F \enspace.
   \end{equation*}
-  Without loss of generality (?) we suppose that
+  We choose $X'_1, X'_2$ such that
   \begin{equation*}
     \forall i \in [n], x'_{1, i} \leq x_i \wedge x'_{2, i} \leq x_i \enspace.
   \end{equation*}
+  This is always possible because we can derive the maximum flows $X'_1$ and $X'_2$ starting with $X$ and reducing the flow
+  along paths beginning from edges with capacities $c'_{1,i} < x_i$ and $c'_{2,i} < x_i$ respectively, until the flows become
+  valid.
+
   Define $MinCut\left(\delta\right)$ as the minimum cut set of the $MaxFlow\left(\delta\right)$ configuration. Let
   \begin{equation*}
     S_j = \{i \in [n] : v_i \in N^{+}\left(A\right) \cap MinCut\left(\delta_j\right)\}, j \in \{1, 2\} \enspace.
