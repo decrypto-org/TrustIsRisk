@@ -98,8 +98,8 @@
     ||\delta_i||_\infty = \max\limits_{1 \leq i \leq n}{\delta_i} = \max\limits_{1 \leq i \leq n}{\left(c_i - c'_i\right)} =
     \max\limits_{1 \leq i \leq n}{\left(c_i - \max{\left(0, c_i - \delta\right)}\right)} = \delta \enspace.
   \end{equation*}
-  We will now prove that \texttt{BinSearch} returns the desired $\delta^*$ when we provide it with an interval that contains
-  $\delta^*$ as input.
+  We will now prove that \texttt{BinSearch} returns the desired $\delta^*$ when we provide it with an appropriate interval
+  as input.
   \import{thesis/proofs/}{dinfbinsearchcorrectness.tex}
   \import{thesis/proofs/}{dinfbinsearchcomplexity.tex}
   \import{thesis/proofs/}{dinfmincorrectness.tex}
