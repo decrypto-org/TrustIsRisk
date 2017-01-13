@@ -16,12 +16,16 @@
   \begin{equation*}
     S_j = \{i \in [n] : v_i \in N^{+}\left(A\right) \cap MinCut\left(\delta_j\right)\}, j \in \{1, 2\} \enspace.
   \end{equation*}
-  Suppose that $S_j = \emptyset$. Then
-  \begin{equation*}
+  It holds that $S_j \neq \emptyset$. Suppose that $S_j = \emptyset$. Since $F > F'_j$, there exists a path from $A$ to $B$
+  on $G'_j$ with positive flow not used, thus $X'_j$ is not the maximum flow, which is a contradiction. Thus
+  $S_j \neq \emptyset, j \in \{1, 2\} \enspace.$
+
+  (Then \begin{equation*}
     MinCut\left(\delta_j\right) = MinCut\left(C\right) \Rightarrow maxFlow\left(\delta_j\right) = F, j \in \{1, 2\}
     \enspace,
   \end{equation*}
-  which is a contradiction. Thus $S_j \neq \emptyset$.
+  which is a contradiction. Thus $S_j \neq \emptyset$.)
+
   Moreover, it holds that $S_1 \subseteq S_2$, since $\forall i \in [n], c'_{2, i} \leq c'_{1, i}$. More precisely, it is
   \begin{equation*}
     \forall i \in [n] : c'_{2, i} > 0, c'_{2, i} < c'_{1, i} \enspace.
