@@ -8,9 +8,10 @@
     maxFlow\left(0\right) &= F \mbox{ and} \\
     maxFlow\left(\max\limits_{i \in [n]}\{c_i\}\right) &= 0 \enspace,
   \end{align*}
-  thus $\delta^* \in \max\limits_{i \in [n]}\{c_i\}$. According to the proof of correctness for \texttt{BinSearch}, we know
-  that $maxFlow\left(\delta^*\right) \in \left[F - V - \epsilon_1, F - V + \epsilon_2\right]$, given that
-  $\epsilon_1, \epsilon_2$ are chosen so that $F - V - \epsilon_1 \geq 0, F - V + \epsilon_2 \leq F$, so as to satisfy
-  the condition $\left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right),
-  maxFlow\left(bot\right)\right]$.
+  thus $\delta^* \in \left(0, \max\limits_{i \in [n]}\{c_i\}\right)$. From the proof of correctness for \texttt{BinSearch},
+  we know that $maxFlow\left(\delta^*\right) \in \left[F - V - \epsilon_1, F - V + \epsilon_2\right]$, given that
+  $\epsilon_1, \epsilon_2$ are chosen so that $F - V - \epsilon_1 \geq 0, F - V + \epsilon_2 \leq F$, so as to satisfy the
+  condition $\left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right),
+  maxFlow\left(bot\right)\right]$. The last condition is always met due to lines~\ref{dinfmin:ifepsilonsvalid}
+  -~\ref{dinfmin:epsilonsinvalid}.
 \end{proof}
