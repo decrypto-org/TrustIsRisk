@@ -93,9 +93,13 @@
   \import{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
   \import{thesis/proofs/}{maxflowmonotonicityproof.tex}
   From the previous lemma we deduce that, given a $V \in \left(0, F\right)$, if we determine a $\delta$ such that
-  $maxFlow\left(\delta\right) = F - V$, this $\delta$ is unique. Let $C'$ such that
-  $\forall i \in [n], c'_i = max{\left(0, c_i - \delta\right)}$. We will see that
-  $\delta = \min{||\delta_i||_\infty} : F' = F - V$.
+  $maxFlow\left(\delta\right) = F - V$, this $\delta$ is unique. Furthermore, it is
+  \begin{equation*}
+    ||\delta_i||_\infty = \max\limits_{1 \leq i \leq n}{\delta_i} = \max\limits_{1 \leq i \leq n}{\left(c_i - c'_i\right)} =
+    \max\limits_{1 \leq i \leq n}{\left(c_i - \max{\left(0, c_i - \delta\right)}\right)} = \delta \enspace.
+  \end{equation*}
+  We will now prove that \texttt{BinSearch} returns the desired $\delta*$ when we provide it an interval that contains
+  $\delta*$ as input.
   \import{thesis/proofs/}{dinfbinsearchcorrectness.tex}
   \import{thesis/proofs/}{dinfbinsearchcomplexity.tex}
   \import{thesis/proofs/}{dinfmincorrectness.tex}
