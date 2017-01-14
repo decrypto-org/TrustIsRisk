@@ -1,0 +1,30 @@
+\documentclass[11pt]{llncs}
+\usepackage{preamble}
+
+\begin{document}
+  Trust is a wide topic that exhibits very interesting properties and can be defined in several, often competing manners.
+  Here we will present briefly several alternative approaches that have been followed in pursuit of a satisfactory model of
+  trust and another tightly related and equally elusive concept, reputation.
+
+  Mui and Halberstadt \cite{mui} have proposed an elaborate model based on the triptych "trust, reciprocity, reputation",
+  where reciprocal actions of an agent $A$ generate a corresponding reputation, which in turn influences other agents' trust
+  to $A$. Trusting $A$ inspires other agents to reciprocate, thus completing the cycle. In this model, actions are limited to
+  $cooperate$ and $defect$, reciprocity and reputation between two agents are real numbers in $\left[0, 1\right]$, the latter
+  also depending on the context of interest. Lastly trust is derived as a mean value based on the agent's reputation and the
+  known history. The variables are connected using the Beta distribution from statistics.
+
+  This model has little resemblance with Trust Is Risk not only in the formalities, but mainly in the approach taken. Trust
+  Is Risk proposes a new financial game, whereas \cite{mui} attempts to model and predict all kinds of conceivable trust.
+  Trust Is Risk does not use statistics nor scales trust to $\left[0, 1\right]$ and thus can provide strong results, such as
+  the Risk Invariance theorem.
+
+  FIRE \cite{fire} constitutes another attempt to tackle trust, this time in a practical setting. FIRE aims to create a
+  decentralized rating system for services provided. It essentially calculates trust as "the sum of all the available ratings
+  weighted by the rating relevance and normalized to the range of $\left[-1, 1\right]$." This setup needs two very disputable
+  assumptions: Firstly that "[a]gents are willing to share their experiences with others" and secondly that "[a]gents are
+  honest in exchanging information with one another." Trust Is Risk does not make these assumptions, but can function even
+  when each player follows any strategy she desires.
+
+  
+ % \import{thesis/}{riskinvalgsintro.tex}
+\end{document}
