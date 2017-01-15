@@ -25,6 +25,35 @@
   honest in exchanging information with one another." Trust Is Risk does not make these assumptions, but can function even
   when each player follows any strategy she desires.
 
-  
+  In \cite{jgs} it is stated that "willingness to take risks may be one of the few characteristics common to all trust
+  situations" and \cite{mds} cites the same passage, adding "Trust is not taking risk \textit{per se}, but rather it is a
+  \textit{willingness} to take risk." These observations corroborate our choice to define trust as risk.
+
+  \cite{mds} proposes a concrete model for trust that incorporates several notions. For example, trust from agent $A$ to
+  agent $B$ is a factor of $A$'s Propensity and $B$'s Ability, Benevolence and Integrity. Once more, the target of \cite{mds}
+  is different from ours in that \cite{mds} attempts to explain the inner workings of trust, whereas we 
+
+  \cite{jib} constitutes a thorough overview of trust and reputation systems up to the time of writing. Flow models are
+  briefly discussed, however our case is not covered.
+
+  Bartercast \cite{bartercast} uses the maximum flow algorithm in an innovative way to calculate trust towards unknown
+  BitTorrent peers. MaxFlow usage there closely resembles to ours, however the abscence of a blockchain leaves room for
+  sybil attacks. Nevertheless, simulation results show that freeriders that selfishly take advantage of the network obtain a
+  progressively worse reputation, a fact that strengthens our reliance on MaxFlow as a suitable algorithm for trust
+  calculation.
+
+  Bazaar \cite{bazaar} proposes an encanhement to existing centralized marketplaces where subjective trust is calculated
+  using the MaxFlow algorithm. The bootstrapping process of the network is extremely similar to how players join the Trust Is
+  Risk network. However, their approach contains a weak point in the way new trust is calculated after each transaction.
+  Furthermore, trust between parties is commutative because non-directed graphs are used. This may be viewed as a crucial
+  restriction for Bazaar.  Nevertheless, inclusion of this system as an additional fraud detection system would probably
+  decrease fraud cases and as a result insurance fees would diminish and customer satisfaction would increase.
+
+  Beaver \cite{beaver} proposes an integrated decentralized marketplace solution that provides all the functionality of eBay
+  or other centralized marketplaces. Up to one public review per transaction is permitted and user ratings are globally
+  calculated and not subjective. On the downside, ad-hoc fees must be attached to several reputation generating actions to
+  deter fraudulent merchants from arbitrarily improving their ratings through Sybil or other attacks. Our system promises to
+  automate and integrate several comparable parts of Beaver in a more intuitive system with less hand-tuned parameters.
+
  % \import{thesis/}{riskinvalgsintro.tex}
 \end{document}
