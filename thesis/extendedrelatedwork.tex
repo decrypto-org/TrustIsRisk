@@ -1,7 +1,4 @@
-\documentclass[11pt]{llncs}
-\usepackage{preamble}
-
-\begin{document}
+\section{Related Work}
   Trust is a wide topic that exhibits very interesting properties and can be defined in several, often competing manners.
   Here we will present briefly several alternative approaches that have been followed in pursuit of a satisfactory model of
   trust and another tightly related and equally elusive concept, reputation.
@@ -18,6 +15,14 @@
   Trust Is Risk does not use statistics nor scales trust to $\left[0, 1\right]$ and thus can provide strong results, such as
   the Risk Invariance theorem.
 
+  One relevant proposal is \cite{beta} which proposes a set of definitions and mathematical manipulations pertaining to
+  trust, essentially providing the core for other integrated trust and reputation systems. Once more the Beta distribution is
+  used to model the expected behavior of others, a fact that results in two major drawbacks. First of all, each agent's
+  actions are confined to exactly two options, a constraint not applicable to real-world applications. Secondly, expecting
+  people to act according to a certain distribution function is inviting them to trick and circumvent this assumption for
+  personal gain. Furthermore, Sybil attacks are not addressed. Lastly, the system proposed has a centralized structure,
+  however its core components could also function in a decentralized manner.
+
   FIRE \cite{fire} constitutes another attempt to tackle trust, this time in a practical setting. FIRE aims to create a
   decentralized rating system for services provided. It essentially calculates trust as "the sum of all the available ratings
   weighted by the rating relevance and normalized to the range of $\left[-1, 1\right]$." This setup needs two very disputable
@@ -25,16 +30,41 @@
   honest in exchanging information with one another." Trust Is Risk does not make these assumptions, but can function even
   when each player follows any strategy she desires.
 
+  \cite{sdt} design an ambitious framework that claims to cover all needs of decentralized trust models based on reputation.
+  It consists of the 4C's: Content, Communication, Computation and Counteraction. Content refers to the agents' network
+  structure (hierarchical, nested, etc.), the representation of the reputation (discrete, continuous, etc.), the context of
+  the reputation (financial, medical, etc.) and the period of validity of the reputation. Communication refers to the
+  protocol used to collect and transmit information (hierarchical or ad-hoc, etc.), to the allowed hop count of information
+  and to the actual content of the messages exchanged, possibly of many different types (informational, revocation,
+  confirmation, etc.) Computation engages with the mathematical and design details of trust derivation, such as whether a
+  simple average of recommendations is used, how to combine external information with personal experience and how the period
+  of validity influences the computation. Lastly counteraction expresses the particular model's method of feedback
+  dissemination, with two methods being proposed, namely active and passive dissemination. An XML specification is proposed
+  for all the aforementioned aspects of the desired trust and reputation system.
+
+  It is currently unclear whether our model can be expressed in the terms of \cite{sdt}. More importantly, there is little
+  insight into whether the task of expressing it in such terms will be a valuable asset for Trust Is Risk.
+
+  \cite{kmrs} applies the MaxFlow algorithm into real-world situations of informal contract enforcement and money borrowing
+  schemes. Their approach combines the algorithmic and sociological aspects of the issue in a productive way and their
+  results constitute a strong confirmation of the validity of our assumption that trust is risk. More precisely, they show
+  that money borrowing between residents in an area of Peru can be correctly predicted by deriving direct trust from the time
+  residents spend together and calculating indirect trust with the MaxFlow algorithm. Their results show that our central
+  design choice corresponds to real-world trust dynamics. The one important difference of their model with ours is that
+  the graphs used in \cite{kmrs} are directionless because of the way direct trust is derived, thus making their case a
+  special case of the Trust Is Risk graph, where all direct trust is obligatorily mutual and equal.
+
   In \cite{jgs} it is stated that "willingness to take risks may be one of the few characteristics common to all trust
   situations" and \cite{mds} cites the same passage, adding "Trust is not taking risk \textit{per se}, but rather it is a
   \textit{willingness} to take risk." These observations corroborate our choice to define trust as risk.
 
   \cite{mds} proposes a concrete model for trust that incorporates several notions. For example, trust from agent $A$ to
   agent $B$ is a factor of $A$'s Propensity and $B$'s Ability, Benevolence and Integrity. Once more, the target of \cite{mds}
-  is different from ours in that \cite{mds} attempts to explain the inner workings of trust, whereas we 
+  is different from ours in that \cite{mds} attempts to explain the inner workings of trust, whereas we define trust as risk
+  and build a financial game atop of this assumption.
 
-  \cite{jib} constitutes a thorough overview of trust and reputation systems up to the time of writing. Flow models are
-  briefly discussed, however our case is not covered.
+  \cite{jib} constitutes a thorough and highly informative overview of trust and reputation systems up to the time of
+  writing. Flow models are briefly discussed, however our case is not covered.
 
   Bartercast \cite{bartercast} uses the maximum flow algorithm in an innovative way to calculate trust towards unknown
   BitTorrent peers. MaxFlow usage there closely resembles to ours, however the abscence of a blockchain leaves room for
@@ -55,5 +85,18 @@
   deter fraudulent merchants from arbitrarily improving their ratings through Sybil or other attacks. Our system promises to
   automate and integrate several comparable parts of Beaver in a more intuitive system with less hand-tuned parameters.
 
- % \import{thesis/}{riskinvalgsintro.tex}
-\end{document}
+  A very different direction is chosen by \cite{iou}, where an economy based on personal IOUs is proposed. According to this
+  scheme, a payment from $Alice$ to $Bob$ can be completed by $Alice$ offering some of her IOUs. If $Bob$ trusts her, that is
+  a valuable enough payment for him. Otherwise they can find a chain of trust, comprised by other intermediary agents, the
+  first of which trusts $Alice$ and is trusted by the second and so on until the last one trusts the second last and is
+  trusted by $Bob$. This model of economy has some interesting implications, namely that conventional currency is simply
+  viewed as government IOUs and checks as bank IOUs. Unfortunately, this proposal was made prior to the advent of bitcoin
+  and thus had no concrete basis to be built upon, leaving room for malicious intermediary nodes to fake or disclose
+  contradictory trust amounts to different parties. Furthermore, the distributed nature of the system and its resemblance to
+  contemporary bank relations could sharply increase the time needed for a simple transaction, because active agreement of
+  many intermediate parties would be required.
+
+  \cite{dionyziz} describes and analyzes the OpenBazaar infrastructure. As Trust Is Risk can be a natural extension of
+  OpenBazaar, the aforementioned work provides valuable insight on how closely related decentralized marketplace systems
+  function. More precisely, its game theoretic analysis constitutes a basis for the future corresponding analysis of our
+  work and the elaborate attacks described and mitigated solve a range of problems that could arise in Trust Is Risk.
