@@ -36,6 +36,15 @@
   Sybil attacks. Trust Is Risk does not make these assumptions, but can function even when each player follows any strategy
   she desires.
 
+  \cite{wot} is a formal attempt to quantify trust over identity. In this work, trust from $Alice$ to $Bob$ is represented by
+  a percentage that expresses the level of confidence $Alice$ has that $Bob$ will only sign public PGP keys whose
+  corresponding private keys are rightly and uniquely owned by the person stated in the public key. This is a special use
+  case for trust, much like financial trust which is a largely unrelated kind of trust. This type of trust has some
+  transitive properties that are derived from statistical models and do not have a connection with the concept of flow. One
+  drawback of such a design is that there is no single indirect trust measure and as a consequence there are no strong
+  results such as the Trust Flow theorem, but each user must experiment and choose one or more trust metrics of her liking
+  based on subjective factors.
+
   \cite{sdt} design an ambitious framework that claims to cover all needs of decentralized trust models based on reputation.
   It consists of the 4C's: Content, Communication, Computation and Counteraction. Content refers to the agents' network
   structure (hierarchical, nested, etc.), the representation of the reputation (discrete, continuous, etc.), the context of
