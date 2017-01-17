@@ -45,6 +45,12 @@
   results such as the Trust Flow theorem, but each user must experiment and choose one or more trust metrics of her liking
   based on subjective factors.
 
+  A practical solution for determining chains of trust over PGP is \cite{pathfinder}. This project has a simple web interface
+  that takes a start and an end public key and returns trust paths from the first to the second consisting of a chain of PGP
+  signatures of public keys freely available on public keyservers. It is up to the user to decide how much trust a particular
+  chain inspires. This project shows how a previously end-to-end construction with no transitive properties such as PGP can
+  be used as basis for a network with transitive properties.
+
   \cite{sdt} design an ambitious framework that claims to cover all needs of decentralized trust models based on reputation.
   It consists of the 4C's: Content, Communication, Computation and Counteraction. Content refers to the agents' network
   structure (hierarchical, nested, etc.), the representation of the reputation (discrete, continuous, etc.), the context of
