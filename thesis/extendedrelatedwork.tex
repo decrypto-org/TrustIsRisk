@@ -32,8 +32,9 @@
   decentralized rating system for services provided. It essentially calculates trust as "the sum of all the available ratings
   weighted by the rating relevance and normalized to the range of $\left[-1, 1\right]$." This setup needs two very disputable
   assumptions: Firstly that "[a]gents are willing to share their experiences with others" and secondly that "[a]gents are
-  honest in exchanging information with one another." Trust Is Risk does not make these assumptions, but can function even
-  when each player follows any strategy she desires.
+  honest in exchanging information with one another." One side effect of the above assumptions is that FIRE is susceptible to
+  Sybil attacks. Trust Is Risk does not make these assumptions, but can function even when each player follows any strategy
+  she desires.
 
   \cite{sdt} design an ambitious framework that claims to cover all needs of decentralized trust models based on reputation.
   It consists of the 4C's: Content, Communication, Computation and Counteraction. Content refers to the agents' network
@@ -88,7 +89,8 @@
   or other centralized marketplaces. Up to one public review per transaction is permitted and user ratings are globally
   calculated and not subjective. On the downside, ad-hoc fees must be attached to several reputation generating actions to
   deter fraudulent merchants from arbitrarily improving their ratings through Sybil or other attacks. Our system promises to
-  automate and integrate several comparable parts of Beaver in a more intuitive system with less hand-tuned parameters.
+  automate and integrate several comparable parts of Beaver in a more intuitive system with less hand-tuned parameters and
+  arbitrary fees that, while discouraging fraudulent action, they also reduce vendors' and customers' desire to participate.
 
   A very different direction is chosen by \cite{iou}, where an economy based on personal IOUs is proposed. According to this
   scheme, a payment from $Alice$ to $Bob$ can be completed by $Alice$ offering some of her IOUs. If $Bob$ trusts her, that is
