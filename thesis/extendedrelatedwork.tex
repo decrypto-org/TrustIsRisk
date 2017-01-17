@@ -3,6 +3,11 @@
   Here we will present briefly several alternative approaches that have been followed in pursuit of a satisfactory model of
   trust and another tightly related and equally elusive concept, reputation.
 
+  The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust is
+  rather binary and transitivity is not possible is explored in PGP \cite{pgp}. A transitive web-of-trust for fighting spam
+  is explored in Freenet \cite{freenet}. Other systems require central trusted third parties, such as PKI \cite{pki} and
+  Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership \cite{byzantine}.
+
   Mui and Halberstadt \cite{mui} have proposed an elaborate model based on the triptych "trust, reciprocity, reputation",
   where reciprocal actions of an agent $A$ generate a corresponding reputation, which in turn influences other agents' trust
   to $A$. Trusting $A$ inspires other agents to reciprocate, thus completing the cycle. In this model, actions are limited to
