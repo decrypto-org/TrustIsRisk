@@ -46,6 +46,23 @@
   required in such settings is considerably simpler and rigorous results are not as necessary for the system to function at a
   satisfactory level and to improve on similar systems without reputation.
 
+  \cite{ghkkw} delivers a protocol that claims to cover the reputation needs of MAS, or Multi Agent Systems. The setting of
+  the problem is an open environment where each agent can freely come and go, retaining her reputation in the process.
+  The context of the reputation should be decided according to the needs of each particular distributed task. The reputation
+  data itself is also distributed with the use of a DHT and agents are uniquely identifiable. The system keeps track of all
+  transactions to avoid ratings that do not correspond to a transaction. Furthermore, all transactions must be rated.
+  Platform reputation is also implemented to differentiate between end users and software platforms built for users. Each
+  agent's credentials must be signed by at least one more agent apart from the original one. A layered implementation is used
+  to abstract from the communication details and the backend complexity to the frontend interface.
+
+  Since no hard restrictions are placed on reputation form, scale and metric, the system retains a context agnostic stance
+  that puts the burden of avoiding whitewashing and other attacks on those that will implement and use \cite{ghkkw} as a
+  reputation mechanism for specific distributed tasks. Some simple attacks are discussed and specific countermeasures are
+  proposed. For example, agent cooperation is rather fruitless since each pair of agents can have only one rating and this
+  single rating does not weigh much. However, Sybil attacks are not even discussed and there are no privacy considerations:
+  all ratings are public and traceable. Staying true to the context agnostic nature of this project, no concrete definitions
+  of reputation or trust are given.
+
   \cite{wot} is a formal attempt to quantify trust over identity. In this work, trust from $Alice$ to $Bob$ is represented by
   a percentage that expresses the level of confidence $Alice$ has that $Bob$ will only sign public PGP keys whose
   corresponding private keys are rightly and uniquely owned by the person stated in the public key. This is a special use
