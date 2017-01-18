@@ -78,6 +78,16 @@
   chain inspires. This project shows how a previously end-to-end construction with no transitive properties such as PGP can
   be used as basis for a network with transitive properties.
 
+  Yet another proposal is Open Reputation \cite{openrep}. This project provides a general framework for rating generation and
+  dissemination in the era of IoT. Reputers attribute reputation to reputees and make them available through their own
+  reputation. Reputees are rated with certain reputes over predefined virtues. For example, the reputer $Alice$ can create
+  a repute of 98 over the virtue "speed" that is defined as an integer between 1 and 100 for a reputee washing machine she
+  bought. $Alice$ will publish this repute along with her own reputation.
+
+  \cite{openrep} Does not provide any kind of Sybil resilience, nor does it diverge from the often revisited theme where
+  reputation is projected on an arbitrary bounded scale. This model may serve well under the assumption of honest reputers,
+  but can be tricked if selfish motives require so.
+
   \cite{sdt} design an ambitious framework that claims to cover all needs of decentralized trust models based on reputation.
   It consists of the 4C's: Content, Communication, Computation and Counteraction. Content refers to the agents' network
   structure (hierarchical, nested, etc.), the representation of the reputation (discrete, continuous, etc.), the context of
