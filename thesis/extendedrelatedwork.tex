@@ -63,6 +63,23 @@
   all ratings are public and traceable. Staying true to the context agnostic nature of this project, no concrete definitions
   of reputation or trust are given.
 
+  The same problem is attacked in \cite{rk}, where a middleware trust management system consisting of several protocols is
+  introduced to provide a decentralized, self-organized way for reducing or even eliminating malicious and dishonest behavior
+  by peers. No user intervention is one of the design goals, another one being resilience against peers' collusions. Trust
+  from $Alice$ to $Bob$ is defined as the probability with which $Bob$ will act in $Alice$'s desired manner, as calculated by
+  $Alice$. $Bob$'s reputation is defined as the sum of all ratings he has received, one rating for each object he has
+  offered. This definition results in a unique, global reputation for each peer. $Bob$'s reputation is stored by all his
+  neighbors. For $Bob$ to be deemed trustworthy by $Alice$ as far as a certain object is concerned, $Bob$'s reputation must
+  exceed a trust threshold chosen by $Alice$ specifically for this kind of object. A protocol similar to IP is used for
+  routing object requests. A certain peer reputation is itself assigned more confidence when more peers respond with this
+  particular reputation. This policy encourages peers to remain connected and makes dishonest reputation reporting riskier.
+
+  Several simple attacks such as reputation altering are explored and mitigated with various measures. One attack that is
+  only partially avoided is the situation where $Eve$ chooses to have only colluding neighbors that report falsely high
+  reputation values for $Eve$. The confidence value proposed earlier does not mitigate this attack, since $Eve$ is in
+  principle not discouraged from creating an arbitrarily large number of fake peers, thus reinforcing her forged positive
+  reputation even more. SybilGuard \cite{sybilguard} is proposed as a possible remedy for this type of attacks.
+
   \cite{wot} is a formal attempt to quantify trust over identity. In this work, trust from $Alice$ to $Bob$ is represented by
   a percentage that expresses the level of confidence $Alice$ has that $Bob$ will only sign public PGP keys whose
   corresponding private keys are rightly and uniquely owned by the person stated in the public key. This is a special use
