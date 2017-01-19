@@ -81,7 +81,21 @@
   reputation even more. SybilGuard \cite{sybilguard} is proposed as a possible remedy for this type of attacks.
 
   Pace \cite{pace} promises to provide a trust management model that can be readily incorporated in decentralized
-  applications that use event-based software architectures.
+  applications that use event-based software architectures. The model concentrates on the internal architecture of each node
+  of the network. Trust relationships between digital, not physical, identities are considered. Internal knowledge and
+  perceptions of each node are carefully separated from externally reported information. The four layers of the internal
+  architecture are the communication layer consisting of the protocol handler, the communication manager and the signature
+  manager, the information layer consisting of the internal information and the external information component, the trust
+  layer is comprised of the key manager, the credential manager and the trust manager and finally the application layer,
+  which consists of the application trust rules component and the application's subarchitecture itself. All the components
+  are implicitly trusted, except for the communication layer, because it relays external, possibly untrusted messages. These
+  messages require an explicit trust value. Several simple attacks such as impersonation are mitigated with cryptographic and
+  other commonly used constructs. Fraudulent actions however must be discovered and highlighted at the application layer,
+  thus once more the burden of solving the more complex trust issues is handed over to each specific use case of this general
+  infrastructure. Bootstrapping new users' trust is accomplished through out-of-band means. According to \cite{pace},
+  successful prototype implementations of Decentralized Auctioning, of Common Operational Picture and of Decentralized File
+  Sharing have been developed using the proposed architecture.
+
 
   \cite{wot} is a formal attempt to quantify trust over identity. In this work, trust from $Alice$ to $Bob$ is represented by
   a percentage that expresses the level of confidence $Alice$ has that $Bob$ will only sign public PGP keys whose
