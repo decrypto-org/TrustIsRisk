@@ -96,6 +96,24 @@
   successful prototype implementations of Decentralized Auctioning, of Common Operational Picture and of Decentralized File
   Sharing have been developed using the proposed architecture.
 
+  \cite{vpc} proposes a decentralized hierarchical structure where the most trusted peer is the root of the network. Data
+  routing is decided based on the structure of the network, which in turn is connected to the trust value of each peer. A
+  global trust scheme arises from this setup. This system concentrates on supporting a decentralized network of content
+  distribution, thus no financial trust is discussed. A trust value of a peer is comprised of two numbers: $\left[TV\right]$,
+  which represents the number of feedbacks this peer has received and $\left\{TV\right\}$, which represents the trust value
+  associated to the peer. After a new feedback is given, $\left[TV\right]$ is incremented by 1 and $\left\{TV\right\}$ is
+  set to be the mean of all feedbacks, including the new one. It is pointed out that old feedbacks may have to be eliminated
+  in order to maintain a satisfactory level of weight for the new feedbacks. Each new peer is assigned a set of trust
+  managers chosen by her parent peer. The set of trust managers contains more than 1 peer to ostensibly avoid peer collusion
+  and is considered to be unknown to the new peer, or to any other peer except for the parent peer. The parent peer is
+  expected to randomly choose trust managers. Knowledge of the approximate neighbourhood of the trust managers is proposed to
+  protect the anonymity of the trust managers and in the same time avoid broadcasts when requesting trust information. The
+  details of requesting, sending, signing and updating trust for a specific peer are discussed and some experimental setups
+  are assessed with mostly encouraging results.
+
+  This architecture is not suitable for Trust Is Risk because of the hierarchical structure that provides a small set of
+  peers the ability to cause major network partitions. Furthermore, it does not provide any hard proof for Sybil resilience
+  or resistance to other kinds of attacks.
 
   \cite{wot} is a formal attempt to quantify trust over identity. In this work, trust from $Alice$ to $Bob$ is represented by
   a percentage that expresses the level of confidence $Alice$ has that $Bob$ will only sign public PGP keys whose
