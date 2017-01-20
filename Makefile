@@ -11,7 +11,7 @@ thesis.pdf: thesis/* common/*
 	export TEXINPUTS=.:./thesis//:./common//:; \
 	pdflatex -shell-escape thesis.tex; \
 	pdflatex -shell-escape thesis.tex; \
-	rm -rf thesis.aux thesis.log thesis.out
+	rm -rf thesis.aux thesis.log thesis.out thesis.toc
 
 clean:
-	rm -rf *.aux *.log *.out *.pdf
+	rm -rf *.aux *.log *.out *.toc *.pdf
