@@ -1,4 +1,4 @@
-\begin{proof}
+\begin{sepproof}{Proof of Theorem \ref{maxflowcont}: maxFlow Continuity} \ \\
    Let $C_0 \in \mathcal{C}$. We want to prove that
    \begin{equation*}
       \forall \epsilon > 0, \exists \delta > 0 : 0 < ||C - C_0||_p < \delta \Rightarrow |F - F_0| < \epsilon \enspace.
@@ -38,4 +38,4 @@
    which, together with (\ref{maxflowcont:lhr}) contradicts our supposition. Thus $maxFlow$ is continuous on $C_0$. Since
    $C_0$ is arbitrary, the result holds for all $C_0 \in \mathcal{C}$, thus $maxFlow$ is continuous with respect to
    $||\cdot||_p$ for any $p \in \mathbb{N} \cup \{\infty\}$.
-\end{proof}
+\end{sepproof}
