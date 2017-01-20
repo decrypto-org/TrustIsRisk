@@ -1,4 +1,4 @@
-\begin{proof}[Complexity of Binary Search]
+\begin{sepproof}{Complexity of algorithm \texttt{BinSearch}} \ \\
   Lines~\ref{bs:ifboteqtop} -~\ref{bs:returnbot} have complexity $O\left(1\right)$, lines~\ref{bs:forsetcap}
   -~\ref{bs:setcap} have complexity $O\left(n\right)$, lines~\ref{bs:iflow} -~\ref{bs:returnmid} have complexity
   $O\left(maxFlow\right) + O\left(BinSearch\right)$. As we saw in the proof of correctness for \texttt{BinSearch}, we need
@@ -7,4 +7,4 @@
   \begin{equation*}
     O\left(\left(maxFlow + n\right)\log_2\left(\frac{top - bot}{\epsilon_1 + \epsilon_2}\right)\right) \enspace.
   \end{equation*}
-\end{proof}
+\end{sepproof}

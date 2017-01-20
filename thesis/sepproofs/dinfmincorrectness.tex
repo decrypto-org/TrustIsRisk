@@ -1,4 +1,4 @@
-\begin{proof}[Proof of correctness for dinfmin]
+\begin{sepproof}{Proof of correctness for algorithm \texttt{dinfmin}} \ \\
   Let $C' = \texttt{dinfmin(}c_i\texttt{, V, } \epsilon_1\texttt{, } \epsilon_2\texttt{)}$. We will show that
   \begin{equation*}
     F' \in [F - V - \epsilon_1, F - V + \epsilon_2] \enspace.
@@ -14,4 +14,4 @@
   condition $\left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right),
   maxFlow\left(bot\right)\right]$. The last condition is always met due to lines~\ref{dinfmin:ifepsilonsvalid}
   -~\ref{dinfmin:epsilonsinvalid}.
-\end{proof}
+\end{sepproof}

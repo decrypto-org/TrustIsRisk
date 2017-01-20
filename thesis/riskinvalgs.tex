@@ -92,12 +92,11 @@
     ||\delta_i||_\infty = \max\limits_{1 \leq i \leq n}{\delta_i} = \max\limits_{1 \leq i \leq n}{\left(c_i - c'_i\right)} =
     \max\limits_{1 \leq i \leq n}{\left(c_i - \max{\left(0, c_i - \delta\right)}\right)} = \delta \enspace.
   \end{equation*}
-  We will now prove that \texttt{BinSearch} returns the desired $\delta^*$ when we provide it with an appropriate interval
-  as input.
-  \subimport{thesis/proofs/}{dinfbinsearchcorrectness.tex}
-  \subimport{thesis/proofs/}{dinfbinsearchcomplexity.tex}
-  \subimport{thesis/proofs/}{dinfmincorrectness.tex}
-  \subimport{thesis/proofs/}{dinfmincomplexity.tex}
+  It is proven that the two algorithms work as expected, that is an invocation of \texttt{dinfmin} with valid inputs returns
+  a capacity $C'$ that yields the desired $maxFlow$ and minimizes $||\delta_i||_\infty$. The complexity of \texttt{BinSearch}
+  is $O\left(\left(maxFlow + n\right)\log_2\left(\frac{top - bot}{\epsilon_1 + \epsilon_2}\right)\right)$ and the complexity
+  of \texttt{dinfmin} is
+  $O\left(\left(maxFlow + n\right)\log_2\left(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}\right)\right)$.
 
   We will now concentrate on finding a capacity configuration $C'$ such that $F' = F - V$ and that minimizes
   $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
