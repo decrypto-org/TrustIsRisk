@@ -1,3 +1,4 @@
+\phantomsection
 \addcontentsline{lof}{section}{Collusion}
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]

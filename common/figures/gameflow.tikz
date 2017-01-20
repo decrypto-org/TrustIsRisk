@@ -1,3 +1,4 @@
+\phantomsection
 \addcontentsline{lof}{section}{Game Flow}
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]
