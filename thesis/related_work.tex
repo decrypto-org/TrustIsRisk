@@ -1,22 +1,268 @@
 \section{Related Work}
-   The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust
-   is rather binary and transitivity is not possible is explored in PGP \cite{pgp}. A transitive web-of-trust for fighting
-   spam is explored in Freenet \cite{freenet}. Other systems require central trusted
-   third parties, such as PKI \cite{pki} and Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership
-   \cite{byzantine}. While other trust systems attempt to be decentralized, they do not prove any Sybil resilience
-   properties and hence may be Sybil attackable. Such systems are FIRE \cite{fire}, CORE \cite{core} and others
-   \cite{openrep,ghkkw,rk}. Other systems that define trust in a non-financial way are
-   \cite{mui,beta,pace,vpc,sdt,wot,pathfinder}.
+  Trust is a wide topic that exhibits very interesting properties and can be defined in several, often competing manners.
+  Here we will present briefly several alternative approaches that have been followed in pursuit of a satisfactory model of
+  trust and another tightly related and equally elusive concept, reputation.
 
-   The Beaver marketplace \cite{beaver} includes a trust model that relies on
-   fees to discourage Sybil attacks. We chose to avoid fees in our system and mitigate Sybil attacks in a different manner.
-   Our motivating application for exploring trust in a decentralized setting is the OpenBazaar marketplace. Transitive
-   financial trust for OpenBazaar has previously been explored by \cite{dionyziz}. That work however does not define trust
-   as a monetary value. We are strongly inspired by \cite{kmrs}
-   which gives a sociological justification for the central design choice of identifying trust with
-   risk. We greatly appreciate the work in TrustDavis \cite{davis}, which proposes a financial trust system that exhibits
-   transitive properties and in which trust is defined as lines-of-credit, similar to our system. We were able to extend
-   their work by using the blockchain for automated proofs-of-risk, a feature not available to them at the time. Our
-   conservative strategy and the Transitive Game are very similar to the mechanism proposed by the economic paper
-   \cite{iou} which also illustrates financial trust transitivity. 
+  The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust is
+  rather binary and transitivity is not possible is explored in PGP \cite{pgp}. A transitive web-of-trust for fighting spam
+  is explored in Freenet \cite{freenet}. Other systems require central trusted third parties, such as PKI \cite{pki} and
+  Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership \cite{byzantine}.
 
+  Mui and Halberstadt \cite{mui} have proposed an elaborate model based on the triptych "trust, reciprocity, reputation",
+  where reciprocal actions of an agent $A$ generate a corresponding reputation, which in turn influences other agents' trust
+  to $A$. Trusting $A$ inspires other agents to reciprocate, thus completing the cycle. In this model, actions are limited to
+  $cooperate$ and $defect$, reciprocity and reputation between two agents are real numbers in $\left[0, 1\right]$, the latter
+  also depending on the context of interest. Lastly trust is derived as a mean value based on the agent's reputation and the
+  known history. The variables are connected using the Beta distribution from statistics.
+
+  This model has little resemblance with Trust Is Risk not only in the formalities, but mainly in the approach taken. Trust
+  Is Risk proposes a new financial game, whereas \cite{mui} attempts to model and predict all kinds of conceivable trust.
+  Trust Is Risk does not use statistics nor scales trust to $\left[0, 1\right]$ and thus can provide strong results, such as
+  the Risk Invariance theorem.
+
+  One relevant proposal is \cite{beta} which proposes a set of definitions and mathematical manipulations pertaining to
+  trust, essentially providing the core for other integrated trust and reputation systems. Once more the Beta distribution is
+  used to model the expected behavior of others, a fact that results in two major drawbacks. First of all, each agent's
+  actions are confined to exactly two options, a constraint not applicable to real-world applications. Secondly, expecting
+  people to act according to a certain distribution function is inviting them to trick and circumvent this assumption for
+  personal gain. Furthermore, Sybil attacks are not addressed. Lastly, the system proposed has a centralized structure,
+  however its core components could also function in a decentralized manner.
+
+  FIRE \cite{fire} constitutes another attempt to tackle trust, this time in a practical setting. FIRE aims to create a
+  decentralized rating system for services provided. It essentially calculates trust as "the sum of all the available ratings
+  weighted by the rating relevance and normalized to the range of $\left[-1, 1\right]$." This setup needs two very disputable
+  assumptions: Firstly that "[a]gents are willing to share their experiences with others" and secondly that "[a]gents are
+  honest in exchanging information with one another." One side effect of the above assumptions is that FIRE is susceptible to
+  Sybil attacks. Trust Is Risk does not make these assumptions, but can function even when each player follows any strategy
+  she desires.
+
+  CORE \cite{core} proposes a reputation protocol for MANET to avoid non collaboration of nodes. It uses the terms trust and
+  reputation almost interchangeably. It is designed in a manner such that reputation in several different settings can be
+  expressed through it, for example it can be applied and improve network speeds on the DSR Route Discovery function and the
+  Packet Forwarding function.
+
+  No results relating to Sybil attacks are derived, thus Sybil attacks may be possible, albeit pointless, since this protocol
+  refers to setups without other incentives other than reducing the time for completing various jobs. The trust model
+  required in such settings is considerably simpler and rigorous results are not as necessary for the system to function at a
+  satisfactory level and to improve on similar systems without reputation.
+
+  \cite{ghkkw} delivers a protocol that claims to cover the reputation needs of MAS, or Multi Agent Systems. The setting of
+  the problem is an open environment where each agent can freely come and go, retaining her reputation in the process.
+  The context of the reputation should be decided according to the needs of each particular distributed task. The reputation
+  data itself is also distributed with the use of a DHT and agents are uniquely identifiable. The system keeps track of all
+  transactions to avoid ratings that do not correspond to a transaction. Furthermore, all transactions must be rated.
+  Platform reputation is also implemented to differentiate between end users and software platforms built for users. Each
+  agent's credentials must be signed by at least one more agent apart from the original one. A layered implementation is used
+  to abstract from the communication details and the backend complexity to the frontend interface.
+
+  Since no hard restrictions are placed on reputation form, scale and metric, the system retains a context agnostic stance
+  that puts the burden of avoiding whitewashing and other attacks on those that will implement and use \cite{ghkkw} as a
+  reputation mechanism for specific distributed tasks. Some simple attacks are discussed and specific countermeasures are
+  proposed. For example, agent cooperation is rather fruitless since each pair of agents can have only one rating and this
+  single rating does not weigh much. However, Sybil attacks are not even discussed and there are no privacy considerations:
+  all ratings are public and traceable. Staying true to the context agnostic nature of this project, no concrete definitions
+  of reputation or trust are given.
+
+  The same problem is attacked in \cite{rk}, where a middleware trust management system consisting of several protocols is
+  introduced to provide a decentralized, self-organized way for reducing or even eliminating malicious and dishonest behavior
+  by peers. No user intervention is one of the design goals, another one being resilience against peers' collusions. Trust
+  from $Alice$ to $Bob$ is defined as the probability with which $Bob$ will act in $Alice$'s desired manner, as calculated by
+  $Alice$. $Bob$'s reputation is defined as the sum of all ratings he has received, one rating for each object he has
+  offered. This definition results in a unique, global reputation for each peer. $Bob$'s reputation is stored by all his
+  neighbors. For $Bob$ to be deemed trustworthy by $Alice$ as far as a certain object is concerned, $Bob$'s reputation must
+  exceed a trust threshold chosen by $Alice$ specifically for this kind of object. A protocol similar to IP is used for
+  routing object requests. A certain peer reputation is itself assigned more confidence when more peers respond with this
+  particular reputation. This policy encourages peers to remain connected and makes dishonest reputation reporting riskier.
+
+  Several simple attacks such as reputation altering are explored and mitigated with various measures. One attack that is
+  only partially avoided is the situation where $Eve$ chooses to have only colluding neighbors that report falsely high
+  reputation values for $Eve$. The confidence value proposed earlier does not mitigate this attack, since $Eve$ is in
+  principle not discouraged from creating an arbitrarily large number of fake peers, thus reinforcing her forged positive
+  reputation even more. SybilGuard \cite{sybilguard} is proposed as a possible remedy for this type of attacks.
+
+  Pace \cite{pace} promises to provide a trust management model that can be readily incorporated in decentralized
+  applications that use event-based software architectures. The model concentrates on the internal architecture of each node
+  of the network. Trust relationships between digital, not physical, identities are considered. Internal knowledge and
+  perceptions of each node are carefully separated from externally reported information. The four layers of the internal
+  architecture are the communication layer consisting of the protocol handler, the communication manager and the signature
+  manager, the information layer consisting of the internal information and the external information component, the trust
+  layer is comprised of the key manager, the credential manager and the trust manager and finally the application layer,
+  which consists of the application trust rules component and the application's subarchitecture itself. All the components
+  are implicitly trusted, except for the communication layer, because it relays external, possibly untrusted messages. These
+  messages require an explicit trust value. Several simple attacks such as impersonation are mitigated with cryptographic and
+  other commonly used constructs. Fraudulent actions however must be discovered and highlighted at the application layer,
+  thus once more the burden of solving the more complex trust issues is handed over to each specific use case of this general
+  infrastructure. Bootstrapping new users' trust is accomplished through out-of-band means. According to \cite{pace},
+  successful prototype implementations of Decentralized Auctioning, of Common Operational Picture and of Decentralized File
+  Sharing have been developed using the proposed architecture.
+
+  \cite{vpc} proposes a decentralized hierarchical structure where the most trusted peer is the root of the network. Data
+  routing is decided based on the structure of the network, which in turn is connected to the trust value of each peer. A
+  global trust scheme arises from this setup. This system concentrates on supporting a decentralized network of content
+  distribution, thus no financial trust is discussed. A trust value of a peer is comprised of two numbers: $\left[TV\right]$,
+  which represents the number of feedbacks this peer has received and $\left\{TV\right\}$, which represents the trust value
+  associated to the peer. After a new feedback is given, $\left[TV\right]$ is incremented by 1 and $\left\{TV\right\}$ is
+  set to be the mean of all feedbacks, including the new one. It is pointed out that old feedbacks may have to be eliminated
+  in order to maintain a satisfactory level of weight for the new feedbacks. Each new peer is assigned a set of trust
+  managers chosen by her parent peer. The set of trust managers contains more than 1 peer to ostensibly avoid peer collusion
+  and is considered to be unknown to the new peer, or to any other peer except for the parent peer. The parent peer is
+  expected to randomly choose trust managers. Knowledge of the approximate neighbourhood of the trust managers is proposed to
+  protect the anonymity of the trust managers and in the same time avoid broadcasts when requesting trust information. The
+  details of requesting, sending, signing and updating trust for a specific peer are discussed and some experimental setups
+  are assessed with mostly encouraging results.
+
+  This architecture is not suitable for Trust Is Risk because of the hierarchical structure that provides a small set of
+  peers the ability to cause major network partitions. Furthermore, it does not provide any hard proof for Sybil resilience
+  or resistance to other kinds of attacks.
+
+  \cite{wot} is a formal attempt to quantify trust over identity. In this work, trust from $Alice$ to $Bob$ is represented by
+  a percentage that expresses the level of confidence $Alice$ has that $Bob$ will only sign public PGP keys whose
+  corresponding private keys are rightly and uniquely owned by the person stated in the public key. This is a special use
+  case for trust, much like financial trust which is a largely unrelated kind of trust. This type of trust has some
+  transitive properties that are derived from statistical models and do not have a connection with the concept of flow. One
+  drawback of such a design is that there is no single indirect trust measure and as a consequence there are no strong
+  results such as the Trust Flow theorem, but each user must experiment and choose one or more trust metrics of her liking
+  based on subjective factors.
+
+  A practical solution for determining chains of trust over PGP is \cite{pathfinder}. This project has a simple web interface
+  that takes a start and an end public key and returns trust paths from the first to the second consisting of a chain of PGP
+  signatures of public keys freely available on public keyservers. It is up to the user to decide how much trust a particular
+  chain inspires. This project shows how a previously end-to-end construction with no transitive properties such as PGP can
+  be used as basis for a network with transitive properties.
+
+  Yet another proposal is Open Reputation \cite{openrep}. This project provides a general framework for rating generation and
+  dissemination in the era of IoT. Reputers attribute reputation to reputees and make them available through their own
+  reputation. Reputees are rated with certain reputes over predefined virtues. For example, the reputer $Alice$ can create
+  a repute of 98 over the virtue "speed" that is defined as an integer between 1 and 100 for a reputee washing machine she
+  bought. $Alice$ will publish this repute along with her own reputation.
+
+  \cite{openrep} Does not provide any kind of Sybil resilience, nor does it diverge from the often revisited theme where
+  reputation is projected on an arbitrary bounded scale. This model may serve well under the assumption of honest reputers,
+  but can be tricked if selfish motives require so.
+
+  \cite{sdt} design an ambitious framework that claims to cover all needs of decentralized trust models based on reputation.
+  It consists of the 4C's: Content, Communication, Computation and Counteraction. Content refers to the agents' network
+  structure (hierarchical, nested, etc.), the representation of the reputation (discrete, continuous, etc.), the context of
+  the reputation (financial, medical, etc.) and the period of validity of the reputation. Communication refers to the
+  protocol used to collect and transmit information (hierarchical or ad-hoc, etc.), to the allowed hop count of information
+  and to the actual content of the messages exchanged, possibly of many different types (informational, revocation,
+  confirmation, etc.) Computation engages with the mathematical and design details of trust derivation, such as whether a
+  simple average of recommendations is used, how to combine external information with personal experience and how the period
+  of validity influences the computation. Lastly counteraction expresses the particular model's method of feedback
+  dissemination, with two methods being proposed, namely active and passive dissemination. An XML specification is proposed
+  for all the aforementioned aspects of the desired trust and reputation system.
+
+  It is currently unclear whether our model can be expressed in the terms of \cite{sdt}. More importantly, there is little
+  insight into whether the task of expressing it in such terms will be a valuable asset for Trust Is Risk.
+
+  \cite{kmrs} applies the MaxFlow algorithm into real-world situations of informal contract enforcement and money borrowing
+  schemes. Their approach combines the algorithmic and sociological aspects of the issue in a productive way and their
+  results constitute a strong confirmation of the validity of our assumption that trust is risk. More precisely, they show
+  that money borrowing between residents in an area of Peru can be correctly predicted by deriving direct trust from the time
+  residents spend together and calculating indirect trust with the MaxFlow algorithm. Their results show that our central
+  design choice corresponds to real-world trust dynamics. The one important difference of their model with ours is that
+  the graphs used in \cite{kmrs} are directionless because of the way direct trust is derived, thus making their case a
+  special case of the Trust Is Risk graph, where all direct trust is obligatorily mutual and equal.
+
+  In \cite{jgs} it is stated that "willingness to take risks may be one of the few characteristics common to all trust
+  situations" and \cite{mds} cites the same passage, adding "Trust is not taking risk \textit{per se}, but rather it is a
+  \textit{willingness} to take risk." These observations corroborate our choice to define trust as risk.
+
+  \cite{mds} proposes a concrete model for trust that incorporates several notions. For example, trust from agent $A$ to
+  agent $B$ is a factor of $A$'s Propensity and $B$'s Ability, Benevolence and Integrity. Once more, the target of \cite{mds}
+  is different from ours in that \cite{mds} attempts to explain the inner workings of trust, whereas we define trust as risk
+  and build a financial game atop of this assumption.
+
+  \cite{jib} constitutes a thorough and highly informative overview of trust and reputation systems up to the time of
+  writing. Flow models are briefly discussed, however our case is not covered.
+
+  Bartercast \cite{bartercast} uses the maximum flow algorithm in an innovative way to calculate trust towards unknown
+  BitTorrent peers. MaxFlow usage there closely resembles to ours, however the abscence of a blockchain leaves room for
+  sybil attacks. Nevertheless, simulation results show that freeriders that selfishly take advantage of the network obtain a
+  progressively worse reputation, a fact that strengthens our reliance on MaxFlow as a suitable algorithm for trust
+  calculation.
+
+  Bazaar \cite{bazaar} proposes an encanhement to existing centralized marketplaces where subjective trust is calculated
+  using the MaxFlow algorithm. The bootstrapping process of the network is extremely similar to how players join the Trust Is
+  Risk network. However, their approach contains a weak point in the way new trust is calculated after each transaction.
+  Furthermore, trust between parties is commutative because non-directed graphs are used. This may be viewed as a crucial
+  restriction for Bazaar.  Nevertheless, inclusion of this system as an additional fraud detection system would probably
+  decrease fraud cases and as a result insurance fees would diminish and customer satisfaction would increase.
+
+  Beaver \cite{beaver} proposes an integrated decentralized marketplace solution that provides all the functionality of eBay
+  or other centralized marketplaces. Up to one public review per transaction is permitted and user ratings are globally
+  calculated and not subjective. On the downside, ad-hoc fees must be attached to several reputation generating actions to
+  deter fraudulent merchants from arbitrarily improving their ratings through Sybil or other attacks. Our system promises to
+  automate and integrate several comparable parts of Beaver in a more intuitive system with less hand-tuned parameters and
+  arbitrary fees that, while discouraging fraudulent action, they also reduce vendors' and customers' desire to participate.
+
+  A very different direction is chosen by \cite{iou}, where an economy based on personal IOUs is proposed. According to this
+  scheme, a payment from $Alice$ to $Bob$ can be completed by $Alice$ offering some of her IOUs. If $Bob$ trusts her, that is
+  a valuable enough payment for him. Otherwise they can find a chain of trust, comprised by other intermediary agents, the
+  first of which trusts $Alice$ and is trusted by the second and so on until the last one trusts the second last and is
+  trusted by $Bob$. This model of economy has some interesting implications, namely that conventional currency is simply
+  viewed as government IOUs and checks as bank IOUs. Unfortunately, this proposal was made prior to the advent of bitcoin
+  and thus had no concrete basis to be built upon, leaving room for malicious intermediary nodes to fake or disclose
+  contradictory trust amounts to different parties. Furthermore, the distributed nature of the system and its resemblance to
+  contemporary bank relations could sharply increase the time needed for a simple transaction, because active agreement of
+  many intermediate parties would be required.
+
+  \cite{davis} proposes a system closely related to ours, the mechanics of which are very similar to Trust Is Risk. The
+  work is accomplished in a more economic vein, considering the dynamics that arise from charging a premium for the
+  references (essentially direct trust) parties provide. Trust in itself is not strictly defined, it is just suggested that
+  references be given only to trusted parties. Since this work came before the advent of blockchains, it relies on the
+  honesty of parties to stay true to the references they have published, given that these references are a type of insurance.
+  The assumption of honesty for most of the players in the long term is backed by the positive social result such a behavior
+  would yield. Long term stabilization of the network and maximum gains for parties can be achieved if there are no
+  fraudulent players. One further implication of the lack of a blockchain is that for every failed transaction a potentially
+  great amount of time may be needed for the defrauded party to collect insurance money. Furthermore, a relatively small
+  number of intermediate players refusing to return the insured money can result in the defrauded party losing money, thus
+  very complex investment strategies are required to minimize risk while maintaining gains.
+
+  \cite{dionyziz} describes and analyzes the OpenBazaar infrastructure. As Trust Is Risk can be a natural extension of
+  OpenBazaar, the aforementioned work provides valuable insight on how closely related decentralized marketplace systems
+  function. More precisely, its game theoretic analysis constitutes a basis for the future corresponding analysis of our
+  work and the elaborate attacks described and mitigated solve a range of problems that could arise in Trust Is Risk.
+  However, the concept of trust is not rigorously defined in \cite{dionyziz}, thus Trust Is Risk fills that vacuum in an
+  elegant manner.
+
+  The discussion in Synereo \cite{synereo} does not revolve around trust, but it aims to describe a decentralized social
+  network. As a result, trust is not rigorously defined, but reputation is and its measure is called \texttt{Reo}. Risking
+  oversimplification, we could say that the posts of users flow through the network like \textit{current} flows through
+  cables. Some \textit{charge} dissipates for every node that receives the post until no charge is left. A user may pay with
+  \texttt{AMP}s to help her post travel further. \texttt{AMP} is social capital created by previous popular posts the user
+  has generated. Furthermore, content viewable by $Alice$ is personalized through her \textit{engagement} with other users.
+  $Alice$'s engagement with $Bob$ is a measure of her amount of time/energy spent on $Bob$'s posts. For example, engagement
+  increases when $Alice$ reads and likes a post by $Bob$. $Bob$'s \texttt{Reo} is another factor that determines how high
+  $Bob$'s posts will be placed in $Alice$'s stream. $Bob$'s \texttt{Reo} as viewed by $Alice$ is calculated as the mean
+  engagement of $Alice$'s community with $Bob$'s posts. Putting it all together, current is calculated as the product of
+  charge, \texttt{AMP}s, engagement and \texttt{Reo}.
+
+  While \cite{synereo} does not qualify as a pure trust model, it undoubtedly contains a host of interesting ideas and
+  approaches on decentralized reputation and mathematical manipulation of arbitrarily many independent event and content
+  generators. It also belongs in the same extended family of ideas as Trust Is Risk in that it attempts to definitively
+  port to the decentralized setting a popular service that currently exists only through centralized solutions, namely the
+  service of social networking.
+
+  Freenet \cite{freenet} proposes a decentralized platform for secure, deniable file storage and retrieval. Files and file
+  identifiers are hashed and files themselves are additionally encrypted and stored reduntantly in all nodes that receive
+  them, whether said nodes initiated the file request or not. An efficient routing protocol similar to IP is used and a Least
+  Recently Used protocol is used for file retention.
+
+  While not directly related with the concept of trust, Freenet is an interesting example of a functional decentralized
+  system that provides specific positive properties and can be trusted as a system from its users, requiring little to no
+  trust between users themselves.
+
+  A similar property is exhibited by Bitcoin \cite{bitcoin} which assures the existence of a currency with no central
+  issuing authority where users do not have to trust anyone else, just the infrastructure itself. More precisely, the advent
+  of blockchains put the parties that would otherwise be able to forge coins in a situation where they compete amongst
+  themselves to generate a valid block, which will in turn be verified by everybody else. This circumvents elegantly the need
+  for trust to any external party and confines trust to each one's local machine. This is a reasonable trust to demand, since
+  everyone can read and understand \cite{bitcoin} and furthermore verify their clients execute the correct code, or even
+  develop their own implementation of the protocol. What Bitcoin achieves is a trustless consensus.
+
+  Consensus is a problem loosely related to trust and its best expression is in \cite{byzantine} as the problem of the
+  Byzantine generals, who want to reach a common agreement (e.g. attack or retreat) in the presence of faulty, malicious and
+  dishonest parties who can report inconsistent values to different generals or fail to reply whatsoever. A strong result
+  achieved in \cite{byzantine} and put into revolutionary use in Bitcoin is that in the presence of unforgeable signatures,
+  the honest generals can achieve a consensus no matter how many generals are corrupted.
