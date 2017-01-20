@@ -1,33 +1,30 @@
-\documentclass[11pt]{llncs}
-\usepackage{preamble}
+\section{Risk Invariance Algorithms}
+  \subimport{thesis/}{riskinvalgsintro.tex}
+  \subimport{thesis/definitions/}{trustreduction.tex}
+  \subimport{thesis/definitions/}{restrictedflow.tex}
 
-\begin{document}
-  \import{thesis/}{riskinvalgsintro.tex}
-  \import{thesis/definitions/}{trustreduction.tex}
-  \import{thesis/definitions/}{restrictedflow.tex}
+  \subimport{thesis/theorems/}{saturationtheorem.tex}
+  \subimport{thesis/proofs/}{saturationproof.tex}
 
-  \import{thesis/theorems/}{saturationtheorem.tex}
-  \import{thesis/proofs/}{saturationproof.tex}
+  \subimport{thesis/theorems/}{trusttransfertheorem.tex}
+  \subimport{thesis/proofs/}{trusttransferproof.tex}
 
-  \import{thesis/theorems/}{trusttransfertheorem.tex}
-  \import{thesis/proofs/}{trusttransferproof.tex}
+  \subimport{thesis/lemmas/}{flowlimitlemma.tex}
+  \subimport{thesis/proofs/}{flowlimitproof.tex}
 
-  \import{thesis/lemmas/}{flowlimitlemma.tex}
-  \import{thesis/proofs/}{flowlimitproof.tex}
+  \subimport{thesis/theorems/}{trustsavingtheorem.tex}
+  \subimport{thesis/proofs/}{trustsavingproof.tex}
 
-  \import{thesis/theorems/}{trustsavingtheorem.tex}
-  \import{thesis/proofs/}{trustsavingproof.tex}
-
-  \import{thesis/theorems/}{invtrustrednaivetheorem.tex}
-  \import{thesis/proofs/}{invtrustrednaiveproof.tex}
+  \subimport{thesis/theorems/}{invtrustrednaivetheorem.tex}
+  \subimport{thesis/proofs/}{invtrustrednaiveproof.tex}
 
   Until now $MaxFlow$ has been viewed purely as an algorithm. This algorithm is not guaranteed to always return the same
   flow when executed muliple times on the same graph. However, the corresponding flow value, $maxFlow$, is always the same.
   Thus $maxFlow$ can be also viewed as a function from a matrix of capacities to a non-negative real number. Under this
   perspective, we prove the following theorem. Let $\mathcal{C}$ be the family of all capacity matrices
   $C = [c_{vw}]_{V\left(\mathcal{G}\right) \times V\left(\mathcal{G}\right)}$.
-  \import{thesis/theorems/}{maxflowcontinuitytheorem.tex}
-  \import{thesis/proofs/}{maxflowcontinuityproof.tex}
+  \subimport{thesis/theorems/}{maxflowcontinuitytheorem.tex}
+  \subimport{thesis/proofs/}{maxflowcontinuityproof.tex}
 
   Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
   a trusted party. Let $F = \sum\limits_{i=1}^{n}x_i$. To prove the correctness of the algorithms, it suffices to prove that
@@ -39,16 +36,16 @@
   \label{naive:req2}
      \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
   \end{equation}
-  \import{thesis/algorithms/}{fcfscode.tex}
-  \import{thesis/proofs/}{fcfscorrectness.tex}
-  \import{thesis/proofs/}{fcfscomplexity.tex}
+  \subimport{thesis/algorithms/}{fcfscode.tex}
+  \subimport{thesis/proofs/}{fcfscorrectness.tex}
+  \subimport{thesis/proofs/}{fcfscomplexity.tex}
 
   Note that we choose to calculate the complexity of the \texttt{length()} function as $O\left(n\right)$. Whereas this
   complexity is implementation-dependent, even with the most naive approaches it cannot be higher than $O\left(n\right)$,
   thus we use this worst-case complexity in our analysis to cover all cases. This approach will be implicitly used in all
   subsequent complexity analyses.
 
-  \import{thesis/algorithms/}{abscode.tex}
+  \subimport{thesis/algorithms/}{abscode.tex}
 
   The function \texttt{preprocess(}$x_i$\texttt{)} returns a data structure \texttt{X} containing the set of flows
   $\left(x_i\right)$, such that the corresponding function \texttt{popMin(X)} is able to repeatedly return a tuple
@@ -67,13 +64,13 @@
     \end{cases} \enspace.
   \end{gathered}
   \end{equation*}
-  \import{thesis/proofs/}{abscorrectness.tex}
-  \import{thesis/proofs/}{abscomplexity.tex}
-  \import{thesis/proofs/}{absDinfnormminproof.tex}
+  \subimport{thesis/proofs/}{abscorrectness.tex}
+  \subimport{thesis/proofs/}{abscomplexity.tex}
+  \subimport{thesis/proofs/}{absDinfnormminproof.tex}
 
-  \import{thesis/algorithms/}{propcode.tex}
-  \import{thesis/proofs/}{propcorrectness.tex}
-  \import{thesis/proofs/}{propcomplexity.tex}
+  \subimport{thesis/algorithms/}{propcode.tex}
+  \subimport{thesis/proofs/}{propcorrectness.tex}
+  \subimport{thesis/proofs/}{propcomplexity.tex}
 
   Naive algorithms result in $c'_i \leq x_i$, thus according to the Invariability Theorem (\ref{invariability}),
   $||\delta_i||_1$ is invariable for any of the possible results $C'$ of these algorithms and the resulting norm is not
@@ -81,17 +78,17 @@
   while minimizing two $\delta_i$ norms, $||\delta_i||_\infty$ and $||\delta_i||_1$. We start with the
   $||\delta_i||_\infty$ minimizer.
 
-  \import{thesis/algorithms/}{dinfmincode.tex}
+  \subimport{thesis/algorithms/}{dinfmincode.tex}
   Since trust should be considered as a continuous unit and binary search bisects the interval containing the solution
   on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
   complete in a finite number of steps.
-  \import{thesis/algorithms/}{dinfbinsearchcode.tex}
+  \subimport{thesis/algorithms/}{dinfbinsearchcode.tex}
   Let $\delta \in \left[0, \max\limits_{1 \leq i \leq n}{\{c_i\}}\right]$. Furthermore, let $C'$ such that
   $\forall i \in \left[n\right], c'_i = \max{\left(0, c_i - \delta\right)}$. We define $maxFlow\left(\delta\right) = 
   maxFlow\left(A, B, C'\right) = F'$ and $MaxFlow\left(\delta\right) = X'$. Conventions similar to $F$, $X$ and $C$ hold
   for $F'$, $X'$ and $\delta$ as far as subscripts are concerned.
-  \import{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
-  \import{thesis/proofs/}{maxflowmonotonicityproof.tex}
+  \subimport{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
+  \subimport{thesis/proofs/}{maxflowmonotonicityproof.tex}
   From the previous lemma we deduce that, given a $V \in \left(0, F\right)$, if we determine a $\delta$ such that
   $maxFlow\left(\delta\right) = F - V$, this $\delta$ is unique. Furthermore, it is
   \begin{equation*}
@@ -100,16 +97,16 @@
   \end{equation*}
   We will now prove that \texttt{BinSearch} returns the desired $\delta^*$ when we provide it with an appropriate interval
   as input.
-  \import{thesis/proofs/}{dinfbinsearchcorrectness.tex}
-  \import{thesis/proofs/}{dinfbinsearchcomplexity.tex}
-  \import{thesis/proofs/}{dinfmincorrectness.tex}
-  \import{thesis/proofs/}{dinfmincomplexity.tex}
+  \subimport{thesis/proofs/}{dinfbinsearchcorrectness.tex}
+  \subimport{thesis/proofs/}{dinfbinsearchcomplexity.tex}
+  \subimport{thesis/proofs/}{dinfmincorrectness.tex}
+  \subimport{thesis/proofs/}{dinfmincomplexity.tex}
 
   We will now concentrate on finding a capacity configuration $C'$ such that $F' = F - V$ and that minimizes
   $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
   problem. Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and
   vector.
-  \import{thesis/lp/}{lpprimal.tex}
+  \subimport{thesis/lp/}{lpprimal.tex}
   We would like to find a solution that, except for maximizing the flow, also minimizes $||\delta_i||_1$ at the same time.
   More precisely, we would like to optimize
   \begin{equation*}
@@ -126,7 +123,7 @@
   configuration that player $A$ requires.
 
   We will now describe the dual problem in detail.
-  \import{thesis/lp/}{lpdual.tex}
+  \subimport{thesis/lp/}{lpdual.tex}
   Everything is now in place to define the linear problem whose solution $C'$ yields $maxFlow\left(C'\right) = F - V$ and
   minimizes $||\delta_i||_\infty$. The constraints are (\ref{lp:primal:constraints}) and (\ref{lp:dual:constraints})
   supplemented with a constraint that equates the two problems' optimality functions:
@@ -138,4 +135,3 @@
   \begin{equation*}
     \min{\sum\limits_{j \in \left[n\right]}\left(c_{1j} - c'_{1j}\right)} \enspace.
   \end{equation*}
-\end{document}
