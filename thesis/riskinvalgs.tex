@@ -60,9 +60,9 @@
     \end{cases} \enspace.
   \end{gathered}
   \end{equation*}
-  \subimport{thesis/proofs/}{abscorrectness.tex}
-  \subimport{thesis/proofs/}{abscomplexity.tex}
-  \subimport{thesis/proofs/}{absDinfnormminproof.tex}
+  In the general case, the complexity of the algorithm \texttt{abs} is proven to be $O\left(preprocess\right) + O\left(n\right)O\left(popMin\right)$.
+  In both specific cases, the complexity is $O\left(n\log{n}\right)$. This algorithm also minimizes the $||\Delta_i||_\infty$
+  norm for the specific set of old flows $x_i$ given as input. A proof of this fact can be found in the Appendix.
 
   \subimport{thesis/algorithms/}{propcode.tex}
   \subimport{thesis/proofs/}{propcorrectness.tex}
