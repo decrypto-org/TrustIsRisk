@@ -1,3 +1,4 @@
+\addcontentsline{lof}{section}{Sybil Resilience}
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.7,transform shape]
 %%

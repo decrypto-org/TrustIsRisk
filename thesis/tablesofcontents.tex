@@ -1,1 +1,3 @@
 \tableofcontents
+\listoffigures
+\listoftables

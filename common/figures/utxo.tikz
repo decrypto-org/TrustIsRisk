@@ -1,3 +1,4 @@
+\addcontentsline{lof}{section}{UTXO}
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
 %%

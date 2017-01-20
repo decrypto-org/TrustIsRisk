@@ -1,5 +1,13 @@
 \ProvidesPackage{preamble}
 
+% For table of contents start
+\setcounter{tocdepth}{2}
+\makeatletter
+\renewcommand*\l@author[2]{}
+\renewcommand*\l@title[2]{}
+\makeatletter
+% For table of contents end
+
 \usepackage[pdftex]{graphicx}
 \usepackage[linesnumbered,ruled,noend]{algorithm2e}
 \usepackage[english]{babel}
@@ -77,6 +85,12 @@
 
 %page style set to plain
 \pagestyle{plain}
+
+%rename List of Tables to List of Code Listings
+\AtBeginDocument{\renewcommand{\listtablename}{List of Code Listings}}
+
+%for starred sections and non-sections objects in tables and listings
+\providecommand\phantomsection{}
 
 %bibliography style set to splncs
 \bibliographystyle{splncs}
