@@ -1,3 +1,9 @@
+We will now focus our discussion on the act of a riskless purchase. According to the Risk Invariance theorem (\ref{riskinv}),
+if $Alice$ wants to buy something that costs $l$ from the vendor $Bob$, she should first find a new distribution of her
+outgoing direct trust such that $maxFlow'\left(A, B\right) = maxFlow\left(A, B\right) - l$ and then entrust $l$ to $Bob$.
+The theorem then ensures that the initial risk is equal to the final. In the following section we discuss several algorithms
+that calculate possible new distributions for $Alice$'s outgoing trust.
+
 Let $A \in \mathcal{V}$ source, $B \in \mathcal{V}$ sink. For the following, we suppose that $Turn_{j-1}$ has just finished
 and $A = Player\left(j\right)$ is currently deciding $Turn_j$. We use the following notation:
 \begin{align*}
