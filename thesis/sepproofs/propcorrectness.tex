@@ -1,4 +1,4 @@
-\begin{proof}[Proof of correctness for prop]
+\begin{sepproof}{Proof of correctness for algorithm \texttt{prop}} \ \\
   We will first show that $\forall i \in [n], c'_i \leq x_i$. Let $i \in [n]$. According to line~\ref{prop:setcap}, which
   is the only line where $c'_i$ is modified, it is
   \begin{equation}
@@ -19,4 +19,4 @@
     \sum\limits_{i=1}^nx_i - \frac{V}{F}\sum\limits_{i=1}^nx_i \overset{\sum\limits_{i=1}^nx_i = F}{=} F - V \enspace,
   \end{equation*}
   thus the requirement (\ref{naive:req2}) is satisfied.
-\end{proof}
+\end{sepproof}
