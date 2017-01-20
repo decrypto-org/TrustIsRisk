@@ -1,5 +1,4 @@
-\begin{proof}[Proof of correctness for fcfs] \
-
+\begin{sepproof}{Proof of correctness for algorithm \texttt{fcfs}} \ \\
    We will first show that at the end of the execution, $i \leq n+1$. Suppose that $i > n+1$ on line~\ref{fcfs:return}. This
    means that $F_{cur,n}$ exists and $F_{cur,n} = F - \sum\limits_{i=1}^{n}x_i = 0 \leq F - V$ since, according to the
    condition on line~\ref{fcfs:ifinputvalid}, $F - V \geq 0$. This means however that the \texttt{while} loop on
@@ -56,4 +55,4 @@
    \sum\limits_{k=1}^{n}x_k - V \Rightarrow \sum\limits_{k=1}^{n}c_k' = F - V \enspace.
    \end{equation*}
    Thus the requirement (\ref{naive:req2}) is satisfied.
-\end{proof}
+\end{sepproof}

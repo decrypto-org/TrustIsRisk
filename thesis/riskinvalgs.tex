@@ -36,14 +36,10 @@
   \label{naive:req2}
      \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
   \end{equation}
+  Proofs of correctness and complexity can be found in the Appendix.
   \subimport{thesis/algorithms/}{fcfscode.tex}
-  \subimport{thesis/proofs/}{fcfscorrectness.tex}
-  \subimport{thesis/proofs/}{fcfscomplexity.tex}
-
-  Note that we choose to calculate the complexity of the \texttt{length()} function as $O\left(n\right)$. Whereas this
-  complexity is implementation-dependent, even with the most naive approaches it cannot be higher than $O\left(n\right)$,
-  thus we use this worst-case complexity in our analysis to cover all cases. This approach will be implicitly used in all
-  subsequent complexity analyses.
+  This algorithm simply chooses to nullify all outgoing trust to one player after another in the order they are given at the
+  input, until the desired indirect trust is achieved. The complexity of this algorithm is $O\left(n\right)$.
 
   \subimport{thesis/algorithms/}{abscode.tex}
 

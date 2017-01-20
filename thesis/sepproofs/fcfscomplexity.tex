@@ -1,7 +1,7 @@
-\begin{proof}[Complexity of fcfs]
+\begin{sepproof}{Complexity of algorithm \texttt{fcfs}} \ \\
   Since $i$ is incremented by 1 on every iteration of the \texttt{while} loop (line~\ref{fcfs:iinc}) and $i < n+1$ at the
   end of the execution, the complexity of the \texttt{while} loop is $O\left(n\right)$ in the worst case. The complexity of
   lines~\ref{fcfs:ifinputvalid} -~\ref{fcfs:inputinvalid} and~\ref{fcfs:iinit} is $O\left(1\right)$ and the complexity of
   lines~\ref{fcfs:setlength} -~\ref{fcfs:finit},~\ref{fcfs:forcapinit} -~\ref{fcfs:capinit} and~\ref{fcfs:return} is
   $O\left(n\right)$, thus the total complexity of algorithm \ref{fcfs} is $O\left(n\right)$.
-\end{proof}
+\end{sepproof}
