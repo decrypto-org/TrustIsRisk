@@ -26,6 +26,7 @@
 \usepackage{pgfplots}
 \usetikzlibrary{shapes,arrows}
 \usepackage{color}
+\usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{import}
 
@@ -104,3 +105,11 @@
 %custom figures counter
 \newcounter{figcount}
 \newcommand{\figlabel}[1]{\refstepcounter{figcount}\arabic{figcount}\label{#1}}
+
+%enlarge enumerate depth for license
+\setlistdepth{4}
+\newlist{myEnumerate}{enumerate}{4}
+\setlist[myEnumerate,1]{label=(\alph*)}
+\setlist[myEnumerate,2]{label=(\arabic*)}
+\setlist[myEnumerate,3]{label=(\Alph*)}
+\setlist[myEnumerate,4]{label=(\roman*)}
