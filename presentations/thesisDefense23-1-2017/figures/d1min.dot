@@ -1,0 +1,9 @@
+digraph G  {
+  graph [bgcolor=transparent]
+  rankdir=LR;
+  A -> D [label="6"];
+  A -> B [label="0"];
+  A -> C [label="1"];
+  C -> B [label="3"];
+  D -> B [label="2"];
+}
