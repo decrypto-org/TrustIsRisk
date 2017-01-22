@@ -102,7 +102,7 @@ x)	No privacy considerations, trust and reputation are not clearly distinguished
 Bazaar
 Centralized marketplace (EBay server-side add-on) with a risk network
 i) 	centralized because it needs full network knowledge by the trusted authority to calculate maxFlow
-ii)	Direct trust (DT(A, B)) is a non-directional wheighted edge
+ii)	Direct trust (DT(A, B)) is a non-directional weighted edge
 iii)	Indirect trust (IT(A, B)) is the maxFlow
 	a)	IT(A, B) = IT(B, A)
 	b)	IT > DT

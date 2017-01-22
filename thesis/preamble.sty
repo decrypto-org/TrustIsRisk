@@ -1,5 +1,13 @@
 \ProvidesPackage{preamble}
 
+% For table of contents start
+\setcounter{tocdepth}{2}
+\makeatletter
+\renewcommand*\l@author[2]{}
+\renewcommand*\l@title[2]{}
+\makeatletter
+% For table of contents end
+
 \usepackage[pdftex]{graphicx}
 \usepackage[linesnumbered,ruled,noend]{algorithm2e}
 \usepackage[english]{babel}
@@ -18,6 +26,7 @@
 \usepackage{pgfplots}
 \usetikzlibrary{shapes,arrows}
 \usepackage{color}
+\usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{import}
 
@@ -78,6 +87,12 @@
 %page style set to plain
 \pagestyle{plain}
 
+%rename List of Tables to List of Code Listings
+\AtBeginDocument{\renewcommand{\listtablename}{List of Code Listings}}
+
+%for starred sections and non-sections objects in tables and listings
+\providecommand\phantomsection{}
+
 %bibliography style set to splncs
 \bibliographystyle{splncs}
 
@@ -90,3 +105,11 @@
 %custom figures counter
 \newcounter{figcount}
 \newcommand{\figlabel}[1]{\refstepcounter{figcount}\arabic{figcount}\label{#1}}
+
+%enlarge enumerate depth for license
+\setlistdepth{4}
+\newlist{myEnumerate}{enumerate}{4}
+\setlist[myEnumerate,1]{label=(\alph*)}
+\setlist[myEnumerate,2]{label=(\arabic*)}
+\setlist[myEnumerate,3]{label=(\Alph*)}
+\setlist[myEnumerate,4]{label=(\roman*)}

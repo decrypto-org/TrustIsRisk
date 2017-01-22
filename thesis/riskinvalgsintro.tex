@@ -1,0 +1,42 @@
+We will now focus our discussion on the act of a riskless purchase. According to the Risk Invariance theorem (\ref{riskinv}),
+if $Alice$ wants to buy something that costs $l$ from the vendor $Bob$, she should first find a new distribution of her
+outgoing direct trust such that $maxFlow'\left(A, B\right) = maxFlow\left(A, B\right) - l$ and then entrust $l$ to $Bob$.
+The theorem then ensures that the initial risk is equal to the final. In the following section we discuss several algorithms
+that calculate possible new distributions for $Alice$'s outgoing trust.
+
+Let $A \in \mathcal{V}$ source, $B \in \mathcal{V}$ sink. For the following, we suppose that $Turn_{j-1}$ has just finished
+and $A = Player\left(j\right)$ is currently deciding $Turn_j$. We use the following notation:
+\begin{align*}
+   C \mbox{ capacity configuration with } c_{Av} &= DTr_{A \rightarrow v, j-1} \\
+   C' \mbox{ capacity configuration with } c'_{Av} &= DTr_{A \rightarrow v, j}
+\end{align*}
+
+We will use the following notation for clarity:
+\begin{equation*}
+\begin{gathered}
+  \begin{cases}
+    X = MaxFlow_{\mathcal{G}_{j-1}}\left(A, B\right) \\
+    X' = MaxFlow_{\mathcal{G}_j}\left(A, B\right)
+  \end{cases}, \mbox{ for some } MaxFlow \mbox{ execution} \\
+  \begin{cases}
+    F = maxFlow_{\mathcal{G}_{j-1}}\left(A, B\right) \\
+    F' = maxFlow_{\mathcal{G}_j}\left(A, B\right)
+  \end{cases}
+\end{gathered}
+\end{equation*}
+Any subscripts or superscripts applied to $X$ and $F$ refer to the capacity configuration with the exact same subscripts and
+superscripts.
+
+Furthermore, we suppose an arbitrary ordering of the members of $N^{+}\left(A\right)$. We set $n = |N^{+}\left(A\right)|$.
+Thus
+\begin{equation*}
+   N^{+}\left(A\right) = \{v_1, ..., v_n\}
+\end{equation*}
+We use these subscripts to refer to the respective capacities (a.k.a. direct trusts) and flows. Thus
+\begin{equation*}
+   \begin{array}{l}
+      x_i = x_{Av_i} \enspace, \\
+      c_i = c_{Av_i} \enspace,
+   \end{array}
+   \mbox{ where } i \in [n]
+\end{equation*}

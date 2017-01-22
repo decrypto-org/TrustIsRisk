@@ -1,0 +1,13 @@
+digraph G {
+  rankdir=RL
+  graph [bgcolor=transparent]
+  Alice -> Corrupted
+  Corrupted -> Alice
+  subgraph cluster0 {
+    style=invisible
+    Corrupted -> Sybil
+    Sybil -> Corrupted
+    {Corrupted Sybil rank=same}
+  }
+  Sybil -> Alice
+}

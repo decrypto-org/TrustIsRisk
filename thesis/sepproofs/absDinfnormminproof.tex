@@ -1,0 +1,65 @@
+\begin{sepproof}{Proof that algorithm \texttt{abs} minimizes $||\Delta_i||_{\infty}$} \ \\
+  Let $reduction$ be the final value of the corresponding variable. It holds that
+  \begin{equation*}
+  \begin{gathered}
+    \forall i \in [n] : c'_i > 0, \Delta_i = reduction \enspace, \\
+    \forall i \in [n] : c'_i = 0, \Delta_i = x_i \mbox{ and} \\
+    \forall i \in [n] : c'_i = 0, reduction \geq x_i \enspace,
+  \end{gathered}
+  \end{equation*}
+  thus we deduce that
+  \begin{equation*}
+    ||\Delta_i||_{\infty} = \max\limits_{1 \leq i \leq n}{\left(x_i - c'_i\right)} = reduction \enspace.
+  \end{equation*}
+  With the capacity configuration $C'$ resulting from \texttt{abs()}, it holds that $\sum\limits_{i=1}^nc'_i = F - V$.
+  Suppose that there exists a configuration $C_1$ that maintains that property:
+  \begin{equation}
+  \label{abs:c1valid}
+    \sum\limits_{i=1}^nc_{1, i} = F - V
+  \end{equation}
+  and furthermore
+  \begin{equation}
+  \label{abs:b}
+    ||\Delta_{1, i}||_\infty = b < reduction \enspace.
+  \end{equation}
+  Then it must be
+  \begin{equation*}
+    \forall i \in [n], \Delta_{1, i} \leq b \Rightarrow \forall i \in [n], c_{1, i} \geq x_i - b \enspace.
+  \end{equation*}
+  Without loss of generality, suppose that $x_i$ are sorted in ascending order. Then
+  \begin{equation*}
+  \begin{gathered}
+    \exists k' \in [n] \cup \{0\} :
+    \begin{cases}
+      \forall i \leq k', x_i \leq reduction \\
+      \forall i > k', x_i > reduction
+    \end{cases} \\
+    \mbox{and } \exists k_1 \in [n] \cup \{0\} :
+    \begin{cases}
+      \forall i \leq k_1, x_i \leq b \\
+      \forall i > k_1, x_i > b
+    \end{cases} \enspace.
+  \end{gathered}
+  \end{equation*}
+  Since $b < reduction$, it is $k_1 \leq k'$. It is:
+  \begin{equation*}
+  \begin{gathered}
+    \forall i \in \left[k_1\right], 0 \leq c_{1, i} \leq x_i \mbox{ and} \\
+    \forall i \in \left[n\right] \setminus \left[k_1\right], x_i - b \leq c_{1, i} \leq x_i \enspace.
+  \end{gathered}
+  \end{equation*}
+  Let all $c_{1, i}$ assume the smallest possible value according to the above restriction. Then
+  \begin{equation}
+  \label{abs:between}
+    \forall i \in \left[k'\right] \setminus \left[k_1\right], x_i > b \mbox{ and}
+  \end{equation}
+  \begin{equation*}
+  \begin{gathered}
+    \sum\limits_{i=1}^nc_{1, i} = \sum\limits_{i=k_1+1}^n\left(x_i - b\right) \overset{\left(\ref{abs:between}\right)}{\geq}
+    \sum\limits_{i=k'+1}^n\left(x_i - b\right) \overset{\left(\ref{abs:b}\right)}{>} \\
+    > \sum\limits_{i=k'+1}^n\left(x_i - reduction\right) = \sum\limits_{i=1}^nc'_i = F - V \enspace.
+  \end{gathered}
+  \end{equation*}
+  We see that even with the minimum possible $C_1$ configuration, the hypothesis (\ref{abs:c1valid}) is violated, thus the
+  existence of $C_1$ is a contradiction. We have thus proven the proposition.
+\end{sepproof}

@@ -1,3 +1,5 @@
+\phantomsection
+\addcontentsline{lof}{section}{Simple Graphs}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.60,transform shape]
 %%
 \begin{scope}

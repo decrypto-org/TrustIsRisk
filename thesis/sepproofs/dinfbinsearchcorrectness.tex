@@ -1,0 +1,61 @@
+\begin{sepproof}{Proof of correctness for algorithm \texttt{BinSearch}} \ \\
+  Suppose that
+  \begin{equation*}
+    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right), maxFlow\left(bot\right)\right]
+    \enspace.
+  \end{equation*}
+  We will prove that
+  \begin{equation*}
+    maxFlow\left(\delta^*\right) \in \left[F' - \epsilon_1, F' + \epsilon_2\right] \enspace.
+  \end{equation*}
+  First of all, we should note that if an invocation of \texttt{BinSearch} returns without calling \texttt{BinSearch} again
+  (line~\ref{bs:returnbot} or~\ref{bs:returnmid}), its return value will be equal to the return value of the initial
+  invocation of \texttt{BinSearch}, as we can see on lines~\ref{bs:returnlow} and~\ref{bs:returnhigh}, where the return
+  value of the invoked \texttt{BinSearch} is returned without any modification. The case where \texttt{BinSearch} is called
+  recursively is analyzed next:
+
+  If $maxFlow\left(\frac{top+bot}{2}\right) < F' - \epsilon_1$ (line~\ref{bs:iflow}) then, by the maxFlow monotonicity
+  lemma, $\delta^* \in \left[bot,\frac{top+bot}{2}\right)$. As we see on line~\ref{bs:returnlow}, the interval
+  $\left(\frac{top+bot}{2}, top\right]$ is discarded when the next \texttt{BinSearch} is recursively called. Since
+  $F' + \epsilon_2 \leq maxFlow\left(bot\right)$, we have
+  \begin{equation*}
+    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(\frac{top+bot}{2}\right),
+    maxFlow\left(bot\right)\right]
+  \end{equation*}
+  and the length of the available interval is divided by 2.
+
+  Similarly, if $maxFlow\left(\frac{top+bot}{2}\right) > F' + \epsilon_2$ (line~\ref{bs:ifhigh}) then, by the maxFlow
+  monotonicity lemma, it holds that $\delta^* \in \left(\frac{top+bot}{2}, top\right]$. According to
+  line~\ref{bs:returnhigh}, the interval $\left[bot, \frac{top+bot}{2}\right)$ is discarded when the next
+  \texttt{BinSearch} is recursively called. Since $F'- \epsilon_1 \geq maxFlow\left(top\right)$, we have
+  \begin{equation*}
+    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right),
+    maxFlow\left(\frac{top+bot}{2}\right)\right]
+  \end{equation*}
+  and the length of the available interval is divided by 2.
+
+  As we saw, it holds that
+  \begin{equation*}
+    \left[F' - \epsilon_1, F' + \epsilon_2\right] \subset \left[maxFlow\left(top\right), maxFlow\left(bot\right)\right]
+  \end{equation*}
+  in every recursive call and $top - bot$ is divided by 2 in every call.
+  %From topology we know that $A \subset B \Rightarrow |A| < |B|$, so the recursive calls cannot continue infinitely.
+  It is $|[F' - \epsilon_1, F' + \epsilon_2]| = \epsilon_1 + \epsilon_2$. Let
+  $bot_0, top_0$ the input values given to the initial invocation of \texttt{BinSearch}, $bot_j,top_j$ the input
+  values given to the $j$-th recursive call of \texttt{BinSearch} and $len_j =|[bot_j, top_j]| = top_j - bot_j$. We have
+  \begin{equation*}
+  \begin{gathered}
+    \forall j > 0, len_j = top_j - bot_j = \frac{top_{j-1} - bot_{j-1}}{2} \Rightarrow \\
+    \forall j >0, len_j = \frac{top_0 - bot_0}{2^j} \enspace.
+  \end{gathered}
+  \end{equation*}
+  We understand that in the worst case
+  \begin{equation*}
+    len_j = \epsilon_1 + \epsilon_2 \Rightarrow 2^j = \frac{top_0-bot_0}{\epsilon_1 + \epsilon_2} \Rightarrow
+    j = \log_2(\frac{top_0-bot_0}{\epsilon_1+\epsilon_2}) \enspace.
+  \end{equation*}
+  Also, as we saw earlier, $\delta^*$ is always in the available interval, thus it holds that
+  \begin{equation*}
+    maxFlow\left(\delta^*\right) \in \left[F' - \epsilon_1, F' + \epsilon_2\right] \enspace.
+  \end{equation*}
+\end{sepproof}

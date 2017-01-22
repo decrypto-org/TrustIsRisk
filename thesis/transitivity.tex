@@ -1,5 +1,5 @@
 \section{Trust Transitivity}
-   In this section we define some strategies. The corresponding algorithms can be seen in the Appendix. Then we define the
+   In this section we define some strategies and show the corresponding algorithms. Then we define the
    Transitive Game that represents the worst-case scenario for an honest player when another player decides to depart from
    the network with her money and all the money entrusted to her.
    \subimport{common/definitions/}{idlestrategy.tex}
@@ -35,7 +35,8 @@
    and lose the client's trust. The latter choice for the intermediary is exactly the conservative strategy. It is used
    throughout this work as a strategy for all the intermediary players because it models effectively the worst-case
    scenario that a client can face after an evil player decides to steal everything she can and the rest of the players do
-   not engage in evil activity.
+   not engage in evil activity. Even if some of the rest of the players decide to reduce their outgoing trust as well, this
+   will inhibit some possible damage to them, thus further guarding the client from damage.
 
    We continue with a very useful possible evolution of the game, the Transitive Game. In turn 0, there is already a network
    in place. All players apart from $A$ and $E$ follow the conservative strategy. Furthermore, the set of players is not

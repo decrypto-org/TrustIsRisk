@@ -1,0 +1,13 @@
+digraph G {
+  graph [bgcolor=transparent]
+  rankdir=LR;
+  D [penwidth=4]
+  B [xlabel="Happy"]
+  C [xlabel="Angry"]
+  D [xlabel="Sad"]
+  A -> C [label="6"]
+  A -> D [style=invisible]
+  B -> C [label="7"]
+  C -> E [style=invisible]
+  D -> E [style=invisible]
+}
