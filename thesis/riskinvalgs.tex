@@ -44,6 +44,9 @@
   \newpage
   \subimport{thesis/algorithms/}{abscode.tex}
 
+  This algorithm finds a \texttt{reduction} value such that the configuration
+  $\forall i \in \left[n\right], c'_i = \max{\left(0, x_i - \mbox{\texttt{reduction}}\right)}$ achieves the desired flow.
+
   The function \texttt{preprocess(}$x_i$\texttt{)} returns a data structure \texttt{X} containing the set of flows
   $\left(x_i\right)$, such that the corresponding function \texttt{popMin(X)} is able to repeatedly return a tuple
   consisiting of the index of the minimum element and a new data structure missing exactly the minimum element.
