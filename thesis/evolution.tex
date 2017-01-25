@@ -4,17 +4,23 @@
   $Player(j)$. A formal definition can be found in the Appendix.
   \subimport{common/definitions/}{damage.tex}
   \subimport{common/definitions/}{history.tex}
-  Knowledge of the initial graph $\mathcal{G}_0$ and the history amount to full comprehension of the evolution of the
-  game. Building on the example of figure \ref{fig:utxo}, we can see the resulting graph when $D$ plays
+  Knowledge of the initial graph $\mathcal{G}_0$, all players' initial capital and the history amount to full comprehension of
+  the evolution of the game. Building on the example of figure \ref{fig:utxo}, we can see the resulting graph when $D$ plays
   \begin{equation}
   \label{turnexample}
      Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
   \end{equation}
   \subimport{common/figures/}{turnexample.tikz}
+
   In the form presented here, TrustIsRisk is controlled by an algorithm that chooses a player, receives the turn that
   this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely. We assume
   players are chosen in a way that, after her turn, a player will eventually play again later.
   \subimport{thesis/algorithms/}{trustisriskgame.tex}
+
+  \texttt{strategy[}$v$\texttt{]()} provides player $v$ with full knowledge of the game, except for the capitals of other
+  players. This assumption may not be realistic because out of band knowledge and traffic analysis methods can be used to
+  infer the capital of other players.
+
   \texttt{executeTurn()} checks the validity of \texttt{Turn} and substitutes it with an empty turn if invalid.
   Subsequently, it creates the new graph $\mathcal{G}_j$ and updates the history accordingly. For the routine code,
   see the Appendix.
