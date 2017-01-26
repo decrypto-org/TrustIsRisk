@@ -13,8 +13,8 @@
    desired execution of Transitive Game will choose players following the total order inversely, starting from player
    $E$. We observe that $\forall v \in \mathcal{V} \setminus \{A, E\}, \sum\limits_{w \in \mathcal{V}}x_{wv} =
    \sum\limits_{w \in \mathcal{V}}x_{vw} \leq maxFlow\left(A, E\right) \leq in_{E, 0}$. Player $E$ will follow a modified
-   evil strategy where she steals value equal to her total incoming flow, not her total incoming trust. Let $j_2$ be the
-   first turn when $A$ is chosen to play. We will show using strong induction that there exists a set of valid actions
+   evil strategy where she steals value equal to her total incoming flow, not her total incoming direct trust. Let $j_2$ be
+   the first turn when $A$ is chosen to play. We will show using strong induction that there exists a set of valid actions
    for each player according to their respective strategy such that at the end of each turn $j$ the corresponding player
    $v = Player\left(j\right)$ will have stolen value $x_{wv}$ from each in-neighbour $w$.
 
