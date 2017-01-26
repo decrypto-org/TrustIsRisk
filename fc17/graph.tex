@@ -8,8 +8,10 @@
    Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
    the node possesses exclusively and nobody else can spend.
    \subimport{common/definitions/}{capital.tex}
-   The capital of $A$ is subsequently modified only during her turns, according to her actions. We also note that a
-   player's assets are the sum of her capital and her total outgoing trust.
+   The capital of $A$ is subsequently modified only during her turns, according to her actions. We also define a player's
+   assets to be the sum of her capital and her total outgoing trust.
+
+   \subimport{common/definitions/}{assets.tex}
 
    The formal definition of direct trust follows:
    \subimport{common/definitions/}{directtrust.tex}
@@ -23,4 +25,7 @@
    Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
    We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
    trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-   respectively. For a reference of common definitions, see the Appendix.
+   respectively. The formal definitions follow. %For a reference of common definitions, see the Appendix.
+
+   \subimport{common/definitions/}{neighbourhood.tex}
+   \subimport{common/definitions/}{inouttrust.tex}
