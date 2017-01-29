@@ -26,7 +26,8 @@
   \filldraw (0.0bp,0.0bp) -- (0.0bp,320.0bp) -- (457.0bp,320.0bp) -- (457.0bp,0.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (228.5bp,11.5bp) node {\Large \textbf{Fig.\figlabel{fig:transitivegame}:} Turns of a \texttt{TransitiveGame(}$\mathcal{G}_0$\texttt{,}$A$\texttt{,}$E$\texttt{)}};
+  %\draw (228.5bp,11.5bp) node {\Large \textbf{Fig.\figlabel{fig:transitivegame}:} Turns of a \texttt{TransitiveGame(}$\mathcal{G}_0$\texttt{,}$A$\texttt{,}$E$\texttt{)}};
+  \draw (228.5bp,11.5bp) node {\Large \textbf{Fig.\figlabel{fig:transitivegame}:} $E$ steals 7\bitcoin, then $D$ steals 3\bitcoin \:and finally $C$ steals 3\bitcoin};
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
@@ -121,7 +122,7 @@
   \draw [->] (B0) ..controls (340.73bp,58.525bp) and (349.94bp,58.948bp)  .. (358.0bp,61.0bp) .. controls (363.04bp,62.285bp) and (368.19bp,64.399bp)  .. (C0);
   \draw (354.5bp,68.5bp) node {\Large 6\bitcoin};
   %\draw (228.0bp,317.0bp) -- (228.0bp,35.0bp);
-  \draw (0.0bp,169.0bp) -- (485.0bp,169.0bp);
+  \draw (0.0bp,175.0bp) -- (485.0bp,175.0bp);
 %
 \end{tikzpicture}
 \end{center}
