@@ -25,6 +25,8 @@
   \node (D) at (130.0bp,117.0bp) [draw,ellipse] {\LARGE D};
   \draw [->] (C) ..controls (153.77bp,42.809bp) and (160.15bp,42.31bp)  .. (166.0bp,42.0bp) .. controls (174.23bp,41.564bp) and (183.25bp,41.314bp)  .. (E);
   \draw (173.0bp,49.5bp) node {\LARGE 10\bitcoin};
+  \draw [->] (B) ..controls (190.0bp,130.0bp) and (170.0bp,140.0bp)  .. (130.0bp,140.0bp) .. controls (85.0bp,135.0bp) and (70.0bp,115.0bp)  .. (A);
+  \draw (130.0bp,150.0bp) node {\LARGE 1\bitcoin};
   \draw [->] (C) ..controls (159.21bp,65.487bp) and (180.58bp,81.004bp)  .. (B);
   \draw (173.0bp,87.5bp) node {\LARGE 3\bitcoin};
   \draw [->] (A) ..controls (79.311bp,96.35bp) and (94.709bp,102.75bp)  .. (D);

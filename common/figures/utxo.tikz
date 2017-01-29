@@ -49,7 +49,7 @@
   \draw (488.99bp,231.5bp) node {\LARGE 6\bitcoin};
   \draw [->] (C) ..controls (134.77bp,154.67bp) and (141.98bp,151.276bp)  .. (149.0bp,149.5bp) .. controls (157.28bp,147.405bp) and (166.61bp,146.8bp)  .. (E);
   \draw (156.0bp,158.0bp) node {\LARGE 10\bitcoin};
-  \draw [->] (B) ..controls (164.5bp,240.8bp) and (142.0bp,248.1bp)  .. (113.5bp,251.0bp) .. controls (80.0bp,246.8bp) and (62.5bp,226.6bp)  .. (A);
+  \draw [->] (B) ..controls (164.5bp,240.8bp) and (142.0bp,248.1bp)  .. (113.5bp,249.5bp) .. controls (80.0bp,246.8bp) and (62.5bp,226.6bp)  .. (A);
   \draw (113.0bp,261.0bp) node {\LARGE 1\bitcoin};
   \draw [->] (a5) ..controls (445.3bp,39.0bp) and (541.02bp,39.0bp)  .. (Y5);
   \draw (488.99bp,28.5bp) node {\LARGE 1/\{D,B\}};
