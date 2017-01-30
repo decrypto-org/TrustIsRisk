@@ -8,8 +8,12 @@
    Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
    the node possesses exclusively and nobody else can spend.
    \subimport{common/definitions/}{capital.tex}
-   The capital of $A$ is subsequently modified only during her turns, according to her actions. A rational player would
-   like to maximize her capital in the long term. We also define a player's assets:
+   The capital is the value that exists in the game but is not shared with trusted parties. The capital of $A$ can be
+   modified only during her turns, according to her actions. No capital can be added in the course of the game through
+   external means.
+
+   We also define a player's assets to be the sum of her capital and her total outgoing trust.
+
    \subimport{thesis/definitions/}{assets.tex}
     We consider the outgoing trust of a player as part of her assets. The formal definition of direct trust follows:
    \subimport{common/definitions/}{directtrust.tex}
