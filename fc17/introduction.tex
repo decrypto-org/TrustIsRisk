@@ -4,23 +4,32 @@
    The common denominator of established online marketplaces is that the reputation of each vendor and client is typically
    expressed in the form of stars and user-generated reviews that are viewable by the whole network.
 
-   Our goal is to create a reputation system for decentralized marketplaces where the trust each user gives to the rest of the users is
-   quantifiable, measurable and expressable in monetary terms. The central assumption used throughout this paper is
-   that trust is equivalent to risk, or the proposition that $Alice$'s \textit{trust} to another user $Bob$ is defined to
+   Our goal is to create a reputation system for decentralized marketplaces where the trust each user gives to the rest of
+   the users is quantifiable, measurable and expressable in monetary terms. The central assumption used throughout this paper
+   is that trust is equivalent to risk, or the proposition that $Alice$'s \textit{trust} to another user $Bob$ is defined to
    be the \textit{maximum sum of money} that $Alice$ can lose when $Bob$ is free to choose any strategy he wants. To flesh
-   out this concept, we will use \textit{lines of credit} as proposed by Washington Sanchez \cite{loc}.
-   Joining the network
-   will be done by explicitly entrusting a certain amount of money to another user, say $Bob$. If $Bob$ has already
-   entrusted an amount of money to a third user, $Charlie$, then we indirectly trust $Charlie$ since if the latter wished
-   to play unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic
-   interaction with $Charlie$. The currency used is Bitcoin \cite{bitcoin}. \medskip \ \\
+   out this concept, we will use \textit{lines of credit} as proposed by Washington Sanchez \cite{loc}. Joining the network
+   will be done by explicitly entrusting a certain amount of money to another user, say $Bob$. If $Bob$ has already entrusted
+   an amount of money to a third user, $Charlie$, then we indirectly trust $Charlie$ since if the latter wished to play
+   unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic interaction
+   with $Charlie$. The currency used is Bitcoin \cite{bitcoin}.
+
+   Bitcoin is a decentralized electronic currency that differs from conventional currencies in that it can be used wherever
+   there exists an internet connection and does not depend on central trusted nodes such as banks and governments. All
+   transactions ever completed are publicly viewable because they are recorded on a decentralized ledger named blockchain.
+   Bitcoin miners compete using their computational resources for block generation. One block confirming all new transactions
+   is generated every 10 minutes approximately. The new block is broadcast to all bitcoin users, where it is locally
+   verified and added to the end of the blockchain. The chances of two miners creating two different valid blocks at the same
+   time is tiny and the chance that such a discrepancy will not be ratified in a small number of blocks is exponentially
+   small. The set of transactions not completed yet is called UTXO, or unspent transaction output. It contains all coins not
+   spent yet. \medskip \ \\
    \subimport{common/figures/}{simpleexample.tikz} \smallskip \ \\
-   We thus propose a new kind of wallet where coins are not stored locally, but are placed in shared accounts materialized
-   through 1-of-2 multisigs, a bitcoin
-   construction that permits any one of two pre-designated users to spend the coins contained within a shared account
-   \cite{masteringbitcoin}. We will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2 multisig that can be spent by
-   either $Alice$ or $Bob$. In this notation, the order of usernames is irrelevant, as either user can spend. However, the
-   user who deposits the money initially into the shared account is relevant - they are the one risking their money.
+   We propose a new kind of wallet where coins are not stored locally, but are placed in shared accounts materialized through
+   1-of-2 multisigs, a bitcoin construction that permits any one of two pre-designated users to spend the coins contained
+   within a shared account \cite{masteringbitcoin}. We will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2
+   multisig that can be spent by either $Alice$ or $Bob$. In this notation, the order of usernames is irrelevant, as either
+   user can spend. However, the user who deposits the money initially into the shared account is relevant - they are the one
+   risking their money.
 
    Our approach changes the user experience in a subtle but drastic way. A user no more has to base her trust towards a
    store on stars or ratings which are not expressed in financial units. She can simply consult her wallet to
