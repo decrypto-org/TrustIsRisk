@@ -14,5 +14,11 @@
   \subimport{common/figures/}{collusion.tikz}
   \subimport{thesis/theorems/}{sybilrestheorem.tex}
   \subimport{thesis/proofsketches/}{sybilresproofsketch.tex}
-  We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless.
+  We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless. We note that
+  this theorem does not deliver reassurances against attacks involving deception techniques. More specifically, a malicious
+  player can create several identities, use them legitimately to inspire others to deposit direct trust to these identities
+  and then switch to the evil strategy, thus defrauding everyone that trusted the fabricated identities. These identities
+  correspond to the corrupted set of players and not to the Sybil set because they have direct incoming trust from outside
+  the collusion.
+
 
