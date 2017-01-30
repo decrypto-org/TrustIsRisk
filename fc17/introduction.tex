@@ -42,13 +42,13 @@
    Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
    positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely use to
    complete a purchase from $Charlie$. We examine exactly how this value, known as indirect trust, is calculated in Trust
-   Flow theorem (\ref{trustflow}). It is important to note here that indirect trust to a specific user is not constant for
-   all users, but it is subjective; each user views a personalized indirect trust based on the network topology. The indirect
-   trust reported by our system maintains the following desired security property: If $Alice$ makes a purchase from
-   $Charlie$, then she is exposed to no more risk than she was already taking willingly. The existing willing risk is exactly
-   that which $Alice$ was taking by sharing her coins with her trusted friends. We prove this result in the Risk Invariance
-   theorem (\ref{riskinv}). Obviously it will not be safe for $Alice$ to buy anything from $Charlie$ or any other vendor if
-   she has entrusted no value to any other user.
+   Flow theorem (\ref{trustflow}). It is important to note here that indirect trust to a specific user is not global but
+   subjective; each user views a personalized indirect trust based on the network topology. The indirect trust reported by
+   our system maintains the following desired security property: If $Alice$ makes a purchase from $Charlie$, then she is
+   exposed to no more risk than she was already taking willingly. The existing willing risk is exactly that which $Alice$
+   was taking by sharing her coins with her trusted friends. We prove this result in the Risk Invariance theorem
+   (\ref{riskinv}). Obviously it will not be safe for $Alice$ to buy anything from $Charlie$ or any other vendor if she has
+   entrusted no value to any other user.
 
    We see that in TrustIsRisk the money is not invested at the time of the purchase and directly to the vendor, but at an
    earlier point in time and only to parties that are trustworthy for out-of-band reasons. The fact that this system can
