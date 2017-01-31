@@ -1,34 +1,34 @@
 \section{The Trust Graph}
-   We now engage in the formal description of the proposed system, accompanied by helpful examples.
-   \subimport{common/definitions/}{gamegraph.tex}
-   The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
-   value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
-   represents the corresponding turn.
-   \subimport{common/definitions/}{players.tex}
-   Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
-   the node possesses exclusively and nobody else can spend.
-   \subimport{common/definitions/}{capital.tex}
-   The capital is the value that exists in the game but is not shared with trusted parties. The capital of $A$ can be
-   modified only during her turns, according to her actions. No capital can be added in the course of the game through
-   external means.
+  We now engage in the formal description of the proposed system, accompanied by helpful examples.
+  \subimport{common/definitions/}{gamegraph.tex}
+  The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
+  value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
+  represents the corresponding turn.
+  \subimport{common/definitions/}{players.tex}
+  Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
+  the node possesses exclusively and nobody else can spend.
+  \subimport{common/definitions/}{capital.tex}
+  The capital is the value that exists in the game but is not shared with trusted parties. The capital of $A$ can be
+  modified only during her turns, according to her actions. No capital can be added in the course of the game through
+  external means.
 
-   We also define a player's assets to be the sum of her capital and her total outgoing trust.
+  We also define a player's assets to be the sum of her capital and her total outgoing trust.
 
-   \subimport{common/definitions/}{assets.tex}
+  \subimport{common/definitions/}{assets.tex}
 
-   The formal definition of direct trust follows:
-   \subimport{common/definitions/}{directtrust.tex}
-   This definition agrees with the title of this paper and coincides with the intuition and experimental results of
-   \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
-   of danger in which $Alice$ is willing and able to expose herself to in order to help $Bob$. An example graph with its
-   corresponding transactions in the UTXO can be seen below.
+  The formal definition of direct trust follows:
+  \subimport{common/definitions/}{directtrust.tex}
+  This definition agrees with the title of this paper and coincides with the intuition and experimental results of
+  \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds with the extent
+  of danger in which $Alice$ is willing and able to expose herself to in order to help $Bob$. An example graph with its
+  corresponding transactions in the UTXO can be seen below.
 
-   \subimport{common/figures/}{utxo.tikz}
+  \subimport{common/figures/}{utxo.tikz}
 
-   Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
-   We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
-   trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
-   respectively. The formal definitions follow. %For a reference of common definitions, see the Appendix.
+  Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
+  We use the notation $N^{+}(A)$ to refer to the nodes directly trusted by $A$ and $N^{-}(A)$ for the nodes that directly
+  trust $A$. We also use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust
+  respectively. The formal definitions follow. %For a reference of common definitions, see the Appendix.
 
-   \subimport{common/definitions/}{neighbourhood.tex}
-   \subimport{common/definitions/}{inouttrust.tex}
+  \subimport{common/definitions/}{neighbourhood.tex}
+  \subimport{common/definitions/}{inouttrust.tex}

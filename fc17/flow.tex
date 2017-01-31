@@ -18,12 +18,12 @@
   $X = [x_{vw}]_{\mathcal{V} \times \mathcal{V}}$ with a source $A$ and a sink $B$ is valid when:
   \begin{equation}
   \label{flow1}
-     \forall (v, w) \in \mathcal{E}, x_{vw} \leq c_{vw} \mbox{ and}
+    \forall (v, w) \in \mathcal{E}, x_{vw} \leq c_{vw} \mbox{ and}
   \end{equation}
   \begin{equation}
   \label{flow2}
-     \forall v \in \mathcal{V} \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
-     \enspace.
+    \forall v \in \mathcal{V} \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
+    \enspace.
   \end{equation}
   We do not suppose any skew symmetry in $X$. The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is
   proven to be equal to $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum
@@ -40,16 +40,16 @@
   \subimport{common/theorems/}{trustflowtheorem.tex}
   \subimport{fc17/proofs/}{trustflowproof.tex}
 
-   Note that the maxFlow is the same in the following two cases: If a player chooses the evil strategy and if that player
-   chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
+  Note that the maxFlow is the same in the following two cases: If a player chooses the evil strategy and if that player
+  chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
 
-   Further justification of trust transitivity through the use of $MaxFlow$ can be found in the sociological experiment
-   conducted in \cite{kmrs}.
+  Further justification of trust transitivity through the use of $MaxFlow$ can be found in the sociological experiment
+  conducted in \cite{kmrs}.
 
-   Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
-   unknown, parties.
-   \subimport{common/theorems/}{riskinvtheorem.tex}
-   \subimport{common/proofs/}{riskinvproof.tex}
-   It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
-   (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
-   leave this calculation as part of further research.
+  Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
+  unknown, parties.
+  \subimport{common/theorems/}{riskinvtheorem.tex}
+  \subimport{common/proofs/}{riskinvproof.tex}
+  It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
+  (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
+  leave this calculation as part of further research.

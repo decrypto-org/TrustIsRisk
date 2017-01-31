@@ -1,15 +1,15 @@
 \begin{proof}
-   From the flow definition we know that
-   \begin{equation}
-   \label{saturation:flowleqcap}
-      \forall i \in [n], x'_i \leq c'_i \enspace.
-   \end{equation}
-   In turn $j-1$, there exists some valid flow $Y$ such that
-   \begin{equation*}
-      \forall i \in [n], y_i = c'_i
-   \end{equation*}
-   with a flow value $\sum\limits_{i=1}^{n}y_i$, which can be created as follows: We start from $X$ and for each
-   $\left(A, v_i\right)$ edge we reduce the flow along paths starting from this edge for a total reduction of $x_i - c'_i$ on
-   all those paths. $Y$ is also obviously valid for turn $j$ and, since all capacities $c'_i$ are saturated, there can
-   be no more outgoing flow from the source, thus $Y$ is a maximum flow in $\mathcal{G}_j$.
+  From the flow definition we know that
+  \begin{equation}
+  \label{saturation:flowleqcap}
+    \forall i \in [n], x'_i \leq c'_i \enspace.
+  \end{equation}
+  In turn $j-1$, there exists some valid flow $Y$ such that
+  \begin{equation*}
+    \forall i \in [n], y_i = c'_i
+  \end{equation*}
+  with a flow value $\sum\limits_{i=1}^{n}y_i$, which can be created as follows: We start from $X$ and for each
+  $\left(A, v_i\right)$ edge we reduce the flow along paths starting from this edge for a total reduction of $x_i - c'_i$ on
+  all those paths. $Y$ is also obviously valid for turn $j$ and, since all capacities $c'_i$ are saturated, there can
+  be no more outgoing flow from the source, thus $Y$ is a maximum flow in $\mathcal{G}_j$.
 \end{proof}

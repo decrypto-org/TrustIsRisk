@@ -1,11 +1,11 @@
 For example, let $A = Player(j)$. A valid turn can be
 \begin{equation*}
-   Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
+  Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace,
 \end{equation*}
 given that
 \begin{equation*}
 \begin{gathered}
-   0 \leq x \leq DTr_{B \rightarrow A, j-1} \wedge -DTr_{A \rightarrow C, j-1} \leq y \: \wedge \\
-   \wedge -DTr_{A \rightarrow D, j-1} \leq w \wedge y + w - x \leq Cap_{A, j-1} \enspace.
+  0 \leq x \leq DTr_{B \rightarrow A, j-1} \wedge -DTr_{A \rightarrow C, j-1} \leq y \: \wedge \\
+  \wedge -DTr_{A \rightarrow D, j-1} \leq w \wedge y + w - x \leq Cap_{A, j-1} \enspace.
 \end{gathered}
 \end{equation*}
