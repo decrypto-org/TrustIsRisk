@@ -20,8 +20,7 @@
   \subimport{fc17/algorithms/}{trustisriskgame.tex}
 
   \texttt{strategy[}$v$\texttt{]()} provides player $v$ with full knowledge of the game, except for the capitals of other
-  players. This assumption may not be realistic because out of band knowledge and traffic analysis methods can be used to
-  infer the capital of other players.
+  players. This assumption may not be always realistic.
 
   \texttt{executeTurn()} checks the validity of \texttt{Turn} and substitutes it with an empty turn if invalid.
   Subsequently, it creates the new graph $\mathcal{G}_j$ and updates the history accordingly. For the routine code,
