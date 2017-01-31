@@ -14,15 +14,12 @@
   unfairly, he could have already stolen the money entrusted to him by $Bob$. Thus we can engage in economic interaction
   with $Charlie$. The currency used is Bitcoin \cite{bitcoin}.
 
-  Bitcoin is a decentralized electronic currency that differs from conventional currencies in that it can be used wherever
-  there exists an internet connection and does not depend on central trusted nodes such as banks and governments. All
-  transactions ever completed are publicly viewable because they are recorded on a decentralized ledger named blockchain.
-  Bitcoin miners compete using their computational resources for block generation. One block confirming all new transactions
-  is generated every 10 minutes approximately. The new block is broadcast to all bitcoin users, where it is locally
-  verified and added to the end of the blockchain. The chances of two miners creating two different valid blocks at the same
-  time is tiny and the chance that such a discrepancy will not be ratified in a small number of blocks is exponentially
-  small. The set of transactions not completed yet is called UTXO, or unspent transaction output. It contains all coins not
-  spent yet. \medskip \ \\
+  Bitcoin is a decentralized cryptocurrency that differs from conventional currencies in that it does not depend on trusted
+  third parties. All transactions are public as they are recorded on a decentralized ledger, the blockchain. Each transaction
+  takes some coins as input and produces some coins as output. If the output of a transaction is not connected to the input
+  of another, then this output belongs to the UTXO, the set of unspent transaction output. The UTXO contains all coins not
+  yet spent.
+  \medskip \ \\
   \subimport{common/figures/}{simpleexample.tikz} \smallskip \ \\
   We propose a new kind of wallet where coins are not stored locally, but are placed in shared accounts materialized through
   1-of-2 multisigs, a bitcoin construction that permits any one of two pre-designated users to spend the coins contained
