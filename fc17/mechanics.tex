@@ -1,0 +1,63 @@
+\section{Mechanics}
+  We will now trace $Alice$'s steps from joining the network up to successfully completing a purchase. Suppose that initially
+  all her coins, say $10\bitcoin$, are stored in such a way that she exclusively can spend them. $Alice$ has no incoming or
+  outgoing direct trust and $As_{Alice, 0} = Cap_{Alice, 0} = 10\bitcoin$.
+
+  She then decides to join Trust Is Risk. She has two friends already in the network, $Bob$ and $Charlie$. She places
+  $2\bitcoin$ in a $1/\{Alice, Bob\}$ multisig and $5\bitcoin$ in a $1/\{Alice, Charlie\}$ multisig. Now she is part of the
+  network and it is
+  \begin{align*}
+    As_{Alice, 1} &= 10\bitcoin \enspace, \\
+    Cap_{Alice, 1} &= 3\bitcoin \mbox{ and} \\
+    \begin{rcases}
+      DTr_{Alice \rightarrow Bob, 1} = 2\bitcoin \\
+      DTr_{Alice \rightarrow Charlie, 1} = 5\bitcoin
+    \end{rcases}
+    &\Rightarrow out_{Alice, 1} = 7\bitcoin \enspace.
+  \end{align*}
+  She is risking $7\bitcoin$ in exchange for being part of the network.
+
+  Suppose that the network remains idle. A few days later, she discovers an online shoes shop owned by $Dean$ that claims to
+  have joined Trust Is Risk. She finds a nice pair of shoes that costs $V = 1\bitcoin$ and asks our system how much she
+  indirectly trusts $Dean$. The system scans the UTXO, executes $MaxFlow(Alice, Dean)$ and returns
+  $Tr_{Alice \rightarrow Dean, 1} = 4\bitcoin$. Since $V \leq Tr_{Alice \rightarrow Dean, 1}$, she confidently proceeds to
+  buy the shoes. However, to avoid increasing her indirect trust towards the shoes shop, she first reduces her direct trust
+  to her friends until $Tr_{Alice \rightarrow Dean, 2} = 3\bitcoin$. Suppose that after this reduction it is
+  \begin{align*}
+    DTr_{Alice \rightarrow Bob, 2} &= 0.5\bitcoin \mbox{ and} \\
+    DTr_{Alice \rightarrow Charlie, 2} &= 2.5\bitcoin \enspace.
+  \end{align*}
+  We can then deduce that
+  \begin{align*}
+    out_{Alice, 2} &= 3\bitcoin \enspace, \\
+    As_{Alice, 2} &= 10\bitcoin \mbox{ and} \\
+    Cap_{Alice, 2} &= 7\bitcoin \enspace.
+  \end{align*}
+
+  Now $Alice$ is ready to prepay for the shoes. She adds direct trust of $1\bitcoin$ to $Dean$ and places her order on his
+  website. The new situation is
+  \begin{align*}
+    \begin{rcases}
+      DTr_{Alice \rightarrow Bob, 3} = 0.5\bitcoin \\
+      DTr_{Alice \rightarrow Charlie, 3} = 2.5\bitcoin \\
+      DTr_{Alice \rightarrow Dean, 3} = 1\bitcoin
+    \end{rcases}
+    &\Rightarrow out_{Alice, 3} = 4\bitcoin \enspace, \\
+    As_{Alice, 3} &= 10\bitcoin \mbox{ and} \\
+    Cap_{Alice, 3} &= 6\bitcoin \enspace.
+  \end{align*}
+
+  Eventually all goes well and the shoes reach $Alice$. She decides to replenish her direct trust towards her friends since
+  they have (directly or indirectly) placed their trust to a trustworthy store. Subsequently, $Dean$ pays the producer with
+  the $1\bitcoin$ $Alice$ has directly trusted him with. The final state of the game as far as $Alice$ is concerned is as
+  follows:
+  \begin{align*}
+    \begin{rcases}
+      DTr_{Alice \rightarrow Bob, 5} = 2\bitcoin \\
+      DTr_{Alice \rightarrow Charlie, 5} = 5\bitcoin
+    \end{rcases}
+    &\Rightarrow out_{Alice, 5} = 7\bitcoin \enspace, \\
+    As_{Alice, 5} = 9\bitcoin \mbox{ and} \\
+    Cap_{Alice, 5} = 2\bitcoin \enspace.
+  \end{align*}
+  We see that $Alice$ has used $1\bitcoin$ of her assets to buy the pair of shoes.
