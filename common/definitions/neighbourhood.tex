@@ -2,15 +2,13 @@
 %\addcontentsline{toc}{subsubsection}{Neighbourhood Definition}
 \begin{definition}[Neighbourhood]
   \label{neighbourhood}
-  \begin{enumerate}
-    \item Let $N^{+}\left(A\right)_j$ be the players $A$ directly trusts at the end of turn $j$.
-      \begin{equation}
-        N^{+}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\} \enspace.
-      \end{equation}
-    \item Let $N^{-}\left(A\right)_j$ be the players that directly trust $A$ at the end of turn $j$.
-      \begin{equation}
-        N^{-}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\} \enspace.
-      \end{equation}
-      These are called out- and in-neighbourhood of $A$ on turn $j$ respectively.
-  \end{enumerate}
+  We use the notation $N^{+}\left(A\right)_j$ to refer to the nodes directly trusted by $A$ and $N^{-}\left(A\right)_j$ for
+  the nodes that directly trust $A$ at the end of turn $j$.
+    \begin{equation}
+    \begin{gathered}
+      N^{+}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\} \\
+      N^{-}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\}
+    \end{gathered}
+    \end{equation}
+    These are called out- and in-neighbourhood of $A$ on turn $j$ respectively.
 \end{definition}
