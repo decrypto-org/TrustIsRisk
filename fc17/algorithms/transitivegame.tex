@@ -7,8 +7,8 @@ for ((*@$v \in \mathcal{V} \setminus \{B\}$@*))  (*@$Loss_v$@*) = 0 (*@\label{tr
 j = 0
 while (True)
   j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
-  (*@$Turn_j$@*) = (*@$v$@*)Strategy((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$\left(\mathcal{H}\right)_{1 \dots j-1}$@*))
-  executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$V$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
+  (*@$Turn_j$@*) = strategy[(*@$v$@*)]((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$Cap_{v, 0}$@*), (*@$mathcal{H}_{1 \dots j-1}$@*))
+  executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
       case (*@$Steal($@*)y(*@$,w)$@*) do
