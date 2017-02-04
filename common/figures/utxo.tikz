@@ -29,7 +29,7 @@
   \coordinate (Y4) at (552.44bp,100.0bp);
   \coordinate (Y6) at (552.44bp,344.0bp);
   \draw [->] (a4) ..controls (445.3bp,100.0bp) and (461.02bp,100.0bp)  .. (Y4);
-  \draw (488.99bp,89.5bp) node {\LARGE 1/\{C,B\}};
+  \draw (488.99bp,89.5bp) node {\LARGE 1/\{B,C\}};
   \draw (488.99bp,109.5bp) node {\LARGE 3\bitcoin};
   \draw [->] (Z3) ..controls (377.14bp,161.0bp) and (392.28bp,161.0bp)  .. (a3);
   \draw (377.99bp,150.5bp) node {\LARGE C};
@@ -52,7 +52,7 @@
   \draw [->] (B) ..controls (164.5bp,240.8bp) and (142.0bp,248.1bp)  .. (113.5bp,249.5bp) .. controls (80.0bp,246.8bp) and (62.5bp,226.6bp)  .. (A);
   \draw (113.0bp,261.0bp) node {\LARGE 1\bitcoin};
   \draw [->] (a5) ..controls (445.3bp,39.0bp) and (541.02bp,39.0bp)  .. (Y5);
-  \draw (488.99bp,28.5bp) node {\LARGE 1/\{D,B\}};
+  \draw (488.99bp,28.5bp) node {\LARGE 1/\{B,D\}};
   \draw (488.99bp,48.5bp) node {\LARGE 2\bitcoin};
   \draw [->] (C) ..controls (142.79bp,182.58bp) and (162.28bp,192.79bp)  .. (B);
   \draw (156.0bp,201.0bp) node {\LARGE 3\bitcoin};
