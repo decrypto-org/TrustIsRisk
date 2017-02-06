@@ -1,0 +1,27 @@
+\section{Mechanics}
+  We will now trace $Alice$'s steps from joining the network up to successfully completing a purchase. Suppose that initially
+  all her coins, say $10\bitcoin$, are stored in such a way that she exclusively can spend them.
+
+  Two trustworthy friends, say $Bob$ and $Charlie$, persuade her to try out Trust Is Risk. She installs the Trust Is Risk
+  wallet and migrates the $10\bitcoin$ from her regular wallet, entrusting $2\bitcoin$ to $Bob$ and $5\bitcoin$ to $Charlie$.
+  She now exclusively controls $3\bitcoin$ and is risking $7\bitcoin$ in exchange for being part of the network. She has full
+  but not exclusive access to the $7\bitcoin$ entrusted to her friends and exclusive access to the remaining $3\bitcoin$, for
+  a total of $10\bitcoins$.
+
+  A few days later, she discovers an online shoes shop owned by $Dean$ that claims to have joined Trust Is Risk. She finds a
+  nice pair of shoes that costs $1\bitcoin$ and checks $Dean$'s trustworthiness through her new wallet. Suppose that $Dean$
+  is deemed trustworthy up to $4\bitcoin$. Since $1\bitcoin$ is less than $4\bitcoin$, she confidently proceeds to purchase
+  the shoes by paying through her new wallet.
+
+  She can then see in her wallet that her exclusive coins have increased to $6\bitcoin$, the coins entrusted to $Bob$ and
+  $Charlie$ have been reduced to $0.5\bitcoin$ and $2.5\bitcoin$ respectively and $Dean$ is entrusted $1\bitcoin$, equal to
+  the value of the shoes. Also, her purchase is marked as pending. If she proceeds to check her trust towards $Dean$, it will
+  again be $4\bitcoin$. Under the hood, her wallet redistributed her entrusted coins in a way that ensures that $Dean$ is
+  directly entrusted with coins equal to the value of the purchased item and that her reported trust towards him has remained
+  constant.
+
+  Eventually all goes well and the shoes reach $Alice$. $Dean$ chooses to redeem $Alice$'s entrusted coins, so her wallet
+  does not show any coins entrusted to $Dean$. Through her wallet, she marks the purchase as successful. This lets the system
+  replenish the reduced trust to $Bob$ and $Charlie$, setting the entrusted coins to $2\bitcoin$ and $5\bitcoin$ respectively
+  once more. Additionally, $Alice$ now exclusively owns $2\bitcoin$ for a total of $9\bitcoin$, which is expected, since she
+  had to pay $1\bitcoin$ for the shoes.
