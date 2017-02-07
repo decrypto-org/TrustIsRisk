@@ -18,56 +18,54 @@
   currencies in that it does not depend on trusted third parties. All transactions are public as they are recorded on a
   decentralized ledger, the blockchain. Each transaction takes some coins as input and produces some coins as output. If the
   output of a transaction is not connected to the input of another, then this output belongs to the UTXO, the set of unspent
-  transaction outputs. The UTXO contains all coins not yet spent.
+  transaction outputs. Intuitively, the UTXO contains all coins not yet spent.
   \medskip \ \\
   \subimport{common/figures/}{simpleexample.tikz} \smallskip \ \\
-  We propose a new kind of wallet where coins are not stored locally, but are placed in shared accounts materialized through
-  1-of-2 multisigs, a bitcoin construction that permits any one of two pre-designated users to spend the coins contained
-  within a shared account \cite{masteringbitcoin}. We will use the notation 1/$\{Alice, Bob\}$ to represent a 1-of-2
-  multisig that can be spent by either $Alice$ or $Bob$. In this notation, the order of usernames is irrelevant, as either
-  user can spend. However, the user who deposits the money initially into the shared account is relevant -- she is the one
-  risking her money.
+  We propose a new kind of wallet where coins are not exclusively owned, but are placed in shared accounts materialized
+  through 1-of-2 multisigs, a bitcoin construction that permits any one of two pre-designated users to spend the coins
+  contained within a shared account \cite{masteringbitcoin}. We will use the notation 1/$\{Alice, Bob\}$ to represent a
+  1-of-2 multisig that can be spent by either $Alice$ or $Bob$. In this notation, the order of names is irrelevant, as
+  either user can spend. However, the user who deposits the money initially into the shared account is relevant -- she is the
+  one risking her money.
 
   Our approach changes the user experience in a subtle but drastic way. A user no more has to base her trust towards a
   store on stars or ratings which are not expressed in financial units. She can simply consult her wallet to decide whether
   the store is trustworthy and, if so, up to what value, denominated in bitcoin. This system works as follows: Initially
   $Alice$ migrates her funds from her private bitcoin wallet to 1-of-2 multisig addresses shared with friends she
   comfortably trusts. We call this direct trust. Our system is agnostic to the means players use to determine who is
-  trustworthy for these direct 1-of-2 deposits. In our system this dubious kind of trust is confined to the direct
-  neighbourhood of each player; indirect trust towards unknown users is calculated by a deterministic algorithm. For
-  comparison, systems with global ratings do not distinguish between neighbours and other users, thus offering dubious trust
-  indications for everyone.
+  trustworthy for these direct 1-of-2 deposits. This dubious kind of trust is confined to the direct neighbourhood of each
+  player; indirect trust towards unknown users is calculated by a deterministic algorithm. In comparison, systems with global
+  ratings do not distinguish between neighbours and other users, thus offering dubious trust indications for everyone.
 
   Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
-  positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely use to
-  complete a purchase from $Charlie$. We examine exactly how this value, known as indirect trust, is calculated in Trust
-  Flow theorem (\ref{trustflow}). It is important to note here that indirect trust to a specific user is not global but
-  subjective; each user views a personalized indirect trust based on the network topology. The indirect trust reported by
-  our system maintains the following desired security property: If $Alice$ makes a purchase from $Charlie$, then she is
-  exposed to no more risk than she was already taking willingly. The existing voluntary risk is exactly that which $Alice$
-  was taking by sharing her coins with her trusted friends. We prove this result in the Risk Invariance theorem
-  (\ref{riskinv}). Obviously it will not be safe for $Alice$ to buy anything from $Charlie$ or any other vendor if she has
-  not directly entrusted any value to any other user.
+  positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely pay to
+  complete a purchase from $Charlie$. This value, known as indirect trust, is calculated with the Trust Flow theorem
+  (\ref{trustflow}). Note that indirect trust towards a user is not global but subjective; each user views a personalized
+  indirect trust based on the network topology. The indirect trust reported by our system maintains the following desired
+  security property: If $Alice$ makes a purchase from $Charlie$, then she is exposed to no more risk than she was already
+  taking willingly. The existing voluntary risk is exactly that which $Alice$ was taking by sharing her coins with her
+  trusted friends. We prove this result in the Risk Invariance theorem (\ref{riskinv}). Obviously it will not be safe for
+  $Alice$ to buy anything from $Charlie$ or any other vendor if she has not directly entrusted any value to any other user.
 
-  We see that in Trust Is Risk the money is not invested at the time of the purchase and directly to the vendor, but at an
+  We see that in Trust Is Risk the money is not invested at the time of purchase and directly to the vendor, but at an
   earlier point in time and only to parties that are trustworthy for out of band reasons. The fact that this system can
   function in a completely decentralized fashion will become clear in the following sections. We prove this result in the
   Sybil Resilience theorem (\ref{sybil}).
 
-  Observe that we make the design choice that one can express her trust maximally in terms of her available capital. Thus,
-  an impoverished player cannot allocate much direct trust to her friends, no matter how trustworthy they are. On the other
-  hand, a rich player may entrust a small fraction of her funds to a player that she does not find trustworthy to a great
-  extent and still exhibit more direct trust than the impoverished player of the previous example does. There is no upper
-  limit to trust; each player is only limited by her funds. We thus take advantage of the following remarkable property of
-  money: To normalise subjective human preferences into objective value.
+  We make the design choice that one can express her trust maximally in terms of her available capital. Thus, an impoverished
+  player cannot allocate much direct trust to her friends, no matter how trustworthy they are. On the other hand, a rich
+  player may entrust a small fraction of her funds to a player that she does not find trustworthy to a great extent and still
+  exhibit more direct trust than the impoverished player of the previous example. There is no upper limit to trust; each
+  player is only limited by her funds. We thus take advantage of the following remarkable property of money: To normalise
+  subjective human preferences into objective value.
 
-  There are several incentives for a user to join this network. First of all, she can have access to a store that is
-  otherwise inaccessible. Moreover, two friends can formalize their mutual trust by directly entrusting the same amount to
-  each other. A large company that casually subcontracts other companies to complete various tasks can express its trust
-  towards them using this method. A government can choose to directly entrust its citizens with money and confront them using
-  a corresponding legal arsenal if they make irresponsible use of this trust. A bank can provide loans as outgoing and
-  manage savings as incoming direct trust. Last but not least, the network can be viewed as a possible field for investment
-  and speculation since it constitutes a completely new area for financial activity.
+  There are several incentives for a user to join this network. First, she has access to stores that would be inaccessible
+  otherwise. Moreover, two friends can formalize their mutual trust by directly entrusting the same amount to each other. A
+  large company that casually subcontracts other companies can express its trust towards them. A government can choose to
+  directly entrust its citizens with money and confront them using a corresponding legal arsenal if they make irresponsible
+  use of this trust. A bank can provide loans as outgoing and manage savings as incoming direct trust. Last but not least,
+  the network can be viewed as a possible investment and speculation field since it constitutes a completely new area for
+  financial activity.
 
   It is worth noting that the same physical person can maintain multiple pseudonymous identities in the same trust network
   and that multiple independent trust networks for different purposes can coexist. On the other hand, the same pseudonymous
