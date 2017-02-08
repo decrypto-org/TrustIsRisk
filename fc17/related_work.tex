@@ -19,7 +19,11 @@
   which gives a sociological justification for the central design choice of identifying trust with
   risk. We greatly appreciate the work in TrustDavis \cite{davis}, which proposes a financial trust system that exhibits
   transitive properties and in which trust is defined as lines-of-credit, similar to our system. We were able to extend
-  their work by using the blockchain for automated proofs-of-risk, a feature not available to them at the time. Our
-  conservative strategy and the Transitive Game are very similar to the mechanism proposed by the economic paper
-  \cite{iou} which also illustrates financial trust transitivity and is used by Ripple \cite{ripple}. Stellar \cite{stellar}
-  is a sibling project tackling the same problem as Ripple.
+  their work by using the blockchain for automated proofs-of-risk, a feature not available to them at the time.
+
+  Our conservative strategy and Transitive Game are very similar to the mechanism proposed by the economic paper
+  \cite{iou} which also illustrates financial trust transitivity and is used by Ripple \cite{ripple} and Stellar
+  \cite{stellar}.  IOUs in these correspond to reversed edges of trust in our system. The critical difference is that our
+  denominations of trust are expressed in a global currency and that coins must pre-exist in order to be trusted and so there
+  is no money-as-debt. Furthermore, we prove that trust and maximum flows are equivalent, a direction not explored in their
+  paper, even though we believe it must hold for all both our and their systems.
