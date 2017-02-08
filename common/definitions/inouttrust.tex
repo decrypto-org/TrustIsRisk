@@ -1,11 +1,10 @@
 %\phantomsection
 %\addcontentsline{toc}{subsubsection}{Total Incoming/Outgoing Trust Definition}
-\begin{definition}[Total Incoming/Outgoing Trust]
+\begin{definition}[Total Incoming/Outgoing Direct Trust]
 \label{inouttrust}
-   \begin{equation}
-      in_{A, j} = \sum\limits_{v \in N^{-}\left(A\right)_j}DTr_{v \rightarrow A, j}
-   \end{equation}
-   \begin{equation}
-      out_{A, j} = \sum\limits_{v \in N^{+}\left(A\right)_j}DTr_{A \rightarrow v, j}
-   \end{equation}
+  We use the notation $in_{A, j}, out_{A, j}$ to refer to the total incoming and outgoing direct trust respectively.
+  \begin{align}
+    in_{A, j} = \sum\limits_{v \in N^{-}\left(A\right)_j}DTr_{v \rightarrow A, j} \enspace,&&
+    out_{A, j} = \sum\limits_{v \in N^{+}\left(A\right)_j}DTr_{A \rightarrow v, j}
+  \end{align}
 \end{definition}

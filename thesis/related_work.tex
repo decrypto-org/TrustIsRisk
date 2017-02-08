@@ -4,9 +4,10 @@
   trust and another tightly related and equally elusive concept, reputation.
 
   The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust is
-  rather binary and transitivity is not possible is explored in PGP \cite{pgp}. A transitive web-of-trust for fighting spam
-  is explored in Freenet \cite{freenet}. Other systems require central trusted third parties, such as PKI \cite{pki} and
-  Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership \cite{byzantine}.
+  rather binary and transitivity is limited to one step beyond actively trusted parties is explored in PGP \cite{pgp}. A
+  transitive web-of-trust for fighting spam is explored in Freenet \cite{freenet}. Other systems require central trusted
+  third parties, such as PKI \cite{pki} and Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership
+  \cite{byzantine}.
 
   Mui and Halberstadt \cite{mui} have proposed an elaborate model based on the triptych "trust, reciprocity, reputation",
   where reciprocal actions of an agent $A$ generate a corresponding reputation, which in turn influences other agents' trust
@@ -205,7 +206,9 @@
   and thus had no concrete basis to be built upon, leaving room for malicious intermediary nodes to fake or disclose
   contradictory trust amounts to different parties. Furthermore, the distributed nature of the system and its resemblance to
   contemporary bank relations could sharply increase the time needed for a simple transaction, because active agreement of
-  many intermediate parties would be required.
+  many intermediate parties would be required. A successful resolution of the aforementioned drawbacks is implemented through
+  the settlement network Ripple \cite{ripple}. Stellar \cite{stellar} is a sibling project tackling the same problem as
+  Ripple.
 
   \cite{davis} proposes a system closely related to ours, the mechanics of which are very similar to Trust Is Risk. The
   work is accomplished in a more economic vein, considering the dynamics that arise from charging a premium for the

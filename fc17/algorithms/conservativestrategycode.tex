@@ -1,5 +1,5 @@
-     \begin{lstlisting}[label=conservativestrategy, style=numbers]
-consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) :
+\begin{lstlisting}[label=conservativestrategy, style=numbers]
+consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$Cap_{A,0}$@*), (*@$\mathcal{H}$@*)) :
   Damage = (*@$out_{A, prev\left(j\right)}$@*) - (*@$out_{A, j-1}$@*)
   if (Damage > 0)
     if (Damage >= (*@$in_{A, j-1}$@*))
@@ -9,4 +9,4 @@ consStrategy((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$\mathcal{H}$@*)) :
       (*@$Turn_j$@*) = (*@$\bigcup\limits_{v \in N^{-}\left(A\right)_{j-1}}\{Steal\left(y_v, v\right)\}$@*)
   else (*@$Turn_j$@*) = (*@$\emptyset$@*)
   return((*@$Turn_j$@*))
-     \end{lstlisting}
+\end{lstlisting}

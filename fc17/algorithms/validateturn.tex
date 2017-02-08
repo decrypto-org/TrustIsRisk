@@ -1,5 +1,5 @@
-    \Suppressnumber
-    \begin{lstlisting}[label=validateturn, style=numbers]
+\Suppressnumber
+\begin{lstlisting}[label=validateturn, style=numbers]
 Validate Turn
 Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old (*@$Cap_{A, j-1}$@*), Turn
 Output : (*@$Turn_j$@*), new (*@$Cap_{A, j}$@*) (*@\Reactivatenumber@*)
@@ -18,4 +18,4 @@ validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
         else  (*@$Y_{add}$@*) += y;  Added = Added(*@$\: \cup \: \{w\}$@*)
   if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))  return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
   else  return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
-    \end{lstlisting}
+\end{lstlisting}

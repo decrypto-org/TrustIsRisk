@@ -1,5 +1,5 @@
 \section{Trust Flow}
-  We can now define the indirect trust, or simply trust, from $A$ to $B$.
+  We can now define the indirect trust from $A$ to $B$.
   \subimport{common/definitions/}{indirecttrust.tex}
   \noindent It is $Tr_{A \rightarrow B} \geq DTr_{A \rightarrow B}$. The next theorem shows that
   $Tr_{A \rightarrow B}$ is finite.
@@ -7,22 +7,23 @@
   \subimport{common/proofsketches/}{convergenceproofsketch.tex}
   Full proofs of all theorems and lemmas can be found in the Appendix.
 
-  In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$E$\texttt{)}, we make use of the notation
+  In the setting of \texttt{TransitiveGame(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$B$\texttt{)}, we make use of the notation
   $Loss_A = Loss_{A, j}$, where $j$ is a turn that the game has converged. It is important to note that $Loss_A$ is
   not the same for repeated executions of this kind of game, since the order in which players are chosen may differ between
-  executions and the conservative players are free to choose which incoming trusts they will steal and how much from each.
+  executions and the conservative players are free to choose which incoming direct trusts they will steal and how much from
+  each.
 
   Let $G$ be a weighted directed graph. We will investigate the maximum flow on this graph. For an introduction to the
   maximum flow problem see \cite{clrs} p. 708. Considering each edge's capacity as its weight, a flow assignment
   $X = [x_{vw}]_{\mathcal{V} \times \mathcal{V}}$ with a source $A$ and a sink $B$ is valid when:
   \begin{equation}
   \label{flow1}
-     \forall (v, w) \in \mathcal{E}, x_{vw} \leq c_{vw} \mbox{ and}
+    \forall (v, w) \in \mathcal{E}, x_{vw} \leq c_{vw} \mbox{ and}
   \end{equation}
   \begin{equation}
   \label{flow2}
-     \forall v \in \mathcal{V} \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
-     \enspace.
+    \forall v \in \mathcal{V} \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
+    \enspace.
   \end{equation}
   We do not suppose any skew symmetry in $X$. The flow value is $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, which is
   proven to be equal to $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. There exists an algorithm that returns the maximum
@@ -39,13 +40,16 @@
   \subimport{common/theorems/}{trustflowtheorem.tex}
   \subimport{fc17/proofs/}{trustflowproof.tex}
 
-   Note that the maxFlow is the same in the following two cases: If a player chooses the evil strategy and if that player
-   chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
+  Note that the maxFlow is the same in the following two cases: If a player chooses the evil strategy and if that player
+  chooses a variation of the evil strategy where she does not nullify her outgoing direct trust.
 
-   Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
-   unknown, parties.
-   \subimport{common/theorems/}{riskinvtheorem.tex}
-   \subimport{common/proofs/}{riskinvproof.tex}
-   It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
-   (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
-   leave this calculation as part of further research.
+  Further justification of trust transitivity through the use of $MaxFlow$ can be found in the sociological work conducted in
+  \cite{kmrs} where a direct correspondence of maximum flows and empirical trust is experimentally validated.
+
+  Here we see another important theorem that gives the basis for risk-invariant transactions between different, possibly
+  unknown, parties.
+  \subimport{common/theorems/}{riskinvtheorem.tex}
+  \subimport{common/proofs/}{riskinvproof.tex}
+  It is intuitively obvious that it is possible for $A$ to reduce her outgoing direct trust in a manner that achieves
+  (\ref{primetrust}), since $maxFlow\left(A, B\right)$ is continuous with respect to $A$'s outgoing direct trusts. We
+  leave this calculation as part of further research.

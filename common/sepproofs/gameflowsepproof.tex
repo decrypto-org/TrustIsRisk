@@ -1,160 +1,160 @@
 \begin{sepproof}{Proof of Lemma \ref{gameflow}: Transitive Games Are Flows} \ \\
 \label{gameflowproof}
-   Let $Sad, Happy, Angry$ be as defined in the Transitive Game. Let $\mathcal{G}'$ be a directed weighted graph based on
-   $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a turn when the Transitive Game has converged. More
-   precisely, $\mathcal{G}'$ is defined as follows:
-   \begin{equation*}
-      \mathcal{V}' = \mathcal{V} \cup \{T\}
-   \end{equation*}
-   \begin{equation*}
-      \mathcal{E}' = \mathcal{E} \cup \{(T, A)\} \cup \{(T, v) : v \in Sad_{j_1}\}
-   \end{equation*}
-   \begin{equation*}
-      \forall (v, w) \in \mathcal{E}, c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}
-   \end{equation*}
-   \begin{equation*}
-      \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
-   \end{equation*}
-   \subimport{common/figures/}{gameflow.tikz}
-   In the figure above, $\mathcal{S}$ is the set of sad players. We observe that $\forall v \in \mathcal{V},$
-   \begin{equation}
-   \label{gameflowin}
-   \begin{gathered}
-      \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}c'_{wv} = \\
-      = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} -
-      DTr_{w \rightarrow v, j_1}\right) = \\
-      = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, 0} -
-      \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, j-1} =  \\
-      = in_{v, 0} - in_{v, j_1}
-   \end{gathered}
-   \end{equation}
-   and
-   \begin{equation}
-   \label{gameflowout}
-   \begin{gathered}
-      \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}c'_{vw} = \\
-      = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}\left(DTr_{v \rightarrow w, 0} -
-      DTr_{v \rightarrow w, j_1}\right) = \\
-      = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, 0} -
-      \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, j-1} = \\
-      = out_{v, 0} - out_{v, j_1} \enspace.
-   \end{gathered}
-   \end{equation}
-   We can suppose that
-   \begin{equation}
-   \label{Aincoming}
-      \forall j \in \mathbb{N}, in_{A, j} = 0 \enspace,
-   \end{equation}
-   since if we find a valid flow under this assumption, the flow will still be valid for the original graph. \\
-   Next we try to calculate $MaxFlow\left(T, E\right) = X'$ on graph $\mathcal{G}'$. We observe that a flow in which it
-   holds that $\forall v, w \in \mathcal{V}, x'_{vw} = c'_{vw}$ can be valid for the following reasons:
-   \begin{itemize}
-      \item $\forall v,w \in \mathcal{V}, x'_{vw} \leq c'_{vw}$ (Capacity flow requirement (\ref{flow1}) $\forall e \in
-      \mathcal{E}$)
-      \item Since $\forall v \in Sad_{j_1} \cup \{A\}, c'_{Tv} = \infty$, requirement (\ref{flow1}) holds for any flow
-      $x'_{Tv} \geq 0$.
-      \item Let $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, E\}\right)$. According to the conservative
-      strategy and since $v \notin Sad_{j_1},$ it holds that
-      \begin{equation*}
-         out_{v, 0} - out_{v, j_1} = in_{v, 0} - in_{v, j_1} \enspace.
-      \end{equation*}
-      Combining this observation with (\ref{gameflowin}) and (\ref{gameflowout}), we have that
-      \begin{equation*}
-         \sum\limits_{w \in \mathcal{V}'}c'_{vw} = \sum\limits_{w \in \mathcal{V}'}c'_{wv} \enspace.
-      \end{equation*}
-      (Flow Conservation requirement (\ref{flow2}) $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1}
-      \cup \{T, A, E\}\right)$)
-      \item Let $v \in Sad_{j_1}$. Since $v$ is sad, we know that
-      \begin{equation*}
-         out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1} \enspace.
-      \end{equation*}
-      Since $c'_{Tv} = \infty$, we can set
-      \begin{equation*}
-         x'_{Tv} = \left(out_{v, 0} - out_{v, j_1}\right) - \left(in_{v, 0} - in_{v, j_1}\right) \enspace.
-      \end{equation*}
-      In this way, we have
-      \begin{equation*}
-         \sum\limits_{w \in \mathcal{V}'}x'_{vw} = out_{v, 0} - out_{v, j_1} \mbox{ and}
-      \end{equation*}
-      \begin{equation*}
-      \begin{gathered}
-         \sum\limits_{w \in \mathcal{V}'}x'_{wv} = \sum\limits_{w \in \mathcal{V}' \setminus \{T\}}c'_{wv} + x'_{Tv} =
-         in_{v, 0} - in_{v, j_1} + \\ + (out_{v, 0} - out_{v, j_1}) - (in_{v, 0} - in_{v, j_1}) = out_{v, 0} -
-         out_{v, j_1} \enspace.
-      \end{gathered}
-      \end{equation*}
-      thus
-      \begin{equation*}
-         \sum\limits_{w \in \mathcal{V}'}x'_{vw} = \sum\limits_{w \in \mathcal{V}'}x'_{wv} \enspace.
-      \end{equation*}
-      (Requirement \ref{flow2} $\forall v \in Sad_{j_1}$)
-      \item Since $c'_{TA} = \infty$, we can set
-      \begin{equation*}
-         x'_{TA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace,
-      \end{equation*}
-      thus from (\ref{Aincoming}) we have
-      \begin{equation*}
-         \sum\limits_{v \in \mathcal{V}'}x'_{vA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
-      \end{equation*}
-      (Requirement \ref{flow2} for $A$)
-   \end{itemize}
-   We saw that for all nodes, the necessary properties for a flow to be valid hold and thus $X'$ is a valid flow for
-   $\mathcal{G}$. Moreover, this flow is equal to $maxFlow(T, E)$ because all incoming flows to $E$ are saturated.
-   Also we observe that
-   \begin{equation}
-   \label{xprimeequalloss}
-      \sum\limits_{v \in \mathcal{V}'}x'_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = out_{A, 0} - out_{A, j_1} =
-      Loss_A \enspace.
-   \end{equation}
-   We define another graph, $\mathcal{G}''$, based on $\mathcal{G}'$.
-   \begin{equation*}
-      \mathcal{V}'' = \mathcal{V}'
-   \end{equation*}
-   \begin{equation*}
-      E(\mathcal{G}'') = E(\mathcal{G}') \setminus \{(T, v) : v \in Sad_j\}
-   \end{equation*}
-   \begin{equation*}
-      \forall e \in E(\mathcal{G}''), c''_e = c'_e
-   \end{equation*}
-   If we execute $MaxFlow(T, E)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
-   \begin{equation*}
-      \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
-   \end{equation*}
-   The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: Firstly, using the Flow
-   Decomposition theorem \cite{amo} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
-   obtain a flow configuration where the total outgoing flow from $A$ remains invariant,
-       \footnote{We thank Kyriakos Axiotis for his insights on the Flow Decomposition theorem.}
-   thus
-   \begin{equation*}
-      \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
-   \end{equation*}
-   Secondly, we have
-   \begin{equation*}
-      \begin{rcases}
-         \sum\limits_{v \in \mathcal{V}''}c''_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = \sum\limits_{v \in
-         \mathcal{V}'}x'_{Av} \\
-         \sum\limits_{v \in \mathcal{V}''}c''_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
-      \end{rcases}
-      \Rightarrow \sum\limits_{v \in \mathcal{V}''}x''_{Av} \leq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
-   \end{equation*}
-   Thus we conclude that
-   \begin{equation}
-   \label{primeequaldoubleprime}
-      \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
-   \end{equation}
-   Let $X = X'' \setminus \{(T, A)\}$. Observe that
-   \begin{equation*}
-      \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
-   \end{equation*}
-   This flow is valid on graph $\mathcal{G}$ because
-   \begin{equation*}
-      \forall e \in \mathcal{E}, c_e \geq c''_e \enspace.
-   \end{equation*}
-   Thus there exists a valid flow for each execution of the Transitive Game such that
-   \begin{equation*}
-      \sum\limits_{v \in \mathcal{V}}x_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av}
-      \overset{\left(\ref{primeequaldoubleprime}\right)}{=} \sum\limits_{v \in \mathcal{V}'}x'_{Av}
-      \overset{\left(\ref{xprimeequalloss}\right)}{=} Loss_{A, j_1} \enspace,
-   \end{equation*}
-   which is the flow $X$.
+  Let $Sad, Happy, Angry$ be as defined in the Transitive Game. Let $\mathcal{G}'$ be a directed weighted graph based on
+  $\mathcal{G}$ with an auxiliary source. Let also $j_1$ be a turn when the Transitive Game has converged. More
+  precisely, $\mathcal{G}'$ is defined as follows:
+  \begin{equation*}
+    \mathcal{V}' = \mathcal{V} \cup \{T\}
+  \end{equation*}
+  \begin{equation*}
+    \mathcal{E}' = \mathcal{E} \cup \{(T, A)\} \cup \{(T, v) : v \in Sad_{j_1}\}
+  \end{equation*}
+  \begin{equation*}
+    \forall (v, w) \in \mathcal{E}, c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}
+  \end{equation*}
+  \begin{equation*}
+    \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
+  \end{equation*}
+  \subimport{common/figures/}{gameflow.tikz}
+  In the figure above, $\mathcal{S}$ is the set of sad players. We observe that $\forall v \in \mathcal{V},$
+  \begin{equation}
+  \label{gameflowin}
+  \begin{gathered}
+    \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}c'_{wv} = \\
+    = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} -
+    DTr_{w \rightarrow v, j_1}\right) = \\
+    = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, 0} -
+    \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, j-1} =  \\
+    = in_{v, 0} - in_{v, j_1}
+  \end{gathered}
+  \end{equation}
+  and
+  \begin{equation}
+  \label{gameflowout}
+  \begin{gathered}
+    \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}c'_{vw} = \\
+    = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}\left(DTr_{v \rightarrow w, 0} -
+    DTr_{v \rightarrow w, j_1}\right) = \\
+    = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, 0} -
+    \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, j-1} = \\
+    = out_{v, 0} - out_{v, j_1} \enspace.
+  \end{gathered}
+  \end{equation}
+  We can suppose that
+  \begin{equation}
+  \label{Aincoming}
+    \forall j \in \mathbb{N}, in_{A, j} = 0 \enspace,
+  \end{equation}
+  since if we find a valid flow under this assumption, the flow will still be valid for the original graph. \\
+  Next we try to calculate $MaxFlow\left(T, B\right) = X'$ on graph $\mathcal{G}'$. We observe that a flow in which it
+  holds that $\forall v, w \in \mathcal{V}, x'_{vw} = c'_{vw}$ can be valid for the following reasons:
+  \begin{itemize}
+    \item $\forall v,w \in \mathcal{V}, x'_{vw} \leq c'_{vw}$ (Capacity flow requirement (\ref{flow1}) $\forall e \in
+    \mathcal{E}$)
+    \item Since $\forall v \in Sad_{j_1} \cup \{A\}, c'_{Tv} = \infty$, requirement (\ref{flow1}) holds for any flow
+    $x'_{Tv} \geq 0$.
+    \item Let $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, B\}\right)$. According to the conservative
+    strategy and since $v \notin Sad_{j_1},$ it holds that
+    \begin{equation*}
+      out_{v, 0} - out_{v, j_1} = in_{v, 0} - in_{v, j_1} \enspace.
+    \end{equation*}
+    Combining this observation with (\ref{gameflowin}) and (\ref{gameflowout}), we have that
+    \begin{equation*}
+      \sum\limits_{w \in \mathcal{V}'}c'_{vw} = \sum\limits_{w \in \mathcal{V}'}c'_{wv} \enspace.
+    \end{equation*}
+    (Flow Conservation requirement (\ref{flow2}) $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1}
+    \cup \{T, A, B\}\right)$)
+    \item Let $v \in Sad_{j_1}$. Since $v$ is sad, we know that
+    \begin{equation*}
+      out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1} \enspace.
+    \end{equation*}
+    Since $c'_{Tv} = \infty$, we can set
+    \begin{equation*}
+      x'_{Tv} = \left(out_{v, 0} - out_{v, j_1}\right) - \left(in_{v, 0} - in_{v, j_1}\right) \enspace.
+    \end{equation*}
+    In this way, we have
+    \begin{equation*}
+      \sum\limits_{w \in \mathcal{V}'}x'_{vw} = out_{v, 0} - out_{v, j_1} \mbox{ and}
+    \end{equation*}
+    \begin{equation*}
+    \begin{gathered}
+      \sum\limits_{w \in \mathcal{V}'}x'_{wv} = \sum\limits_{w \in \mathcal{V}' \setminus \{T\}}c'_{wv} + x'_{Tv} =
+      in_{v, 0} - in_{v, j_1} + \\ + (out_{v, 0} - out_{v, j_1}) - (in_{v, 0} - in_{v, j_1}) = out_{v, 0} -
+      out_{v, j_1} \enspace.
+    \end{gathered}
+    \end{equation*}
+    thus
+    \begin{equation*}
+      \sum\limits_{w \in \mathcal{V}'}x'_{vw} = \sum\limits_{w \in \mathcal{V}'}x'_{wv} \enspace.
+    \end{equation*}
+    (Requirement \ref{flow2} $\forall v \in Sad_{j_1}$)
+    \item Since $c'_{TA} = \infty$, we can set
+    \begin{equation*}
+      x'_{TA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace,
+    \end{equation*}
+    thus from (\ref{Aincoming}) we have
+    \begin{equation*}
+      \sum\limits_{v \in \mathcal{V}'}x'_{vA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+    \end{equation*}
+    (Requirement \ref{flow2} for $A$)
+  \end{itemize}
+  We saw that for all nodes, the necessary properties for a flow to be valid hold and thus $X'$ is a valid flow for
+  $\mathcal{G}$. Moreover, this flow is equal to $maxFlow\left(T, B\right)$ because all incoming flows to $E$ are saturated.
+  Also we observe that
+  \begin{equation}
+  \label{xprimeequalloss}
+    \sum\limits_{v \in \mathcal{V}'}x'_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = out_{A, 0} - out_{A, j_1} =
+    Loss_A \enspace.
+  \end{equation}
+  We define another graph, $\mathcal{G}''$, based on $\mathcal{G}'$.
+  \begin{equation*}
+    \mathcal{V}'' = \mathcal{V}'
+  \end{equation*}
+  \begin{equation*}
+    E(\mathcal{G}'') = E(\mathcal{G}') \setminus \{(T, v) : v \in Sad_j\}
+  \end{equation*}
+  \begin{equation*}
+    \forall e \in E(\mathcal{G}''), c''_e = c'_e
+  \end{equation*}
+  If we execute $MaxFlow(T, B)$ on the graph $\mathcal{G}''$, we will obtain a flow $X''$ in which
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
+  \end{equation*}
+  The outgoing flow from $A$ in $X''$ will remain the same as in $X'$ for two reasons: Firstly, using the Flow
+  Decomposition theorem \cite{amo} and deleting the paths that contain edges $\left(T, v\right): v \neq A$, we
+  obtain a flow configuration where the total outgoing flow from $A$ remains invariant,
+     \footnote{We thank Kyriakos Axiotis for his insights on the Flow Decomposition theorem.}
+  thus
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+  \end{equation*}
+  Secondly, we have
+  \begin{equation*}
+    \begin{rcases}
+      \sum\limits_{v \in \mathcal{V}''}c''_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = \sum\limits_{v \in
+      \mathcal{V}'}x'_{Av} \\
+      \sum\limits_{v \in \mathcal{V}''}c''_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
+    \end{rcases}
+    \Rightarrow \sum\limits_{v \in \mathcal{V}''}x''_{Av} \leq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+  \end{equation*}
+  Thus we conclude that
+  \begin{equation}
+  \label{primeequaldoubleprime}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+  \end{equation}
+  Let $X = X'' \setminus \{(T, A)\}$. Observe that
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
+  \end{equation*}
+  This flow is valid on graph $\mathcal{G}$ because
+  \begin{equation*}
+    \forall e \in \mathcal{E}, c_e \geq c''_e \enspace.
+  \end{equation*}
+  Thus there exists a valid flow for each execution of the Transitive Game such that
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}}x_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av}
+    \overset{\left(\ref{primeequaldoubleprime}\right)}{=} \sum\limits_{v \in \mathcal{V}'}x'_{Av}
+    \overset{\left(\ref{xprimeequalloss}\right)}{=} Loss_{A, j_1} \enspace,
+  \end{equation*}
+  which is the flow $X$.
 \end{sepproof}

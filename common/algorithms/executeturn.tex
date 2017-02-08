@@ -1,11 +1,11 @@
 \phantomsection
 \addcontentsline{lot}{section}{Execute Turn}
-    \Suppressnumber
-    \begin{lstlisting}[label=executeturn, style=numbers]
+\Suppressnumber
+\begin{lstlisting}[label=executeturn, style=numbers]
 Execute Turn
 Input : old graph (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old capital (*@$Cap_{A, j-1}$@*), TentativeTurn
 Output : new graph (*@$\mathcal{G}_j$@*), new capital (*@$Cap_{A, j}$@*), new history (*@$\mathcal{H}_j$ \Reactivatenumber@*)
 executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn) :
   ((*@$Turn_j$@*), NewCap) = validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), TentativeTurn)
   return(commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Turn_j$@*), NewCap))
-    \end{lstlisting}
+\end{lstlisting}
