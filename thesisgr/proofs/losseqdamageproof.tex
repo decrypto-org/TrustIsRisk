@@ -1,0 +1,27 @@
+\begin{proof} \ \\
+  \textbf{Case 1:} Let $v \in Happy_{j-1}$. Then
+  \begin{enumerate}
+    \item $v \in Happy_j$ because $Turn_{j} = \emptyset$,
+    \item $Loss_{v, j} = 0$ because otherwise $v \notin Happy_j$,
+    \item $Damage_{v, j} = 0$, or else any reduction in direct trust to $v$ would increase equally
+    $Loss_{v, j}$ (line~\ref{trsteallossincrease}), which cannot be decreased again but during an Angry player's turn
+    (line~\ref{trsteallossdecrease}).
+    \item $in_{v, j} \geq 0$
+  \end{enumerate}
+  Thus
+  \begin{equation*}
+    \min\left(in_{v, j}, Loss_{v,j}\right) = \min\left(in_{v, j}, Damage_{v,j}\right) = 0 \enspace.
+  \end{equation*}
+  \textbf{Case 2:} Let $v \in Sad_{j-1}$. Then
+  \begin{enumerate}
+    \item $v \in Sad_j$ because $Turn_{j} = \emptyset$, 
+    \item $in_{v, j} = 0$ (line~\ref{trstealifentersad}),
+    \item $Damage_{v, j} \geq 0 \wedge Loss_{v, j} \geq 0$.
+  \end{enumerate}
+  Thus
+  \begin{equation*}
+    \min\left(in_{v, j}, Loss_{v,j}\right) = \min\left(in_{v, j}, Damage_{v,j}\right) = 0 \enspace.
+  \end{equation*}
+  If $v \in Angry_{j-1}$ then the same argument as in cases 1 and 2 hold when $v \in Happy_j$ and $v \in Sad_j$
+  respectively if we ignore the argument (1). Thus the theorem holds in every case.
+\end{proof}

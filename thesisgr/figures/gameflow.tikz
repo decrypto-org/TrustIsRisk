@@ -1,0 +1,40 @@
+\phantomsection
+\addcontentsline{lof}{section}{Game Flow}
+\begin{center}
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
+  \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (386.0bp,168.0bp) -- (386.0bp,0.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (171.0bp,11.5bp) node {\textbf{Fig.\figlabel{fig:trgareflows}:} Graph $\mathcal{G}'$, derived from $\mathcal{G}$ with Auxiliary Source $T$.};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (140.0bp,31.0bp) .. controls (140.0bp,31.0bp) and (276.0bp,31.0bp)  .. (276.0bp,31.0bp) .. controls (282.0bp,31.0bp) and (288.0bp,37.0bp)  .. (288.0bp,43.0bp) .. controls (288.0bp,43.0bp) and (288.0bp,148.0bp)  .. (288.0bp,148.0bp) .. controls (288.0bp,154.0bp) and (282.0bp,160.0bp)  .. (276.0bp,160.0bp) .. controls (276.0bp,160.0bp) and (140.0bp,160.0bp)  .. (140.0bp,160.0bp) .. controls (134.0bp,160.0bp) and (128.0bp,154.0bp)  .. (128.0bp,148.0bp) .. controls (128.0bp,148.0bp) and (128.0bp,43.0bp)  .. (128.0bp,43.0bp) .. controls (128.0bp,37.0bp) and (134.0bp,31.0bp)  .. (140.0bp,31.0bp);
+  \draw (208.0bp,42.5bp) node {$\mathcal{G}$};
+\end{scope}
+  \node (A) at (163.0bp,80.0bp) [draw,ellipse] {A};
+  \node (S) at (163.0bp,134.0bp) [draw,ellipse] {$\mathcal{S}$};
+  \node (T) at (73.0bp,107.0bp) [draw,ellipse] {T};
+  \node (G) at (233.0bp,107.0bp) [draw,ellipse] {$\mathcal{G} \setminus \left(\mathcal{S} \cup \{A\}\right)$};
+  \draw [->] (A) ..controls (198.61bp,90.619bp) and (211.12bp,94.457bp)  .. (G);
+  \draw [->] (S) ..controls (198.61bp,123.38bp) and (211.12bp,119.54bp)  .. (G);
+  \draw [->] (T) ..controls (108.61bp,117.62bp) and (121.12bp,121.46bp)  .. (S);
+  \draw (116.0bp,125.5bp) node {$\infty$};
+  \draw [->] (T) ..controls (108.61bp,96.381bp) and (121.12bp,92.543bp)  .. (A);
+  \draw (116.0bp,99.5bp) node {$\infty$};
+%
+\end{tikzpicture}
+\end{center}

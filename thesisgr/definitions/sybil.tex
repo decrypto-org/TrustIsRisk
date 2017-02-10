@@ -1,0 +1,10 @@
+\phantomsection
+\addcontentsline{toc}{subsection}{Sybil Set Definition}
+\begin{definition}[Sybil Set]
+  Let $\mathcal{G}$ be a game graph. Since participation in the network does not require any kind of registration, Eve
+  can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
+  can arbitrarily set the direct trusts of any player in $\mathcal{C}$ to any player and can also steal all
+  incoming direct trust to players in $\mathcal{C}$. However, players $\mathcal{C}$ can be directly trusted only by
+  players $\mathcal{B} \cup \mathcal{C}$ but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$,
+  where $\mathcal{B}$ is a set of players corrupted by Eve.
+\end{definition}

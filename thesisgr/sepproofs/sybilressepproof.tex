@@ -1,0 +1,51 @@
+\begin{sepproof}{Proof of Theorem \ref{sybil}: Sybil Resilience} \ \\
+\label{sybilproof}
+  Let $\mathcal{G}_1$ be a game graph defined as follows:
+  \begin{equation*}
+    \mathcal{V}_1 = \mathcal{V} \cup \{T_1\} \enspace,
+  \end{equation*}
+  \begin{equation*}
+    \mathcal{E}_1 = \mathcal{E} \cup \{(v, T_1) : v \in \mathcal{B} \cup \mathcal{C}\} \enspace,
+  \end{equation*}
+  \begin{equation*}
+    \forall v,w \in \mathcal{V}_1 \setminus \{T_1\}, DTr^1_{v \rightarrow w} = DTr_{v \rightarrow w} \enspace,
+  \end{equation*}
+  \begin{equation*}
+    \forall v \in \mathcal{B} \cup \mathcal{C}, DTr^1_{v \rightarrow T_1} = \infty \enspace,
+  \end{equation*}
+  where $DTr_{v \rightarrow w}$ is the direct trust from $v$ to $w$ in $\mathcal{G}$ and $DTr^1_{v \rightarrow w}$ is
+  the direct trust from $v$ to $w$ in $\mathcal{G}_1$. \\
+  Let also $\mathcal{G}_2$ be the induced graph that results from $\mathcal{G}_1$ if we remove the Sybil set,
+  $\mathcal{C}$. We rename $T_1$ to $T_2$ and define $\mathcal{L} = \mathcal{V} \setminus \left(\mathcal{B} \cup
+  \mathcal{C}\right)$ as the set of legitimate players to facilitate comprehension.
+  \subimport{common/figures/}{sybilres.tikz}
+  According to theorem (\ref{trustmany}),
+  \begin{equation}
+  \label{trmaxflow}
+    Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow_1\left(A, T_1\right) \wedge
+    Tr_{A \rightarrow \mathcal{B}} = maxFlow_2\left(A, T_2\right) \enspace.
+  \end{equation}
+  We will show that the $MaxFlow$ of each of the two graphs can be used to construct a valid flow of equal value for the
+  other graph. The flow $X_1 = MaxFlow\left(A, T_1\right)$ can be used to construct a valid flow of equal value for the
+  second graph if we set
+  \begin{align*}
+    \forall v \in \mathcal{V}_2 \setminus \mathcal{B}, \forall w \in \mathcal{V}_2&, x_{vw,2} = x_{vw,1} \enspace, \\
+    \forall v \in \mathcal{B}&, x_{vT_2,2} = \sum\limits_{w \in N^{+}_1\left(v\right)}x_{vw,1} \enspace, \\
+    \forall v,w \in \mathcal{B}&, x_{vw,2} = 0 \enspace.
+  \end{align*}
+  Therefore
+  \begin{equation*}
+    maxFlow_1\left(A, T_1\right) \leq maxFlow_2\left(A, T_2\right)
+  \end{equation*}
+  Likewise, the flow $X_2 = MaxFlow(A, T_2)$ is a valid flow for $\mathcal{G}_1$ because $\mathcal{G}_2$ is an induced
+  subgraph of $\mathcal{G}_1$. Therefore
+  \begin{equation*}
+    maxFlow_1\left(A, T_1\right) \geq maxFlow_2\left(A, T_2\right)
+  \end{equation*}
+  We conclude that
+  \begin{equation}
+  \label{eqmaxflows}
+    maxFlow\left(A, T_1\right) = maxFlow\left(A, T_2\right) \enspace,
+  \end{equation}
+  thus from (\ref{trmaxflow}) and (\ref{eqmaxflows}) the theorem holds.
+\end{sepproof}

@@ -1,0 +1,64 @@
+\phantomsection
+\addcontentsline{lof}{section}{Sybil Resilience}
+\begin{center}
+\begin{tikzpicture}[>=latex,line join=bevel,scale=0.7,transform shape]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{1.0,1.0,1.0};
+  \pgfsetstrokecolor{strokecol}
+  \definecolor{fillcol}{rgb}{1.0,1.0,1.0};
+  \pgfsetfillcolor{fillcol}
+  \filldraw (0.0bp,0.0bp) -- (0.0bp,186.0bp) -- (467.0bp,186.0bp) -- (467.0bp,0.0bp) -- cycle;
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (233.5bp,11.5bp) node {\LARGE \textbf{Fig.\figlabel{fig:sybilres}:} Graphs $\mathcal{G}_1$ and $\mathcal{G}_2$};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (20.0bp,31.0bp) .. controls (20.0bp,31.0bp) and (121.0bp,31.0bp)  .. (121.0bp,31.0bp) .. controls (127.0bp,31.0bp) and (133.0bp,37.0bp)  .. (133.0bp,43.0bp) .. controls (133.0bp,43.0bp) and (133.0bp,166.0bp)  .. (133.0bp,166.0bp) .. controls (133.0bp,172.0bp) and (127.0bp,178.0bp)  .. (121.0bp,178.0bp) .. controls (121.0bp,178.0bp) and (20.0bp,178.0bp)  .. (20.0bp,178.0bp) .. controls (14.0bp,178.0bp) and (8.0bp,172.0bp)  .. (8.0bp,166.0bp) .. controls (8.0bp,166.0bp) and (8.0bp,43.0bp)  .. (8.0bp,43.0bp) .. controls (8.0bp,37.0bp) and (14.0bp,31.0bp)  .. (20.0bp,31.0bp);
+  \draw (70.5bp,42.5bp) node {\LARGE $\mathcal{G}_1$};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (20.0bp,31.0bp) .. controls (20.0bp,31.0bp) and (121.0bp,31.0bp)  .. (121.0bp,31.0bp) .. controls (127.0bp,31.0bp) and (133.0bp,37.0bp)  .. (133.0bp,43.0bp) .. controls (133.0bp,43.0bp) and (133.0bp,166.0bp)  .. (133.0bp,166.0bp) .. controls (133.0bp,172.0bp) and (127.0bp,178.0bp)  .. (121.0bp,178.0bp) .. controls (121.0bp,178.0bp) and (20.0bp,178.0bp)  .. (20.0bp,178.0bp) .. controls (14.0bp,178.0bp) and (8.0bp,172.0bp)  .. (8.0bp,166.0bp) .. controls (8.0bp,166.0bp) and (8.0bp,43.0bp)  .. (8.0bp,43.0bp) .. controls (8.0bp,37.0bp) and (14.0bp,31.0bp)  .. (20.0bp,31.0bp);
+  \draw (70.5bp,42.5bp) node {\LARGE $\mathcal{G}_1$};
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (264.0bp,67.0bp) .. controls (264.0bp,67.0bp) and (365.0bp,67.0bp)  .. (365.0bp,67.0bp) .. controls (371.0bp,67.0bp) and (377.0bp,73.0bp)  .. (377.0bp,79.0bp) .. controls (377.0bp,79.0bp) and (377.0bp,130.0bp)  .. (377.0bp,130.0bp) .. controls (377.0bp,136.0bp) and (371.0bp,142.0bp)  .. (365.0bp,142.0bp) .. controls (365.0bp,142.0bp) and (264.0bp,142.0bp)  .. (264.0bp,142.0bp) .. controls (258.0bp,142.0bp) and (252.0bp,136.0bp)  .. (252.0bp,130.0bp) .. controls (252.0bp,130.0bp) and (252.0bp,79.0bp)  .. (252.0bp,79.0bp) .. controls (252.0bp,73.0bp) and (258.0bp,67.0bp)  .. (264.0bp,67.0bp);
+  \draw (314.5bp,78.5bp) node {\LARGE $\mathcal{G}_2$};
+\end{scope}
+  \node (T2) at (449.0bp,116.0bp) [draw,ellipse] {\LARGE $T_2$};
+  \node (T1) at (205.0bp,84.0bp) [draw,ellipse] {\LARGE $T_1$};
+  \node (V1) at (34.0bp,80.0bp) [draw,ellipse] {\LARGE $\mathcal{L}$};
+  \node (V2) at (278.0bp,116.0bp) [draw,ellipse] {\LARGE $\mathcal{L}$};
+  \node (B1) at (107.0bp,80.0bp) [draw,ellipse] {\LARGE $\mathcal{B}$};
+  \node (B2) at (351.0bp,116.0bp) [draw,ellipse] {\LARGE $\mathcal{B}$};
+  \node (C1) at (107.0bp,152.0bp) [draw,ellipse] {\LARGE $\mathcal{C}$};
+  \draw [->] (C1) ..controls (138.76bp,130.21bp) and (166.32bp,110.69bp)  .. (T1);
+  \draw (156.0bp,133.5bp) node {\LARGE $\infty$};
+  \draw [->] (C1) ..controls (92.873bp,124.6bp) and (92.196bp,113.02bp)  .. (B1);
+  \draw [->] (V2) ..controls (304.6bp,109.16bp) and (316.75bp,108.964bp)  .. (B2);
+  \draw [->] (B1) ..controls (121.11bp,107.33bp) and (121.81bp,118.91bp)  .. (C1);
+  \draw [->] (B2) ..controls (384.73bp,116.0bp) and (407.79bp,116.0bp)  .. (T2);
+  \draw (400.0bp,123.5bp) node {\LARGE $\infty$};
+  \draw [->] (B1) ..controls (140.73bp,81.364bp) and (163.79bp,82.325bp)  .. (T1);
+  \draw (156.0bp,90.5bp) node {\LARGE $\infty$};
+  \draw [->] (V1) ..controls (60.598bp,73.16bp) and (72.75bp,72.964bp)  .. (B1);
+  \draw [->] (B2) ..controls (323.89bp,122.861bp) and (311.73bp,123.031bp)  .. (V2);
+  \draw [->] (C1) ..controls (82.216bp,127.88bp) and (64.772bp,110.19bp)  .. (V1);
+  \draw [->] (B1) ..controls (79.894bp,86.861bp) and (67.729bp,87.031bp)  .. (V1);
+%
+\end{tikzpicture}
+\end{center}

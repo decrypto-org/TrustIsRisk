@@ -1,0 +1,8 @@
+For example, let $A = Player(j)$. A valid turn can be
+\begin{equation*}
+  Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace.
+\end{equation*}
+The $Steal$ action requires $0 \leq x \leq DTr_{B \rightarrow A, j-1}$, the $Add$ actions require
+$DTr_{A \rightarrow C, j-1} \geq -y$ and $DTr_{A \rightarrow D, j-1} \geq -w$ and the $Cap$ restriction requires
+$y + w - x \leq Cap_{A, j-1}$.
+
