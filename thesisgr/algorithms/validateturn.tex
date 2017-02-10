@@ -1,0 +1,21 @@
+\Suppressnumber
+\begin{lstlisting}[label=validateturn, style=numbers]
+Validate Turn
+Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), old (*@$Cap_{A, j-1}$@*), Turn
+Output : (*@$Turn_j$@*), new (*@$Cap_{A, j}$@*) (*@\Reactivatenumber@*)
+validateTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn) :
+  (*@$Y_{st}$@*) = (*@$Y_{add}$@*) = 0
+  Stolen = Added = (*@$\emptyset$@*)
+  for (action (*@$\in$@*) Turn)
+    action match do
+      case (*@$Steal($@*)y(*@$,w)$@*) do
+        if (y > (*@$DTr_{w \rightarrow A,j-1}$@*) or y < 0 or (*@$w \in$@*) Stolen)
+          return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
+        else  (*@$Y_{st}$@*) += y;  Stolen = Stolen(*@$\:\cup \: \{w\}$@*)
+      case (*@$Add($@*)y(*@$,w)$@*) do
+        if (y < -(*@$DTr_{A \rightarrow w,j-1}$@*) or (*@$w \in$@*) Added)
+          return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
+        else  (*@$Y_{add}$@*) += y;  Added = Added(*@$\: \cup \: \{w\}$@*)
+  if ((*@$Y_{add}$@*) - (*@$Y_{st}$@*) > (*@$Cap_{A, j-1}$@*))  return((*@$\emptyset$@*), (*@$Cap_{A, j-1}$@*))
+  else  return(Turn, (*@$Cap_{A, j-1} + Y_{st} - Y_{add}$@*))
+\end{lstlisting}

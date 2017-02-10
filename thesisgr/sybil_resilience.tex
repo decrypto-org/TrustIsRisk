@@ -1,0 +1,26 @@
+\section{Sybil Resilience}
+  One of the primary aims of this system is to mitigate the danger for Sybil attacks \cite{sybilattack} whilst maintaining
+  fully decentralized autonomy.
+
+  Here we extend the definition of indirect trust to many players.
+  \subimport{common/definitions/}{indirecttrustmultiplayer.tex}
+  We now extend Trust Flow theorem (\ref{trustflow}) to many players.
+  \subimport{common/theorems/}{multiplayertrustflowtheorem.tex}
+  \subimport{common/proofs/}{multiplayertrustflowproof.tex}
+  We now define several useful notions to tackle the problem of Sybil attacks. Let Eve be a possible attacker.
+  \subimport{common/definitions/}{corrupted.tex}
+  \subimport{common/definitions/}{sybil.tex}
+  \subimport{common/definitions/}{collusion.tex}
+  \subimport{common/figures/}{collusion.tikz}
+  \subimport{fc17/theorems/}{sybilrestheorem.tex}
+  \subimport{fc17/proofsketches/}{sybilresproofsketch.tex}
+  We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless. We note that
+  this theorem does not deliver reassurances against attacks involving deception techniques. More specifically, a malicious
+  player can create several identities, use them legitimately to inspire others to deposit direct trust to these identities
+  and then switch to the evil strategy, thus defrauding everyone that trusted the fabricated identities. These identities
+  correspond to the corrupted set of players and not to the Sybil set because they have direct incoming trust from outside
+  the collusion.
+
+  In conclusion, we have successfully delivered our promise for a Sybil-resilient decentralized financial trust system with
+  invariant risk for purchases.
+

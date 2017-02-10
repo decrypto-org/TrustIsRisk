@@ -1,0 +1,14 @@
+\Suppressnumber
+\begin{lstlisting}[label=committurn, style=numbers]
+Commit Turn
+Input : old (*@$\mathcal{G}_{j-1}$@*), player (*@$A \in \mathcal{V}_{j-1}$@*), NewCap, (*@$Turn_j$@*)
+Output : new (*@$\mathcal{G}_j$@*), new (*@$Cap_{A, j}$@*), new (*@$\mathcal{H}_j$ \Reactivatenumber@*)
+commitTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), NewCap, (*@$Turn_j$@*)) :
+  for (((*@$v$@*), (*@$w$@*)) (*@$\in \mathcal{E}_j$@*))  (*@$DTr_{v \rightarrow w, j}$@*) = (*@$DTr_{v \rightarrow w, j-1}$@*)
+  for (action (*@$\in Turn_j$@*))
+    action match do
+      case (*@$Steal($@*)y(*@$,w)$@*) do  (*@$DTr_{w \rightarrow A, j}$@*) = (*@$DTr_{w \rightarrow A, j-1} - y$@*)
+      case (*@$Add($@*)y(*@$,w)$@*) do  (*@$DTr_{A \rightarrow w, j}$@*) = (*@$DTr_{A \rightarrow w, j-1} + y$@*)
+  (*@$Cap_{A, j}$@*) = NewCap;  (*@$\mathcal{H}_j$@*) = ((*@$A$@*), (*@$Turn_j$@*))
+  return((*@$\mathcal{G}_j$@*), (*@$Cap_{A, j}$@*), (*@$\mathcal{H}_j$@*))
+\end{lstlisting}

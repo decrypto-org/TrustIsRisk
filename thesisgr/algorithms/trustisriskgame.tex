@@ -1,0 +1,9 @@
+\Suppressnumber
+\begin{lstlisting}[label=trustisriskgame, style=numbers]
+Trust Is Risk Game (*@\Reactivatenumber@*)
+j = 0
+while (True)
+  j += 1;  (*@$A \overset{\$}{\gets} \mathcal{V}_j$@*)
+  Turn = strategy[(*@$A$@*)]((*@$\mathcal{G}_0$@*), (*@$A$@*), (*@$Cap_{A, 0}$@*), (*@$\mathcal{H}_{1 \dots j-1}$@*))
+  ((*@$\mathcal{G}_j$@*), (*@$Cap_{A, j}$@*), (*@$\mathcal{H}_j$@*)) = executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$A$@*), (*@$Cap_{A, j-1}$@*), Turn)
+\end{lstlisting}

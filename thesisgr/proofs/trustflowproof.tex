@@ -1,0 +1,17 @@
+\begin{proof}%[Trust Flow Theorem (\ref{trustflow})] \ \\
+  From lemma~\ref{maxflowgame} there exists an execution of the Transitive Game such that
+  $Loss_A \geq maxFlow\left(A, B\right)$.
+  Since $Tr_{A \rightarrow B}$ is the maximum loss that $A$ can suffer after the convergence of the Transitive Game, we
+  see that
+  \begin{equation}
+  \label{trgeqmaxflow}
+     Tr_{A \rightarrow B} \geq maxFlow\left(A, B\right) \enspace.
+  \end{equation}
+  But some execution of the Transitive Game gives $Tr_{A \rightarrow B} = Loss_A$.
+  From lemma~\ref{gameflow}, this execution corresponds to a flow. Thus
+  \begin{equation}
+  \label{trleqmaxflow}
+     Tr_{A \rightarrow B} \leq maxFlow\left(A, B\right) \enspace.
+  \end{equation}
+  The theorem follows from (\ref{trgeqmaxflow}) and (\ref{trleqmaxflow}).
+\end{proof}
