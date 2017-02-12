@@ -1,27 +1,29 @@
-\section{The Trust Graph}
-  We now engage in the formal description of the proposed system, accompanied by helpful examples.
+\section{Ο γράφος εμπιστοσύνης}
+  Ας ξεκινήσουμε μια αυστηρή περιγραφή του προτεινόμενου συστήματος, συνοδευόμενη από βοηθητικά παραδείγματα.
   \subimport{common/definitions/}{gamegraph.tex}
-  The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
-  value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
-  represents the corresponding turn.
+  Οι κόμβοι αναπαριστούν τους παίκτες, οι ακμές αναπαριστούν τις υπάρχουσες άμεσες εμπιστοσύνες και τα βάρη το ποσό αξίας
+  συνδεδεμένης με την αντίστοιχη άμεση εμπιστοσύνη. Όπως θα δούμε, το παιχνίδι εξελίσσεται σε γύρους. Ο δείκτης του γράφου
+  αναπαριστά τον αντίστοιχο γύρο.
   \subimport{common/definitions/}{players.tex}
-  Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
-  the node possesses exclusively and nobody else can spend.
+  Κάθε κόμβος έχει έναν αντίστοιχο μη αρνητικό αριθμό που αναπαριστά το κεφάλαιό του. Το κεφάλαιο ενός κόμβου είναι η συνολική
+  αξία που ο κόμβος κατέχει αποκλειστικά και κανείς άλλος δεν μπορεί να ξοδέψει.
   \subimport{common/definitions/}{capital.tex}
-  The capital is the value that exists in the game but is not shared with trusted parties. The capital of $A$ can be
-  reallocated only during her turns, according to her actions. We model the system in a way that no capital can be added in
-  the course of the game through external means. The use of capital will become clear once turns are formally defined.
+  Το κεφάλαιο είναι η αξία που υπάρχει στο παιχνίδι αλλά δεν είναι μοιραζόμενη με έμπιστους τρίτους. Το κεφάλαιο ενός παίκτη
+  μπορεί να ανακατανεμηθεί μόνο κατά τη διάρκεια των γύρων του, σύμφωνα με τις πράξεις του. Μοντελοποιούμε το σύστημα με
+  τέτοιο τρόπο ώστε να είναι αδύνατο να προστεθεί κεφάλαιο στην πορεία του παιχνιδιού με εξωτερικά μέσα. Η χρήση του κεφαλαίου
+  θα ξεκαθαρίσει μόλις οι γύροι ορισθούν με ακρίβεια.
 
-  The formal definition of direct trust follows:
+  Ο ορισμός της άμεσης εμπιστοσύνης ακολουθεί:
   \subimport{common/definitions/}{directtrust.tex}
-  This definition agrees with the title of this paper and coincides with the intuition and sociological experimental results
-  of \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds to the extent of danger in
-  which $Alice$ is putting herself into in order to help $Bob$. An example graph with its corresponding transactions in the
-  UTXO can be seen below.
+  Ο ορισμός αυτός συμφωνεί με τον τίτλο του παρόντος κειμένου και συμπίπτει με τη διαίσθηση και τα κοινωνιολογικά πειραματικά
+  αποτελέσματα του \cite{kmrs} ότι η εμπιστοσύνη που η $Alice$ δείχνει στον $Bob$ σε κοινωνικά δίκτυα του φυσικού κόσμου
+  αντιστοιχεί με την έκταση του κινδύνου στην οποία η $Alice$ τοποθετεί τον εαυτό της με σκοπό να βοηθήσει τον $Bob$. Ένας
+  γράφος παράδειγμα με τις αντίστοιχες συναλλαγές στο \textlatin{UTXO} φαίνεται παρακάτω.
 
   \subimport{common/figures/}{utxo.tikz}
 
-  Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
+  Όποιος αλγόριθμος έχει πρόσβαση στο γράφο $\mathcal{G}_j$ έχει επίσης πρόσβαση σε όλες της άμεσες εμπιστοσύνες του γράφου
+  αυτού.
 
   \subimport{common/definitions/}{neighbourhood.tex}
   \subimport{common/definitions/}{inouttrust.tex}
