@@ -11,7 +11,7 @@ fc17-proceedings.pdf: fc17/* common/*
 	export TEXINPUTS=.:./fc17//:./common//:; \
 	pdflatex fc17-proceedings.tex; \
 	pdflatex fc17-proceedings.tex; \
-	rm -rf fc17.aux fc17.log fc17.out
+	rm -rf fc17-proceedings.aux fc17-proceedings.log fc17-proceedings.out
 
 thesis.pdf: thesis/* common/*
 	export TEXINPUTS=.:./thesis//:./common//:; \
