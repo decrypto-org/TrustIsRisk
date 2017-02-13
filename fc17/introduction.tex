@@ -39,18 +39,18 @@
 
   Suppose that $Alice$ is viewing the item listings of vendor $Charlie$. Instead of $Charlie$'s stars, $Alice$ will see a
   positive value that is calculated by her wallet and represents the maximum monetary value that $Alice$ can safely pay to
-  complete a purchase from $Charlie$. This value, known as indirect trust, is calculated with the Trust Flow theorem
-  (\ref{trustflow}). Note that indirect trust towards a user is not global but subjective; each user views a personalized
-  indirect trust based on the network topology. The indirect trust reported by our system maintains the following desired
-  security property: If $Alice$ makes a purchase from $Charlie$, then she is exposed to no more risk than she was already
-  taking willingly. The existing voluntary risk is exactly that which $Alice$ was taking by sharing her coins with her
-  trusted friends. We prove this result in the Risk Invariance theorem (\ref{riskinv}). Obviously it will not be safe for
-  $Alice$ to buy anything from $Charlie$ or any other vendor if she has not directly entrusted any value to any other user.
+  complete a purchase from $Charlie$. This value, known as indirect trust, is calculated with the Trust Flow theorem. Note
+  that indirect trust towards a user is not global but subjective; each user views a personalized indirect trust based on the
+  network topology. The indirect trust reported by our system maintains the following desired security property: If $Alice$
+  makes a purchase from $Charlie$, then she is exposed to no more risk than she was already taking willingly. The existing
+  voluntary risk is exactly that which $Alice$ was taking by sharing her coins with her trusted friends. We prove this result
+  in the Risk Invariance theorem. Obviously it will not be safe for $Alice$ to buy anything from $Charlie$ or any other vendor
+  if she has not directly entrusted any value to any other user.
 
   We see that in Trust Is Risk the money is not invested at the time of purchase and directly to the vendor, but at an
   earlier point in time and only to parties that are trustworthy for out of band reasons. The fact that this system can
   function in a completely decentralized fashion will become clear in the following sections. We prove this result in the
-  Sybil Resilience theorem (\ref{sybil}).
+  Sybil Resilience theorem.
 
   We make the design choice that one can express her trust maximally in terms of her available capital. Thus, an impoverished
   player cannot allocate much direct trust to her friends, no matter how trustworthy they are. On the other hand, a rich
