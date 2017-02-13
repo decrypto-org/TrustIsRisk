@@ -1,27 +1,28 @@
 \section{The Trust Graph}
   We now engage in the formal description of the proposed system, accompanied by helpful examples.
   \subimport{common/definitions/}{gamegraph.tex}
-  The nodes represent the players, the edges represent the existing direct trusts and the weights represent the amount of
-  value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the graph
-  represents the corresponding turn.
+  \noindent The nodes represent the players, the edges represent the existing direct trusts and the weights represent the
+  amount of value attached to the corresponding direct trust. As we will see, the game evolves in turns. The subscript of the
+  graph represents the corresponding turn.
   \subimport{common/definitions/}{players.tex}
-  Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value that
-  the node possesses exclusively and nobody else can spend.
+  \noindent Each node has a corresponding non-negative number that represents its capital. A node's capital is the total value
+  that the node possesses exclusively and nobody else can spend.
   \subimport{common/definitions/}{capital.tex}
-  The capital is the value that exists in the game but is not shared with trusted parties. The capital of $A$ can be
+  \noindent The capital is the value that exists in the game but is not shared with trusted parties. The capital of $A$ can be
   reallocated only during her turns, according to her actions. We model the system in a way that no capital can be added in
   the course of the game through external means. The use of capital will become clear once turns are formally defined.
 
   The formal definition of direct trust follows:
   \subimport{common/definitions/}{directtrust.tex}
-  This definition agrees with the title of this paper and coincides with the intuition and sociological experimental results
-  of \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds to the extent of danger in
-  which $Alice$ is putting herself into in order to help $Bob$. An example graph with its corresponding transactions in the
-  UTXO can be seen below.
+  \noindent This definition agrees with the title of this paper and coincides with the intuition and sociological experimental
+  results of \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds to the extent of
+  danger in which $Alice$ is putting herself into in order to help $Bob$. An example graph with its corresponding transactions
+  in the UTXO can be seen below.
 
   \subimport{common/figures/}{utxo.tikz}
 
-  Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
+  \noindent Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this
+  graph.
 
   \subimport{common/definitions/}{neighbourhood.tex}
   \subimport{common/definitions/}{inouttrust.tex}
