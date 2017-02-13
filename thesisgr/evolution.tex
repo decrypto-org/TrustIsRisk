@@ -1,27 +1,28 @@
 \section{Evolution of Trust}
   \subimport{thesisgr/definitions/}{turns.tex}
   \subimport{common/}{turnexample.tex}
-  We use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and next turn respectively played by
-  $Player(j)$. %A formal definition is in the Appendix.
+  Χρησιμοποιούμε $prev\left(j\right)$ και $next\left(j\right)$ για να δηλώσουμε τον προηγούμενο και τον επόμενο γύρο που
+  παίχθηκε αντίστοιχα από τον $Player\left(j\right)$.
   \subimport{common/definitions/}{prevnextturn.tex}
   \subimport{common/definitions/}{damage.tex}
   \subimport{common/definitions/}{history.tex}
-  Knowledge of the initial graph $\mathcal{G}_0$, all players' initial capital and the history amount to full comprehension of
-  the evolution of the game. Building on the example of figure \ref{fig:utxo}, we can see the resulting graph when $D$ plays
+  Γνώση του αρχικού γράφου $\mathcal{G}_0$, τα αρχικά κεφάλαια όλων των παικτών και την ιστορία ισοδυναμούν με πλήρη κατανόηση
+  της εξέλιξης του παιχνιδιού. Χτίζοντας στο παράδειγμα του σχήματος \ref{fig:utxo}, μπορούμε να δούμε το γράφο που προκύπτει
+  όταν ο $D$ παίξει
   \begin{equation}
   \label{turnexample}
      Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
   \end{equation}
   \subimport{common/figures/}{turnexample.tikz}
 
-  Trust Is Risk is controlled by an algorithm that chooses a player, receives the turn that
-  this player wishes to play and, if this turn is valid, executes it. These steps are repeated indefinitely. We assume
-  players are chosen in a way that, after her turn, a player will eventually play again later.
+  Το \textlatin{Trust Is Risk} ελέγχεται από έναν αλγόριθμο που επιλέγει έναν παίκτη, λαμβάνει το γύρο που ο παίκτης αυτός
+  επιθυμεί να παίξει και, αν ο γύρος του είναι έγκυρος, τον εκτελεί. Αυτά τα βήματα επαναλαμβάνονται επ' αόριστον. Θεωρούμε
+  ότι οι παίκτες επιλέγονται με τέτοιο τρόπο που ένας παίκτης, μετά από τον γύρο του, τελικά θα ξαναπαίξει αργότερα.
   \subimport{thesisgr/algorithms/}{trustisriskgame.tex}
 
-  \texttt{strategy[}$A$\texttt{]()} provides player $A$ with full knowledge of the game, except for the capitals of other
-  players. This assumption may not be always realistic.
+  Η \textlatin{\texttt{strategy[}$A$\texttt{]()}} προσφέρει στον παίκτη $A$ πλήρη γνώση του παιχνιδιού, εκτός από τα κεφάλαια των άλλων
+  παικτών. Αυτή η παραδοχή μπορεί να μην είναι πάντα ρεαλιστική.
 
-  \texttt{executeTurn()} checks the validity of \texttt{Turn} and substitutes it with an empty turn if invalid.
-  Subsequently, it creates the new graph $\mathcal{G}_j$ and updates the history accordingly. For the routine code,
-  see the Appendix.
+  Η \textlatin{\texttt{executeTurn()}} ελέγχει την εγκυρότητα του γύρου \texttt{Turn} και τον αντικαθιστά με έναν κενό γύρο αν είναι
+  άκυρος. Ακόλουθα, δημιουργεί ένα νέο γράφο $\mathcal{G}_j$ και ανανεώνει την ιστορία αναλόγως. Για τους αντίστοιχους
+  ψευδοκώδικες, δείτε το Παράρτημα.
