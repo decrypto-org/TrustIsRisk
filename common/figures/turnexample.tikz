@@ -36,7 +36,7 @@
   \draw [->] (A) ..controls (78.919bp,71.016bp) and (95.226bp,62.545bp)  .. (C);
   \draw (90.5bp,74.5bp) node {\LARGE 5\bitcoin};
   \draw [->] (D) ..controls (160.64bp,113.12bp) and (178.02bp,110.84bp)  .. (B);
-  \draw (173.0bp,119.5bp) node {\LARGE 2\bitcoin};
+  \draw (173.0bp,119.5bp) node {\LARGE 7\bitcoin};
 %
 \end{tikzpicture}
 \end{center}

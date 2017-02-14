@@ -1,8 +1,8 @@
 \section{Evolution of Trust}
   \subimport{fc17/definitions/}{turns.tex}
-  \subimport{common/}{turnexample.tex}
   \ifdefined\proceedings
   \else
+    \subimport{common/}{turnexample.tex}
     We use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and next turn respectively played by
     $Player(j)$.
   \fi
@@ -14,7 +14,7 @@
   when $D$ plays
   \begin{equation}
   \label{turnexample}
-     Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
+     Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right), Add\left(5, B\right)\} \enspace.
   \end{equation}
   \subimport{common/figures/}{turnexample.tikz}
 
