@@ -1,9 +1,8 @@
 %\phantomsection
 %\addcontentsline{toc}{subsubsection}{Previous/Next Turn Definition}
-\begin{definition}[Previous/Next Turn]
-  Let $j \in \mathbb{N}$ be a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
-  as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
-  $prev\left(j\right) = 0$. More formally, let
+\begin{definition}[Prev/Next Turn]
+  Let $j \in \mathbb{N}$ be a turn with $Player\left(j\right)$ $= A$. Define $prev\left(j\right)/next\left(j\right)$
+  as the previous/next turn $A$ is chosen to play. Formally, let
   \begin{align*}
     P &= \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and} \\
     N &= \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace.
@@ -16,5 +15,8 @@
     \end{cases} \enspace, \enspace
     next\left(j\right) = \min{N} \enspace.
   \end{equation*}
-  $next\left(j\right)$ is always well defined with the assumption that after each turn eventually everybody plays.
+  \ifdefined\proceedings
+  \else
+    $next\left(j\right)$ is always well defined with the assumption that after each turn eventually everybody plays.
+  \fi
 \end{definition}

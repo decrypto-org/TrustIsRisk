@@ -26,4 +26,7 @@
 
   \subimport{common/definitions/}{neighbourhood.tex}
   \subimport{common/definitions/}{inouttrust.tex}
-  \subimport{common/definitions/}{assets.tex}
+  \ifdefined\proceedings
+  \else
+    \subimport{common/definitions/}{assets.tex}
+  \fi

@@ -1,8 +1,11 @@
 \section{Evolution of Trust}
   \subimport{fc17/definitions/}{turns.tex}
   \subimport{common/}{turnexample.tex}
-  We use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and next turn respectively played by
-  $Player(j)$. %A formal definition is in the Appendix.
+  \ifdefined\proceedings
+  \else
+    We use $prev\left(j\right)$ and $next\left(j\right)$ to denote the previous and next turn respectively played by
+    $Player(j)$.
+  \fi
   \subimport{common/definitions/}{prevnextturn.tex}
   \subimport{common/definitions/}{damage.tex}
   \subimport{common/definitions/}{history.tex}
