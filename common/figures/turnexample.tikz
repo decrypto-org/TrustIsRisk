@@ -16,7 +16,7 @@
   \filldraw (0.0bp,0.0bp) -- (0.0bp,135.0bp) -- (267.0bp,135.0bp) -- (267.0bp,0.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (133.5bp,11.5bp) node {\LARGE \textbf{Fig.\figlabel{fig:turn}:} Game Graph after $Turn_1$ (\ref{turnexample}) on the Graph of figure \ref{fig:utxo}};
+  \draw (133.5bp,11.5bp) node {\LARGE \textbf{Fig.\figlabel{fig:turn}:} Game Graph after $Turn_1$ (\ref{turnexample}) on the Graph of Fig.~\ref{fig:utxo}};
 \end{scope}
   \node (A) at (51.0bp,85.0bp) [draw,ellipse] {\LARGE A};
   \node (C) at (130.0bp,45.0bp) [draw,ellipse] {\LARGE C};
