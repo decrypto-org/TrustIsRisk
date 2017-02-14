@@ -17,13 +17,13 @@
   \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
   \begin{equation}
   \label{stealrestriction}
-    \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
+    \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Dmg_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
     y_v \leq DTr_{v \rightarrow A, j-1} \enspace.
   \end{equation}
   Each conservative player can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
   each time she calls the function, as long as (\ref{stealrestriction}) is respected. 
 
-  As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_{A,j}
+  As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Dmg_{A,j}
   < in_{A,j-1}$ she can choose to distribute the $Steal\left(\right)$ actions in any way she chooses.
 
   The rationale behind this strategy arises from a real-world common situation. Suppose there are a client, an
@@ -59,11 +59,11 @@
   \end{equation}
   where
   \begin{equation*}
-    \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
+    \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Dmg_{v, j}\right) \enspace.
   \end{equation*}
  
-  \noindent We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
+  \noindent We see that if $Dmg_{v, j} = 0$, then $Turn_j = \emptyset$.
 
-  From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, we see
-  that $Damage_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
+  From the definition of $Dmg_{v,j}$ and knowing that no strategy in this case can increase any direct trust, we see
+  that $Dmg_{v,j} \geq 0$. Also, we can see that $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
   stolen more value than she has been stolen, thus she would not be following the conservative strategy.
