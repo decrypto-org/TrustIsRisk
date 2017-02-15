@@ -3,25 +3,16 @@
   kinds:
 
   \noindent \textit{\textbf{Steal($y_B$,$\:B$)}}: Steal value $y_B$ from $B \in N^{-}\left(A\right)_{j-1}$, where
-  $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then:
-  \begin{equation*}
-     DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \enspace.
-  \end{equation*}
-  \noindent \textit{\textbf{Add($y_B$,$\:B$)}}:
-  Add value $y_B$ to $B \in \mathcal{V}$, where $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then:
-  \begin{equation*}
-     DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B \enspace.
-  \end{equation*}
-  When $y_B < 0$, we say that $A$ reduces her direct trust to $B$ by $-y_B$. When $y_B > 0$, we say that $A$ increases her
-  direct trust to $B$ by $y_B$. If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$.
-  $A$ passes her turn if she chooses no action. Also, let $Y_{st}, Y_{add}$ be the
-  total value to be stolen and added respectively by $A$ in her turn, $j$. For a turn to be feasible:
-  \begin{equation}
-     Y_{add} - Y_{st} \leq Cap_{A, j-1} \enspace.
-  \end{equation}
-  The capital is updated in every turn: $Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add}$.
+  $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then set $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B$.
 
-  A player cannot choose two actions of the same kind against the same player in one turn.
-  The set of actions of a player in turn $j$ is denoted by $Turn_j$. The graph that emerges by applying
-  the actions on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
+  \noindent \textit{\textbf{Add($y_B$,$\:B$)}}: Add value $y_B$ to $B \in \mathcal{V}$, where
+  $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then set $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B$.
+
+  $y_B < 0$ amounts to direct trust reduction, while $y_B > 0$ to direct trust increase.
+
+  Let $Y_{st}, Y_{add}$ be the total value to be stolen and added respectively by $A$.  The capital is updated in every turn:
+  $Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add}$. For a turn to be valid we require $Cap_{A, j} \geq 0$ and $DTr_{A
+  \rightarrow B, j} \geq 0$ and $DTr_{B \rightarrow A, j} \geq 0$. A player cannot choose two actions of the same kind against
+  the same player in one turn. $Turn_j$ denotes the set of actions in turn $j$. The graph that emerges by applying the actions
+  on $\mathcal{G}_{j-1}$ is $\mathcal{G}_j$.
 \end{definition}
