@@ -4,15 +4,15 @@
   The common denominator of established online marketplaces is that the reputation of each vendor and client is typically
   expressed in the form of stars and user-generated reviews that are viewable by the whole network.
 
-  Our goal is to create a reputation system for decentralized marketplaces where the trust each user gives to the other users
-  is quantifiable in monetary terms. The central assumption used throughout this paper is that trust is equivalent to risk, or
-  the proposition that $Alice$'s \textit{trust} in another user $Charlie$ is defined to be the \textit{maximum sum of money}
-  that $Alice$ can lose when $Charlie$ is free to choose any strategy he wants. To flesh out this concept, we will use
-  \textit{lines of credit} as proposed by Sanchez \cite{loc}. $Alice$ joins the network by explicitly entrusting a certain
-  amount of money to another user, say her friend, $Bob$ (see Fig.~\ref{fig:bottleneckA} and~\ref{fig:bottleneckB}). If $Bob$
-  has already entrusted an amount of money to a third user, $Charlie$, then $Alice$ indirectly trusts $Charlie$ since if the
-  latter wished to play unfairly, he could have already stolen the money entrusted to him by $Bob$. We will later see that
-  $Alice$ can now engage in economic interaction with $Charlie$.
+  The goal of Trust Is Risk is to offer a reputation system for decentralized marketplaces where the trust each user gives to
+  the other users is quantifiable in monetary terms. The central assumption used throughout this paper is that trust is
+  equivalent to risk, or the proposition that $Alice$'s \textit{trust} in another user $Charlie$ is defined to be the
+  \textit{maximum sum of money} that $Alice$ can lose when $Charlie$ is free to choose any strategy he wants. To flesh out
+  this concept, we will use \textit{lines of credit} as proposed by Sanchez \cite{loc}. $Alice$ joins the network by
+  explicitly entrusting a certain amount of money to another user, say her friend, $Bob$ (see Fig.~\ref{fig:bottleneckA}
+  and~\ref{fig:bottleneckB}). If $Bob$ has already entrusted an amount of money to a third user, $Charlie$, then $Alice$
+  indirectly trusts $Charlie$ since if the latter wished to play unfairly, he could have already stolen the money entrusted to
+  him by $Bob$. We will later see that $Alice$ can now engage in economic interaction with $Charlie$.
 
   To implement lines-of-credit, we use Bitcoin \cite{bitcoin}, a decentralized cryptocurrency that differs from conventional
   currencies in that it does not depend on trusted third parties. All transactions are public as they are recorded on a
