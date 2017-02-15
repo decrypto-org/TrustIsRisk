@@ -2,11 +2,11 @@
 \begin{lstlisting}[label=transitivegame, style=numbers]
 Transitive Game
 Input : graph (*@$\mathcal{G}_0$@*), (*@$A \in \mathcal{V}$@*) idle player, (*@$B \in \mathcal{V}$@*) evil player (*@\Reactivatenumber@*)
-Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*);  Happy = (*@$\mathcal{V} \setminus \{A, B\}$@*)         (*@$\:$@*)    #--------------
-for ((*@$v \in \mathcal{V} \setminus \{B\}$@*))  (*@$Loss_v$@*) = 0                      #initialisation(*@\label{trsteallossinit}@*)
-j = 0                                            (*@$\:$@*) #--------------
-while (True)                                        #endless loop
-  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)               #choose this turn's player
+Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*);  Happy = (*@$\mathcal{V} \setminus \{A, B\}$@*)
+for ((*@$v \in \mathcal{V} \setminus \{B\}$@*))  (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
+j = 0
+while (True)
+  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)              # Choose this turn's player
   (*@$Turn_j$@*) = strategy[(*@$v$@*)]((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$Cap_{v, 0}$@*), (*@$\mathcal{H}_{1 \dots j-1}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
@@ -17,8 +17,8 @@ while (True)                                        #endless loop
         if ((*@$v$@*) != (*@$B$@*)) (*@$Loss_v$@*) -= exchange    (*@$\:$@*)     #(*@\label{trsteallossdecrease}@*)
         if ((*@$w$@*) != (*@$A$@*))                     (*@$\:$@*)      # and change the
           Happy = Happy(*@$\:\setminus\: \{w\}$@*)                   # mood of the
-          if ((*@$in_{w, j}$@*) == 0) Sad = Sad(*@$\:\cup\: \{w\}$@*)       # player with
-          else Angry = Angry(*@$\:\cup\: \{w\}$@*)        (*@$\:$@*)     # the new (*@$Loss$@*)
+          if ((*@$in_{w, j}$@*) == 0) Sad = Sad(*@$\:\cup\: \{w\}$@*)  (*@$\:$@*)     # affected player(*@\label{trstealaddwsad}@*)
+          else Angry = Angry(*@$\:\cup\: \{w\}$@*)   (*@\label{trstealaddwangry}@*)
   if ((*@$v$@*) != (*@$B$@*))
     Angry = Angry(*@$\:\setminus\: \{v\}$@*)                       # Change the mood of
     if ((*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)  Sad = Sad(*@$\:\cup\: \{v\}$@*)         # the active player(*@\label{trstealtrueentersad}@*)
