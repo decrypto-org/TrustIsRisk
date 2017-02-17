@@ -14,15 +14,14 @@
 
   The formal definition of direct trust follows:
   \subimport{common/definitions/}{directtrust.tex}
-  \noindent This definition agrees with the title of this paper and coincides with the intuition and sociological experimental
+  \subimport{common/figures/}{utxo.tikz}
+  \noindent The definition of direct trust agrees with the title of this paper and coincides with the intuition and sociological experimental
   results of Karlan et al. \cite{kmrs} that the trust $Alice$ shows to $Bob$ in real-world social networks corresponds to the
   extent of danger in which $Alice$ is putting herself into in order to help $Bob$. An example graph with its corresponding
-  transactions in the UTXO can be seen below.
+  transactions in the UTXO can be seen in Fig.~\ref{fig:utxo}.
 
-  \subimport{common/figures/}{utxo.tikz}
 
-  \noindent Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this
-  graph.
+  Any algorithm that has access to the graph $\mathcal{G}_j$ has implicitly access to all direct trusts of this graph.
 
   \subimport{common/definitions/}{neighbourhood.tex}
   \subimport{common/definitions/}{inouttrust.tex}
