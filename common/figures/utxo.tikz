@@ -77,7 +77,7 @@
   \draw (377.99bp,292.5bp) node {\LARGE 5\bitcoin};
   \draw [->] (D) ..controls (143.64bp,217.97bp) and (161.02bp,215.9bp)  .. (B);
   \draw (156.0bp,225.0bp) node {\LARGE 2\bitcoin};
-  \draw (270.5bp,0.0bp) node {\LARGE \textbf{Fig.\figlabel{fig:utxo}:} Trust Is Risk Game Graph and Equivalent Bitcoin UTXO};
+  \draw (270.5bp,0.0bp) node {\LARGE \textbf{Fig.~\figlabel{fig:utxo}:} Trust Is Risk Game Graph and Equivalent Bitcoin UTXO};
 %
 \end{tikzpicture}
 \end{center}

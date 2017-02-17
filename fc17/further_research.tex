@@ -6,22 +6,16 @@
     
   %\subsection{Dynamic Setting}
     Our game is static. In a future dynamic setting, users should be able to play simultaneously, freely join, depart or
-    disconnect temporarily from the network. Other types of multisigs, such as 1-of-3, can be explored for the
-    implementation of multi-party direct trust.
+    disconnect temporarily from the network. An interesting analysis would involve modelling repeated purchases with the
+    respective edge updates on the trust graph and treating trust on the network as part of the utility function. Other types
+    of multisigs, such as 1-of-3, can be explored.
 
   %\subsection{Zero knowledge}
-    MaxFlow in our case needs complete network knowledge, which can lead to privacy issues through deanonymisation
-    techniques \cite{deanonymisation}. Calculating the flows in zero knowledge remains an open question.
-    SilentWhispers \cite{silentwhispers} and its centralized predecessor, PrivPay \cite{privpay}, seem to offer invaluable
-    insight into how privacy can be achieved.
-
-  %\subsection{Game Theoretic Analysis}
-    Our game theoretic analysis is simple. An interesting analysis would involve modelling repeated purchases with the
-    respective edge updates on the trust graph and treating trust on the network as part of the utility function.
+    MaxFlow in our case needs complete network knowledge, which can lead to privacy issues \cite{deanonymisation}. Calculating
+    the flows in zero knowledge remains an open question. SilentWhispers \cite{silentwhispers} and its centralized
+    predecessor, PrivPay \cite{privpay}, offer insight into how privacy can be achieved.
 
   %\subsection{Implementation and Experimental Results}
-    An implementation as a wallet on any blockchain of our financial game is most welcome. A simulation or actual
-    implementation of Trust Is Risk, combined with analysis of the resulting dynamics can yield interesting experimental
-    results. Subsequently, our trust network can be used in other applications, such as decentralized social networks, an
-    example of which is Synereo \cite{synereo}.
-
+    A wallet implementation of our game on any blockchain is welcome. Experimental results can be harvested by a simulation or
+    implementation of Trust Is Risk. Afterwards, our system can be used in decentralized social networks, such as Synereo
+    \cite{synereo}, and other applications.

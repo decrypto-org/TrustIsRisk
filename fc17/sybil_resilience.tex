@@ -1,8 +1,6 @@
 \section{Sybil Resilience}
-  One of the primary aims of this system is to mitigate the danger for Sybil attacks \cite{sybilattack} whilst maintaining
-  fully decentralized autonomy \cite{dionyziz}.
-
-  Here we extend the definition of indirect trust to many players.
+  One of our aims is to mitigate Sybil attacks \cite{sybilattack} whilst maintaining decentralized autonomy \cite{dionyziz}.
+  We begin by extending the definition of indirect trust.
   \subimport{common/definitions/}{indirecttrustmultiplayer.tex}
   \noindent We now extend the Trust Flow theorem to many players.
   \subimport{common/theorems/}{multiplayertrustflowtheorem.tex}
@@ -12,6 +10,9 @@
   \subimport{common/definitions/}{sybil.tex}
   \subimport{common/definitions/}{collusion.tex}
   \subimport{common/figures/}{collusion.tikz}
+  From a game theoretic point of view, players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$ perceive the collusion
+  as independent players with a distinct strategy each, whereas in reality they are all subject to a single strategy dictated
+  by Eve.
   \subimport{fc17/theorems/}{sybilrestheorem.tex}
   \subimport{fc17/proofsketches/}{sybilresproofsketch.tex}
   We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless. We note that

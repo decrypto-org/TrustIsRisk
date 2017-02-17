@@ -26,8 +26,7 @@
   \filldraw (0.0bp,0.0bp) -- (0.0bp,320.0bp) -- (457.0bp,320.0bp) -- (457.0bp,0.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  %\draw (228.5bp,11.5bp) node {\Large \textbf{Fig.\figlabel{fig:transitivegame}:} Turns of a \texttt{TransitiveGame(}$\mathcal{G}_0$\texttt{,}$A$\texttt{,}$B$\texttt{)}};
-  \draw (228.5bp,11.5bp) node {\Large \textbf{Fig.\figlabel{fig:transitivegame}:} $B$ steals 7\bitcoin, then $D$ steals 3\bitcoin \:and finally $C$ steals 3\bitcoin};
+  \draw (228.5bp,11.5bp) node {\Large \textbf{Fig.~\figlabel{fig:transitivegame}:} $B$ steals 7\bitcoin, then $D$ steals 3\bitcoin \:and finally $C$ steals 3\bitcoin};
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
