@@ -7,17 +7,17 @@
   \noindent \textit{\textbf{Steal($y_B$,$\:B$)}}: Steal value $y_B$ from $B \in N^{-}\left(A\right)_{j-1}$, where
   $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then:
   \begin{equation*}
-    DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B
+    DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \enspace.
   \end{equation*}
   \noindent \textit{\textbf{Add($y_B$,$\:B$)}}:
   Add value $y_B$ to $B \in \mathcal{V}$, where $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then:
   \begin{equation*}
-    DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B
+    DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B \enspace.
   \end{equation*}
   When $y_B < 0$, we say that $A$ reduces her trust to $B$ by $-y_B$. When $y_B > 0$, we say that $A$ increases her
   trust to $B$ by $y_B$. If $DTr_{A \rightarrow B, j-1} = 0$, then we say that $A$ starts directly trusting $B$.
   If player $A$ chooses no action in her turn, we say that she passes her turn. Also, let $Y_{st}, Y_{add}$ be the
-  total value to be stolen and added respectively by $A$ in her turn, $j$. For a turn to be feasible, it must hold that
+  total value to be stolen and added respectively by $A$ in her turn, $j$. For a turn to be feasible:
   \begin{equation}
     Y_{add} - Y_{st} \leq Cap_{A, j-1} \enspace.
   \end{equation}

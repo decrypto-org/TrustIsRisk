@@ -6,21 +6,21 @@ Angry = Sad = (*@$\emptyset$@*) (*@\label{trstealsadinit}@*);  Happy = (*@$\math
 for ((*@$v \in \mathcal{V} \setminus \{B\}$@*))  (*@$Loss_v$@*) = 0 (*@\label{trsteallossinit}@*)
 j = 0
 while (True)
-  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)
-  (*@$Turn_j$@*) = strategy[(*@$v$@*)]((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$Cap_{v, 0}$@*), (*@$mathcal{H}_{1 \dots j-1}$@*))
+  j += 1;  (*@$v \overset{\$}{\gets} \mathcal{V} \setminus \{A\}$@*)              # Choose this turn's player
+  (*@$Turn_j$@*) = strategy[(*@$v$@*)]((*@$\mathcal{G}_0$@*), (*@$v$@*), (*@$Cap_{v, 0}$@*), (*@$\mathcal{H}_{1 \dots j-1}$@*))
   executeTurn((*@$\mathcal{G}_{j-1}$@*), (*@$v$@*), (*@$Cap_{v, j-1}$@*), (*@$Turn_j$@*))
   for (action (*@$\in Turn_j$@*))
     action match do
-      case (*@$Steal($@*)y(*@$,w)$@*) do
-        exchange = y
-        (*@$Loss_w$@*) += exchange (*@\label{trsteallossincrease}@*)
-        if ((*@$v$@*) != (*@$B$@*)) (*@$Loss_v$@*) -= exchange (*@\label{trsteallossdecrease}@*)
-        if ((*@$w$@*) != (*@$A$@*))
-          Happy = Happy(*@$\:\setminus\: \{w\}$@*)
-          if ((*@$in_{w, j}$@*) == 0) Sad = Sad(*@$\:\cup\: \{w\}$@*)
-          else Angry = Angry(*@$\:\cup\: \{w\}$@*)
+      case (*@$Steal($@*)y(*@$,w)$@*) do                        # For each (*@$Steal$@*),
+        exchange = y                            #
+        (*@$Loss_w$@*) += exchange                      # pass on (*@$Loss$@*)(*@\label{trsteallossincrease}@*)
+        if ((*@$v$@*) != (*@$B$@*)) (*@$Loss_v$@*) -= exchange    (*@$\:$@*)     #(*@\label{trsteallossdecrease}@*)
+        if ((*@$w$@*) != (*@$A$@*))                     (*@$\:$@*)      # and change the
+          Happy = Happy(*@$\:\setminus\: \{w\}$@*)                   # mood of the
+          if ((*@$in_{w, j}$@*) == 0) Sad = Sad(*@$\:\cup\: \{w\}$@*)  (*@$\:$@*)     # affected player(*@\label{trstealaddwsad}@*)
+          else Angry = Angry(*@$\:\cup\: \{w\}$@*)   (*@\label{trstealaddwangry}@*)
   if ((*@$v$@*) != (*@$B$@*))
-    Angry = Angry(*@$\:\setminus\: \{v\}$@*)
-    if ((*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)  Sad = Sad(*@$\:\cup\: \{v\}$@*)        #(*@$in_{v, j}$@*) should be zero (*@\label{trstealtrueentersad}@*)
+    Angry = Angry(*@$\:\setminus\: \{v\}$@*)                       # Change the mood of
+    if ((*@$Loss_v$@*) > 0) (*@\label{trstealifentersad}@*)  Sad = Sad(*@$\:\cup\: \{v\}$@*)         # the active player(*@\label{trstealtrueentersad}@*)
     if ((*@$Loss_v$@*) == 0)  Happy = Happy(*@$\:\cup\: \{v\}$@*)
 \end{lstlisting}

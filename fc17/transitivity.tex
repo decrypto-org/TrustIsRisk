@@ -1,7 +1,6 @@
 \section{Trust Transitivity}
-  In this section we define some strategies and show the corresponding algorithms. Then we define the
-  Transitive Game that represents the worst-case scenario for an honest player when another player decides to depart from
-  the network with her money and all the money directly entrusted to her.
+  In this section we define some strategies and show the corresponding algorithms. Then we define the Transitive Game, the
+  worst-case scenario for an honest player when another player plays maliciously.
   \subimport{common/definitions/}{idlestrategy.tex}
 
   \subimport{common/algorithms/}{idlestrategycode.tex}
@@ -17,14 +16,11 @@
   \texttt{SelectSteal()} returns $y_v$ with $v \in N^{-}\left(A\right)_{j-1}$ such that
   \begin{equation}
   \label{stealrestriction}
-     \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Damage_{A, j} \wedge \forall v \in N^{-}\left(A\right)_{j-1},
+     \sum\limits_{v \in N^{-}\left(A\right)_{j-1}}y_v = Dmg_{A, j} \enspace \wedge \enspace \forall v \in N^{-}\left(A\right)_{j-1},
      y_v \leq DTr_{v \rightarrow A, j-1} \enspace.
   \end{equation}
   Player $A$ can arbitrarily define how \texttt{SelectSteal()} distributes the $Steal\left(\right)$ actions
   each time she calls the function, as long as (\ref{stealrestriction}) is respected. 
-
-  As we can see, the definition covers a multitude of options for the conservative player, since in case $0 < Damage_{A,j}
-  < in_{A,j-1}$ she can choose to distribute the $Steal\left(\right)$ actions in any way she chooses.
 
   The rationale behind this strategy arises from a real-world common situation. Suppose there are a client, an
   intermediary and a producer. The client entrusts some value to the intermediary so that the latter can buy the desired
@@ -37,33 +33,28 @@
   scenario that a client can face after an evil player decides to steal everything she can and the rest of the players do
   not engage in evil activity.
 
-  We continue with a very useful possible evolution of the game, the Transitive Game. In turn 0, there is already a network
-  in place. All players apart from $A$ and $B$ follow the conservative strategy. Furthermore, the set of players is not
-  modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ for any turn $j$ as $\mathcal{V}$.
-  Moreover, each conservative player can be in one of three states: Happy, Angry or Sad. Happy players have 0 loss, Angry
-  players have positive loss and positive incoming direct trust, thus are able to replenish their loss at least in part and
-  Sad players have positive loss, but 0 incoming direct trust, thus they cannot replenish the loss. These conventions will
-  hold whenever we use the Transitive Game.
+  We continue with a possible evolution of the game, the Transitive Game. 
   \subimport{fc17/algorithms/}{transitivegame.tex}
 
-  An example execution follows:
-
   \subimport{common/figures/}{transitivegameexample.tikz}
+  
+  \noindent In turn 0, there is already a network in place. All players apart from $A$ and $B$ follow the conservative
+  strategy. The set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ as
+  $\mathcal{V}$. Each conservative player can be in one of three states: Happy, Angry or Sad. Happy players have 0 loss, Angry
+  players have positive loss and positive incoming direct trust (line~\ref{trstealaddwangry}), thus are able to replenish
+  their loss at least in part and Sad players have positive loss, but 0 incoming direct trust (line~\ref{trstealaddwsad}),
+  thus they cannot replenish the loss. An example execution can be seen in Fig.~\ref{fig:transitivegame}.
 
-  Let $j_0$ be the first turn on which $B$ is chosen to play. Until then, all players will pass their turn since nothing
-  has been stolen yet (see the Appendix (theorem \ref{conservativeworld}) for a formal proof of this simple fact).
-  Moreover, let $v = Player(j)$ and $j' = prev\left(j\right)$.
-  The Transitive Game generates turns:
-  \begin{equation}
-     Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\} \enspace,
-  \end{equation}
-  where
-  \begin{equation*}
-     \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Damage_{v, j}\right) \enspace.
-  \end{equation*}
+  Let $j_0$ be the first turn on which $B$ is chosen to play. Until then, all players will pass their turn since nothing has
+  been stolen yet (see \ifdefined\proceedings the Conservative World theorem in Appendix A of the full version
+  \cite{trustisrisk}\else Appendix A (Theorem~\ref{conservativeworld})\fi). Moreover, let $v = Player(j)$. The Transitive Game
+  generates turns:
+  \begin{align}
+     Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(y_w,w\right)\} \enspace, & \mbox{ where} \\
+     \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}y_w = \min\left(in_{v, j-1}, Dmg_{v, j}\right) \enspace. &
+  \end{align}
  
-  We see that if $Damage_{v, j} = 0$, then $Turn_j = \emptyset$.
-
-  From the definition of $Damage_{v,j}$ and knowing that no strategy in this case can increase any direct trust, we see
-  that $Damage_{v,j} \geq 0$. Also, it is $Loss_{v,j} \geq 0$ because if $Loss_{v,j} < 0$, then $v$ has
-  stolen more value than she has been stolen, thus she would not be following the conservative strategy.
+  \noindent We see that if $Dmg_{v, j} = 0$, then $Turn_j = \emptyset$. From the definition of $Dmg_{v,j}$ and knowing that no
+  strategy in this case can increase any direct trust, we see that $Dmg_{v,j} \geq 0$. Also, it is $Loss_{v,j} \geq 0$ because
+  if $Loss_{v,j} < 0$, then $v$ has stolen more value than she has been stolen, thus she would not be following the
+  conservative strategy.

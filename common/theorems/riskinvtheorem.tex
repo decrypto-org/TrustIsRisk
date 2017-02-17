@@ -2,8 +2,8 @@
 \addcontentsline{toc}{subsection}{Risk Invariance Theorem}
 \begin{theorem}[Risk Invariance Theorem]
 \label{riskinv}
-  Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $l$ the desired value to be transferred from $A$ to $B$,
-  with $l \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ with the same nodes as $\mathcal{G}$ such that
+  Let $\mathcal{G}$ be a game graph, $A, B \in \mathcal{V}$ and $l$ the desired value to be transferred from $A$ to $B$, with
+  $l \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ with the same nodes as $\mathcal{G}$ such that
   \begin{equation*}
     \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}', DTr'_{v \rightarrow w} =
     DTr_{v \rightarrow w} \enspace.
@@ -15,9 +15,7 @@
     Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - l \enspace.
   \end{equation}
   Let another game graph, $\mathcal{G}''$, be identical to $\mathcal{G}'$ except for the following change:
-  \begin{equation*}
-    DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + l \enspace.
-  \end{equation*}
+  $DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + l$.
   It then holds that
   \begin{equation*}
     Tr''_{A \rightarrow B} = Tr_{A \rightarrow B} \enspace.

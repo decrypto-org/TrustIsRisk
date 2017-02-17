@@ -2,12 +2,12 @@
 %\addcontentsline{toc}{subsubsection}{Neighbourhood Definition}
 \begin{definition}[Neighbourhood]
   \label{neighbourhood}
-  We use the notation $N^{+}\left(A\right)_j$ to refer to the nodes directly trusted by $A$ and $N^{-}\left(A\right)_j$ for
-  the nodes that directly trust $A$ at the end of turn $j$.
+  We use the notation $N^{+}\left(A\right)_j$ to refer to the nodes directly trusted by $A$ at the end of turn $j$ and
+  $N^{-}\left(A\right)_j$ for the nodes that directly trust $A$ at the end of turn $j$.
     \begin{equation}
     \begin{gathered}
-      N^{+}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\} \\
-      N^{-}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\}
+      N^{+}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{A \rightarrow B, j} > 0\} \enspace, \\
+      N^{-}\left(A\right)_j = \{B \in \mathcal{V}_j : DTr_{B \rightarrow A, j} > 0\} \enspace.
     \end{gathered}
     \end{equation}
     These are called out- and in-neighbourhood of $A$ on turn $j$ respectively.

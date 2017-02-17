@@ -1,29 +1,25 @@
 \section{Related Work}
-  The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust
-  is rather binary and transitivity is limited to one step beyond actively trusted parties is explored in PGP \cite{pgp}. A
-  transitive web-of-trust for fighting spam is explored in Freenet \cite{freenet}. Other systems require central trusted
-  third parties, such as CA-based PKIs \cite{pki} and Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership
-  \cite{byzantine}. While other trust systems attempt to be decentralized, they do not prove any Sybil resilience properties
-  and hence may be Sybil attackable. Such systems are FIRE \cite{fire}, CORE \cite{core} and others \cite{openrep,ghkkw,rk}.
-  Other systems that define trust in a non-financial way are \cite{mui,beta,pace,vpc,sdt,wot,pathfinder}.
+  Webs-of-trust can be used as a basis for trust as shown by Caronni \cite{wot}. PGP \cite{pgp} implements one and Pathfinder
+  \cite{pathfinder} explores its transitive closure. Freenet \cite{freenet} implements a transitive web-of-trust for fighting
+  spam. Mui et al. \cite{mui} and J\o{}sang et al. \cite{beta} propose ways of calculating trust towards distant nodes.
+  Vi\c{s}an et al. \cite{vpc} calculate trust in a hierarchical way. CA- and Byzantine-based \cite{byzantine} PKIs \cite{pki}
+  and Bazaar \cite{bazaar} require central trusted third parties or at least authenticated membership. FIRE \cite{fire}, CORE
+  \cite{core}, Gr\"unert et al. \cite{ghkkw} and Repantis et al. \cite{rk} do not prove any Sybil resilience. All these
+  systems define trust in a non-financial manner.
 
-  We agree with the work of \cite{badtrust} in that the meaning of trust should not be extrapolated. We have adopted their
-  advice in our paper and urge our readers to adhere to the definitions of \textit{direct} and \textit{indirect} trust as
-  they are used here.
+  We agree with Gollmann \cite{badtrust} in that the meaning of trust should not be extrapolated. We adopted their advice and
+  urge our readers to adhere to the definitions of \textit{direct} and \textit{indirect} trust as defined here.
 
-  The Beaver marketplace \cite{beaver} includes a trust model that relies on
-  fees to discourage Sybil attacks. We chose to avoid fees in our system and mitigate Sybil attacks in a different manner.
-  Our motivating application for exploring trust in a decentralized setting is the OpenBazaar marketplace. Transitive
-  financial trust for OpenBazaar has previously been explored by \cite{dionyziz}. That work however does not define trust
-  as a monetary value. We are strongly inspired by \cite{kmrs}
-  which gives a sociological justification for the central design choice of identifying trust with
-  risk. We greatly appreciate the work in TrustDavis \cite{davis}, which proposes a financial trust system that exhibits
-  transitive properties and in which trust is defined as lines-of-credit, similar to our system. We were able to extend
-  their work by using the blockchain for automated proofs-of-risk, a feature not available to them at the time.
+  Beaver \cite{beaver} includes a trust model that, to discourage Sybil attacks, relies on fees, something we chose to avoid.
+  Our motivating application for exploring trust in a decentralized setting is OpenBazaar, where transitive financial trust
+  has previously been explored by Zindros \cite{dionyziz}. That work however does not define trust as a monetary value. We are
+  strongly inspired by Karlan et al. \cite{kmrs} who give a sociological justification for the central design choice of
+  identifying trust with risk. We appreciate the work in TrustDavis \cite{davis}, which proposes a financial trust system with
+  transitivity and in which trust is defined as lines-of-credit, similar to us. We extended their work by using the blockchain
+  for automated proofs-of-risk, a feature not available to them at the time.
 
-  Our conservative strategy and Transitive Game are very similar to the mechanism proposed by the economic paper
-  \cite{iou} which also illustrates financial trust transitivity and is used by Ripple \cite{ripple} and Stellar
-  \cite{stellar}.  IOUs in these correspond to reversed edges of trust in our system. The critical difference is that our
-  denominations of trust are expressed in a global currency and that coins must pre-exist in order to be trusted and so there
-  is no money-as-debt. Furthermore, we prove that trust and maximum flows are equivalent, a direction not explored in their
-  paper, even though we believe it must hold for all both our and their systems.
+  Our conservative strategy and Transitive Game are similar to the mechanism proposed by Fugger \cite{iou} which is also
+  financially transitive and is used by Ripple \cite{ripple} and Stellar \cite{stellar}. IOUs in those correspond to reversed
+  edges of trust in our system. The critical difference is that our trust is expressed in a global currency and there is no
+  money-as-debt. Furthermore, we proved that trust and maximum flows are equivalent, a direction not explored in their papers,
+  even though it seems to hold for their systems as well.

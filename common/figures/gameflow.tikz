@@ -16,7 +16,7 @@
   \filldraw (0.0bp,0.0bp) -- (0.0bp,168.0bp) -- (386.0bp,168.0bp) -- (386.0bp,0.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (171.0bp,11.5bp) node {\textbf{Fig.\figlabel{fig:trgareflows}:} Graph $\mathcal{G}'$, derived from $\mathcal{G}$ with Auxiliary Source $T$.};
+  \draw (171.0bp,11.5bp) node {\textbf{Fig.~\figlabel{fig:trgareflows}:} Graph $\mathcal{G}'$, derived from $\mathcal{G}$ with Auxiliary Source $T$.};
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
