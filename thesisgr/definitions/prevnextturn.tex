@@ -1,14 +1,14 @@
-%\phantomsection
-%\addcontentsline{toc}{subsubsection}{Previous/Next Turn Definition}
-\begin{definition}[Previous/Next Turn]
-  Let $j \in \mathbb{N}$ be a turn with $Player\left(j\right)$ $= A$. We define $prev\left(j\right), next\left(j\right)$
-  as the previous and next turn that $A$ is chosen to play respectively. If $j$ is the first turn that $A$ plays,
-  $prev\left(j\right) = 0$. More formally, let
+\phantomsection
+\addcontentsline{toc}{subsubsection}{Ορισμός Προηγούμενου/Επόμενου Γύρου}
+\begin{definition}[Προηγούμενος/Επόμενος Γύρος]
+  Έστω $j \in \mathbb{N}$ ένας γύρος με $Player\left(j\right) = A$. Ορίζουμε τα $prev\left(j\right), next\left(j\right)$ ως
+  τον προηγούμενο και τον επόμενο γύρο που ο $A$ επιλέγεται να παίξει αντίστοιχα. Αν ο πρώτος γύρος που παίζει ο $A$ είναι ο
+  $j$, είναι $prev\left(j\right) = 0$. Πιο αυστηρά, έστω
   \begin{align*}
-    P &= \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ and} \\
+    P &= \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ και} \\
     N &= \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace.
   \end{align*}
-  Then we define $prev\left(j\right), next\left(j\right)$ as follows:
+  Τότε ορίζουμε $prev\left(j\right), next\left(j\right)$ ως εξής:
   \begin{equation*}
     prev\left(j\right) = \begin{cases}
       \max{P}, & P \neq \emptyset \\
@@ -16,5 +16,6 @@
     \end{cases} \enspace, \:
     next\left(j\right) = \min{N}
   \end{equation*}
-  $next\left(j\right)$ is always well defined with the assumption that after each turn eventually everybody plays.
+  Το $next\left(j\right)$ είναι πάντα καλώς ορισμένο με την παραδοχή ότι μετά από κάθε γύρο όλοι οι παίκτες ξαναπαίζουν
+  τελικά.
 \end{definition}
