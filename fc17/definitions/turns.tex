@@ -3,10 +3,18 @@
   kinds:
 
   \noindent \textit{\textbf{Steal($y_B$,$\:B$)}}: Steal value $y_B$ from $B \in N^{-}\left(A\right)_{j-1}$, where
-  $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then set $DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B$.
+  $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Then set\ifdefined\proceedings \ $DTr_{B \rightarrow A, j} = DTr_{B
+  \rightarrow A, j-1} - y_B$.\else:
+  \begin{equation*}
+    DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B \enspace.
+  \end{equation*}\fi
 
   \noindent \textit{\textbf{Add($y_B$,$\:B$)}}: Add value $y_B$ to $B \in \mathcal{V}$, where
-  $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then set $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B$.
+  $-DTr_{A \rightarrow B, j-1} \leq y_B$. Then set\ifdefined\proceedings \ $DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B,
+  j-1} + y_B$.\else:
+  \begin{equation*}
+    DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B \enspace.
+  \end{equation*}\fi
 
   $y_B < 0$ amounts to direct trust reduction, while $y_B > 0$ to direct trust increase.
 
