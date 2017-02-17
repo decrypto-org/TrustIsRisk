@@ -33,17 +33,17 @@
   scenario that a client can face after an evil player decides to steal everything she can and the rest of the players do
   not engage in evil activity.
 
-  We continue with a possible evolution of the game, the Transitive Game. In turn 0, there is already a network in place. All
-  players apart from $A$ and $B$ follow the conservative strategy. The set of players is not modified throughout the
-  Transitive Game, thus we can refer to $\mathcal{V}_j$ as $\mathcal{V}$. Each conservative player can be in one of three
-  states: Happy, Angry or Sad. Happy players have 0 loss, Angry players have positive loss and positive incoming direct trust
-  (line~\ref{trstealaddwangry}), thus are able to replenish their loss at least in part and Sad players have positive loss,
-  but 0 incoming direct trust (line~\ref{trstealaddwsad}), thus they cannot replenish the loss.
+  We continue with a possible evolution of the game, the Transitive Game. 
   \subimport{fc17/algorithms/}{transitivegame.tex}
 
-  \noindent An example execution follows:
-
   \subimport{common/figures/}{transitivegameexample.tikz}
+  
+  \noindent In turn 0, there is already a network in place. All players apart from $A$ and $B$ follow the conservative
+  strategy. The set of players is not modified throughout the Transitive Game, thus we can refer to $\mathcal{V}_j$ as
+  $\mathcal{V}$. Each conservative player can be in one of three states: Happy, Angry or Sad. Happy players have 0 loss, Angry
+  players have positive loss and positive incoming direct trust (line~\ref{trstealaddwangry}), thus are able to replenish
+  their loss at least in part and Sad players have positive loss, but 0 incoming direct trust (line~\ref{trstealaddwsad}),
+  thus they cannot replenish the loss. An example execution can be seen in Fig.~\ref{fig:transitivegame}.
 
   \noindent Let $j_0$ be the first turn on which $B$ is chosen to play. Until then, all players will pass their turn since
   nothing has been stolen yet (see \ifdefined\proceedings the Conservative World theorem in Appendix A of the full version
