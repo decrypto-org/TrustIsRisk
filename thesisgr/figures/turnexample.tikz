@@ -1,5 +1,5 @@
 \phantomsection
-\addcontentsline{lof}{section}{Turn}
+\addcontentsline{lof}{section}{Γύρος}
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.6,transform shape]
 %%
@@ -16,8 +16,7 @@
   \filldraw (0.0bp,0.0bp) -- (0.0bp,135.0bp) -- (267.0bp,135.0bp) -- (267.0bp,0.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (133.5bp,11.5bp) node {\LARGE \textbf{Σχ.\figlabel{fig:turn}:} Ο Γράφος του Παιχνιδιού μετά τον $Turn_1$
-  (\ref{turnexample}) στο γράφο του Σχ.~\ref{fig:utxo}};
+  \draw (133.5bp,11.5bp) node {\LARGE \textbf{Σχ.~\figlabel{fig:turn}:} Ο Γράφος του Παιχνιδιού μετά τον $Turn_1$~(\ref{turnexample}) στο γράφο του Σχ.~\ref{fig:utxo}};
 \end{scope}
   \node (A) at (51.0bp,85.0bp) [draw,ellipse] {\LARGE \textlatin{A}};
   \node (C) at (130.0bp,45.0bp) [draw,ellipse] {\LARGE \textlatin{C}};

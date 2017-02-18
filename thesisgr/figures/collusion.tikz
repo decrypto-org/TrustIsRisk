@@ -1,5 +1,5 @@
 \phantomsection
-\addcontentsline{lof}{section}{Collusion}
+\addcontentsline{lof}{section}{Συνεργασία}
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,]
 %%
@@ -18,7 +18,7 @@
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
   \draw (76.0bp,31.0bp) .. controls (76.0bp,31.0bp) and (104.0bp,31.0bp)  .. (104.0bp,31.0bp) .. controls (110.0bp,31.0bp) and (116.0bp,37.0bp)  .. (116.0bp,43.0bp) .. controls (116.0bp,43.0bp) and (116.0bp,125.0bp)  .. (116.0bp,125.0bp) .. controls (116.0bp,131.0bp) and (110.0bp,137.0bp)  .. (104.0bp,137.0bp) .. controls (104.0bp,137.0bp) and (76.0bp,137.0bp)  .. (76.0bp,137.0bp) .. controls (70.0bp,137.0bp) and (64.0bp,131.0bp)  .. (64.0bp,125.0bp) .. controls (64.0bp,125.0bp) and (64.0bp,43.0bp)  .. (64.0bp,43.0bp) .. controls (64.0bp,37.0bp) and (70.0bp,31.0bp)  .. (76.0bp,31.0bp);
-  \draw (62.0bp,11.5bp) node {\textbf{Σχ.\figlabel{fig:collusion}:} Συνεργασία};
+  \draw (62.0bp,11.5bp) node {\textbf{Σχ.~\figlabel{fig:collusion}:} Συνεργασία};
 \end{scope}
   \node (C) at (90.0bp,57.0bp) [draw,ellipse] {$\mathcal{C}$};
   \node (B) at (90.0bp,111.0bp) [draw,ellipse] {$\mathcal{B}$};

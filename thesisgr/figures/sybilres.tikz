@@ -1,5 +1,5 @@
 \phantomsection
-\addcontentsline{lof}{section}{Sybil Resilience}
+\addcontentsline{lof}{section}{Αντοχή σε επιθέσεις \textlatin{Sybil}}
 \begin{center}
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.7,transform shape]
 %%
@@ -16,7 +16,7 @@
   \filldraw (0.0bp,0.0bp) -- (0.0bp,186.0bp) -- (467.0bp,186.0bp) -- (467.0bp,0.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (233.5bp,11.5bp) node {\LARGE \textbf{Fig.\figlabel{fig:sybilres}:} Graphs $\mathcal{G}_1$ and $\mathcal{G}_2$};
+  \draw (233.5bp,11.5bp) node {\LARGE \textbf{Σχ.~\figlabel{fig:sybilres}:} Οι γράφοι $\mathcal{G}_1$ και $\mathcal{G}_2$};
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
