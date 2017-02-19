@@ -9,7 +9,7 @@
   \draw (8.0bp,8.0bp) -- (8.0bp,83.0bp) -- (286.0bp,83.0bp) -- (286.0bp,8.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (147.0bp,19.5bp) node {\semihuge \textbf{Σχ.~\figlabel{fig:bottleneckA}:} Ο \textlatin{A} εμπ. έμμεσα τον \textlatin{C} 10\bitcoin};
+  \draw (147.0bp,19.5bp) node {\semihuge \textbf{Σχ.~\figlabel{fig:bottleneckA}:} Η \textlatin{A} εμπ. έμμεσα τον \textlatin{C} 10\bitcoin};
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
@@ -18,7 +18,7 @@
   \draw (307.0bp,8.0bp) -- (307.0bp,83.0bp) -- (578.0bp,83.0bp) -- (578.0bp,8.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (442.5bp,19.5bp) node {\semihuge \textbf{Σχ.~\figlabel{fig:bottleneckB}:} Ο \textlatin{A} εμπ. έμμεσα τον \textlatin{C} 5\bitcoin};
+  \draw (442.5bp,19.5bp) node {\semihuge \textbf{Σχ.~\figlabel{fig:bottleneckB}:} Η \textlatin{A} εμπ. έμμεσα τον \textlatin{C} 5\bitcoin};
 \end{scope}
   \node (Alice2) at (342.0bp,57.0bp) [draw,ellipse] {\semihuge \textlatin{A}};
   \node (Alice1) at (43.0bp,57.0bp) [draw,ellipse] {\semihuge \textlatin{A}};
