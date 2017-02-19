@@ -1,26 +1,27 @@
-\section{Sybil Resilience}
-  One of the primary aims of this system is to mitigate the danger for Sybil attacks \cite{sybilattack} whilst maintaining
-  fully decentralized autonomy.
+\section{\textlatin{Sybil} Αντίσταση}
+  Ένας από τους κεντρικούς στόχους αυτού του συστήματος είναι να περιορίσει τον κίνδυνο για επιθέσεις \textlatin{Sybil}
+  διατηρώντας ταυτόχρονα πλήρως αποκεντρωμένη αυτονομία.
 
-  Here we extend the definition of indirect trust to many players.
-  \subimport{common/definitions/}{indirecttrustmultiplayer.tex}
-  We now extend Trust Flow theorem (\ref{trustflow}) to many players.
-  \subimport{common/theorems/}{multiplayertrustflowtheorem.tex}
-  \subimport{common/proofs/}{multiplayertrustflowproof.tex}
-  We now define several useful notions to tackle the problem of Sybil attacks. Let Eve be a possible attacker.
-  \subimport{common/definitions/}{corrupted.tex}
-  \subimport{common/definitions/}{sybil.tex}
-  \subimport{common/definitions/}{collusion.tex}
-  \subimport{common/figures/}{collusion.tikz}
+  Εδώ επεκτείνουμε τον ορισμό της έμμεσης εμπιστοσύνης σε πολλούς παίκτες.
+  \subimport{thesisgr/definitions/}{indirecttrustmultiplayer.tex}
+  Τώρα επεκτείνουμε το θεώρημα Εμπιστοσύνης -- Ροής (\ref{trustflow}) σε πολλούς παίκτες.
+  \subimport{thesisgr/theorems/}{multiplayertrustflowtheorem.tex}
+  \subimport{thesisgr/proofs/}{multiplayertrustflowproof.tex}
+  Ορίζουμε τώρα διάφορες χρήσιμες έννοιες για να αντιμετωπίσουμε το πρόβλημα των επιθέσεων \textlatin{Sybil}. Έστω μία πιθανή
+  επιτιθέμενη, η \textlatin{Eve}.
+  \subimport{thesisgr/definitions/}{corrupted.tex}
+  \subimport{thesisgr/definitions/}{sybil.tex}
+  \subimport{thesisgr/definitions/}{collusion.tex}
+  \subimport{thesisgr/figures/}{collusion.tikz}
   \subimport{thesisgr/theorems/}{sybilrestheorem.tex}
   \subimport{thesisgr/proofsketches/}{sybilresproofsketch.tex}
-  We have proven that controlling $|\mathcal{C}|$ is irrelevant for Eve, thus Sybil attacks are meaningless. We note that
-  this theorem does not deliver reassurances against attacks involving deception techniques. More specifically, a malicious
-  player can create several identities, use them legitimately to inspire others to deposit direct trust to these identities
-  and then switch to the evil strategy, thus defrauding everyone that trusted the fabricated identities. These identities
-  correspond to the corrupted set of players and not to the Sybil set because they have direct incoming trust from outside
-  the collusion.
+  Αποδείξαμε ότι ο έλεγχος του $|\mathcal{C}|$ δεν αφορά την \textlatin{Eve}, συνεπώς οι επιθέσεις \textlatin{Sybil} δεν έχουν
+  νόημα. Σημειώνουμε ότι αυτό το θεώρημα δεν προσφέρει διαβεβαιώσεις ενάντια σε επιθέσεις που συμπεριλαμβάνουν τεχνικές
+  εξαπάτησης. Πιο συγκεκριμένα, μία κακεντρεχής παίκτης μπορεί να δημιουργήσει πολλές ταυτότητες, να τις χρησιμοποιήσει με
+  δίκαιο τρόπο ούτως ώστε να πείσει άλλες να καταθέσουν άμεση εμπιστοσύνη σε αυτές τις ταυτότητες και μετά να μεταβεί στην
+  κακιά στρατηγική, εξαπατώντας έτσι όλες όσες εμπιστεύθηκαν τις κατασκευασμένες ταυτότητες. Αυτές οι ταυτότητες αντιστοιχούν
+  στο διεφθαρμένο σύνολο παικτών και όχι στο σύνολο \textlatin{Sybil} γιατί διαθέτουν εισερχόμενη άμεση εμπιστοσύνη από
+  παίκτες έξω από τη συνεργασία.
 
-  In conclusion, we have successfully delivered our promise for a Sybil-resilient decentralized financial trust system with
-  invariant risk for purchases.
-
+  Συμπερασματικά, έχουμε δημιουργήσει με επιτυχία ένα αποκεντρωμένο σύστημα οικονομικής εμπιστοσύνης με αντίσταση σε επιθέσεις
+  \textlatin{Sybil} και αμετάβλητο κίνδυνο για αγορές, όπως υποσχεθήκαμε.

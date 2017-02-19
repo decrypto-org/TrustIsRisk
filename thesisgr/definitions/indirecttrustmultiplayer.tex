@@ -1,17 +1,10 @@
 \phantomsection
-\addcontentsline{toc}{subsection}{Indirect Trust to Multiple Players Definition}
-\begin{definitiongr}{Indirect Trust to Multiple Players}
-  The indirect trust from player $A$ to a set of players, $S \subset \mathcal{V}$ is defined as the maximum possible
-  value that can be stolen from $A$ if all players in $S$ follow the evil strategy, $A$ follows the idle strategy and
-  everyone else ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) follows the conservative strategy.
-%  More formally, if $S \subset \mathcal{V}$,
-%  \begin{equation}
-%  \begin{gathered}
-%     Strategy\left(A\right) = Idle \wedge \forall E \in S, Strategy\left(E\right) = Evil \wedge \\
-%     \wedge \forall v \in \mathcal{V} \setminus \left(S \cup \{A\}\right), Strategy\left(v\right) = Conservative
-%  \end{gathered}
-%  \end{equation}
-  More formally, let $choices$ be the different actions between which the conservative players can choose, then
+\addcontentsline{toc}{subsection}{Ορισμός Έμμεσης Εμπιστοσύνης προς Πολλούς Παίκτες}
+\begin{definitiongr}{Έμμεση Εμπιστοσύνη προς Πολλούς Παίκτες}
+  Η έμμεση εμπιστοσύνη από την παίκτη $A$ σε ένα σύνολο παικτών, $S \subset \mathcal{V}$ ορίζεται ως η μέγιστη δυνατή αξία που
+  μπορεί να κλαπεί από την $A$ αν όλοι οι παίκτες στο $S$ ακολουθούν την κακιά στρατηγική, η $A$ ακολουθεί την αδρανή
+  στρατηγική και όλοι οι υπόλοιποι ($\mathcal{V} \setminus \left(S \cup \{A\}\right)$) ακολουθούν τη συντηρητική στρατηγική.
+  Πιο αυστηρά, έστω $choices$ οι διαφορετικές δράσεις μεταξύ των οποίων μπορούν να επιλέξουν οι συντηρητικοί παίκτες. Τότε
   \begin{equation}
      Tr_{A \rightarrow S, j} = \max\limits_{j' : j' > j, choices}{\left[out_{A,j} - out_{A,j'}\right]}
   \end{equation}

@@ -1,53 +1,54 @@
-\begin{sepproof}{Proof of Lemma \ref{maxflowgame}: MaxFlows Are Transitive Games} \ \\
+\begin{sepproof}{Απόδειξη του Λήμματος~\ref{maxflowgame}: Οι μέγιστες ροές είναι Μεταβατικά Παιχνίδια} \ \\
 \label{maxflowgameproof}
-  We suppose that the turn of $\mathcal{G}$ is 0. In other words, $\mathcal{G} = \mathcal{G}_0$. Let
-  $X = \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ be the flows returned by $MaxFlow\left(A, B\right)$. For any graph
-  $G$ there exists a $MaxFlow$ that is a DAG. We can easily prove this using the Flow Decomposition theorem
-  \cite{amo}, which states that each flow can be seen as a finite set of paths from $A$ to $B$ and cycles, each
-  having a certain flow. We execute $MaxFlow\left(A, B\right)$ and we apply the aforementioned theorem. The
-  cycles do not influence the $maxFlow\left(A, B\right)$, thus we can remove these flows. The resulting flow is a
-  $MaxFlow\left(A, B\right)$ without cycles, thus it is a DAG. Topologically sorting this DAG, we obtain a total order
-  of its nodes such that $\forall$ nodes $v, w \in \mathcal{V} : v < w \Rightarrow x_{wv} = 0$ \cite{clrs}. Put
-  differently, there is no flow from larger to smaller nodes. $B$ is maximum since it is the sink and thus has no
-  outgoing flow to any node and $A$ is minimum since it is the source and thus has no incoming flow from any node. The
-  desired execution of Transitive Game will choose players following the total order inversely, starting from player
-  $B$. We observe that $\forall v \in \mathcal{V} \setminus \{A, B\}, \sum\limits_{w \in \mathcal{V}}x_{wv} =
-  \sum\limits_{w \in \mathcal{V}}x_{vw} \leq maxFlow\left(A, B\right) \leq in_{B, 0}$. Player $B$ will follow a modified
-  evil strategy where she steals value equal to her total incoming flow, not her total incoming direct trust. Let $j_2$ be
-  the first turn when $A$ is chosen to play. We will show using strong induction that there exists a set of valid actions
-  for each player according to their respective strategy such that at the end of each turn $j$ the corresponding player
-  $v = Player\left(j\right)$ will have stolen value $x_{wv}$ from each in-neighbour $w$.
+  Υποθέτουμε ότι ο γύρος του $\mathcal{G}$ είναι ο 0. Με άλλα λόγια, $\mathcal{G} = \mathcal{G}_0$. Έστω $X =
+  \{x_{vw}\}_{\mathcal{V} \times \mathcal{V}}$ οι ροές που επιστρέφονται από τον $MaxFlow\left(A, B\right)$. Για κάθε γράφο
+  $G$ υπάρχει απόδοση $MaxFlow$ που να είναι κατευθυνόμενος ακυκλικός γράφος (ΚΑΓ). Αυτό μπορεί να αποδειχθεί εύκολα με χρήση
+  του θεωρήματος Αποσύνθεσης Ροής \cite{amo}, το οποίο δηλώνει ότι κάθε ροή μπορεί να ειδωθεί ως ένα πεπερασμένο σύνολο
+  μονοπατιών από τον $A$ στον $B$ και κύκλων, ο καθένας εκ των οποίων εχει μία συγκεκριμένη ροή. Εκτελούμε το $MaxFlow\left(A,
+  B\right)$ και εφαρμόζουμε το προαναφερθέν θεώρημα. Οι κύκλοι δεν επηρεάζουν το $MaxFlow\left(A, B\right)$, συνεπώς μπορούμε
+  να αφαιρέσουμε τις ροές αυτές. Η προκύπτουσα ροή είναι ένα $MaxFlow\left(A, B\right)$ χωρίς κύκλους, συνεπώς είναι ένας ΚΑΓ.
+  Εκτελώντας τοπολογική ταξινόμηση σε αυτόν τον ΚΑΓ, παίρνουμε μία ολική διάταξη των κόμβων του έτσι που $\forall v, w \in
+  \mathcal{V} : v < w \Rightarrow x_{wv} = 0$ \cite{clrs}. Θέτοντάς το διαφορετικά, δεν υπάρχει ροή από μεγαλύτερους προς
+  μικρότερους κόμβους. Ο $B$ είναι μέγιστος αφού είναι η καταβόθρα και συνεπώς δεν έχει εξερχόμενη ροή προς άλλους κόμβους και
+  ο $A$ είναι ελάχιστος γιατί είναι η πηγή και συνεπώς δεν έχει καθόλου εισερχόμενη ροή από άλλους κόμβους. Η επιθυμητή
+  εκτέλεση του Μεταβατικού Παιχνιδιού θα διαλέξει παίκτες ακολουθώντας την ολική διάταξη αντίστροφα, ξεκινώντας από την παίκτη
+  $B$. Παρατηρού\-με ότι $\forall v \in \mathcal{V} \setminus \{A, B\}, \sum\limits_{w \in \mathcal{V}}x_{wv} = \sum\limits_{w
+  \in \mathcal{V}}x_{vw} \leq maxFlow\left(A, B\right) \leq in_{B, 0}$. Η παίκτης $B$ θα ακολουθήσει μία τροποποιημένη κακιά
+  στρατηγική στην οποία κλέβει αξία ίση με τη συνολική εισερχόμενη ροή, όχι τη συνολική εισερχόμενη εμπιστοσύνη. Έστω $j_2$ ο
+  πρώτος γύρος στον οποίο επιλεγεται η $A$. Θα δείξουμε χρησιμοποιώντας ισχυρή επαγωγή ότι υπάρχει σύνολο έγκυρων πράξεων για
+  κάθε παίκτη ανάλογα με τη στρατηγική της τέτοιο ώστε στο τέλος του γύρου $j$ η αντίστοιχη παίκτης $v = Player\left(j\right)$
+  θα έχει κλέψει αξία $x_{wv}$ από κάθε μέσα γείτονα $w$.
 
-  Base case: In turn 1, $B$ steals value equal to $\sum\limits_{w \in \mathcal{V}}x_{wB}$, following the modified evil
-  strategy.
+  Επαγωγική βάση: Στο γύρο 1, η $B$ κλέβει αξία ίση με $\sum\limits_{w \in \mathcal{V}}x_{wB}$, ακολουθώντας την τροποποιημένη
+  κακιά στρατηγική.
   \begin{equation*}
     Turn_1 = \bigcup\limits_{v \in N^{-}\left(B\right)_0}\{Steal\left(x_{vB}, v\right)\}
   \end{equation*}
 
-  Induction hypothesis: Let $k \in [j_2 - 2]$. We suppose that $\forall i \in [k]$, there exists a valid set of actions,
-  $Turn_i$, performed by $v = Player\left(i\right)$ such that $v$ steals from each player $w$ value equal to $x_{wv}$.
+  Επαγωγική υπόθεση: Έστω $k \in [j_2 - 2]$. Υποθέτουμε ότι $\forall i \in [k]$, υπάρχει ένα έγκυρο σύνολο πράξεων, $Turn_i$,
+  εκτελεσμένων από την $v = Player\left(i\right)$ τέτοιο ώστε η $v$ να κλέψει από κάθε παίκτη $w$ αξία ίση με $x_{wv}$.
   \begin{equation*}
     \forall i \in [k], Turn_i = \bigcup\limits_{w \in N^{-}\left(v\right)_{i-1}}\{Steal\left(x_{wv}, w\right)\}
   \end{equation*}
 
-  Induction step: Let $j = k + 1, v = Player\left(j\right)$. Since all the players that are greater than $v$ in the
-  total order have already played and all of them have stolen value equal to their incoming flow, we deduce that $v$ has
-  been stolen value equal to $\sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw}$. Since it is the first time $v$
-  plays, $\forall w \in N^{-}\left(v\right)_{j-1}, DTr_{w \rightarrow v, j-1} = DTr_{w \rightarrow v, 0} \geq x_{wv}$, thus
-  $v$ is able to choose the following turn:
+  Επαγωγικό βήμα: Έστω $j = k + 1, v = Player\left(j\right)$. Αφού όλες οι παίκτες που είναι μεγαλύτερες από την $v$ στην
+  ολική διάταξη έχουν ήδη παίξει και όλες τους έχουν κλέψει αξία ίση με την εισερχόμενη ροή τους, συμπεραίνουμε ότι από τη $v$
+  έχει κλαπεί αξία ίση με $\sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw}$. Αφού αυτή είναι η πρώτη φορά που η $v$
+  παίζει, $\forall w \in N^{-}\left(v\right)_{j-1}, DTr_{w \rightarrow v, j-1} = DTr_{w \rightarrow v, 0} \geq x_{wv}$,
+  συνεπώς η $v$ μπορεί να διαλέξει τον εξής γύρο:
   \begin{equation*}
     Turn_j = \bigcup\limits_{w \in N^{-}\left(v\right)_{j-1}}\{Steal\left(x_{wv}, w\right)\}
   \end{equation*}
-  Moreover, this turn satisfies the conservative strategy since
+  Επιπλέον, αυτός ο γύρος ικανοποιεί τη συντηρητική στρατηγική αφού
   \begin{equation*}
     \sum\limits_{w \in N^{-}\left(v\right)_{j-1}}x_{wv} = \sum\limits_{w \in N^{+}\left(v\right)_{j-1}}x_{vw} \enspace.
   \end{equation*}
-  Thus $Turn_j$ is a valid turn for the conservative player $v$.
+  Άρα ο $Turn_j$ είναι ένας έγκυρος γύρος για τη συντηρητική παίκτη $v$.
 
-  We have proven that in the end of turn $j_2 - 1$, player $B$ and all the conservative players will have stolen value
-  exactly equal to their total incoming flow, thus $A$ will have been stolen value equal to her outgoing flow, which is
-  $maxFlow\left(A, B\right)$. Since there remains no Angry player, $j_2$ is a convergence turn, thus
-  $Loss_{A, j_2} = Loss_A$. We can also see that if $B$ had chosen the original evil strategy, the described actions would
-  still be valid only by supplementing them with additional $Steal\left(\right)$ actions, thus $Loss_A$ would further
-  increase. This proves the lemma.
+  Δείξαμε ότι στο τέλος του γύρου $j_2 - 1$, η παίκτης $B$ και όλες οι συντηρητικές παίκτες θα έχουν κλέψει αξία ακριβώς ίση
+  με την εισερχόμενη ροή, συνεπώς από την $A$ θα έχει κλαπεί αξία ίση με την εξερχόμενη ροή της, η οποία είναι
+  $maxFlow\left(A, B\right)$. Αφού δε μένει άλλη Θυμωμένη παίκτης, ο $j_2$ είναι γύρος σύγκλισης, συνεπώς $Loss_{A, j_2} =
+  Loss_A$. Μπορούμε επίσης να δούμε ότι αν η $B$ είχε διαλέξει την κανονική κακιά στρατηγική, οι πράξεις που περιγράφηκαν θα
+  εξακολουθούσαν να είναι έγκυρες με απλή προσθήκη επιπλέον πράξεων $Steal\left(\right)$, συνεπώς η $Loss_A$ θα αυξανόταν
+  περαιτέρω. Αυτό αποδεικνύει το λήμμα.
 \end{sepproof}

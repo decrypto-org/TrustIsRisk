@@ -1,29 +1,35 @@
-\section{Related Work}
-  The topic of trust has been repeatedly attacked with several approaches: Purely cryptographic infrastructure where trust
-  is rather binary and transitivity is limited to one step beyond actively trusted parties is explored in PGP \cite{pgp}. A
-  transitive web-of-trust for fighting spam is explored in Freenet \cite{freenet}. Other systems require central trusted
-  third parties, such as CA-based PKIs \cite{pki} and Bazaar \cite{bazaar}, or, in the case of BFT, authenticated membership
-  \cite{byzantine}. While other trust systems attempt to be decentralized, they do not prove any Sybil resilience properties
-  and hence may be Sybil attackable. Such systems are FIRE \cite{fire}, CORE \cite{core} and others \cite{openrep,ghkkw,rk}.
-  Other systems that define trust in a non-financial way are \cite{mui,beta,pace,vpc,sdt,wot,pathfinder}.
+\section{Σχετικές Εργασίες}
+  Το θέμα της εμπιστοσύνης έχει προσεγγιστεί επανειλημμένα από διάφορες οπτικές: Καθαρά κρυπτογραφική υποδομή στην οποία η
+  εμπιστοσύνη είναι σχεδόν δυαδική και η μεταβατικότητα περιορίζεται σε ένα βήμα πέρα από άτομα που εμπιστεύεται κανείς
+  ενεργητικά εξερευνάται στο \textlatin{PGP} \cite{pgp}. Ένας μεταβατικός ιστός εμπιστοσύνης για την αντιμετώπιση ανεπιθύμητης
+  αλληλογραφίας μελετάται στο \textlatin{Freenet} \cite{freenet}. Άλλα συστήματα απαιτούν κεντρικούς αξιόπιστους τρίτους, όπως
+  \textlatin{PKI} βασιζόμενα σε αρχές πιστοποίησης \cite{pki} και το \textlatin{Bazaar} \cite{bazaar}, ή, στην περίπτωση της
+  Βυζαντινής ανοχής στα σφάλματα, πιστοποιημένη συμμετοχή \cite{byzantine}. Ενώ άλλα συστήματα εμπιστοσύνης επιχειρούν να
+  είναι αποκεντρωμένα, δεν αποδεικνύουν καμία ιδιότητα αντίστασης σε \textlatin{Sybil} επιθέσεις και συνεπώς ίσως να δέχονται
+  τέτοιες επιθέσεις. Τέτοια συστήματα είναι το \textlatin{FIRE} \cite{fire}, το \textlatin{CORE} \cite{core} και άλλα
+  \cite{openrep,ghkkw,rk}. Άλλα συστήματα που ορίζουν την εμπιστοσύνη με έναν μη οικονομικό τρόπο είναι τα
+  \cite{mui,beta,pace,vpc,sdt,wot,pathfinder}.
 
-  We agree with the work of \cite{badtrust} in that the meaning of trust should not be extrapolated. We have adopted their
-  advice in our paper and urge our readers to adhere to the definitions of \textit{direct} and \textit{indirect} trust as
-  they are used here.
+  Συμφωνούμε με την εργασία \cite{badtrust} στο ότι η σημασία της εμπιστοσύνης δεν πρέπει να προεκτείνεται απρόσεκτα. Έχουμε
+  υιοθετήσει τις συμβουλές τους στην παρούσα εργασία και παροτρύνουμε τον αναγνώστη να παραμένει στους ορισμούς της
+  \textit{άμεσης} και \textit{έμμεσης} εμπιστοσύνης.
 
-  The Beaver marketplace \cite{beaver} includes a trust model that relies on
-  fees to discourage Sybil attacks. We chose to avoid fees in our system and mitigate Sybil attacks in a different manner.
-  Our motivating application for exploring trust in a decentralized setting is the OpenBazaar marketplace. Transitive
-  financial trust for OpenBazaar has previously been explored by \cite{dionyziz}. That work however does not define trust
-  as a monetary value. We are strongly inspired by \cite{kmrs}
-  which gives a sociological justification for the central design choice of identifying trust with
-  risk. We greatly appreciate the work in TrustDavis \cite{davis}, which proposes a financial trust system that exhibits
-  transitive properties and in which trust is defined as lines-of-credit, similar to our system. We were able to extend
-  their work by using the blockchain for automated proofs-of-risk, a feature not available to them at the time.
+  Η αγορά \textlatin{Beaver} \cite{beaver} περιλαμβάνει ένα μοντέλο εμπιστοσύνης που βασίζεται σε χρεώσεις για να αποθαρρύνει
+  τις επιθέσεις \textlatin{Sybil}. Επιλέξαμε να αποφύγουμε τις χρεώσεις στο σύστημά μας και να αντιμετωπίσουμε τις επιθέσεις
+  \textlatin{Sybil} με άλλο τρόπο. Η κινητήριος εφαρμογή για την έρευνα στο θέμα της εμπιστοσύνης σε ένα αποκεντρωμένο
+  περιβάλλον είναι η αγορά \textlatin{OpenBazaar}. Η μεταβατική οικονομική εμπιστοσύνη για το \textlatin{OpenBazaar} έχει
+  μελετηθεί παλαιότερα στο \cite{dionyziz}. Η εργασία αυτή ωστόσο δεν ορίζει την εμπιστοσύνη σαν οικονομική αξία. Έχουμε
+  εμπνευστεί ισχυρά από το \cite{kmrs} το οποίο δίνει μια κοινωνιολογική επιβεβαίωση για την κεντρική σχεδιαστική επιλογή της
+  ταύτησης της εμπιστοσύνης με τον κίνδυνο. Εκτιμούμε ιδιαιτέρως την εργασία στο \textlatin{TrustDavis} \cite{davis}, το οποίο
+  προτείνει ένα σύστημα οικονομικής εμπιστοσύνης που εμφανίζει μεταβατικές ιδιότητες και στο οποίο η εμπιστοσύνη ορίζεται ως
+  πιστωτικές γραμμές, όμοια με το δικό μας σύστημα. Μπορέσαμε να επεκτείνουμε την εργασία τους χρησιμοποιώντας το
+  \textlatin{blockchain} για αυτόματες αποδείξεις κινδύνου, ένα εργαλείο που δεν είχαν στη διάθεσή τους τότε.
 
-  Our conservative strategy and Transitive Game are very similar to the mechanism proposed by the economic paper
-  \cite{iou} which also illustrates financial trust transitivity and is used by Ripple \cite{ripple} and Stellar
-  \cite{stellar}.  IOUs in these correspond to reversed edges of trust in our system. The critical difference is that our
-  denominations of trust are expressed in a global currency and that coins must pre-exist in order to be trusted and so there
-  is no money-as-debt. Furthermore, we prove that trust and maximum flows are equivalent, a direction not explored in their
-  paper, even though we believe it must hold for all both our and their systems.
+  Η συντηρητική μας στρατηγική και το Μεταβατικό Παιχνίδι είναι πολύ παρόμοια με το μηχανισμό που προτείνεται στην οικονομική
+  εργασία \cite{iou} η οποία επίσης περιγράφει μεταβατικότητα οικονομικής εμπιστοσύνης και χρησιμοποιείται από το
+  \textlatin{Ripple} \cite{ripple} και το \textlatin{Stellar} \cite{stellar}. Τα \textlatin{IOU} στις προαναφερθείσες εργασίες
+  αντιστοιχούν σε ανεστραμμένες ακμές εμπιστοσύνης στο δικό μας σύστημα. Η κρίσιμη διαφορά είναι ότι η δική μας εμπιστοσύνη
+  εκφράζεται με ένα ενιαίο νόμισμα και τα ότι τα νομίσματα πρέπει να προϋπάρχουν για να τα εμπιστευθεί κάποια σε κάποια άλλη,
+  άρα δεν υπάρχει χρήμα ως χρέος. Επιπλέον, αποδεικνύουμε ότι η εμπιστοσύνη και οι μέγιστες ροές είναι ισοδύναμες, μία
+  ανεξερεύνητη κατεύθυνση από τις εργασίες τους, παρ' όλο που πιστεύουμε ότι θα πρέπει να ισχύει και για τα δικά τους
+  συστήματα.

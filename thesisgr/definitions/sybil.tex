@@ -1,10 +1,11 @@
 \phantomsection
-\addcontentsline{toc}{subsection}{Sybil Set Definition}
-\begin{definitiongr}{Sybil Set}
-  Let $\mathcal{G}$ be a game graph. Since participation in the network does not require any kind of registration, Eve
-  can create any number of players. We will call the set of these players $\mathcal{C}$, or Sybil set. Moreover, Eve
-  can arbitrarily set the direct trusts of any player in $\mathcal{C}$ to any player and can also steal all
-  incoming direct trust to players in $\mathcal{C}$. However, players $\mathcal{C}$ can be directly trusted only by
-  players $\mathcal{B} \cup \mathcal{C}$ but not by players $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$,
-  where $\mathcal{B}$ is a set of players corrupted by Eve.
+\addcontentsline{toc}{subsection}{Ορισμός \textlatin{Sybil} Συνόλου}
+\begin{definitiongr}{Σύνολο \textlatin{Sybil}}
+  Έστω $\mathcal{G}$ γράφος παιχνιδιού. Αφού η συμμετοχή στο δίκτυο δε χρειάζεται κανενός είδους εγγραφή, η \textlatin{Eve}
+  μπορεί να δημιουργήσει όσες παίκτες θέλει. Θα αποκαλούμε το σύνολο αυτών των παικτών $\mathcal{C}$, ή σύνολο
+  \textlatin{Sybil}. Επιπλέον, η \textlatin{Eve} μπορεί να θέτει κατά βούληση τις άμεσες εμπιστοσύνες οποιασδήποτε παίκτη στο
+  $\mathcal{C}$ προς οποιαδήποτε παίκτη και επίσης μπορεί να κλέψει όλη την εισερχόμενη άμεση εμπιστοσύνη προς παίκτες στο
+  $\mathcal{C}$. Ωστόσο, μόνο οι παίκτες στο $\mathcal{B} \cup \mathcal{C}$ εμπιστεύονται άμεσα τους παίκτες στο $\mathcal{C}$
+  και όχι οι παίκτες στο $\mathcal{V} \setminus (\mathcal{B} \cup \mathcal{C})$, όπου $\mathcal{B}$ είναι ένα σύνολο παικτών
+  που η \textlatin{Eve} έχει διαφθείρει.
 \end{definitiongr}
