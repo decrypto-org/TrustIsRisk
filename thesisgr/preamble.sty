@@ -79,7 +79,7 @@
 \newenvironment{sepproof}[1]{\noindent \textbf{#1}}{\qed \smallskip \ \\}
 
 %environment for proof sketch
-\newenvironment{proofsketch}{\textit{Proof Sketch.}}{\qed \smallskip \ \\}
+\newenvironment{proofsketch}{\noindent\textit{Διάγραμμα Απόδειξης.}}{\qed \smallskip \ \\}
 
 %eliminate section numbering from \subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
@@ -87,6 +87,16 @@
 %add greek translation of 'Definition'
 \newcounter{defgrcount}
 \newenvironment{definitiongr}[1]{\textbf{\smallskip \\ Ορισμός \refstepcounter{defgrcount}\arabic{defgrcount}
+(#1).}\itshape}{\par\smallskip}
+
+%add greek translation of 'Theorem'
+\newcounter{theoremgrcount}
+\newenvironment{theoremgr}[1]{\textbf{\smallskip \\ Θεώρημα \refstepcounter{theoremgrcount}\arabic{theoremgrcount}
+(#1).}\itshape}{\par\smallskip}
+
+%add greek translation of 'Lemma'
+\newcounter{lemmagrcount}
+\newenvironment{lemmagr}[1]{\textbf{\smallskip \\ Λήμμα \refstepcounter{lemmagrcount}\arabic{lemmagrcount}
 (#1).}\itshape}{\par\smallskip}
 
 %page style set to plain
