@@ -1,25 +1,25 @@
 \phantomsection
-\addcontentsline{toc}{subsection}{Risk Invariance Theorem}
-\begin{theorem}[Risk Invariance Theorem]
+\addcontentsline{toc}{subsection}{Θεώρημα Αμετάβλητου Κινδύνου}
+\begin{theoremgr}{Θεώρημα Αμετάβλητου Κινδύνου}
 \label{riskinv}
-  Let $\mathcal{G}$ game graph, $A, B \in \mathcal{V}$ and $l$ the desired value to be transferred from $A$ to $B$,
-  with $l \leq Tr_{A \rightarrow B}$. Let also $\mathcal{G}'$ with the same nodes as $\mathcal{G}$ such that
+  Έστω $\mathcal{G}$ γράφος παιχνιδιού, $A, B \in \mathcal{V}$ και $l$ η επιθυμητή αξία προς μεταφορά από την $A$ στην $B$, με
+  $l \leq Tr_{A \rightarrow B}$. Έστω επίσης $\mathcal{G}'$ με τους ίδιους κόμβους με τον $\mathcal{G}$ τέτοιος ώστε
   \begin{equation*}
     \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}', DTr'_{v \rightarrow w} =
     DTr_{v \rightarrow w} \enspace.
   \end{equation*}
-  Furthermore, suppose that there exists an assignment for the outgoing direct trust of $A, DTr'_{A \rightarrow v}$, such
-  that
+  Επιπλέον, υποθέτουμε ότι υπάρχουν τιμές για τις εξερχόμενες άμεσες εμπιστοσύνες της $A, DTr'_{A \rightarrow v}$, τέτοιες
+  ώστε
   \begin{equation}
   \label{primetrust}
     Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - l \enspace.
   \end{equation}
-  Let another game graph, $\mathcal{G}''$, be identical to $\mathcal{G}'$ except for the following change:
+  Έστω ένας άλλος γράφος παιχνιδιού, $\mathcal{G}''$, ταυτόσημος με τον $\mathcal{G}'$ εκτός της παρακάτω διαφοράς:
   \begin{equation*}
     DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + l \enspace.
   \end{equation*}
-  It then holds that
+  Ισχύει τότε ότι
   \begin{equation*}
     Tr''_{A \rightarrow B} = Tr_{A \rightarrow B} \enspace.
   \end{equation*}
-\end{theorem}
+\end{theoremgr}
