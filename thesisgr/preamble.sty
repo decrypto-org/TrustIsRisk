@@ -91,12 +91,12 @@
 
 %add greek translation of 'Theorem'
 \newcounter{theoremgrcount}
-\newenvironment{theoremgr}[1]{\textbf{\smallskip \\ Θεώρημα \refstepcounter{theoremgrcount}\arabic{theoremgrcount}
+\newenvironment{theoremgr}[2]{\textbf{\smallskip \\ Θεώρημα \refstepcounter{theoremgrcount}\label{#2}\arabic{theoremgrcount}
 (#1).}\itshape}{\par\smallskip}
 
 %add greek translation of 'Lemma'
 \newcounter{lemmagrcount}
-\newenvironment{lemmagr}[1]{\textbf{\smallskip \\ Λήμμα \refstepcounter{lemmagrcount}\arabic{lemmagrcount}
+\newenvironment{lemmagr}[2]{\textbf{\smallskip \\ Λήμμα \refstepcounter{lemmagrcount}\label{#2}\arabic{lemmagrcount}
 (#1).}\itshape}{\par\smallskip}
 
 %page style set to plain
