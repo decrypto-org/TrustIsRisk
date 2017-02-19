@@ -26,8 +26,8 @@
   \filldraw (0.0bp,0.0bp) -- (0.0bp,320.0bp) -- (457.0bp,320.0bp) -- (457.0bp,0.0bp) -- cycle;
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (228.5bp,11.5bp) node {\Large \textbf{Σχ.~\figlabel{fig:transitivegame}:} Ο $B$ κλέβει 7\bitcoin, μετά ο $D$ κλέβει
-  3\bitcoin \:και ο $C$ κλέβει 3\bitcoin};
+  \draw (228.5bp,11.5bp) node {\Large \textbf{Σχ.~\figlabel{fig:transitivegame}:} Η $B$ κλέβει 7\bitcoin, μετά η $D$ κλέβει
+  3\bitcoin \:και η $C$ κλέβει 3\bitcoin};
 \end{scope}
 \begin{scope}
   \pgfsetstrokecolor{black}
@@ -68,35 +68,35 @@
   \node (B3) at (192.0bp,264.0bp) [draw,ellipse,fill] {\Large \textcolor{white}{\textlatin{B}}};
   \node (B2) at (473.0bp,264.0bp) [draw,ellipse] {\Large \textlatin{B}};
   \node (D2) at (394.0bp,289.0bp) [draw,ellipse,fill] {\Large \textcolor{white}{\textlatin{D}}};
-  \node (D2mood) at (394.0bp,310.0bp) {\Large \textlatin{Angry}};
+  \node (D2mood) at (394.0bp,310.0bp) {\Large Θυμωμένη};
   \node (D3) at (113.0bp,289.0bp) [draw,ellipse] {\Large \textlatin{D}};
-  \node (D3mood) at (113.0bp,310.0bp) {\Large \textlatin{Happy}};
+  \node (D3mood) at (113.0bp,310.0bp) {\Large Χαρούμενη};
   \node (A1) at (34.0bp,114.0bp) [draw,ellipse] {\Large \textlatin{A}};
   \node (A0) at (315.0bp,114.0bp) [draw,ellipse] {\Large \textlatin{A}};
   \node (A3) at (34.0bp,270.0bp) [draw,ellipse] {\Large \textlatin{A}};
   \node (A2) at (315.0bp,270.0bp) [draw,ellipse] {\Large \textlatin{A}};
   \node (E0) at (315.0bp,60.0bp) [draw,ellipse] {\Large \textlatin{E}};
-  \node (E0mood) at (315.0bp,39.0bp) {\Large \textlatin{Sad}};
+  \node (E0mood) at (315.0bp,39.0bp) {\Large Λυπημένη};
   \node (E1) at (34.0bp,60.0bp) [draw,ellipse] {\Large \textlatin{E}};
-  \node (E1mood) at (34.0bp,39.0bp) {\Large \textlatin{Happy}};
+  \node (E1mood) at (34.0bp,39.0bp) {\Large Χαρούμενη};
   \node (E2) at (315.0bp,216.0bp) [draw,ellipse] {\Large \textlatin{E}};
-  \node (E2mood) at (315.0bp,195.0bp) {\Large \textlatin{Happy}};
+  \node (E2mood) at (315.0bp,195.0bp) {\Large Χαρούμενη};
   \node (E3) at (34.0bp,216.0bp) [draw,ellipse] {\Large \textlatin{E}};
-  \node (E3mood) at (34.0bp,195.0bp) {\Large \textlatin{Happy}};
+  \node (E3mood) at (34.0bp,195.0bp) {\Large Χαρούμενη};
   \node (C3) at (113.0bp,235.0bp) [draw,ellipse] {\Large \textlatin{C}};
-  \node (C3mood) at (113.0bp,214.0bp) {\Large \textlatin{Happy}};
+  \node (C3mood) at (123.0bp,214.0bp) {\Large Χαρούμενη};
   \node (C2) at (394.0bp,235.0bp) [draw,ellipse] {\Large \textlatin{C}};
-  \node (C2mood) at (394.0bp,214.0bp) {\Large \textlatin{Angry}};
+  \node (C2mood) at (399.0bp,214.0bp) {\Large Θυμωμένη};
   \node (C1) at (113.0bp,79.0bp) [draw,ellipse,fill] {\Large \textcolor{white}{\textlatin{C}}};
-  \node (C1mood) at (113.0bp,58.0bp) {\Large \textlatin{Angry}};
+  \node (C1mood) at (118.0bp,58.0bp) {\Large Θυμωμένη};
   \node (C0) at (394.0bp,79.0bp) [draw,ellipse] {\Large \textlatin{C}};
-  \node (C0mood) at (394.0bp,58.0bp) {\Large \textlatin{Happy}};
+  \node (C0mood) at (404.0bp,58.0bp) {\Large Χαρούμενη};
   \node (B1) at (192.0bp,108.0bp) [draw,ellipse] {\Large \textlatin{B}};
   \node (B0) at (473.0bp,108.0bp) [draw,ellipse] {\Large \textlatin{B}};
   \node (D0) at (394.0bp,133.0bp) [draw,ellipse] {\Large \textlatin{D}};
-  \node (D0mood) at (394.0bp,154.0bp) {\Large \textlatin{Sad}};
+  \node (D0mood) at (394.0bp,154.0bp) {\Large Λυπημένη};
   \node (D1) at (113.0bp,133.0bp) [draw,ellipse] {\Large \textlatin{D}};
-  \node (D1mood) at (113.0bp,154.0bp) {\Large \textlatin{Sad}};
+  \node (D1mood) at (113.0bp,154.0bp) {\Large Λυπημένη};
   \draw [->,very thick] (E1) ..controls (59.732bp,58.525bp) and (68.942bp,58.948bp)  .. (77.0bp,61.0bp) .. controls (82.045bp,62.285bp) and (87.187bp,64.399bp)  .. (C1);
   \draw (73.5bp,68.5bp) node {\Large 7\bitcoin};
   \draw [->] (A3) ..controls (62.101bp,257.65bp) and (78.735bp,250.41bp)  .. (C3);
