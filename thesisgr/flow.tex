@@ -1,0 +1,56 @@
+\section{Ροή Εμπιστοσύνης}
+  Μπορούμε τώρα να ορίσουμε την έμμεση εμπιστοσύνη από την $A$ στη $B$.
+  \subimport{thesisgr/definitions/}{indirecttrust.tex}
+  \noindent Είναι $Tr_{A \rightarrow B} \geq DTr_{A \rightarrow B}$. Το επόμενο θεώρημα δείχνει ότι η $Tr_{A \rightarrow B}$
+  είναι πεπερασμένη.
+  \subimport{thesisgr/theorems/}{convergencetheorem.tex}
+  \subimport{thesisgr/proofsketches/}{convergenceproofsketch.tex}
+  Πλήρεις αποδείξεις όλων των θεωρημάτων και λημμάτων υπάρχουν στο Παράρτημα.
+
+  Στην περίπτωση ενός \texttt{\textlatin{TransitiveGame}(}$\mathcal{G}$\texttt{,}$A$\texttt{,}$B$\texttt{)}, χρησιμοποιούμε το
+  συμβολισμό $Loss_A = Loss_{A, j}$, όπου $j$ είναι ένας γύρος στον οποίο το παιχνίδι έχει συγκλίνει. Είναι σημαντικό να
+  σημειώσουμε ότι η $Loss_A$ δεν είναι η ίδια για επανειλημμένες εκτελέσεις αυτού του είδους παιχνιδιού, αφού η σειρά με την
+  οποία επιλέγονται οι παίκτες μπορεί να διαφέρει ανάμεσα σε εκτελέσεις και οι συντηρητικές παίκτες έχουν το περιθώριο να
+  επιλέξουν ποιες εισερχόμενες άμεσες εμπιστοσύνες θα κλέψουν και πόσο από την καθεμία.
+
+  Έστω ένας κατευθυνόμενος γράφος με βάρη $G$. Θα μελετήσουμε τη μέγιστη ροή στο γράφο αυτό. Για μία εισαγωγή στο πρόβλημα
+  μέγιστης ροής βλέπε \cite{clrs} σελ. 708. Θεωρώντας το βάρος κάθε ακμής ως τη χωρητικότητά της, μία απόδοση ροής $X =
+  [x_{vw}]_{\mathcal{V} \times \mathcal{V}}$ με πηγή $A$ και καταβόθρα $B$ είναι έγκυρη όταν:
+  \begin{equation}
+  \label{flow1}
+    \forall (v, w) \in \mathcal{E}, x_{vw} \leq c_{vw} \mbox{ και}
+  \end{equation}
+  \begin{equation}
+  \label{flow2}
+    \forall v \in \mathcal{V} \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
+    \enspace.
+  \end{equation}
+  Δεν υποθέτουμε συμμετρία κατεύθυνσης στην απόδοση $X$. Η τιμή ροής είναι $\sum\limits_{v \in N^{+}\left(A\right)}x_{Av}$, η
+  οποία προκύπτει ίση με $\sum\limits_{v \in N^{-}\left(B\right)}x_{vB}$. Υπάρχει αλγόριθμος που επιστρέφει τη μέγιστη δυνατή
+  ροή από την $A$ στη $B$, γνωστός ως $MaxFlow\left(A, B\right)$. Αυτός ο αλγόριθμος χρειάζεται πλήρη γνώση του γράφου. Η
+  γρηγορότερη εκδοχή του έχει χρονική πολυπλοκότητα $O\left(|\mathcal{V}||\mathcal{E}|\right)$ \cite{maxflownm}. Η τιμή ροής
+  του $MaxFlow\left(A, B\right)$ συμβολίζεται $maxFlow\left(A, B\right)$.
+
+  Θα εισάγουμε τώρα δύο λήμματα που θα χρησιμοποιηθούν για την απόδειξη ενός από τα κεντρικά αποτελέσματα αυτής της εργασίας,
+  το θεώρημα Εμπιστοσύνης -- Ροής.
+  \subimport{thesisgr/lemmas/}{flowgamelemma.tex}
+  \subimport{thesisgr/proofsketches/}{flowgameproofsketch.tex}
+  \subimport{thesisgr/lemmas/}{gameflowlemma.tex}
+  \subimport{thesisgr/proofsketches/}{gameflowproofsketch.tex}
+  \subimport{thesisgr/theorems/}{trustflowtheorem.tex}
+  \subimport{thesisgr/proofs/}{trustflowproof.tex}
+
+  Ας σημειωθεί ότι η μέγιστη ροή είναι η ίδια στις ακόλουθες δύο περιπτώσεις: Αν μία παίκτης επιλέξει την κακιά στρατηγική και
+  αν αυτή η παίκτης επιλέξει μία παραλλαγή της κακιάς στρατηγικής στην οποία δεν μηδενίζει την εξερχόμενη άμεση εμπιστοσύνη
+  της.
+
+  Επιπλέον δικαιολόγηση της μεταβατικότητας της εμπιστοσύνης με χρήση της μέγιστης ροής μπορεί να βρεθεί στην κοινωνιολογική
+  εργασία \cite{kmrs} όπου η άμεση αντιστοίχιση των μέγιστων ροών και της εμπειρικής εμπιστοσύνης επαληθεύεται πειραματικά.
+
+  Εδώ βλέπουμε ένα ακόμη σημαντικό θεώρημα που δίνει τη βάση για συναλλαγές αμετάβλητου κινδύνου μεταξύ διαφορετικών, πιθανώς
+  αγνώστων, ατόμων.
+  \subimport{thesisgr/theorems/}{riskinvtheorem.tex}
+  \subimport{thesisgr/proofs/}{riskinvproof.tex}
+  Είναι διαισθητικά προφανές ότι η $A$ μπορεί να μειώσει την εξερχόμενη άμεση εμπιστοσύνη με τρόπου που να επιτυγχάνει το
+  (\ref{primetrust}), αφού το $maxFlow\left(A, B\right)$ είναι συνεχές ως προς τις εξερχόμενες άμεσες εμπιστοσύνες της $A$.
+  Αφήνουμε αυτόν τον υπολογισμό ως μέρος μελλοντικής έρευνας.

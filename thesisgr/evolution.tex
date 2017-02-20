@@ -1,0 +1,28 @@
+\section{Η Εξέλιξη της Εμπιστοσύνης}
+  \subimport{thesisgr/definitions/}{turns.tex}
+  \subimport{common/}{turnexample.tex}
+  Χρησιμοποιούμε $prev\left(j\right)$ και $next\left(j\right)$ για να δηλώσουμε τον προηγούμενο και τον επόμενο γύρο που
+  παίχθηκε αντίστοιχα από την $Player\left(j\right)$.
+  \subimport{common/definitions/}{prevnextturn.tex}
+  \subimport{common/definitions/}{damage.tex}
+  \subimport{common/definitions/}{history.tex}
+  Γνώση του αρχικού γράφου $\mathcal{G}_0$, των αρχικών κεφαλαίων όλων των παικτών και της ιστορίας ισοδυναμούν με πλήρη
+  κατανόηση της εξέλιξης του παιχνιδιού. Χτίζοντας στο παράδειγμα του σχήματος \ref{fig:utxo}, μπορούμε να δούμε το γράφο που
+  προκύπτει όταν η $D$ παίξει
+  \begin{equation}
+  \label{turnexample}
+     Turn_1 = \{Steal\left(1, A\right), Add\left(4, C\right)\} \enspace.
+  \end{equation}
+  \subimport{common/figures/}{turnexample.tikz}
+
+  Το \textlatin{Trust Is Risk} ελέγχεται από έναν αλγόριθμο που επιλέγει μία παί\-κτη, λαμβάνει το γύρο που η παίκτης αυτή
+  επιθυμεί να παίξει και, αν ο γύρος της είναι έγκυρος, τον εκτελεί. Αυτά τα βήματα επαναλαμβάνονται επ' αόριστον. Θεωρούμε
+  ότι οι παίκτες επιλέγονται με τέτοιο τρόπο που μία παίκτης, μετά από τον γύρο της, τελικά θα ξαναπαίξει αργότερα.
+  \subimport{thesisgr/algorithms/}{trustisriskgame.tex}
+
+  Η \textlatin{\texttt{strategy[}$A$\texttt{]()}} προσφέρει στην παίκτη $A$ πλήρη γνώση του παιχνιδιού, εκτός από τα κεφάλαια των άλλων
+  παικτών. Αυτή η παραδοχή μπορεί να μην είναι πάντα ρεαλιστική.
+
+  Η \textlatin{\texttt{executeTurn()}} ελέγχει την εγκυρότητα του γύρου \texttt{\textlatin{Turn}} και τον αντικαθιστά με έναν
+  κενό γύρο αν είναι άκυρος. Ακόλουθα, δημιουργεί ένα νέο γράφο $\mathcal{G}_j$ και ανανεώνει την ιστορία αναλόγως. Για τους
+  αντίστοιχους ψευδοκώδικες, δείτε το Παράρτημα.

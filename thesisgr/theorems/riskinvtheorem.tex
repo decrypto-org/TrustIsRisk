@@ -1,0 +1,24 @@
+\phantomsection
+\addcontentsline{toc}{subsection}{Θεώρημα Αμετάβλητου Κινδύνου}
+\begin{theoremgr}{Θεώρημα Αμετάβλητου Κινδύνου}{riskinv}
+  Έστω $\mathcal{G}$ γράφος παιχνιδιού, $A, B \in \mathcal{V}$ και $l$ η επιθυμητή αξία προς μεταφορά από την $A$ στην $B$, με
+  $l \leq Tr_{A \rightarrow B}$. Έστω επίσης $\mathcal{G}'$ με τους ίδιους κόμβους με τον $\mathcal{G}$ τέτοιος ώστε
+  \begin{equation*}
+    \forall v \in \mathcal{V}' \setminus \{A\}, \forall w \in \mathcal{V}', DTr'_{v \rightarrow w} =
+    DTr_{v \rightarrow w} \enspace.
+  \end{equation*}
+  Επιπλέον, υποθέτουμε ότι υπάρχουν τιμές για τις εξερχόμενες άμεσες εμπιστοσύνες της $A, DTr'_{A \rightarrow v}$, τέτοιες
+  ώστε
+  \begin{equation}
+  \label{primetrust}
+    Tr'_{A \rightarrow B} = Tr_{A \rightarrow B} - l \enspace.
+  \end{equation}
+  Έστω ένας άλλος γράφος παιχνιδιού, $\mathcal{G}''$, ταυτόσημος με τον $\mathcal{G}'$ εκτός της παρακάτω διαφοράς:
+  \begin{equation*}
+    DTr''_{A \rightarrow B} = DTr'_{A \rightarrow B} + l \enspace.
+  \end{equation*}
+  Ισχύει τότε ότι
+  \begin{equation*}
+    Tr''_{A \rightarrow B} = Tr_{A \rightarrow B} \enspace.
+  \end{equation*}
+\end{theoremgr}

@@ -1,0 +1,36 @@
+\phantomsection
+\addcontentsline{lof}{section}{Συνεργασία}
+\begin{center}
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (76.0bp,31.0bp) .. controls (76.0bp,31.0bp) and (104.0bp,31.0bp)  .. (104.0bp,31.0bp) .. controls (110.0bp,31.0bp) and (116.0bp,37.0bp)  .. (116.0bp,43.0bp) .. controls (116.0bp,43.0bp) and (116.0bp,125.0bp)  .. (116.0bp,125.0bp) .. controls (116.0bp,131.0bp) and (110.0bp,137.0bp)  .. (104.0bp,137.0bp) .. controls (104.0bp,137.0bp) and (76.0bp,137.0bp)  .. (76.0bp,137.0bp) .. controls (70.0bp,137.0bp) and (64.0bp,131.0bp)  .. (64.0bp,125.0bp) .. controls (64.0bp,125.0bp) and (64.0bp,43.0bp)  .. (64.0bp,43.0bp) .. controls (64.0bp,37.0bp) and (70.0bp,31.0bp)  .. (76.0bp,31.0bp);
+\end{scope}
+\begin{scope}
+  \pgfsetstrokecolor{black}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (76.0bp,31.0bp) .. controls (76.0bp,31.0bp) and (104.0bp,31.0bp)  .. (104.0bp,31.0bp) .. controls (110.0bp,31.0bp) and (116.0bp,37.0bp)  .. (116.0bp,43.0bp) .. controls (116.0bp,43.0bp) and (116.0bp,125.0bp)  .. (116.0bp,125.0bp) .. controls (116.0bp,131.0bp) and (110.0bp,137.0bp)  .. (104.0bp,137.0bp) .. controls (104.0bp,137.0bp) and (76.0bp,137.0bp)  .. (76.0bp,137.0bp) .. controls (70.0bp,137.0bp) and (64.0bp,131.0bp)  .. (64.0bp,125.0bp) .. controls (64.0bp,125.0bp) and (64.0bp,43.0bp)  .. (64.0bp,43.0bp) .. controls (64.0bp,37.0bp) and (70.0bp,31.0bp)  .. (76.0bp,31.0bp);
+  \draw (62.0bp,11.5bp) node {\textbf{Σχ.~\figlabel{fig:collusion}:} Συνεργασία};
+\end{scope}
+  \node (C) at (90.0bp,57.0bp) [draw,ellipse] {$\mathcal{C}$};
+  \node (B) at (90.0bp,111.0bp) [draw,ellipse] {$\mathcal{B}$};
+  \node (V) at (18.0bp,111.0bp) [draw,ellipse] {$\mathcal{V} \setminus \left(\mathcal{B} \cup \mathcal{C}\right)$};
+  \draw [->] (B) ..controls (76.448bp,90.029bp) and (75.776bp,83.771bp)  .. (C);
+  \draw [->] (B) ..controls (63.4bp,104.15bp) and (60.49bp,106.97bp)  .. (V);
+  \draw [->] (V) ..controls (46.585bp,96.812bp) and (62.033bp,84.876bp)  .. (C);
+  \draw (61bp,95.322bp) -- (49bp,83.322bp) [very thick];
+  \draw (61bp,83.322bp) -- (49bp,95.322bp) [very thick];
+  \draw [->] (C) ..controls (61.68bp,70.995bp) and (46.317bp,82.847bp)  .. (V);
+  \draw [->] (V) ..controls (58.496bp,112.85bp) and (56.403bp,118.03bp)  .. (B);
+  \draw [->] (C) ..controls (103.56bp,78.024bp) and (104.22bp,84.282bp)  .. (B);
+%
+\end{tikzpicture}
+\end{center}

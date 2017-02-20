@@ -1,0 +1,30 @@
+\phantomsection
+\addcontentsline{toc}{subsection}{Ορισμός Γύρων}
+\begin{definitiongr}{Γύροι}
+  Σε κάθε γύρο $j$ μία παίκτης $A \in \mathcal{V}, A = Player\left(j\right)$, επιλέγει μία ή περισσότερες πράξεις εκ των δύο
+  ακόλουθων κατηγοριών:
+
+  \noindent \textit{\textbf{\textlatin{Steal}($y_B$,$\:B$)}}: Να κλέψει αξία $y_B$ από τη $B \in N^{-}\left(A\right)_{j-1}$,
+  όπου $0 \leq y_B \leq DTr_{B \rightarrow A, j-1}$. Τότε:
+  \begin{equation*}
+     DTr_{B \rightarrow A, j} = DTr_{B \rightarrow A, j-1} - y_B
+  \end{equation*}
+  \noindent \textit{\textbf{\textlatin{Add}($y_B$,$\:B$)}}: Να προσθέσει αξία $y_B$ στη $B \in \mathcal{V}$, όπου
+  $-DTr_{A \rightarrow B, j-1} \leq y_B$. Τότε:
+  \begin{equation*}
+     DTr_{A \rightarrow B, j} = DTr_{A \rightarrow B, j-1} + y_B
+  \end{equation*}
+  Όταν $y_B < 0$, θα λέμε ότι η $A$ μειώνει την άμεση εμπιστοσύνη του προς την $B$ κατά $-y_B$. Όταν $y_B > 0$, θα λέμε ότι η
+  $A$ αυξάνει την άμεση εμπιστοσύνη της προς τη $B$ κατά $y_B$. Αν $DTr_{A \rightarrow B, j-1} = 0$, τότε λέμε ότι η $A$
+  αρχίζει να εμπιστεύεται άμεσα τη $B$. Η $A$ επιλέγει <<πάσο>> αν δεν επιλέξει καμία πράξη. Επίσης, έστω $Y_{st}, Y_{add}$ η
+  συνολική αξία που πρόκειται να κλαπεί και να προστεθεί αντίστοιχα από την $A$ στο γύρο της $j$. Για να είναι ένας γύρος
+  δυνατός, θα πρέπει
+  \begin{equation}
+     Y_{add} - Y_{st} \leq Cap_{A, j-1} \enspace.
+  \end{equation}
+  Το κεφάλαιο ανανεώνεται σε κάθε γύρο: $Cap_{A, j} = Cap_{A, j-1} + Y_{st} - Y_{add}$.
+
+  Μία παίκτης δεν μπορεί να επιλέξει δύο πράξεις της ίδιας κατηγορίας προς την ίδια παίκτη σε ένα γύρο. Το σύνολο πράξεων
+  το γύρο $j$ συμβολίζεται $Turn_j$. Ο γράφος που προκύπτει εφαρμόζοντας τις πράξεις στον $\mathcal{G}_{j-1}$ είναι ο
+  $\mathcal{G}_j$.
+\end{definitiongr}

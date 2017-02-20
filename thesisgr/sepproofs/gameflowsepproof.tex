@@ -1,0 +1,158 @@
+\begin{sepproof}{Απόδειξη του Λήμματος~\ref{gameflow}: Τα Μεταβατικά Παιχνίδια είναι Μέγιστες Ροές} \ \\
+\label{gameflowproof}
+  Έστω σύνολα Λυπημένων, Χαρούμενων και Θυμωμένων παικτών όπως ορίστηκαν στο Μεταβατικό Παιχνίδι. Έστω $\mathcal{G}'$ ένας
+  κατευθυνόμενος γράφος με βάρη βασισμένος στον $\mathcal{G}$ με μία βοηθητική πηγή. Έστω επίσης $j_1$ ένας γύρος που το
+  Μεταβατικό Παιχνίδι έχει συγκλίνει. Πιο συγκεκριμένα, ο $\mathcal{G}'$ ορίζεται ως εξής:
+  \begin{equation*}
+    \mathcal{V}' = \mathcal{V} \cup \{T\}
+  \end{equation*}
+  \begin{equation*}
+    \mathcal{E}' = \mathcal{E} \cup \{(T, A)\} \cup \{(T, v) : v \in Sad_{j_1}\}
+  \end{equation*}
+  \begin{equation*}
+    \forall (v, w) \in \mathcal{E}, c'_{vw} = DTr_{v \rightarrow w, 0} - DTr_{v \rightarrow w, j_1}
+  \end{equation*}
+  \begin{equation*}
+    \forall v \in Sad_{j_1}, c'_{Tv} = c'_{TA} = \infty
+  \end{equation*}
+  \subimport{common/figures/}{gameflow.tikz}
+  Στο παραπάνω σχήμα, το $\mathcal{S}$ είναι το σύνολο των Λυπημένων παικτών. Παρατηρούμε ότι $\forall v \in \mathcal{V},$
+  \begin{equation}
+  \label{gameflowin}
+  \begin{gathered}
+    \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}c'_{wv} = \\
+    = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}\left(DTr_{w \rightarrow v, 0} -
+    DTr_{w \rightarrow v, j_1}\right) = \\
+    = \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, 0} -
+    \sum\limits_{w \in N^{-}\left(v\right)' \setminus \{T\}}DTr_{w \rightarrow v, j-1} =  \\
+    = in_{v, 0} - in_{v, j_1}
+  \end{gathered}
+  \end{equation}
+  και
+  \begin{equation}
+  \label{gameflowout}
+  \begin{gathered}
+    \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}c'_{vw} = \\
+    = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}\left(DTr_{v \rightarrow w, 0} -
+    DTr_{v \rightarrow w, j_1}\right) = \\
+    = \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, 0} -
+    \sum\limits_{w \in N^{+}\left(v\right)' \setminus \{T\}}DTr_{v \rightarrow w, j-1} = \\
+    = out_{v, 0} - out_{v, j_1} \enspace.
+  \end{gathered}
+  \end{equation}
+  Μπορούμε να υποθέσουμε ότι
+  \begin{equation}
+  \label{Aincoming}
+    \forall j \in \mathbb{N}, in_{A, j} = 0 \enspace,
+  \end{equation}
+  αφού αν βρύμε μία έγκυρη ροή υπό αυτήν την υπόθεση, η ροή θα εξακολουθεί να είναι έγκυρη για τον αρχικό γράφο. \\
+  Στη συνέχεια θα υπολογίσουμε το $MaxFlow\left(T, B\right) = X'$ στο γράφο $\mathcal{G}'$. Παρατηρούμε ότι μία ροή για την
+  οποία ισχύει $\forall v, w \in \mathcal{V}, x'_{vw} = c'_{vw}$ μπορεί να είναι έγκυρη για τους ακόλουθους λόγους:
+  \begin{itemize}
+    \item $\forall v,w \in \mathcal{V}, x'_{vw} \leq c'_{vw}$ (Περιορισμός χωρητικότητας~(\ref{flow1}) $\forall e \in
+    \mathcal{E}$)
+    \item Αφού $\forall v \in Sad_{j_1} \cup \{A\}, c'_{Tv} = \infty$, ο περιορισμός~(\ref{flow1}) ισχύει για κάθε ροή
+    $x'_{Tv} \geq 0$.
+    \item Έστω $v \in \mathcal{V}' \setminus \left(Sad_{j_1} \cup \{T, A, B\}\right)$. Σύμφωνα με τη συντηρητική στρατηγική
+    και αφού $v \notin Sad_{j_1}$, ισχύει ότι
+    \begin{equation*}
+      out_{v, 0} - out_{v, j_1} = in_{v, 0} - in_{v, j_1} \enspace.
+    \end{equation*}
+    Συνδυάζοντας αυτή την παρατήρηση με το~(\ref{gameflowin}) και το~(\ref{gameflowout}), έχουμε ότι
+    \begin{equation*}
+      \sum\limits_{w \in \mathcal{V}'}c'_{vw} = \sum\limits_{w \in \mathcal{V}'}c'_{wv} \enspace.
+    \end{equation*}
+    (Περιορισμός Διατήρησης Ροής~(\ref{flow2}) $\forall v \in \mathcal{V}' \setminus \left(Sad_{j_1}
+    \cup \{T, A, B\}\right)$)
+    \item Έστω $v \in Sad_{j_1}$. Αφού η $v$ είναι Λυπημένη, ξέρουμε ότι
+    \begin{equation*}
+      out_{v, 0} - out_{v, j_1} > in_{v, 0} - in_{v, j_1} \enspace.
+    \end{equation*}
+    Αφού $c'_{Tv} = \infty$, μπορούμε να θέσουμε
+    \begin{equation*}
+      x'_{Tv} = \left(out_{v, 0} - out_{v, j_1}\right) - \left(in_{v, 0} - in_{v, j_1}\right) \enspace.
+    \end{equation*}
+    Κατ' αυτόν τον τρόπο έχουμε
+    \begin{equation*}
+      \sum\limits_{w \in \mathcal{V}'}x'_{vw} = out_{v, 0} - out_{v, j_1} \mbox{ και}
+    \end{equation*}
+    \begin{equation*}
+    \begin{gathered}
+      \sum\limits_{w \in \mathcal{V}'}x'_{wv} = \sum\limits_{w \in \mathcal{V}' \setminus \{T\}}c'_{wv} + x'_{Tv} =
+      in_{v, 0} - in_{v, j_1} + \\ + (out_{v, 0} - out_{v, j_1}) - (in_{v, 0} - in_{v, j_1}) = out_{v, 0} -
+      out_{v, j_1} \enspace.
+    \end{gathered}
+    \end{equation*}
+    συνεπώς
+    \begin{equation*}
+      \sum\limits_{w \in \mathcal{V}'}x'_{vw} = \sum\limits_{w \in \mathcal{V}'}x'_{wv} \enspace.
+    \end{equation*}
+    (Περιορισμός~\ref{flow2} $\forall v \in Sad_{j_1}$)
+    \item Αφού $c'_{TA} = \infty$, μπορούμε να θέσουμε
+    \begin{equation*}
+      x'_{TA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace,
+    \end{equation*}
+    συνεπώς από το~(\ref{Aincoming}) έχουμε
+    \begin{equation*}
+      \sum\limits_{v \in \mathcal{V}'}x'_{vA} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+    \end{equation*}
+    (Περιορισμός~\ref{flow2} για την $A$)
+  \end{itemize}
+  Είδαμε ότι για όλους τους κόμβους, οι απαραίτητες ιδιότητες για να είναι μία ροή έγκυρη ισχύουν και συνεπώς η $X'$ είναι μία
+  έγκυρη ροή για τον $\mathcal{G}$. Επιπλέον, η ροή αυτή είναι ίση με το $maxFlow\left(T, B\right)$ γιατί όλες οι εισερχόμενες
+  ροές στην $E$ είναι κορεσμένες. Επίσης παρατηρούμε ότι
+  \begin{equation}
+  \label{xprimeequalloss}
+    \sum\limits_{v \in \mathcal{V}'}x'_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = out_{A, 0} - out_{A, j_1} =
+    Loss_A \enspace.
+  \end{equation}
+  Ορίζουμε έναν ακόμη γράφο, τον $\mathcal{G}''$, με βάση τον $\mathcal{G}'$.
+  \begin{equation*}
+    \mathcal{V}'' = \mathcal{V}'
+  \end{equation*}
+  \begin{equation*}
+    E(\mathcal{G}'') = E(\mathcal{G}') \setminus \{(T, v) : v \in Sad_j\}
+  \end{equation*}
+  \begin{equation*}
+    \forall e \in E(\mathcal{G}''), c''_e = c'_e
+  \end{equation*}
+  Αν εκτελέσουμε τον $MaxFlow\left(T, B\right)$ στο γράφο $\mathcal{G}''$, θα αποκτήσουμε μια ροή $X''$ στην οποία
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Tv} = x''_{TA} = \sum\limits_{v \in \mathcal{V}''}x''_{Av} \enspace.
+  \end{equation*}
+  Η εξερχόμενη ροή από την $A$ στη $X''$ θα παραμείναι ίδια με αυτή στην $X'$ για δύο λόγους: Πρώτον, χρησιμοποιώντας το
+  θεώρημα Αποσύνθεσης Ροών \cite{amo} και διαγράφοντας τα μονοπάτια που περιέχουν ακμές $\left(T, v\right): v \neq A$,
+  αποκτούμε μία νέα απόδοση ροών όπου η συνολική εξερχόμενη ροή από την $A$ παραμένει αμετάβλητη, συνεπώς
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Av} \geq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+  \end{equation*}
+  Κατά δεύτερον, έχουμε
+  \begin{equation*}
+    \begin{rcases}
+      \sum\limits_{v \in \mathcal{V}''}c''_{Av} = \sum\limits_{v \in \mathcal{V}'}c'_{Av} = \sum\limits_{v \in
+      \mathcal{V}'}x'_{Av} \\
+      \sum\limits_{v \in \mathcal{V}''}c''_{Av} \geq \sum\limits_{v \in \mathcal{V}''}x''_{Av}
+    \end{rcases}
+    \Rightarrow \sum\limits_{v \in \mathcal{V}''}x''_{Av} \leq \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+  \end{equation*}
+  Καταλήγουμε συνεπώς ότι
+  \begin{equation}
+  \label{primeequaldoubleprime}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}'}x'_{Av} \enspace.
+  \end{equation}
+  Έστω $X = X'' \setminus \{\left(T, A\right)\}$. Παρατηρούμε ότι
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}''}x''_{Av} = \sum\limits_{v \in \mathcal{V}}x_{Av} \enspace.
+  \end{equation*}
+  Αυτή η ροή είναι έγκυρη στο γράφο $\mathcal{G}$ γιατί
+  \begin{equation*}
+    \forall e \in \mathcal{E}, c_e \geq c''_e \enspace.
+  \end{equation*}
+  Συνεπώς υπάρχει έγκυρη ροή για κάθε εκτέλεση του Μεταβατικού Παιχνιδιού έτσι ώστε
+  \begin{equation*}
+    \sum\limits_{v \in \mathcal{V}}x_{Av} = \sum\limits_{v \in \mathcal{V}''}x''_{Av}
+    \overset{\left(\mbox{\ref{primeequaldoubleprime}}\right)}{=} \sum\limits_{v \in \mathcal{V}'}x'_{Av}
+    \overset{\left(\mbox{\ref{xprimeequalloss}}\right)}{=} Loss_{A, j_1} \enspace,
+  \end{equation*}
+  η οποία είναι η ροή $X$.
+\end{sepproof}

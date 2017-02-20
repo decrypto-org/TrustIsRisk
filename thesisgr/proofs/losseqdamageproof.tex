@@ -1,0 +1,27 @@
+\begin{proof} \ \\
+  \textbf{1η περίπτωση:} Έστω $v \in Happy_{j-1}$. Τότε
+  \begin{enumerate}
+    \item $v \in Happy_j$ γιατί $Turn_{j} = \emptyset$,
+    \item $Loss_{v, j} = 0$ γιατί αλλιώς $v \notin Happy_j$,
+    \item $Damage_{v, j} = 0$, ειδάλλως οποιαδήποτε μείωση σε άμεση εμπιστοσύνη προς τη $v$ θα αύξανε κατά ίσο ποσό τη
+    $Loss_{v, j}$ (line~\ref{trsteallossincrease}), η οποία δεν μπορεί να μειωθεί ξανά παρά μόνο κατά τη διάρκεια του γύρου
+    μιας Θυμωμένης παίκτη (γραμμή~\ref{trsteallossdecrease}).
+    \item $in_{v, j} \geq 0$
+  \end{enumerate}
+  Συνεπώς
+  \begin{equation*}
+    \min\left(in_{v, j}, Loss_{v,j}\right) = \min\left(in_{v, j}, Damage_{v,j}\right) = 0 \enspace.
+  \end{equation*}
+  \textbf{2η περίπτωση:} Έστω $v \in Sad_{j-1}$. Τότε
+  \begin{enumerate}
+    \item $v \in Sad_j$ γιατί $Turn_{j} = \emptyset$, 
+    \item $in_{v, j} = 0$ (γραμμή~\ref{trstealifentersad}),
+    \item $Damage_{v, j} \geq 0 \wedge Loss_{v, j} \geq 0$.
+  \end{enumerate}
+  Συνεπώς
+  \begin{equation*}
+    \min\left(in_{v, j}, Loss_{v,j}\right) = \min\left(in_{v, j}, Damage_{v,j}\right) = 0 \enspace.
+  \end{equation*}
+  Αν $v \in Angry_{j-1}$ τότε ισχύει το ίδιο επιχείρημα με τις περιπτώσεις 1 και 2 όταν $v \in Happy_j$ και $v \in Sad_j$
+  αντίστοιχα αν αγνοήσουμε το επιχείρημα (1). Συνεπώς το θεώρημα ισχύει σε κάθε περίπτωση.
+\end{proof}

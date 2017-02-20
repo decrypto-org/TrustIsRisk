@@ -1,0 +1,14 @@
+\phantomsection
+\addcontentsline{toc}{subsection}{Ορισμός Άμεσης Εμπιστοσύνης}
+\begin{definitiongr}{Άμεση Εμπιστοσύνη}
+  Η άμεση εμπιστοσύνη από την $A$ στη $B$ στο τέλος του γύρου $j$, $DTr_{A \rightarrow B, j}$, ορίζεται ως το συνολικό ποσό
+  αξίας που υπάρχει σε 1/$\{A,B\}$ \textlatin{multisigs} στο \textlatin{UTXO} στο τέλος του γύρου $j$, όπου τα χρήματα έχουν
+  κατατεθεί από την $A$.
+  \begin{equation}
+    DTr_{A \rightarrow B, j} =
+      \begin{cases}
+        c_j\left(A, B\right), & \mbox{αν} \left(A, B\right) \in \mathcal{E}_j \\
+        0, & \mbox{αλλιώς}
+      \end{cases}
+  \end{equation}
+\end{definitiongr}

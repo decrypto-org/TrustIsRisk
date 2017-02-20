@@ -1,0 +1,16 @@
+\begin{proof}
+  Από το Λήμμα~\ref{maxflowgame} υπάρχει εκτέλεση του Μεταβατικού Παιχνιδιού τέτοια ώστε $Loss_A \geq maxFlow\left(A,
+  B\right)$. Αφού η $Tr_{A \rightarrow B}$ είναι η μέγιστη ζημία που μπορεί να έχει υποστεί η $A$ μετά τη σύγκλιση του
+  Μεταβατικού Παιχνιδιού, βλέπουμε ότι
+  \begin{equation}
+  \label{trgeqmaxflow}
+     Tr_{A \rightarrow B} \geq maxFlow\left(A, B\right) \enspace.
+  \end{equation}
+  Όμως κάποια εκτέλεση του Μετατβατικού Παιχνιδιού δίνει $Tr_{A \rightarrow B} = Loss_A$.
+  Από το Λήμμα~\ref{gameflow}, αυτή η εκτέλεση αντιστοιχεί σε μία ροή. Συνεπώς
+  \begin{equation}
+  \label{trleqmaxflow}
+     Tr_{A \rightarrow B} \leq maxFlow\left(A, B\right) \enspace.
+  \end{equation}
+  Το θεώρημα προκύπτει από το (\ref{trgeqmaxflow}) και το (\ref{trleqmaxflow}).
+\end{proof}

@@ -1,0 +1,21 @@
+\phantomsection
+\addcontentsline{toc}{subsection}{Ορισμός Προηγούμενου/Επόμενου Γύρου}
+\begin{definitiongr}{Προηγούμενος/Επόμενος Γύρος}
+  Έστω $j \in \mathbb{N}$ ένας γύρος με $Player\left(j\right) = A$. Ορίζουμε τα $prev\left(j\right), next\left(j\right)$ ως
+  τον προηγούμενο και τον επόμενο γύρο που η $A$ επιλέγεται να παίξει αντίστοιχα. Αν ο πρώτος γύρος που παίζει η $A$ είναι ο
+  $j$, είναι $prev\left(j\right) = 0$. Πιο αυστηρά, έστω
+  \begin{align*}
+    P &= \{k \in \mathbb{N} : k < j \wedge Player\left(k\right) = A\} \mbox{ και} \\
+    N &= \{k \in \mathbb{N} : k > j \wedge Player\left(k\right) = A\} \enspace.
+  \end{align*}
+  Τότε ορίζουμε $prev\left(j\right), next\left(j\right)$ ως εξής:
+  \begin{equation*}
+    prev\left(j\right) = \begin{cases}
+      \max{P}, & P \neq \emptyset \\
+      0, & P = \emptyset
+    \end{cases} \enspace, \:
+    next\left(j\right) = \min{N}
+  \end{equation*}
+  Το $next\left(j\right)$ είναι πάντα καλώς ορισμένο με την παραδοχή ότι μετά από κάθε γύρο όλες οι παίκτες ξαναπαίζουν
+  τελικά.
+\end{definitiongr}

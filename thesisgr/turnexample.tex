@@ -1,0 +1,7 @@
+Για παράδειγμα, έστω $A = Player(j)$. Ένας έγκυρος γύρος μπορεί να είναι
+\begin{equation*}
+  Turn_j = \{Steal\left(x, B\right), Add\left(y, C\right), Add\left(w, D\right)\} \enspace.
+\end{equation*}
+Η πράξη $Steal$ απαιτεί $0 \leq x \leq DTr_{B \rightarrow A, j-1}$, οι πράξεις $Add$ απαιτούν $DTr_{A \rightarrow C, j-1} \geq
+-y$ και $DTr_{A \rightarrow D, j-1} \geq -w$ και ο περιορισμός του κεφαλαί\-ου $y + w - x \leq Cap_{A, j-1}$.
+

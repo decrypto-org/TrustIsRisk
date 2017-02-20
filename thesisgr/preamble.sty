@@ -1,0 +1,119 @@
+\ProvidesPackage{preamble}
+
+% For table of contents start
+\setcounter{tocdepth}{2}
+\makeatletter
+\renewcommand*\l@author[2]{}
+\renewcommand*\l@title[2]{}
+\makeatletter
+% For table of contents end
+
+\usepackage[pdftex]{graphicx}
+\usepackage[linesnumbered,ruled,noend]{algorithm2e}
+\usepackage[utf8]{inputenc}
+\usepackage[english,greek]{babel}
+\usepackage{amsmath}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[LGR, T1]{fontenc}
+\usepackage{listings}
+\usepackage{graphviz}
+\usepackage{dot2texi}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shapes,arrows}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{import}
+
+%code options with \lstlisting
+\lstset{frame=tb,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapeinside={(*@}{@*)},
+  frame=n
+}
+\lstdefinestyle{numbers}{numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt}
+\let\origthelstnumber\thelstnumber
+\makeatletter
+\newcommand*\Suppressnumber{%
+  \lst@AddToHook{OnNewLine}{%
+    \let\thelstnumber\relax%
+     \advance\c@lstnumber-\@ne\relax%
+    }%
+}
+
+\newcommand*\Reactivatenumber{%
+  \lst@AddToHook{OnNewLine}{%
+   \let\thelstnumber\origthelstnumber%
+   \advance\c@lstnumber\@ne\relax}%
+}
+
+%bitcoin character
+\def\bitcoin{%
+  \leavevmode
+  \vtop{\offinterlineskip %\bfseries
+    \setbox0=\hbox{B}%
+    \setbox2=\hbox to\wd0{\hfil\hskip-.03em
+    \vrule height .3ex width .15ex\hskip .08em
+    \vrule height .3ex width .15ex\hfil}
+    \vbox{\copy2\box0}\box2}}
+
+%fontsize between \LARGE and \huge
+\makeatletter 
+\newcommand\semihuge{\@setfontsize\semihuge{19.22}{23.88}}
+\makeatother
+
+%environment for separate proof
+\newenvironment{sepproof}[1]{\noindent \textbf{#1}}{\qed \smallskip \ \\}
+
+%environment for proof sketch
+\newenvironment{proofsketch}{\noindent\textit{Διάγραμμα Απόδειξης.}}{\qed \smallskip \ \\}
+
+%eliminate section numbering from \subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+%add greek translation of 'Definition'
+\newcounter{defgrcount}
+\newenvironment{definitiongr}[1]{\textbf{\smallskip \\ Ορισμός \refstepcounter{defgrcount}\arabic{defgrcount}
+(#1).}\itshape}{\par\smallskip}
+
+%add greek translation of 'Theorem'
+\newcounter{theoremgrcount}
+\newenvironment{theoremgr}[2]{\textbf{\smallskip \\ Θεώρημα \refstepcounter{theoremgrcount}\label{#2}\arabic{theoremgrcount}
+(#1).}\itshape}{\par\smallskip}
+
+%add greek translation of 'Lemma'
+\newcounter{lemmagrcount}
+\newenvironment{lemmagr}[2]{\textbf{\smallskip \\ Λήμμα \refstepcounter{lemmagrcount}\label{#2}\arabic{lemmagrcount}
+(#1).}\itshape}{\par\smallskip}
+
+%page style set to plain
+\pagestyle{plain}
+
+%for starred sections and non-sections objects in tables and listings
+\providecommand\phantomsection{}
+
+%bibliography style set to splncs
+\bibliographystyle{splncs}
+
+%PDF bookmarks
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+    linkcolor=darkblue,urlcolor=darkblue,
+    anchorcolor=darkblue,citecolor=darkblue}
+
+%custom figures counter
+\newcounter{figcount}
+\newcommand{\figlabel}[1]{\refstepcounter{figcount}\arabic{figcount}\label{#1}}

@@ -1,0 +1,51 @@
+\begin{sepproof}{Απόδειξη του Θεωρήματος~\ref{sybil}: \textlatin{Sybil} Αντίσταση} \ \\
+\label{sybilproof}
+  Έστω $\mathcal{G}_1$ γράφος παιχνιδιού που ορίζεται ως εξής:
+  \begin{equation*}
+    \mathcal{V}_1 = \mathcal{V} \cup \{T_1\} \enspace,
+  \end{equation*}
+  \begin{equation*}
+    \mathcal{E}_1 = \mathcal{E} \cup \{(v, T_1) : v \in \mathcal{B} \cup \mathcal{C}\} \enspace,
+  \end{equation*}
+  \begin{equation*}
+    \forall v,w \in \mathcal{V}_1 \setminus \{T_1\}, DTr^1_{v \rightarrow w} = DTr_{v \rightarrow w} \enspace,
+  \end{equation*}
+  \begin{equation*}
+    \forall v \in \mathcal{B} \cup \mathcal{C}, DTr^1_{v \rightarrow T_1} = \infty \enspace,
+  \end{equation*}
+  όπου η $DTr_{v \rightarrow w}$ είναι η άμεση εμπιστοσύνη από την $v$ στην $w$ στον $\mathcal{G}$ και η $DTr^1_{v \rightarrow
+  w}$ είναι η άμεση εμπιστοσύνη από την $v$ στην $w$ στον $\mathcal{G}_1$. \\
+  Έστω επίσης $\mathcal{G}_2$ ο παράγωγος γράφος που προκύπτει από τον $\mathcal{G}_1$ αν αφαιρέσουμε το σύνολο
+  \textlatin{Sybil}, $\mathcal{C}$. Μετονομάζουμε τη $T_1$ σε $T_2$ και ορίζουμε $\mathcal{L} = \mathcal{V} \setminus
+  \left(\mathcal{B} \cup \mathcal{C}\right)$ ως το σύνολο των τίμιων παικτών για να διευκολύνουμε την κατανόηση.
+  \subimport{common/figures/}{sybilres.tikz}
+  Σύμφωνα με το Θεώρημα~\ref{trustmany},
+  \begin{equation}
+  \label{trmaxflow}
+    Tr_{A \rightarrow \mathcal{B} \cup \mathcal{C}} = maxFlow_1\left(A, T_1\right) \wedge
+    Tr_{A \rightarrow \mathcal{B}} = maxFlow_2\left(A, T_2\right) \enspace.
+  \end{equation}
+  Θα δείχουμε ότι το $MaxFlow$ του καθενός από τους δύο γράφους μπορεί να χρησιμοποιηθεί για να κατασκευαστεί μία έγκυρη ροή
+  ίσης τιμής για τον άλλο γράφο. Η ροή $X_1 = MaxFlow\left(A, T_1\right)$ μπορεί να χρησιμοποιηθεί για να κατασκευαστεί μία
+  έγκυρη ροή ίσης τιμής για το δεύτερο γράφο αν θέσουμε
+  \begin{align*}
+    \forall v \in \mathcal{V}_2 \setminus \mathcal{B}, \forall w \in \mathcal{V}_2&, x_{vw,2} = x_{vw,1} \enspace, \\
+    \forall v \in \mathcal{B}&, x_{vT_2,2} = \sum\limits_{w \in N^{+}_1\left(v\right)}x_{vw,1} \enspace, \\
+    \forall v,w \in \mathcal{B}&, x_{vw,2} = 0 \enspace.
+  \end{align*}
+  Έτσι
+  \begin{equation*}
+    maxFlow_1\left(A, T_1\right) \leq maxFlow_2\left(A, T_2\right)
+  \end{equation*}
+  Ομοίως, η ροή $X_2 = MaxFlow(A, T_2)$ είναι μία έγκυρη ροή για τον $\mathcal{G}_1$ γιατί ο $\mathcal{G}_2$ είναι ένας
+  παράγωγος υπογράφος του $\mathcal{G}_1$. Συνεπώς
+  \begin{equation*}
+    maxFlow_1\left(A, T_1\right) \geq maxFlow_2\left(A, T_2\right)
+  \end{equation*}
+  Συμπεραίνουμε ότι
+  \begin{equation}
+  \label{eqmaxflows}
+    maxFlow\left(A, T_1\right) = maxFlow\left(A, T_2\right) \enspace,
+  \end{equation}
+  άρα από το~(\ref{trmaxflow}) και το~(\ref{eqmaxflows}) το θεώρημα ισχύει.
+\end{sepproof}
