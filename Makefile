@@ -1,7 +1,7 @@
 all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf
 
 #.ONESHELL:
-fc17.pdf: fc17/* common/*
+fc17.pdf: fc17/* common/* splncs.bst
 	export TEXINPUTS=.:./fc17//:./common//:; \
 	pdflatex fc17.tex; \
 	bibtex fc17.aux; \
@@ -9,7 +9,7 @@ fc17.pdf: fc17/* common/*
 	pdflatex fc17.tex; \
 	rm -rf fc17.aux fc17.log fc17.out fc17.bbl fc17.blg
 
-fc17-proceedings.pdf: fc17/* common/*
+fc17-proceedings.pdf: fc17/* common/* splncs.bst
 	export TEXINPUTS=.:./fc17//:./common//:; \
 	pdflatex fc17-proceedings.tex; \
 	bibtex fc17-proceedings.aux; \
@@ -17,7 +17,7 @@ fc17-proceedings.pdf: fc17/* common/*
 	pdflatex fc17-proceedings.tex; \
 	rm -rf fc17-proceedings.aux fc17-proceedings.log fc17-proceedings.out fc17-proceedings.bbl fc17-proceedings.blg
 
-thesis.pdf: thesis/* common/*
+thesis.pdf: thesis/* common/* splncs.bst
 	export TEXINPUTS=.:./thesis//:./common//:; \
 	pdflatex thesis.tex; \
 	bibtex thesis.aux; \
