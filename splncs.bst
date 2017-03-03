@@ -78,7 +78,7 @@ STRINGS { s t}
 FUNCTION {output.nonnull}
 { 's :=
   output.state mid.sentence =
-    { ", " * write$ }
+    { ": " * write$ }
     { output.state after.block =
         { add.period$ write$
           newline$
