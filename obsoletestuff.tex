@@ -76,7 +76,7 @@
        \label{mfsupposition}
           maxFlow_{\mathcal{G}''}\left(A, B\right) > maxFlow_{\mathcal{G}'}\left(A, B\right) + l \enspace.
        \end{equation}
-       Then 
+       Then
        \begin{equation*}
           \sum\limits_{v \in N^{-}\left(B\right)'' \setminus \{A\}}x''_{vB} > \sum\limits_{v \in N^{-}\left(B\right)'
           \setminus \{A\}}x'_{vB} \enspace.
@@ -261,7 +261,7 @@ OLD
              \item $\forall v \in V(FG) \setminus \{A,B\}, \sum\limits_{w \in N^{+}(v)}x_{wv} =
              \sum\limits_{w \in N^{-}(v)}x_{vw}$ thus $\forall v \in V(FG) \setminus \{A,B\}, Strategy(v) = Conservative$.
           \end{itemize}
-             
+
        \end{itemize}
        Thus the maximum value $A$ can lose if $B$ is evil is $Tr_{A \rightarrow B} = maxFlow(A, B)$.
 \ \\ OLDER
@@ -493,11 +493,11 @@ requirement for new capacities corollary and proof
    \end{proof}
 
 Old saturation proof
-   Suppose that $\exists k \in [n] : x_k' 
+   Suppose that $\exists k \in [n] : x_k'
    < u_k'$ as calculated by $MaxFlow_{\mathcal{G}_j}$. Then $maxFlow_{\mathcal{G}_j} =
    \sum\limits_{i=1}^{n}x_i' < \sum\limits_{i=1}^{n}y_i$ since $x_k' < y_k$ and (\ref{saturation:flowleqcap}).
    This however is impossible because the configuration $\forall i \in [n], x_i' = y_i$ is valid in $\mathcal{G}_j$ since
-   $\forall i \in [n], y_i = c_i'$ and also has a higher flow, thus the maxFlow algorithm will 
+   $\forall i \in [n], y_i = c_i'$ and also has a higher flow, thus the maxFlow algorithm will
    prefer the configuration with the higher flow. Thus we deduce that $\forall i \in [n], x_i' = c_i'$.
 
 old trust transfer theorem
@@ -569,7 +569,7 @@ old abs naive preproofs
   $|U'| = n$. Since $empty_0 = 0$, $empty \leq n$ at all times of the execution. \\
   Next we will derive the recursive formulas for the various variables. \\
   $empty_0 = 0$ \\
-  $empty_{j+1} = 
+  $empty_{j+1} =
      \begin{cases}
         empty_j, & u_{(j+1)\:mod\:n}' = 0 \\
         empty_j+1, & u_{(j+1)\:mod\:n}' > 0 \: \wedge \: x_{(j+1) \:mod\:n} < reduce_j \\
