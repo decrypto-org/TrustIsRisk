@@ -841,23 +841,75 @@ while (TRUE)
 	<li>
 <em>executeTurn()</em> checks the validity of <em>Turn.</em> Subsequently, it creates the new graph <em>G[j]</em> and updates the history and player's v capital accordingly.</li>
 </ul>
-</div></div></section></section><section class="stack" data-id="bdef2a20b6a742638919cdb2c78077ff"><section data-id="c1891f9b487f590e5f2ae415c3eebe55"><div class="sl-block" data-block-type="text" style="width: 764px; left: 98px; top: 33px; height: auto;" data-block-id="7872678a28bce54b0e180703cbf3ab44"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: center; z-index: 10;">
+</div></div></section></section><section class="stack" data-id="cfa894f20ea55f8672ed3b53ae1c5d46"><section data-id="d83e2246fc8af15b85a00c1d284a0e92"><div class="sl-block" data-block-type="text" style="width: 764px; left: 98px; top: 33px; height: auto;" data-block-id="8a872aba5745c00e1442734ee9bc6b7d"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: center; z-index: 10;">
 <h2>(Indirect) Trust definition</h2>
 </div></div>
-<div class="sl-block" data-block-type="text" style="width: 886px; left: 37px; top: 199px; height: auto;" data-block-id="4c0413e20c9b475a1f01af7a1773d38c"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+<div class="sl-block" data-block-type="text" style="width: 886px; left: 37px; top: 199px; height: auto;" data-block-id="f1fdbe649d74ef59e73ce48518c5339f"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
 <p>How much does <em>Alice</em> trust <em>Bob</em>?</p>
 
 <p> </p>
 
-<p>We define trust as the maximum loss <em>Alice</em> can suffer if <em>Bob</em> steals all incoming direct trust and the rest of the players attempt to replenish their stolen funds.</p>
+<p>We define indirect trust as the maximum loss <em>Alice</em> can suffer if <em>Bob</em> steals all incoming direct trust and the rest of the players attempt to replenish their stolen funds.</p>
 
 <p> </p>
 
 <p>Let's define the relevant strategies.</p>
-</div></div></section><section data-id="dd3eb45a0cb929b745f7edb457528e4a"><div class="sl-block" data-block-type="text" style="width: 775px; left: 93px; top: 21px; height: auto;" data-block-id="98e36849be06ad2f2157fb2b6953de8f"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: center; z-index: 10;">
+</div></div></section><section data-id="606ae8dc080fad2af5b886f5354718e9"><div class="sl-block" data-block-type="text" style="width: 764px; left: 98px; top: 33px; height: auto;" data-block-id="d906535fda80b8222cab73f3e38bd418"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: center; z-index: 11;">
+<h2>Strategies</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 932px; left: 14px; top: 126px; height: auto;" data-block-id="117b23eb64df0dde5d0159b0fdef5846"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 12;">
+<ul>
+	<li>
+<strong>Idle Strategy</strong>: Pass your turn</li>
+</ul>
+
+<p> </p>
+
+<ul>
+	<li>
+<strong>Evil Strategy</strong>: Confiscate all incoming and outgoing direct trust, turning it into (exclusively spendable) capital (Steal all your incoming direct trust and exit the game)</li>
+</ul>
+
+<p> </p>
+
+<ul>
+	<li>
+<strong>Conservative Strategy</strong>: Replenish previously stolen outgoing direct trust by stealing incoming direct trust (Steal as much as was stolen from you since last time you played)</li>
+</ul>
+
+<p> </p>
+
+<p>When there exists one <strong>Idle</strong> and one <strong>Evil</strong> player and the rest are <strong>Conservative</strong>, we have the <em>Transitive Game</em> (variation of <em>Trust Is Risk Game</em>)</p>
+</div></div></section></section><section data-id="dd3eb45a0cb929b745f7edb457528e4a"><div class="sl-block" data-block-type="text" style="width: 775px; left: 93px; top: 21px; height: auto;" data-block-id="98e36849be06ad2f2157fb2b6953de8f"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: center; z-index: 10;">
 <h1>Trust flow theorem</h1>
 </div></div>
-<div class="sl-block" data-block-type="text" style="width: 384px; left: 48px; top: 210px; height: auto;" data-block-id="e7c26df90a89810b24019634aa391c80"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis.</p></div></div></section></section><section data-id="651b4e66ef10f1c01ceb0389d1935a7e"><div class="sl-block" data-block-type="text" style="width: 775px; left: 48px; top: 113px; height: auto;" data-block-id="4c5104213df2b6b1ea85eb68a9ae9693"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<div class="sl-block" data-block-type="math" style="width: auto; height: auto; min-width: 30px; min-height: 30px; left: 65px; top: 166px;" data-block-id="1856fc4b53e77442b10a13d118013860"><div class="sl-block-content" style="z-index: 11;">
+<div class="math-input">IndirectTrust_{A \rightarrow B} = maxFlow(A, B)</div>
+<div class="math-output"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>n</mi><mi>d</mi><mi>i</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>T</mi><mi>r</mi><mi>u</mi><mi>s</mi><msub><mi>t</mi><mrow><mi>A</mi><mo>→</mo><mi>B</mi></mrow></msub><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mi>F</mi><mi>l</mi><mi>o</mi><mi>w</mi><mo>(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">IndirectTrust_{A \rightarrow B} = maxFlow(A, B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height: 0.75em;"></span><span class="strut bottom" style="height: 1em; vertical-align: -0.25em;"></span><span class="base textstyle uncramped"><span style="margin-right: 0.07847em;" class="mord mathit">I</span><span class="mord mathit">n</span><span class="mord mathit">d</span><span class="mord mathit">i</span><span style="margin-right: 0.02778em;" class="mord mathit">r</span><span class="mord mathit">e</span><span class="mord mathit">c</span><span class="mord mathit">t</span><span style="margin-right: 0.13889em;" class="mord mathit">T</span><span style="margin-right: 0.02778em;" class="mord mathit">r</span><span class="mord mathit">u</span><span class="mord mathit">s</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist"><span class="" style="top: 0.15em; margin-right: 0.05em; margin-left: 0em;"><span class="fontsize-ensurer reset-size5 size5"><span class="" style="font-size: 0em;">​</span></span><span class="reset-textstyle scriptstyle cramped mtight"><span class="mord scriptstyle cramped mtight"><span class="mord mathit mtight">A</span><span class="mrel mtight">→</span><span style="margin-right: 0.05017em;" class="mord mathit mtight">B</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span class="" style="font-size: 0em;">​</span></span>​</span></span></span></span><span class="mrel">=</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span style="margin-right: 0.13889em;" class="mord mathit">F</span><span style="margin-right: 0.01968em;" class="mord mathit">l</span><span class="mord mathit">o</span><span style="margin-right: 0.02691em;" class="mord mathit">w</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mpunct">,</span><span style="margin-right: 0.05017em;" class="mord mathit">B</span><span class="mclose">)</span></span></span></span></div>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 732px; left: 106px; top: 261px;" data-block-id="caf12e6f3660f81eeae1477ce91fec40"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p style="text-align: left;">Proof Sketch:</p>
+
+<p style="text-align: left;"> </p>
+
+<ul>
+	<li class="">Every maximum flow corresponds to a <em>Transitive Game</em> with               actions instead of flows</li>
+</ul>
+
+<p> </p>
+
+<ul>
+	<li class="">Every <em>Transitive Game</em> is made up solely of             actions that also constitute a valid flow</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="math" style="width: auto; height: auto; min-width: 30px; min-height: 30px; left: 303px; top: 396px;" data-block-id="511ef4b0a5d6b35cec458d975239b5a1"><div class="sl-block-content" style="z-index: 13; font-size: 70%;">
+<div class="math-input">Steal()</div>
+<div class="math-output"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>t</mi><mi>e</mi><mi>a</mi><mi>l</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">Steal()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height: 0.75em;"></span><span class="strut bottom" style="height: 1em; vertical-align: -0.25em;"></span><span class="base textstyle uncramped"><span style="margin-right: 0.05764em;" class="mord mathit">S</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">a</span><span style="margin-right: 0.01968em;" class="mord mathit">l</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span></div>
+</div></div>
+<div class="sl-block" data-block-type="math" style="width: auto; height: auto; min-width: 30px; min-height: 30px; left: 746px; top: 495px;" data-block-id="88852fe00966d1df80908ce7f95cc03d"><div class="sl-block-content" style="z-index: 15; font-size: 70%;">
+<div class="math-input">Steal()</div>
+<div class="math-output"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>t</mi><mi>e</mi><mi>a</mi><mi>l</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">Steal()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height: 0.75em;"></span><span class="strut bottom" style="height: 1em; vertical-align: -0.25em;"></span><span class="base textstyle uncramped"><span style="margin-right: 0.05764em;" class="mord mathit">S</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">a</span><span style="margin-right: 0.01968em;" class="mord mathit">l</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span></div>
+</div></div></section><section data-id="651b4e66ef10f1c01ceb0389d1935a7e"><div class="sl-block" data-block-type="text" style="width: 775px; left: 48px; top: 113px; height: auto;" data-block-id="4c5104213df2b6b1ea85eb68a9ae9693"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
 <h2>Risk invariance</h2>
 </div></div>
 <div class="sl-block" data-block-type="text" style="width: 384px; left: 48px; top: 210px; height: auto;" data-block-id="874542af2efe24e8502326e3f29bea51"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis.</p></div></div></section><section data-id="75e0c3f3fe6f4b7fdeff7ae2dfb8557f"><div class="sl-block" data-block-type="text" style="width: 775px; left: 48px; top: 113px; height: auto;" data-block-id="f28f631377e0879bf785794291260667"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
@@ -888,7 +940,7 @@ FB61 4CCD 94E1 9201 D144  8D5A 9481 00FD BA28 707E
 
 		
 <script>
-	var SLConfig = {"current_user":{"id":667837,"username":"orfeas","name":null,"description":null,"thumbnail_url":"https://www.gravatar.com/avatar/d571b7a7c4ec827d378fa6fdbc3d8d04?s=140\u0026d=https%3A%2F%2Fs3.amazonaws.com%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":false,"pro":false,"lite":false,"team_id":null,"settings":{"id":516676,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"editor_grid":true,"editor_snap":true,"developer_mode":true,"speaker_layout":null,"phone_number":null,"phone_country_code":null},"email":"orfeas.litos@hotmail.com","notify_on_receipt":true,"billing_address":null,"editor_tutorial_completed":true,"manually_upgraded":false,"deck_user_editor_limit":1},"deck":{"id":944006,"slug":"fc17","title":"fc17","description":"","width":960,"height":700,"visibility":"all","published_at":"2017-03-23T11:26:39.915Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/7e2dffdc7c136f8596cb1002076c8e38/thumb.jpg","view_count":4,"user":{"id":667837,"username":"orfeas","name":null,"description":null,"thumbnail_url":"https://www.gravatar.com/avatar/d571b7a7c4ec827d378fa6fdbc3d8d04?s=140\u0026d=https%3A%2F%2Fs3.amazonaws.com%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":false,"pro":false,"lite":false,"team_id":null,"settings":{"id":516676,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"grey-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"should_loop":false,"share_notes":false,"slide_number":false,"rtl":false,"version":2,"collaborative":false,"deck_user_editor_limit":1,"data_updated_at":1490464992119,"font_typekit":null,"font_google":null,"access_token":"w3sJwifK1hnekTPZ4bH7oa9W6Yzr","notes":{}}};
+	var SLConfig = {"current_user":{"id":667837,"username":"orfeas","name":null,"description":null,"thumbnail_url":"https://www.gravatar.com/avatar/d571b7a7c4ec827d378fa6fdbc3d8d04?s=140\u0026d=https%3A%2F%2Fs3.amazonaws.com%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":false,"pro":false,"lite":false,"team_id":null,"settings":{"id":516676,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"editor_grid":true,"editor_snap":true,"developer_mode":true,"speaker_layout":null,"phone_number":null,"phone_country_code":null},"email":"orfeas.litos@hotmail.com","notify_on_receipt":true,"billing_address":null,"editor_tutorial_completed":true,"manually_upgraded":false,"deck_user_editor_limit":1},"deck":{"id":944006,"slug":"fc17","title":"fc17","description":"","width":960,"height":700,"visibility":"all","published_at":"2017-03-23T11:26:39.915Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/7e2dffdc7c136f8596cb1002076c8e38/thumb.jpg","view_count":4,"user":{"id":667837,"username":"orfeas","name":null,"description":null,"thumbnail_url":"https://www.gravatar.com/avatar/d571b7a7c4ec827d378fa6fdbc3d8d04?s=140\u0026d=https%3A%2F%2Fs3.amazonaws.com%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":false,"pro":false,"lite":false,"team_id":null,"settings":{"id":516676,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"grey-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"should_loop":false,"share_notes":false,"slide_number":false,"rtl":false,"version":2,"collaborative":false,"deck_user_editor_limit":1,"data_updated_at":1490550110154,"font_typekit":null,"font_google":null,"access_token":"w3sJwifK1hnekTPZ4bH7oa9W6Yzr","notes":{}}};
 </script>
 
 		<script>
