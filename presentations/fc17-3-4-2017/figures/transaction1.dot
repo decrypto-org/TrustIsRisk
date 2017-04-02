@@ -5,7 +5,7 @@ digraph G  {
   A -> C [color=white];
   C -> D [color=white];
   B -> D [color=white];
-  A -> D [label="10฿",fontname="ubuntu",color=white,fontcolor=white]
+  A -> D [label="10m฿",fontname="ubuntu",color=white,fontcolor=white]
   A [style=invisible];
   B [style=invisible];
   C [style=invisible];

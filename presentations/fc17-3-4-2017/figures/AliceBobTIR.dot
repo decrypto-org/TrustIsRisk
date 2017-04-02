@@ -1,7 +1,7 @@
 digraph G {
   graph [bgcolor=transparent]
   rankdir=LR
-  Alice -> Bob [label="5฿",color=white,fontname="ubuntu",fontcolor=white]
+  Alice -> Bob [label="5m฿",color=white,fontname="ubuntu",fontcolor=white]
   Alice [color=white,fontcolor=white,fontname="ubuntu"]
   Bob [color=white,fontcolor=white,fontname="ubuntu"]
 }
