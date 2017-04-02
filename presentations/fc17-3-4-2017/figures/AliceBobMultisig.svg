@@ -24,7 +24,6 @@
 </g>
 <!-- I1&#45;&gt;tx -->
 <g id="edge2" class="edge"><title>I1&#45;&gt;tx</title>
-<polygon fill="black" stroke="black" points="117.509,-13.273 128.089,-13.8437 120.174,-6.80012 117.509,-13.273"/>
 <text text-anchor="middle" x="88.5" y="-9.73729" font-family="ubuntu" font-size="14.00" fill="white">Alice</text>
 </g>
 <!-- I2 -->
@@ -38,7 +37,6 @@
 </g>
 <!-- tx&#45;&gt;I2 -->
 <g id="edge4" class="edge"><title>tx&#45;&gt;I2</title>
-<polygon fill="black" stroke="black" points="295.509,-13.273 306.089,-13.8437 298.174,-6.80012 295.509,-13.273"/>
 <text text-anchor="middle" x="239" y="-9.73729" font-family="ubuntu" font-size="14.00" fill="white">1/{Alice, Bob}</text>
 </g>
 </g>
