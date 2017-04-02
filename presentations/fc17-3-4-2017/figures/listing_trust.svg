@@ -80,7 +80,7 @@
       <g class="com.sun.star.drawing.TextShape">
        <g id="id3">
         <rect class="BoundingBox" stroke="none" fill="none" x="1000" y="1001" width="11050" height="2033"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="FreeSans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="1250" y="1698"><tspan fill="rgb(255,255,255)" stroke="none">Can spend up to 0.02</tspan><tspan fill="rgb(255,255,255)" stroke="none">฿</tspan></tspan></tspan></text>
+        <text class="TextShape"><tspan class="TextParagraph" font-family="FreeSans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="1250" y="1698"><tspan fill="rgb(255,255,255)" stroke="none">Can spend up to 20m</tspan><tspan fill="rgb(255,255,255)" stroke="none">฿</tspan></tspan></tspan></text>
        </g>
       </g>
      </g>
