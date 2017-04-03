@@ -44,7 +44,7 @@
 <g id="edge2" class="edge"><title>A&#45;&gt;D</title>
 <path fill="none" stroke="white" d="M51.5955,-62.7985C69.1211,-68.5909 93.2605,-76.5691 112.742,-83.008"/>
 <polygon fill="white" stroke="white" points="111.852,-86.4 122.445,-86.215 114.049,-79.7536 111.852,-86.4"/>
-<text text-anchor="middle" x="87" y="-83.8" font-family="ubuntu" font-size="14.00" fill="white">5m฿</text>
+<text text-anchor="middle" x="87" y="-83.8" font-family="ubuntu" font-size="14.00" fill="white">6m฿</text>
 </g>
 <!-- C&#45;&gt;B -->
 <g id="edge4" class="edge"><title>C&#45;&gt;B</title>
@@ -65,14 +65,15 @@
 </g>
 <!-- D&#45;&gt;B -->
 <g id="edge6" class="edge"><title>D&#45;&gt;B</title>
-<path fill="none" stroke="green" d="M173.802,-91.7474C192.195,-90.1417 217.179,-87.9606 237.597,-86.178"/>
-<polygon fill="green" stroke="green" points="238.142,-89.6439 247.799,-85.2873 237.533,-82.6704 238.142,-89.6439"/>
+<path fill="none" stroke="chartreuse" d="M173.802,-91.7474C192.195,-90.1417 217.179,-87.9606 237.597,-86.178"/>
+<polygon fill="chartreuse" stroke="chartreuse" points="238.142,-89.6439 247.799,-85.2873 237.533,-82.6704 238.142,-89.6439"/>
+<text text-anchor="middle" x="211" y="-94.8" font-family="ubuntu" font-size="14.00" fill="white">2m฿</text>
 </g>
 <!-- D&#45;&gt;C -->
 <g id="edge7" class="edge"><title>D&#45;&gt;C</title>
 <path fill="none" stroke="white" d="M147,-75.5867C147,-67.9407 147,-58.8916 147,-50.4274"/>
 <polygon fill="white" stroke="white" points="150.5,-50.1686 147,-40.1686 143.5,-50.1687 150.5,-50.1686"/>
-<text text-anchor="middle" x="136.5" y="-54.3" font-family="ubuntu" font-size="14.00" fill="white">4m฿</text>
+<text text-anchor="middle" x="128.5" y="-54.3" font-family="ubuntu" font-size="14.00" fill="white">4m฿</text>
 </g>
 </g>
 </svg>

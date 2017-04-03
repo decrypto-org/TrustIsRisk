@@ -1,5 +1,6 @@
 all:
 	dot -Tsvg collusion.dot -o collusion.svg
+	dot -Tsvg graph.dot -o graph.svg
 	dot -Tsvg turn_add_pos_arrow.dot -o turn_add_pos_arrow.svg
 	dot -Tsvg turn_add_pos_btc.dot -o turn_add_pos_btc.svg
 	dot -Tsvg turn_add_neg_btc.dot -o turn_add_neg_btc.svg
@@ -12,6 +13,7 @@ all:
 
 allmost:
 	dot -Tsvg collusion.dot -o collusion.svg
+	dot -Tsvg graph.dot -o graph.svg
 	dot -Tsvg turn_add_pos_arrow.dot -o turn_add_pos_arrow.svg
 	dot -Tsvg turn_add_pos_btc.dot -o turn_add_pos_btc.svg
 	dot -Tsvg turn_add_neg_btc.dot -o turn_add_neg_btc.svg
