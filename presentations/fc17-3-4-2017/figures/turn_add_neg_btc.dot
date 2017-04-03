@@ -11,7 +11,7 @@ digraph G  {
   A -> C [label="5m฿",fontname="ubuntu",fontcolor=white,color=white];
   C -> B [label="3m฿",fontname="ubuntu",fontcolor=white,color=white];
   C -> E [label="10m฿",fontname="ubuntu",fontcolor=white,color=white];
-  D -> B [label="1m฿",fontname="ubuntu",fontcolor=white,color=white];
+  D -> B [label="1m฿",fontname="ubuntu",fontcolor=green,color=white];
   D -> C [label="4m฿",fontname="ubuntu",fontcolor=white,color=white];
   {D C rank=same}
 }

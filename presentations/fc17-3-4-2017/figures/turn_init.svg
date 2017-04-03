@@ -37,8 +37,8 @@
 </g>
 <!-- D -->
 <g id="node4" class="node"><title>D</title>
-<ellipse fill="none" stroke="white" cx="147" cy="-94" rx="27" ry="18"/>
-<text text-anchor="middle" x="147" y="-90.3" font-family="ubuntu" font-size="14.00" fill="white">D</text>
+<ellipse fill="white" stroke="white" cx="147" cy="-94" rx="27" ry="18"/>
+<text text-anchor="middle" x="147" y="-90.3" font-family="ubuntu" font-size="14.00">D</text>
 </g>
 <!-- A&#45;&gt;D -->
 <g id="edge2" class="edge"><title>A&#45;&gt;D</title>

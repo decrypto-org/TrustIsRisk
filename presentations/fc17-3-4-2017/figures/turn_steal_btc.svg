@@ -44,7 +44,7 @@
 <g id="edge2" class="edge"><title>A&#45;&gt;D</title>
 <path fill="none" stroke="white" d="M51.5955,-62.7985C69.1211,-68.5909 93.2605,-76.5691 112.742,-83.008"/>
 <polygon fill="white" stroke="white" points="111.852,-86.4 122.445,-86.215 114.049,-79.7536 111.852,-86.4"/>
-<text text-anchor="middle" x="87" y="-83.8" font-family="ubuntu" font-size="14.00" fill="white">5m฿</text>
+<text text-anchor="middle" x="87" y="-83.8" font-family="ubuntu" font-size="14.00" fill="red">1m฿</text>
 </g>
 <!-- C&#45;&gt;B -->
 <g id="edge4" class="edge"><title>C&#45;&gt;B</title>

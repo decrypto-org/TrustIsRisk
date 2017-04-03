@@ -5,7 +5,7 @@ digraph G  {
   A [fontname="ubuntu",color=white,fontcolor=white];
   B [fontname="ubuntu",color=white,fontcolor=white];
   C [fontname="ubuntu",color=white,fontcolor=white];
-  D [fontname="ubuntu",color=white,fontcolor=white];
+  D [fontname="ubuntu",color=white,fontcolor=black,style=filled,fillcolor=white];
   E [fontname="ubuntu",color=white,fontcolor=white];
   A -> D [label="6m฿",fontname="ubuntu",color=white,fontcolor=white];
   A -> C [label="5m฿",fontname="ubuntu",color=white,fontcolor=white];

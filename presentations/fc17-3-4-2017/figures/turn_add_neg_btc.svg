@@ -67,7 +67,7 @@
 <g id="edge6" class="edge"><title>D&#45;&gt;B</title>
 <path fill="none" stroke="white" d="M173.802,-91.7474C192.195,-90.1417 217.179,-87.9606 237.597,-86.178"/>
 <polygon fill="white" stroke="white" points="238.142,-89.6439 247.799,-85.2873 237.533,-82.6704 238.142,-89.6439"/>
-<text text-anchor="middle" x="211" y="-94.8" font-family="ubuntu" font-size="14.00" fill="white">1m฿</text>
+<text text-anchor="middle" x="211" y="-94.8" font-family="ubuntu" font-size="14.00" fill="green">1m฿</text>
 </g>
 <!-- D&#45;&gt;C -->
 <g id="edge7" class="edge"><title>D&#45;&gt;C</title>
