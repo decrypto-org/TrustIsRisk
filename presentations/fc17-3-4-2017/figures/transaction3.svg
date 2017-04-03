@@ -32,9 +32,9 @@
 </g>
 <!-- A&#45;&gt;D -->
 <g id="edge5" class="edge"><title>A&#45;&gt;D</title>
-<path fill="none" stroke="tomato" d="M43.7244,-32.8657C55.705,-22.9562 73.1347,-10.6253 91,-5.21611 113.97,1.7387 122.03,1.7387 145,-5.21611 159.236,-9.52656 173.196,-18.2323 184.342,-26.6056"/>
-<polygon fill="tomato" stroke="tomato" points="182.257,-29.4186 192.276,-32.8657 186.593,-23.9234 182.257,-29.4186"/>
-<text text-anchor="middle" x="118" y="-9.01611" font-family="ubuntu" font-size="14.00" fill="tomato">1฿</text>
+<path fill="none" stroke="chartreuse" d="M43.7244,-32.8657C55.705,-22.9562 73.1347,-10.6253 91,-5.21611 113.97,1.7387 122.03,1.7387 145,-5.21611 159.236,-9.52656 173.196,-18.2323 184.342,-26.6056"/>
+<polygon fill="chartreuse" stroke="chartreuse" points="182.257,-29.4186 192.276,-32.8657 186.593,-23.9234 182.257,-29.4186"/>
+<text text-anchor="middle" x="118" y="-9.01611" font-family="ubuntu" font-size="14.00" fill="chartreuse">1฿</text>
 </g>
 <!-- B&#45;&gt;D -->
 <g id="edge4" class="edge"><title>B&#45;&gt;D</title>
