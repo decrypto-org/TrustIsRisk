@@ -1,0 +1,17 @@
+digraph G  {
+  graph [bgcolor=transparent]
+  rankdir=LR;
+  B -> A [label="1m฿",constraint=false,fontname="ubuntu",fontcolor=white,color=white];
+  A [fontname="ubuntu",fontcolor=white,color=white];
+  B [fontname="ubuntu",fontcolor=white,color=white];
+  C [fontname="ubuntu",fontcolor=white,color=white];
+  D [fontname="ubuntu",fontcolor=black,color=white,style=filled,fillcolor=white];
+  E [fontname="ubuntu",fontcolor=white,color=white];
+  A -> D [label="5m฿",fontname="ubuntu",fontcolor=white,color=white];
+  A -> C [label="5m฿",fontname="ubuntu",fontcolor=white,color=white];
+  C -> B [label="3m฿",fontname="ubuntu",fontcolor=white,color=white];
+  C -> E [label="10m฿",fontname="ubuntu",fontcolor=white,color=white];
+  D -> B [label="1m฿",fontname="ubuntu",fontcolor=white,color=white];
+  D -> C [label="4m฿",fontname="ubuntu",fontcolor=white,color=white];
+  {D C rank=same}
+}

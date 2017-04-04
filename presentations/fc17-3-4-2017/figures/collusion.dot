@@ -1,0 +1,16 @@
+digraph G {
+  rankdir=RL
+  graph [bgcolor=transparent]
+  Alice -> Corrupted [fontname="ubuntu",fontcolor=white,color=white]
+  Corrupted -> Alice [fontname="ubuntu",fontcolor=white,color=white]
+  subgraph cluster0 {
+    style=invisible
+    Corrupted -> Sybil [fontname="ubuntu",fontcolor=white,color=white]
+    Sybil -> Corrupted [fontname="ubuntu",fontcolor=white,color=white]
+    {Corrupted Sybil rank=same}
+  }
+  Sybil -> Alice [fontname="ubuntu",fontcolor=white,color=white]
+  Alice [fontname="ubuntu",fontcolor=white,color=white]
+  Corrupted [fontname="ubuntu",fontcolor=white,color=white]
+  Sybil [fontname="ubuntu",fontcolor=white,color=white]
+}
