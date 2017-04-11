@@ -1,5 +1,5 @@
-Two players: $A$, $B$. We will see A's possible actions.
-
+\begin{center}
+Complete 2-player graph: \\
 \begin{tikzpicture}[>=latex,line join=bevel,]
 %%
 \node (A) at (27.0bp,22.836bp) [draw,ellipse] {A};
@@ -16,7 +16,9 @@ Two players: $A$, $B$. We will see A's possible actions.
   \draw (175.0bp,66.336bp) node {Cap(B)};
 %
 \end{tikzpicture}
+\end{center}
 
+A's possible actions:
 \begin{equation*}
       \begin{blockarray}{r@{}*{5}{c}}
        &           &   from   & \\
@@ -28,10 +30,8 @@ Two players: $A$, $B$. We will see A's possible actions.
 	\end{block}
       \end{blockarray} 
 \end{equation*}
-    % Purchase -|
-    % DTr(A,B)  | to
-    % Cap(A)   _|
 
+Results:
 \begin{align*}
   DTr'(A,B) &= DTr(A,B) + x_1 + z_1 - y_1 - y_3 \\
   DTr'(B,A) &= DTr(B,A) - x_1 - x_2 - x_3 \\
@@ -39,17 +39,20 @@ Two players: $A$, $B$. We will see A's possible actions.
   Bought    &= \frac{x_3 + y_3 + z_2}{cost(b)}
 \end{align*}
 
+No funds destroyed/created rule:
 \begin{gather*}
   DTr'(A,B) + DTr'(B,A) + Cap(A) + Bought \times cost(b) \\ = \\
   DTr(A,B) + DTr(B,A) + Cap(A)
 \end{gather*}
 
+Individual no funds created rules:
 \begin{align*}
   x_1 + x_2 + x_3 & \leq DTr(B,A) \\
   y_1 + y_3 & \leq DTr(A,B) \\
   z_1 + z_2 & \leq Cap(A)
 \end{align*}
 
+No adding and reducing from same place rules:
 \begin{align*}
   x_1y_1 &= 0 & x_2z_1 &= 0 & y_1z_1 &= 0 \\
   x_1y_2 &= 0 & x_2z_2 &= 0 & y_1z_2 &= 0 \\
