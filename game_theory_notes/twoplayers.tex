@@ -24,19 +24,19 @@ A's possible actions:
        &           &   from   & \\
        &  DTr(B,A) & DTr(A,B) & Cap(A) \\
 	\begin{block}{r[*{3}{c}]cc}
-                       & x_1 & x_2 & x_3 & Purchase & \\
-        Action(A) = {} & y_1 & 0   & y_3 & DTr(A,B) & to \\
-                       & z_1 & z_2 & 0   & Cap(A)   & \\
+                       & x_1 & x_2 & x_3 & Purchase   & \\
+        Action(A) = {} & y_1 & 0   & y_3 & \:DTr(A,B) & to \\
+                       & z_1 & z_2 & 0   & Cap(A)     & \\
 	\end{block}
       \end{blockarray} 
 \end{equation*}
 
 Results:
 \begin{align*}
-  DTr'(A,B) &= DTr(A,B) + x_1 + z_1 - y_1 - y_3 \\
-  DTr'(B,A) &= DTr(B,A) - x_1 - x_2 - x_3 \\
-  Cap'(A)   &= Cap(A)   + x_2 + y_1 - z_1 - z_2 \\
-  Bought    &= \frac{x_3 + y_3 + z_2}{cost(b)}
+  DTr'(A,B) &= DTr(A,B) + y_1 + y_3 - x_2 - z_2 \\
+  DTr'(B,A) &= DTr(B,A) - x_1 - y_1 - z_1 \\
+  Cap'(A)   &= Cap(A)   + z_1 + z_2 - x_3 - y_3 \\
+  Bought    &= \frac{x_1 + x_2 + x_3}{cost(b)}
 \end{align*}
 
 No funds destroyed/created rule:
@@ -47,14 +47,13 @@ No funds destroyed/created rule:
 
 Individual no funds created rules:
 \begin{align*}
-  x_1 + x_2 + x_3 & \leq DTr(B,A) \\
-  y_1 + y_3 & \leq DTr(A,B) \\
-  z_1 + z_2 & \leq Cap(A)
+  x_1 + y_1 + z_1 & \leq DTr(B,A) \\
+  x_2 + z_2 & \leq DTr(A,B) \\
+  x_3 + y_3 & \leq Cap(A)
 \end{align*}
 
 No adding and reducing from same place rules:
 \begin{align*}
-  x_1y_1 &= 0 & x_2z_1 &= 0 & y_1z_1 &= 0 \\
-  x_1y_2 &= 0 & x_2z_2 &= 0 & y_1z_2 &= 0 \\
-          &   &         &   & y_2z_2 &= 0
+  y_1x_2 &= 0 & z_1x_3 &= 0 & z_2x_3 &= 0 & y_3x_2 &= 0 \\
+  y_1z_2 &= 0 & z_1y_3 &= 0 & z_2y_3 &= 0 & y_3z_2 &= 0
 \end{align*}
