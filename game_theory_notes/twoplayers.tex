@@ -1,0 +1,57 @@
+Two players: $A$, $B$. We will see A's possible actions.
+
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\node (A) at (27.0bp,22.836bp) [draw,ellipse] {A};
+  \node (B) at (175.0bp,22.836bp) [draw,ellipse] {B};
+  \draw [->] (B) ..controls (146.3bp,8.5275bp) and (137.98bp,5.4518bp)  .. (130.0bp,3.8364bp) .. controls (104.73bp,-1.2788bp) and (97.265bp,-1.2788bp)  .. (72.0bp,3.8364bp) .. controls (67.262bp,4.7955bp) and (62.403bp,6.2695bp)  .. (A);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (101.0bp,11.336bp) node {DTr(B,A)};
+  \draw [->] (A) ..controls (77.542bp,22.836bp) and (111.56bp,22.836bp)  .. (B);
+  \draw (101.0bp,30.336bp) node {DTr(A,B)};
+  \draw [->] (A) ..controls (10.889bp,48.987bp) and (15.148bp,58.836bp)  .. (27.0bp,58.836bp) .. controls (34.778bp,58.836bp) and (39.285bp,54.594bp)  .. (A);
+  \draw (27.0bp,66.336bp) node {Cap(A)};
+  \draw [->] (B) ..controls (158.89bp,48.987bp) and (163.15bp,58.836bp)  .. (175.0bp,58.836bp) .. controls (182.78bp,58.836bp) and (187.29bp,54.594bp)  .. (B);
+  \draw (175.0bp,66.336bp) node {Cap(B)};
+%
+\end{tikzpicture}
+
+\begin{equation*}
+      \begin{blockarray}{r@{}*{5}{c}}
+       &           &   from   & \\
+       &  DTr(B,A) & DTr(A,B) & Cap(A) \\
+	\begin{block}{r[*{3}{c}]cc}
+                       & x_1 & x_2 & x_3 & Purchase & \\
+        Action(A) = {} & y_1 & 0   & y_3 & DTr(A,B) & to \\
+                       & z_1 & z_2 & 0   & Cap(A)   & \\
+	\end{block}
+      \end{blockarray} 
+\end{equation*}
+    % Purchase -|
+    % DTr(A,B)  | to
+    % Cap(A)   _|
+
+\begin{align*}
+  DTr'(A,B) &= DTr(A,B) + x_1 + z_1 - y_1 - y_3 \\
+  DTr'(B,A) &= DTr(B,A) - x_1 - x_2 - x_3 \\
+  Cap'(A)   &= Cap(A)   + x_2 + y_1 - z_1 - z_2 \\
+  Bought    &= \frac{x_3 + y_3 + z_2}{cost(b)}
+\end{align*}
+
+\begin{gather*}
+  DTr'(A,B) + DTr'(B,A) + Cap(A) + Bought \times cost(b) \\ = \\
+  DTr(A,B) + DTr(B,A) + Cap(A)
+\end{gather*}
+
+\begin{align*}
+  x_1 + x_2 + x_3 & \leq DTr(B,A) \\
+  y_1 + y_3 & \leq DTr(A,B) \\
+  z_1 + z_2 & \leq Cap(A)
+\end{align*}
+
+\begin{align*}
+  x_1y_1 &= 0 & x_2z_1 &= 0 & y_1z_1 &= 0 \\
+  x_1y_2 &= 0 & x_2z_2 &= 0 & y_1z_2 &= 0 \\
+          &   &         &   & y_2z_2 &= 0
+\end{align*}
