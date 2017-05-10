@@ -1,4 +1,4 @@
-all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf
+all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf networkhealth.pdf
 
 #.ONESHELL:
 fc17.pdf: fc17/* common/*
@@ -24,6 +24,12 @@ thesisgr.pdf: thesisgr/* common/*
 	pdflatex thesisgr.tex; \
 	pdflatex thesisgr.tex; \
 	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot
+
+networkhealth.pdf: networkhealth/* common/*
+	export TEXINPUTS=.:./networkhealth//:./common//:; \
+	pdflatex networkhealth.tex; \
+	pdflatex networkhealth.tex; \
+	rm -rf networkhealth.aux networkhealth.log networkhealth.out networkhealth.toc networkhealth.lof networkhealth.lot
 
 clean:
 	rm -rf *.aux *.log *.out *.toc *.lof *.lot *.pdf

@@ -1,0 +1,19 @@
+Here we can see several possible network health measures. A combination of them will probably do the job.
+
+\begin{enumerate}
+  \item $n := |\mathcal{V}|$ \hfill How many players
+  \item $e := |\mathcal{E}| - |\{A : DTr_{A \rightarrow A} > 0\}|\footnote{\label{note}Maybe it makes sense to include looped
+    direct trusts (Capital) as well.}$ \hfill How many direct trust lines
+  \item $\frac{e}{n}$ \hfill Mean direct trust lines per player
+  \item $DTr := \sum\limits_{\substack{A,B \in \mathcal{V} \\ A \neq B\cref{note}}} DTr_{A \rightarrow B}$ \hfill How much
+    direct trust in total
+  \item $\mu := \frac{DTr}{n}$ \hfill Mean direct trust per player
+  \item $Cap := \sum\limits_{A \in \mathcal{V}}DTr_{A \rightarrow A}$ \hfill Total capital
+  \item $\frac{Cap}{n}$ \hfill Mean capital per player
+  \item $\frac{DTr - Cap}{n}$ \hfill Mean direct trust minus capital per player
+  \item $\frac{1}{n}\sum\limits_{A \in \mathcal{V}}\left(\sum\limits_{\substack{B \in V \\ B \neq A\cref{note}}}DTr_{A
+    \rightarrow B} - \mu\right)^2$ \hfill Outgoing direct trust variance
+  \item $\frac{1}{n}\sum\limits_{B \in \mathcal{V}}\left(\sum\limits_{\substack{A \in V \\ A \neq B\cref{note}}}DTr_{A
+    \rightarrow B} - \mu\right)^2$ \hfill Incoming direct trust variance
+  \item $\frac{Cap}{DTr}$ \hfill Total capital to total direct trust ratio
+\end{enumerate}
