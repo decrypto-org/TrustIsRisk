@@ -1,0 +1,55 @@
+\newpage
+
+A simple version of the game is used: The game graph has a random initial configuration where every player has a random direct
+trust towards every other player, as well as a random capital. These values may be uniformly distributed in an interval or may
+follow another distribution such as the exponential, or may have a high probability of being zero. The exact distribution
+however is not determined at this point, as it is not yet needed.
+
+The players also know that after R rounds (blocks in bitcoin terms) exactly two players are selected at random (these choices
+follow the uniform distribution). One is dubbed seller and the other buyer. The seller offers a good that costs C (this number
+is common knowledge from the beginning), which she values at C - l and the buyer values at C + l (l is also common knowledge
+from the beginning).
+
+The players play simultaneously in each round and can do any of the known actions. If two actions collide (e.g. A reduces
+$DTr_{A \rightarrow B}$ and B steals from $DTr_{A \rightarrow B}$ as well, then one of the two actions is chosen with equal
+probability (50\%).
+
+To better model a player's actions and the aforementioned conflict resolution, we demand that each change explicitly mentions
+the source and the destination of the funds for each of her actions. For example, player $A$ decides on the values of all the
+following variables. This constitutes a concrete round for $A$.
+
+\begin{align}
+  \forall B, C \in \mathcal{V}, B \neq C, move\left(A, \left(A, B\right), \left(A, C\right) \right) = ? \\
+  \forall B, C \in \mathcal{V}, B \notin \{A, C\}, move\left(A, \left(B, A\right), \left(A, C\right) \right) = ?
+\end{align}
+The first argument is the player who decides, the second argument is from which direct trust to take the funds and the third
+is to which direct trust to deposit the funds.
+
+Now for the constraints for player's $A$ move.
+
+\begin{enumerate}
+  \item It makes no sense to deposit to and withdraw from a specific direct trust in the same round. This constraint applies
+  only to outgoing direct trusts, because incoming direct trusts cannot be increased.
+  \begin{align}
+    \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) move\left(A, \left(A, D\right),
+    \left(A, B\right) \right) = 0 \\
+    \wedge \\
+    \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) move\left(A, \left(D, A\right),
+    \left(A, B\right) \right) = 0
+  \end{align}
+
+  \item One cannot use more funds than are available from a single direct trust.
+  \begin{align}
+    \forall B \in \mathcal{V}, \sum\limits_{C \in \mathcal{V}} move\left(A, \left(A, B\right), \left(A, C\right) \right)
+      \leq DTr_{A \rightarrow B} \\
+    \forall B \in \mathcal{V}, \sum\limits_{C \in \mathcal{V}} move\left(A, \left(B, A\right), \left(A, C\right) \right)
+      \leq DTr_{B \rightarrow A} \\
+  \end{align}
+
+  \item The total funds before and after the move must be equal.
+  \begin{align}
+    \sum\limits_{B \in \mathcal{V}\\
+    = \\
+
+  \end{align}
+\end{enumerate}
