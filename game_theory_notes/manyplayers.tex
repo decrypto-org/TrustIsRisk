@@ -1,75 +1,83 @@
-\newpage
-
 A simple version of the game is used: The game graph has a random initial configuration where every player has a random direct
 trust towards every other player, as well as a random capital. These values may be uniformly distributed in an interval or may
 follow another distribution such as the exponential, or may have a high probability of being zero. The exact distribution
 however is not determined at this point, as it is not yet needed.
 
-The players also know that after R rounds (blocks in bitcoin terms) exactly two players are selected at random (these choices
-follow the uniform distribution). One is dubbed seller and the other buyer. The seller offers a good that costs C (this number
-is common knowledge from the beginning), which she values at C - l and the buyer values at C + l (l is also common knowledge
-from the beginning).
+The players also know that after $R$ rounds (blocks in bitcoin terms) exactly two players are selected at random (these
+choices follow the uniform distribution). One is dubbed seller and the other buyer. The seller offers a good that costs $C$
+(this number is common knowledge from the beginning), which she values at $C - l$ and the buyer values at $C + l$ ($l$ is also
+common knowledge from the beginning).
 
-The players play simultaneously in each round and can do any of the known actions. If two actions collide (e.g. A reduces
-$DTr_{A \rightarrow B}$ and B steals from $DTr_{A \rightarrow B}$ as well, then one of the two actions is chosen with equal
-probability (50\%).
+The players play simultaneously in each round and can do any of the known actions. If two actions collide (e.g. $A$ reduces
+$DTr_{A \rightarrow B}$ and $B$ steals from $DTr_{A \rightarrow B}$ as well), then one of the two actions is chosen with equal
+probability ($50\%$).
 
 To better model a player's actions and the aforementioned conflict resolution, we demand that each change explicitly mentions
 the source and the destination of the funds for each of her actions. For example, player $A$ decides on the values of all the
 following variables. This constitutes a concrete round for $A$.
 
-\begin{align}
-  \forall B, C \in \mathcal{V}, B \neq C, move\left(A, \left(A, B\right), \left(A, C\right) \right) = ? \\
-  \forall B, C \in \mathcal{V}, B \notin \{A, C\}, move\left(A, \left(B, A\right), \left(A, C\right) \right) = ?
-\end{align}
+\begin{gather*}
+  \forall B, C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) = \: ? \\
+  \forall B, C \in \mathcal{V}, B \neq A, move\left(A, \left(B, A\right), \left(A, C\right) \right) = \: ?
+\end{gather*}
 The first argument is the player who decides, the second argument is from which direct trust to take the funds and the third
 is to which direct trust to deposit the funds.
+
+In this simple version, $A$ is not allowed to set $move\left(A, \left(A, B\right), \left(A, B\right) \right)$ to any value
+different than 0 for any $B$. This choice is made to facilitate the analysis. According to the implementation modelling we
+have agreed upon however, $A$ will (probably) be able to do it. This will in practice give $A$ the option to increase
+the chances that $B$ will not be able to take the funds from this particular direct trust. (Exactly the same goes for
+$move\left(A, \left(B, A\right), \left(B, A\right) \right)$. At first sight this means that $A$ can increase her incoming
+direct trust, but this is not the case. Either way we will avoid this complication for now.)
 
 Now for the constraints for player's $A$ move.
 
 \begin{enumerate}
   \item It makes no sense to deposit to and withdraw from a specific direct trust in the same round. This constraint applies
   only to outgoing direct trusts, because incoming direct trusts cannot be increased.
-  \begin{align}
-    \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) move\left(A, \left(A, D\right),
-    \left(A, B\right) \right) = 0 \\
+  \begin{gather*}
+    \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \times move\left(A, \left(A,
+    D\right), \left(A, B\right) \right) = 0 \\
     \wedge \\
-    \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) move\left(A, \left(D, A\right),
-    \left(A, B\right) \right) = 0
-  \end{align}
+    \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \times move\left(A, \left(D,
+    A\right), \left(A, B\right) \right) = 0
+  \end{gather*}
 
   \item One cannot use more funds than are available from a single direct trust.
-  \begin{align}
+  \begin{gather*}
     \forall B \in \mathcal{V}, \sum\limits_{C \in \mathcal{V}} move\left(A, \left(A, B\right), \left(A, C\right) \right)
       \leq DTr_{A \rightarrow B} \\
     \forall B \in \mathcal{V}, \sum\limits_{C \in \mathcal{V}} move\left(A, \left(B, A\right), \left(A, C\right) \right)
       \leq DTr_{B \rightarrow A} \\
-  \end{align}
+  \end{gather*}
 
   \item The total funds before and after the move must be equal.
-  \begin{align}
+  \begin{gather*}
     \sum\limits_{\substack{B \in \mathcal{V} \\ B \neq A}}\left(DTr_{A
-      \rightarrow B} + DTr_{B \rightarrow A}\right) + Cap_A \\
-    = \\
-    \sum\limits_{B \in \mathcal{V}}\left(DTr_{A \rightarrow B} + \sum\limits_{C \in \mathcal{V}}move\left(A, \left(A,
-      C\right), \left(A, B\right) \right) - \sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right)
-      \right) - \sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(C, A\right) \right) \right) +
-      \sum\limits_{\substack{B \in \mathcal{V} \\ B \neq A}}\left(DTr_{B \rightarrow A} - \sum\limits_{C \in
+      \rightarrow B} + DTr_{B \rightarrow A}\right) + Cap_A = \\
+    = \sum\limits_{B \in \mathcal{V}}\left(DTr_{A \rightarrow B} + \sum\limits_{C \in \mathcal{V}}move\left(A, \left(A,
+      C\right), \left(A, B\right) \right) - \right. \\
+      \left.- \sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right) - \sum\limits_{C \in
+      \mathcal{V}}move\left(A, \left(A, B\right), \left(C, A\right) \right) \vphantom{\sum\limits_{C \in \mathcal{V}}} \right)
+      + \\
+      + \sum\limits_{\substack{B \in \mathcal{V} \\ B \neq A}}\left(DTr_{B \rightarrow A} - \sum\limits_{C \in
       \mathcal{V}}move\left(A, \left(B, A\right), \left(A, C\right) \right) \right)
-  \end{align}
+  \end{gather*}
+
+  \newpage
 
   \item If two players try to change the same direct trust, then set the relevant moves of one of the two players (chosen
     uniformly at random) to 0.
   \begin{lstlisting}[label=conflict, style=numbers]
 resolveConflict((*@$A$@*), (*@$B$@*)) :
-  sum1 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*)
-  sum2 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*)
+  sum1 (*@$\gets$@*) (*@$\sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*)
+  sum2 (*@$\gets$@*) (*@$\sum\limits_{C \in \mathcal{V}}move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*)
   if (sum1*sum2 (*@$\neq$@*) 0)
     choice (*@$ \overset{\$}{\gets} \{A, B\}$@*)
     if (choice = (*@$A$@*))
-      (*@$\forall C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*) = 0
+      (*@$\forall C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*) (*@$\gets$@*)  0
     else # if (choice = (*@$B$@*))
-      (*@$\forall C \in \mathcal{V}, move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*) = 0
+      (*@$\forall C \in \mathcal{V}, move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*) (*@$\gets$@*)  0
 
 resolveAllConflicts() :
   (*@$\forall A, B \in \mathcal{V}$@*)
@@ -79,5 +87,8 @@ resolveAllConflicts() :
   \texttt{resolveAllConflicts()} is executed after all players choose their moves for a round.
 \end{enumerate}
 
-To get an idea of how this game would look like, please take a look
-\href{http://www.agsm.edu.au/bobm/teaching/SGTM/lect06pr-3.pdf}{here}, p. 3.
+\noindent To get an idea of how this game would look like, please take a look
+\href{http://www.agsm.edu.au/bobm/teaching/SGTM/lect06pr-3.pdf}{here}, at p. 3.
+
+\hrulefill
+\newpage
