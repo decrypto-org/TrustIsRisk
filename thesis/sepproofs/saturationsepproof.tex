@@ -4,12 +4,15 @@
   \label{saturation:flowleqcap}
     \forall i \in [n], x'_i \leq c'_i \enspace.
   \end{equation}
-  In turn $j-1$, there exists some valid flow $Y$ such that
+  We will show constructively that in turn $j-1$, there exists some valid flow $Y$ such that
   \begin{equation*}
     \forall i \in [n], y_i = c'_i
   \end{equation*}
-  with a flow value $\sum\limits_{i=1}^{n}y_i$, which can be created as follows: We start from $X$ and for each
-  $\left(A, v_i\right)$ edge we reduce the flow along paths starting from this edge for a total reduction of $x_i - c'_i$ on
-  all those paths. $Y$ is also obviously valid for turn $j$ and, since all capacities $c'_i$ are saturated, there can
-  be no more outgoing flow from the source, thus $Y$ is a maximum flow in $\mathcal{G}_j$.
+  Here the algorithm that calculates the desired flow can be seen.
+
+  \subimport{../algorithms/}{saturationcode.tex}
+
+  Since $Y$ is valid for $\mathcal{G}_{j-1}$ and all the flows outgoing from $A$ are compatible with the capacities of
+  $\mathcal{G}_j$, $Y$ is also a valid flow for $\mathcal{G}_j$. Furthermore, since all capacities $c'_i$ are saturated, there
+  can be no more outgoing flow from $A$, thus $Y$ is a maximum flow in $\mathcal{G}_j$, or $Y = X'$.
 \end{sepproof}
