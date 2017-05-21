@@ -51,21 +51,6 @@ Now for the constraints for player's $A$ move.
       \leq DTr_{B \rightarrow A} \\
   \end{gather*}
 
-  \item The total funds before and after the move must be equal.
-  \begin{gather*}
-    \sum\limits_{\substack{B \in \mathcal{V} \\ B \neq A}}\left(DTr_{A
-      \rightarrow B} + DTr_{B \rightarrow A}\right) + Cap_A = \\
-    = \sum\limits_{B \in \mathcal{V}}\left(DTr_{A \rightarrow B} + \sum\limits_{C \in \mathcal{V}}move\left(A, \left(A,
-      C\right), \left(A, B\right) \right) - \right. \\
-      \left.- \sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right) - \sum\limits_{C \in
-      \mathcal{V}}move\left(A, \left(A, B\right), \left(C, A\right) \right) \vphantom{\sum\limits_{C \in \mathcal{V}}} \right)
-      + \\
-      + \sum\limits_{\substack{B \in \mathcal{V} \\ B \neq A}}\left(DTr_{B \rightarrow A} - \sum\limits_{C \in
-      \mathcal{V}}move\left(A, \left(B, A\right), \left(A, C\right) \right) \right)
-  \end{gather*}
-
-  \newpage
-
   \item If two players try to change the same direct trust, then set the relevant moves of one of the two players (chosen
     uniformly at random) to 0.
   \begin{lstlisting}[label=conflict, style=numbers]
