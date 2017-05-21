@@ -70,14 +70,14 @@ Now for the constraints for player's $A$ move.
     uniformly at random) to 0.
   \begin{lstlisting}[label=conflict, style=numbers]
 resolveConflict((*@$A$@*), (*@$B$@*)) :
-  sum1 (*@$\gets$@*) (*@$\sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*)
-  sum2 (*@$\gets$@*) (*@$\sum\limits_{C \in \mathcal{V}}move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*)
+  sum1 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*)
+  sum2 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*)
   if (sum1*sum2 (*@$\neq$@*) 0)
     choice (*@$ \overset{\$}{\gets} \{A, B\}$@*)
-    if (choice = (*@$A$@*))
-      (*@$\forall C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*) (*@$\gets$@*)  0
-    else # if (choice = (*@$B$@*))
-      (*@$\forall C \in \mathcal{V}, move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*) (*@$\gets$@*)  0
+    if (choice == (*@$A$@*))
+      (*@$\forall C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*) = 0
+    else # if (choice == (*@$B$@*))
+      (*@$\forall C \in \mathcal{V}, move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*) = 0
 
 resolveAllConflicts() :
   (*@$\forall A, B \in \mathcal{V}$@*)
