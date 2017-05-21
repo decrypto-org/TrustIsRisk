@@ -72,7 +72,7 @@ Now for the constraints for player's $A$ move.
 resolveConflict((*@$A$@*), (*@$B$@*)) :
   sum1 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*)
   sum2 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*)
-  if (sum1*sum2 (*@$\neq$@*) 0)
+  if (sum1*sum2 != 0)
     choice (*@$ \overset{\$}{\gets} \{A, B\}$@*)
     if (choice == (*@$A$@*))
       (*@$\forall C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*) = 0
