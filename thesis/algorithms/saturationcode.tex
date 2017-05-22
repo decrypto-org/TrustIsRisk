@@ -3,11 +3,10 @@
 \Suppressnumber
 \begin{lstlisting}[label=saturationcode, style=numbers]
 Saturated Flow Creation
-Input : flow (*@$X$@*), capacity (*@$C'$@*), source (*@$A$@*), sink (*@$B$@*)
+Input : flow (*@$X$@*), capacity (*@$C'$@*), source (*@$A$@*), sink (*@$B$@*), length n
 Output : (*@$Y$ \Reactivatenumber@*)
 saturate((*@$X$@*), (*@$C'$@*), (*@$A$@*), (*@$B$@*)) :
   (*@$Y$@*) = (*@$X$ \label{saturation:copyx}@*)
-  n = length((*@$y_i$@*)) (*@\label{saturation:setlength}@*)
   for (i = 1 to n) (*@\label{saturation:externalloop}@*)
     while ((*@$y_i$@*) > (*@$c'_i$@*)) (*@\label{saturation:loop}@*)
       (path, pathFlow) = findPath((*@$Y$@*), (*@$v_i$@*), (*@$B$@*)) (*@\label{saturation:findpath}@*)
