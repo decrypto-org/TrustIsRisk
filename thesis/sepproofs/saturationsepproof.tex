@@ -45,7 +45,7 @@
   flow and both equal to \texttt{reduction}, thus the necessary properties (\ref{flow1}) and (\ref{flow2}) for a flow to be
   valid hold always after the execution of line~\ref{saturation:reducehead}.
   
-  We can now prove that the function \texttt{findPath()} will always succeed in finding a $\left(u_i, ..., B\right)$
+  We can now prove that the function \texttt{findPath()} will always succeed in finding a $\left(v_i, ..., B\right)$
   \texttt{path}. Suppose that this function is unable to find such a \texttt{path}. Then it is $y_i > c'_i$ (since the
   execution is in the \texttt{while} loop), there exists no path from $v_i$ to $B$ and the flow is valid. These three
   affirmations cannot hold simultaneously, thus the initial proposition holds.
