@@ -10,7 +10,7 @@ saturate((*@$X$@*), (*@$C'$@*), (*@$A$@*), (*@$B$@*)) :
   n = length((*@$y_i$@*)) (*@\label{saturation:setlength}@*)
   for (i = 1 to n) (*@\label{saturation:externalloop}@*)
     while ((*@$y_i$@*) > (*@$c'_i$@*)) (*@\label{saturation:loop}@*)
-      (path, pathFlow) = findPath((*@$X$@*), (*@$u_i$@*), (*@$B$@*)) (*@\label{saturation:findpath}@*)
+      (path, pathFlow) = findPath((*@$Y$@*), (*@$v_i$@*), (*@$B$@*)) (*@\label{saturation:findpath}@*)
       reduction = min(pathFlow, (*@$y_i$@*) - (*@$c'_i$@*)) (*@\label{saturation:reduction}@*)
       for ((*@$e$@*) in path) (*@\label{saturation:reducepathfor}@*)
         (*@$y_e$@*) = (*@$y_e$@*) - reduction (*@\label{saturation:reducepath}@*)
