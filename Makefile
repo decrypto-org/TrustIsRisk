@@ -25,11 +25,13 @@ thesis.pdf: thesis/* common/* splncs.bst
 	pdflatex thesis.tex; \
 	rm -rf thesis.aux thesis.log thesis.out thesis.toc thesis.lof thesis.lot thesis.bbl thesis.blg
 
-thesisgr.pdf: thesisgr/* common/*
+thesisgr.pdf: thesisgr/* common/* splncs.bst
 	export TEXINPUTS=.:./thesisgr//:./common//:; \
 	pdflatex thesisgr.tex; \
+	bibtex thesisgr.aux;
 	pdflatex thesisgr.tex; \
-	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot
+	pdflatex thesisgr.tex; \
+	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot thesisgr.bbl thesisgr.blg
 
 clean:
 	rm -rf *.aux *.log *.out *.toc *.lof *.lot *.bbl *.blg *.pdf
