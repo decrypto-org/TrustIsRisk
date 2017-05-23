@@ -42,9 +42,9 @@
   
   Of course there are some constraints for player's $A$ move:
   
-  \begin{enumerate}
     \item It makes no sense to deposit to and withdraw from a specific direct trust in the same round. This constraint applies
     only to outgoing direct trusts, because incoming direct trusts cannot be increased.
+  \begin{itemize}
     \begin{gather*}
       \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \times move\left(A, \left(A,
       D\right), \left(A, B\right) \right) = 0 \\
@@ -60,7 +60,7 @@
       \forall B \in \mathcal{V}, \sum\limits_{C \in \mathcal{V}} move\left(A, \left(B, A\right), \left(A, C\right) \right)
         \leq DTr_{B \rightarrow A} \\
     \end{gather*}
-  \end{enumerate}
+  \end{itemize}
   
   If two players try to change the same direct trust, then set the relevant moves of one of the two players (chosen uniformly
   at random) to 0.
