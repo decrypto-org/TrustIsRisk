@@ -10,10 +10,12 @@
     trust. They cannot reallocate their outgoing direct trust, only complete purchases of the product from sellers that are
     trustworthy enough.
     
-    To pay for a product, they use the linear program defined in thesis.pdf to aquire the funds needed and directly entrust
-    the necessary part of these funds to the seller. Sellers are supposed to complete their part of the exchange within a
-    constant amount of rounds, $r$. If the product has arrived after $r$ rounds, the remaining funds are reallocated to the
-    players from whom they were taken in proportional fashion.The way they are reallocated ensures that
+    Buyers always want to buy the cheapest products provided. To pay for a product, they use the linear program defined in
+    thesis.pdf to aquire the funds needed and directly entrust the necessary part of these funds to the seller. The rest of
+    the funds are kept as Capital. Sellers are supposed to complete their part of the exchange within a constant amount of
+    rounds, $r$. If the product has arrived after $r$ rounds, during the turn following the arrival of the product the
+    remaining funds are reallocated to the players from whom they were taken in proportional fashion. The way they are
+    reallocated ensures that
     \begin{equation*}
       \forall B \in \mathcal{S}_1, \frac{DTr_{Buyer \rightarrow B, i}}{\sum\limits_{C \in \mathcal{S}_1}DTr_{Buyer \rightarrow
       C, i}} = \frac{DTr_{Buyer \rightarrow B, i + r}}{\sum\limits_{C \in \mathcal{S}_1}DTr_{Buyer \rightarrow C, i + r}}
