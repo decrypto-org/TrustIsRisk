@@ -6,13 +6,14 @@
   the buyer and seller are chosen, are common knowledge from the beginning of the game. The exchange completes if and only if
   $DTr_{Buyer \rightarrow Seller} \geq C$. In this game, Fig~\ref{fig:game} would be augmented by one level at the bottom,
   where Nature chooses the two transacting players.There are three variants of the game, each with a different utility for the
-  players (the first two versions have two subvariants each):
+  players (the first two versions have two subvariants each).
 
-  \begin{enumerate}
-    \item If player $A$ is not chosen to be either buyer or seller, then her utility is equal to $Cap_{A, R}$. Intuitively
-    players do not attach any value to having (incoming or outgoing) direct trust at the end of the game. If the buyer and the
-    seller do not manage to complete the exchange, the buyer's utility is $Cap_{Buyer, R}$. If on the other hand they manage
-    to exchange the good, then the buyer's utility is $Cap_{Buyer, R} + l$. Intuitively these utilities signify that the buyer
+  \subsubsection{Hoarders} \ \\
+
+    If player $A$ is not chosen to be either buyer or seller, then her utility is equal to $Cap_{A, R}$. Intuitively players
+    do not attach any value to having (incoming or outgoing) direct trust at the end of the game. If the buyer and the seller
+    do not manage to complete the exchange, the buyer's utility is $Cap_{Buyer, R}$. If on the other hand they manage to
+    exchange the good, then the buyer's utility is $Cap_{Buyer, R} + l$. Intuitively these utilities signify that the buyer
     uses her preexisting Capital to buy. As for the seller there exist two subvariants for her utility:
     \begin{enumerate}
       \item If the exchange is eventually not completed, the seller's utility is $Cap_{Seller, R} - l$. If the exchange takes
@@ -24,7 +25,9 @@
       environment.
     \end{enumerate}
     
-    \item If player $A$ is not chosen to be either buyer or seller, then her utility is equal to 
+  \subsubsection{Sharers} \ \\
+
+    If player $A$ is not chosen to be either buyer or seller, then her utility is equal to 
     \begin{equation*}
       \sum\limits_{\overset{B \in \mathcal{V}}{B \neq A}}\left(DTr_{A \rightarrow B, R} + DTr_{B \rightarrow A, R}\right) +
       Cap_{A, R} \enspace.
@@ -68,10 +71,10 @@
       Intuitively, the seller is handed the good for free by the environment.
     \end{enumerate}
 
+  \subsubsection{Materialists} \ \\
 
-    \item If player $A$ is not chosen to be either buyer or seller, then her utility is 0. If the buyer and the seller do not
+    If player $A$ is not chosen to be either buyer or seller, then her utility is 0. If the buyer and the seller do not
     manage to complete the exchange, their utility is 0 as well. If on the other hand they manage to exchange the good, then
     the utility is $l$ for both of them. Intuitively these utilities signify that in this game there is gain only for those
     who exchange goods and the gain is exactly the difference between the objective value and the subjective value that the
     relevant parties perceive.
-  \end{enumerate}
