@@ -14,35 +14,57 @@
     to exchange the good, then the buyer's utility is $Cap_{Buyer, R} + l$. Intuitively these utilities signify that the buyer
     uses her preexisting Capital to buy. As for the seller there exist two subvariants for her utility:
     \begin{enumerate}
-      \item If the exchange is not completed, the seller's utility is $Cap_{Seller, R} - l$. If the exchange takes place, the
-      seller's utility is $Cap_{Seller, R}$. Intuitively, the seller is first obliged to buy the good from the environment at
-      the cost of $C$.
+      \item If the exchange is eventually not completed, the seller's utility is $Cap_{Seller, R} - l$. If the exchange takes
+      place, the seller's utility is $Cap_{Seller, R}$. Intuitively, the seller is first obliged to buy the good from the
+      environment at the cost of $C$.
 
-      \item If the exchange is not completed, the seller's utility is $Cap_{Seller, R} + C - l$. If the exchange takes place, the
-      seller's utility is $Cap_{Seller, R} + C$. Intuitively, the seller is handed the good for free by the environment.
+      \item If the exchange is eventually not completed, the seller's utility is $Cap_{Seller, R} + C - l$. If the exchange
+      takes place, the seller's utility is $Cap_{Seller, R} + C$. Intuitively, the seller is handed the good for free by the
+      environment.
     \end{enumerate}
     
-    \item If player $A$ is not chosen to be either buyer or seller, then her utility is equal to $\sum\limits_{\overset{B \in
-    \mathcal{V}}{B \neq A}}\left(DTr_{A \rightarrow B, R} + DTr_{B \rightarrow A, R}\right) + Cap_{A, R}$. Intuitively players
-    attach equal value to all the funds they can directly spend, regardless of whether others can spend them as well. If the
-    buyer and the seller do not manage to complete the exchange, the buyer's utility is $\sum\limits_{\overset{B \in
-    \mathcal{V}}{B \neq Buyer}}\left(DTr_{Buyer \rightarrow B, R} + DTr_{B \rightarrow Buyer, R}\right) + Cap_{Buyer, R}$. If
-    on the other hand they manage to exchange the good, then the buyer's utility is $\sum\limits_{\overset{B \in
-    \mathcal{V}}{B \neq Buyer}}\left(DTr_{Buyer \rightarrow B, R} + DTr_{B \rightarrow Buyer, R}\right) + Cap_{Buyer, R} + l$.
+    \item If player $A$ is not chosen to be either buyer or seller, then her utility is equal to 
+    \begin{equation*}
+      \sum\limits_{\overset{B \in \mathcal{V}}{B \neq A}}\left(DTr_{A \rightarrow B, R} + DTr_{B \rightarrow A, R}\right) +
+      Cap_{A, R} \enspace.
+    \end{equation*}
+    Intuitively, players attach equal value to all the funds they can directly spend, regardless of whether others can spend
+    them as well. If the buyer and the seller do not manage to complete the exchange, the buyer's utility is
+    \begin{equation*}
+      \sum\limits_{\overset{B \in \mathcal{V}}{B \neq Buyer}}\left(DTr_{Buyer \rightarrow B, R} + DTr_{B \rightarrow Buyer,
+      R}\right) + Cap_{Buyer, R} \enspace.
+    \end{equation*}
+    If on the other hand they manage to exchange the good, then the buyer's utility is 
+    \begin{equation*}
+      \sum\limits_{\overset{B \in \mathcal{V}}{B \neq Buyer}}\left(DTr_{Buyer \rightarrow B, R} + DTr_{B \rightarrow Buyer,
+      R}\right) + Cap_{Buyer, R} + l \enspace.
+    \end{equation*}
     Intuitively these utilities signify that the buyer uses her preexisting accessible funds to buy. As for the seller there
     exist two subvariants for her utility:
     \begin{enumerate}
-      \item If the exchange is not completed, the seller's utility is $\sum\limits_{\overset{B \in \mathcal{V}}{B \neq
-      Seller}}\left(DTr_{Seller \rightarrow B, R} + DTr_{B \rightarrow Seller, R}\right) + Cap_{Seller, R} - l$. If the
-      exchange takes place, the seller's utility is $\sum\limits_{\overset{B \in \mathcal{V}}{B \neq Seller}}\left(DTr_{Seller
-      \rightarrow B, R} + DTr_{B \rightarrow Seller, R}\right) + Cap_{Seller, R}$. Intuitively, the seller is first obliged to
-      buy the good from the environment at the cost of $C$.
+      \item If the exchange is not completed, the seller's utility is 
+      \begin{equation*}
+        \sum\limits_{\overset{B \in \mathcal{V}}{B \neq Seller}}\left(DTr_{Seller \rightarrow B, R} + DTr_{B \rightarrow
+	Seller, R}\right) + Cap_{Seller, R} - l \enspace.
+      \end{equation*}
+      If the exchange takes place, the seller's utility is
+      \begin{equation*}
+        \sum\limits_{\overset{B \in \mathcal{V}}{B \neq Seller}}\left(DTr_{Seller \rightarrow B, R} + DTr_{B \rightarrow
+	Seller, R}\right) + Cap_{Seller, R} \enspace.
+      \end{equation*}
+      Intuitively, the seller is first obliged to buy the good from the environment at the cost of $C$.
 
-      \item If the exchange is not completed, the seller's utility is $\sum\limits_{\overset{B \in \mathcal{V}}{B \neq
-      Seller}}\left(DTr_{Seller \rightarrow B, R} + DTr_{B \rightarrow Seller, R}\right) + Cap_{Seller, R} + C - l$. If the
-      exchange takes place, the seller's utility is $\sum\limits_{\overset{B \in \mathcal{V}}{B \neq Seller}}\left(DTr_{Seller
-      \rightarrow B, R} + DTr_{B \rightarrow Seller, R}\right) + Cap_{Seller, R} + C$. Intuitively, the seller is handed the
-      good for free by the environment.
+      \item If the exchange is not completed, the seller's utility is
+      \begin{equation*}
+        \sum\limits_{\overset{B \in \mathcal{V}}{B \neq Seller}}\left(DTr_{Seller \rightarrow B, R} + DTr_{B \rightarrow
+	Seller, R}\right) + Cap_{Seller, R} + C - l \enspace.
+      \end{equation*}
+      If the exchange takes place, the seller's utility is
+      \begin{equation*}
+        \sum\limits_{\overset{B \in \mathcal{V}}{B \neq Seller}}\left(DTr_{Seller \rightarrow B, R} + DTr_{B \rightarrow
+	Seller, R}\right) + Cap_{Seller, R} + C \enspace.
+      \end{equation*}
+      Intuitively, the seller is handed the good for free by the environment.
     \end{enumerate}
 
 
