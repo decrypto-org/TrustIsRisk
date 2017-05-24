@@ -38,7 +38,21 @@
     The buyers' utilities are straightforward: They are equal to the amount of products they managed to buy throughout the
     game. This explains why buyers always prefer cheaper products: This way they are able to save funds so that they are
     hopefully able to buy more products.
+
     \item \textit{Sellers}
+
+    Sellers initially are provided only with incoming direct trust from buyers and middlemen, no Capital or outgoing direct
+    trust. They also possess a limited supply of products; the quantity of the products each seller initially has is decided
+    randomly by the environment, much like the direct trusts. These products are useless to the sellers, they only want to
+    sell them. The amount of products each seller has is common knowledge.
+    
+    During each round, each seller decides how many products and for what price (common for all products) she will make
+    available for purchase during the next round. Obviously a seller cannot offer more products than she owns. Furthermore, if
+    a buyer initiated a transaction during the previous round, the buyer must ship the product (reducing the amount of owned
+    products by one). The seller is not allowed to steal any incoming direct trust.
+
+    A seller's utility is the total amount of incoming direct trust at the end of the game that stems solely from successfully
+    completed purchases.
 
     \item \textit{Middlemen}
 
