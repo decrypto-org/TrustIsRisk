@@ -19,8 +19,9 @@
   A description of the structure that is common for all three games follows. The game graph has a random initial configuration
   where every player has a random direct trust towards every other player, as well as a random capital. These values may be
   uniformly distributed in an interval or may follow another distribution such as the exponential, or may have a high
-  probability of being zero. The exact distribution however is not determined at this point, as it is not yet needed. This
-  distribution will be common knowledge to the players. Transaction fees are not considered.
+  probability of being zero. The exact distribution however is not determined at this point, as it is not yet needed. Further
+  constraints may be applied to each game separately. This distribution will be common knowledge to the players. Transaction
+  fees are not considered.
   
   The players play simultaneously in each round and can do any of the known actions. If two actions conflict (e.g. $A$ reduces
   $DTr_{A \rightarrow B}$ and $B$ steals from $DTr_{A \rightarrow B}$ as well), then one of the two actions is chosen with equal
