@@ -49,10 +49,12 @@
     During each round, each seller decides how many products and for what price (common for all products) she will make
     available for purchase during the next round. Obviously a seller cannot offer more products than she owns. Furthermore, if
     a buyer initiated a transaction during the previous round, the buyer must ship the product (reducing the amount of owned
-    products by one). The seller is not allowed to steal any incoming direct trust.
+    products by one). The seller may choose to convert any amount of incoming direct trust that she obtained through selling
+    products into Capital. The seller is not allowed to convert into Capital any incoming direct trust that did not stem from
+    a successful exchange.
 
-    A seller's utility is the total amount of incoming direct trust at the end of the game that stems solely from successfully
-    completed purchases.
+    A seller's utility is the total amount of incoming direct trust and Capital at the end of the game that stems solely from
+    successfully completed purchases.
 
     \item \textit{Middlemen}
 
