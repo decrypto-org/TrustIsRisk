@@ -1,0 +1,11 @@
+\section{Degree of Connectedness}
+  We would like to have a measure of how well connected is the graph. Viewed as a whole, a network with a lot of disconnected
+  cliques should score lower than a loosely connected network. From the perspective of a single player, this measure can be
+  expressed as the expected mean indirect trust, defined incrementally as follows:
+  \begin{gather*}
+    Tr_A = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}Tr_{A \rightarrow B} \mbox{ (Total indirect trust for player
+    }A\mbox{)} \\
+    E\left[Tr_A\right] = \frac{Tr_A}{|\mathcal{V} \setminus \{A\}|} = \frac{Tr_A}{|\mathcal{V}| - 1} \mbox{ (Expected indirect
+    trust for player }A\mbox{)} \\
+    EMIT = \frac{1}{|\mathcal{V}|}\sum\limits_{A \in \mathcal{V}}E\left[Tr_A\right] \mbox{ (Expected mean indirect trust)}
+  \end{gather*}
