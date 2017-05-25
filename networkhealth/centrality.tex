@@ -1,0 +1,26 @@
+\section{Centrality}
+  Another important measure is the network centrality. We propose here some different measures to that end.
+  
+  \subsection{Degree Centrality} \ \\
+
+    One possible approach is the degree centrality [Freeman citation], that can be broken down as in-degree and out-degree
+    centrality. We first define the node in-degree centrality.
+    \begin{equation*}
+      C_{in}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr{B \rightarrow A} \mbox{ (Node in-degree
+      centrality)}
+    \end{equation*}
+    Let $A^* = \argmax\limits_{A \in \mathcal{V}}C_{in}\left(A\right)$. The network in-degree centrality is defined as:
+    \begin{equation*}
+      C_{in} = \sum\limits_{A \in \mathcal{V}}\left(C_{in}\left(A^*\right) - C_{in}\left(A\right)\right) \mbox{ (Network
+      in-degree centrality)}
+    \end{equation*}
+    Similarly, for the out-degree centrality we have:
+    \begout{equation*}
+      C_{out}\left(A\right) = \sum\limits_{B \out \mathcal{V} \setmoutus \{A\}}DTr{A \rightarrow B} \mbox{ (Node out-degree
+      centrality)}
+    \end{equation*}
+    Let $A^* = \argmax\limits_{A \out \mathcal{V}}C_{out}\left(A\right)$. The network out-degree centrality is defouted as:
+    \begout{equation*}
+      C_{out} = \sum\limits_{A \out \mathcal{V}}\left(C_{out}\left(A^*\right) - C_{out}\left(A\right)\right) \mbox{ (Network
+      out-degree centrality)}
+    \end{equation*}
