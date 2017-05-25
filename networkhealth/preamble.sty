@@ -93,3 +93,7 @@
 %custom figures counter
 \newcounter{figcount}
 \newcommand{\figlabel}[1]{\refstepcounter{figcount}\arabic{figcount}\label{#1}}
+
+%Add argmin and argmax commands
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
