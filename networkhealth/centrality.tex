@@ -39,10 +39,30 @@
     the maximum direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is equal to the maximum
     \addtocounter{footnote}{-1} direct\footnotemark \ trust of $\mathcal{G}$; $\max C^d_{out}$ is defined equivalently.
 
+  \subsection{maxFlow Centrality}
+    An alternative measure of centrality for a player $A \in \mathcal{V}$ of a network $\mathcal{G}$ can be defined as the
+    impact that the removal of $A$ would have on the indirect trust between the rest of the players. More specifically, let
+    $\mathcal{G}' = \mathcal{G} \setminus \{A\}$. Then it is:
     \begin{equation*}
-      C^{mF}\left(A\right) = \sum\limits_{B,C \in \mathcal{V} \setminus \{A\}}\left(Tr_{\mathcal{G}, B \rightarrow C} -
-      Tr_{\mathcal{G}', B \rightarrow C}\right) \mbox{ (Node maxFlow centrality)}\enspace.
+      C^{mF}\left(A\right) = \sum\limits_{B,C \in \mathcal{V}'}\left(Tr_{\mathcal{G}, B \rightarrow C} - Tr_{\mathcal{G}', B
+      \rightarrow C}\right) \mbox{ (Node maxFlow centrality)} \enspace.
     \end{equation*}
+    We can now follow the same steps as previously for the relevant network definitions. Let $A^*$ be the player with the
+    maximum maxFlow centrality:
+    \begin{equation*}
+      A^* = \argmax\limits_{A \in \mathcal{V}}C^{mF}\left(A\right) \enspace.
+    \end{equation*}
+    Then the network maxFlow centrality is defined as follows:
+    \begin{equation*}
+      C^{mF} = \sum\limits_{A \in \mathcal{V}}\left(C^{mF}\left(A^*\right) - C^{mF}\left(A\right)\right)
+    \end{equation*}
+    and the centralization:
+    \begin{equation*}
+      Cn^{mF} = \frac{C^{mF}}{\max C^{mF}} \mbox{ (Network maxFlow centralization)} \enspace,
+    \end{equation*}
+    where $\max C^{mF}$ is the maximum centrality for any graph with the same number of nodes for which the maximum
+    direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is equal to the maximum
+    \addtocounter{footnote}{-1} direct\footnotemark \ trust of $\mathcal{G}$.
 
     \noindent\hrulefill
     \newpage
