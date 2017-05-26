@@ -3,18 +3,17 @@
 \Suppressnumber
 \begin{lstlisting}[label=dinf, style=numbers]
 (*@$||\delta_i||_\infty$@*) minimizer
-Input : old capacities (*@$c_i$@*), source A, drain B, value V, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)
+Input : old capacities (*@$c_i$@*), source (*@$A$@*), sink (*@$B$@*), value V, length n, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)
 Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
-dinfmin((*@$c_i$@*), V, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) :
-  n = length((*@$c_i$@*)) (*@\label{dinfmin:setlength}@*)
-  F = maxFlow(A, B, C) (*@\label{dinfmin:finit}@*)
+dinfmin((*@$c_i$@*), (*@$A$@*), (*@$B$@*), V, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) :
+  F = maxFlow((*@$A$@*), (*@$B$@*), (*@$C$@*)) (*@\label{dinfmin:finit}@*)
   if (F < V) (*@\label{dinfmin:ifvvalid}@*)
     return((*@$\bot$@*)) (*@\label{dinfmin:vinvalid}@*)
   if (((*@$\epsilon_1$@*) < 0) or ((*@$\epsilon_2$@*) < 0) or (F - V - (*@$\epsilon_1$@*) < 0) or (*@\label{dinfmin:ifepsilonsvalid}@*)
      (F - V + (*@$\epsilon_2$@*) > F))
     return((*@$\bot$@*)) (*@\label{dinfmin:epsilonsinvalid}@*)
-  (*@$\delta_{max}$@*) = max(C) (*@\label{dinfmin:deltainit}@*)
-  (*@$\delta^*$@*) = BinSearch(0, (*@$\delta_{max}$@*), F - V, n, A, B, C, (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) (*@\label{dinfmin:bs}@*)
+  (*@$\delta_{max}$@*) = max((*@$C$@*)) (*@\label{dinfmin:deltainit}@*)
+  (*@$\delta^*$@*) = BinSearch(0, (*@$\delta_{max}$@*), F - V, n, (*@$A$@*), (*@$B$@*), (*@$C$@*), (*@$\epsilon_1$@*), (*@$\epsilon_2$@*)) (*@\label{dinfmin:bs}@*)
   for (i = 1 to n) (*@\label{dinfmin:forsetcap}@*)
     (*@$c'_i$@*) = max(0, (*@$c_i$@*) - (*@$\delta^*$@*)) (*@\label{dinfmin:setcap}@*)
   return((*@$\bigcup\limits_{i=1}^{n}\{c'_i\}$@*)) (*@\label{dinfmin:return}@*)
