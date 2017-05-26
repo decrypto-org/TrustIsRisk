@@ -1,4 +1,4 @@
-all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf networkhealth.pdf
+all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf networkhealth.pdf game_theory_notes.pdf
 
 #.ONESHELL:
 fc17.pdf: fc17/* common/*
@@ -30,6 +30,12 @@ networkhealth.pdf: networkhealth/* common/*
 	pdflatex networkhealth.tex; \
 	pdflatex networkhealth.tex; \
 	rm -rf networkhealth.aux networkhealth.log networkhealth.out networkhealth.toc networkhealth.lof networkhealth.lot
+
+game_theory_notes.pdf: game_theory_notes/* common/*
+	export TEXINPUTS=.:./game_theory_notes//:./common//:; \
+	pdflatex game_theory_notes.tex; \
+	pdflatex game_theory_notes.tex; \
+	rm -rf game_theory_notes.aux game_theory_notes.log game_theory_notes.out game_theory_notes.toc game_theory_notes.lof game_theory_notes.lot
 
 clean:
 	rm -rf *.aux *.log *.out *.toc *.lof *.lot *.pdf
