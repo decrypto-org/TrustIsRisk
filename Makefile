@@ -28,7 +28,7 @@ thesis.pdf: thesis/* common/* splncs.bst
 thesisgr.pdf: thesisgr/* common/* splncs.bst
 	export TEXINPUTS=.:./thesisgr//:./common//:; \
 	pdflatex thesisgr.tex; \
-	bibtex thesisgr.aux;
+	bibtex thesisgr.aux; \
 	pdflatex thesisgr.tex; \
 	pdflatex thesisgr.tex; \
 	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot thesisgr.bbl thesisgr.blg
