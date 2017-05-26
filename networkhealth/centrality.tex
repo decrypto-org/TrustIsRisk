@@ -31,12 +31,18 @@
     cycle) and 1 to a network with the maximum centralization possible (there is one central vital node for all, e.g. star). A
     centralization measure that achieves this target is proposed in [Freeman citation]. Here we use the following modified
     form. For a graph $\mathcal{G}$, the in- and out-centralization are defined as:
-    \begin{equation*}
-      C'_{in} = \frac{C_{in}}{\max C_{in}} \: \mbox{ and } \: C'_{out} = \frac{C_{out}}{\max C_{out}} \enspace,
-    \end{equation*}
-    where $\max C_{in}$ is defined as the maximum in-degree centrality for any graph with the same number of nodes for which
+    \begin{align*}
+      Cn^d_{in} &= \frac{C^d_{in}}{\max C^d_{in}} \mbox{ (in-degree centralization)} \\
+      Cn^d_{out} &= \frac{C^d_{out}}{\max C^d_{out}} \mbox{ (out-degree centralization)} \enspace,
+    \end{align*}
+    where $\max C^d_{in}$ is defined as the maximum in-degree centrality for any graph with the same number of nodes for which
     the maximum direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is equal to the maximum
-    \addtocounter{footnote}{-1} direct\footnotemark direct trust of $\mathcal{G}$; $\max C_{out}$ is defined equivalently.
+    \addtocounter{footnote}{-1} direct\footnotemark direct trust of $\mathcal{G}$; $\max C^d_{out}$ is defined equivalently.
+
+    \begin{equation*}
+      C^{mF}\left(A\right) = \sum\limits_{B,C \in \mathcal{V} \setminus \{A\}}\left(Tr_{\mathcal{G}, B \rightarrow C} -
+      Tr_{\mathcal{G}', B \rightarrow C}\right) \mbox{ (Node maxFlow centrality)}\enspace.
+    \end{equation*}
 
     \noindent\hrulefill
     \newpage
