@@ -1,4 +1,4 @@
-all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf networkhealth.pdf game_theory_notes.pdf
+all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf may31deliverable.pdf
 
 #.ONESHELL:
 fc17.pdf: fc17/* common/*
@@ -25,17 +25,11 @@ thesisgr.pdf: thesisgr/* common/*
 	pdflatex thesisgr.tex; \
 	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot
 
-networkhealth.pdf: networkhealth/* common/*
-	export TEXINPUTS=.:./networkhealth//:./common//:; \
-	pdflatex networkhealth.tex; \
-	pdflatex networkhealth.tex; \
-	rm -rf networkhealth.aux networkhealth.log networkhealth.out networkhealth.toc networkhealth.lof networkhealth.lot
-
-game_theory_notes.pdf: game_theory_notes/* common/*
-	export TEXINPUTS=.:./game_theory_notes//:./common//:; \
-	pdflatex game_theory_notes.tex; \
-	pdflatex game_theory_notes.tex; \
-	rm -rf game_theory_notes.aux game_theory_notes.log game_theory_notes.out game_theory_notes.toc game_theory_notes.lof game_theory_notes.lot
+may31deliverable.pdf: may31deliverable/* common/*
+	export TEXINPUTS=.:./may31deliverable//:./common//:; \
+	pdflatex may31deliverable.tex; \
+	pdflatex may31deliverable.tex; \
+	rm -rf may31deliverable.aux may31deliverable.log may31deliverable.out may31deliverable.toc may31deliverable.lof may31deliverable.lot
 
 clean:
 	rm -rf *.aux *.log *.out *.toc *.lof *.lot *.pdf
