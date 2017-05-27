@@ -41,12 +41,12 @@
   higher fee. In the real world case, the exact same reasoning goes for $move\left(A, \left(B, A\right), \left(B, A\right)
   \right)$. In our case however, the latter move is already not permitted.
   
-  Of course there are some constraints for player's $A$ move:
-  
+  There are some constraints for player's $A$ move:
   \begin{itemize}
-    \item It makes no sense to deposit to and withdraw from a specific direct trust in the same round. Furthermore, such a
-    possibility would allow for "chain reactions" in the conflict resolution phase that would add unnecessary complications.
-    This constraint applies only to outgoing direct trusts, because incoming direct trusts cannot be increased.
+    \item There is no reason to be able to deposit to and withdraw from a specific direct trust in the same round.
+    Furthermore, such a possibility would allow for "chain reactions" in the conflict resolution phase that would add
+    unnecessary complications.  This constraint applies only to outgoing direct trusts, because incoming direct trusts cannot
+    be increased.
     \begin{gather*}
       \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \cdot move\left(A, \left(A,
       D\right), \left(A, B\right) \right) = 0 \\
