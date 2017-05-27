@@ -106,7 +106,7 @@
   $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
   problem. Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and
   vector.
-  \subimport{thesis/lp/}{lpprimal.tex}
+  \subimport{common/lp/}{lpprimal.tex}
   We would like to find a solution that, except for maximizing the flow, also minimizes $||\delta_i||_1$ at the same time.
   More precisely, we would like to optimize
   \begin{equation*}
@@ -123,7 +123,7 @@
   configuration that player $A$ requires.
 
   We will now describe the dual problem in detail.
-  \subimport{thesis/lp/}{lpdual.tex}
+  \subimport{common/lp/}{lpdual.tex}
   Everything is now in place to define the linear problem whose solution $C'$ yields $maxFlow\left(C'\right) = F - V$ and
   minimizes $||\delta_i||_\infty$. The constraints are (\ref{lp:primal:constraints}) and (\ref{lp:dual:constraints})
   supplemented with a constraint that equates the two problems' optimality functions:
