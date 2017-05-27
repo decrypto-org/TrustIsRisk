@@ -9,27 +9,28 @@
 
     One possible approach is the degree centrality \cite{freeman}, that can be broken down as in-degree and out-degree
     centrality. We first define the node in-degree centrality.
-    \begin{equation*}
-      C^d_{in}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{B \rightarrow A}\footnote{Maybe indirect
-      trust is more intuitive here than direct trust.} \mbox{ (Node in-degree centrality)}
-    \end{equation*}
+    \begin{align*}
+      C^d_{in}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{B \rightarrow A}\footnotemark && \mbox{
+      (Node in-degree centrality)}
+    \end{align*}
+    \footnotetext{Maybe indirect trust is more intuitive here than direct trust.}
     Let $A^*$ be the player with the maximum centrality: $A^* = \argmax\limits_{A \in \mathcal{V}}C^d_{in}\left(A\right)$. The
     network in-degree centrality is defined as:
-    \begin{equation*}
-      C^d_{in} = \sum\limits_{A \in \mathcal{V}}\left(C^d_{in}\left(A^*\right) - C^d_{in}\left(A\right)\right) \mbox{ (Network
-      in-degree centrality)}
-    \end{equation*}
+    \begin{align*}
+      C^d_{in} = \sum\limits_{A \in \mathcal{V}}\left(C^d_{in}\left(A^*\right) - C^d_{in}\left(A\right)\right) && \mbox{
+      (Network in-degree centrality)}
+    \end{align*}
     Similarly, for the out-degree centrality we have:
     \addtocounter{footnote}{-1}
-    \begin{equation*}
-      C^d_{out}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{A \rightarrow B}\footnotemark \mbox{ (Node
-      out-degree centrality)}
-    \end{equation*}
-    Let $A^* = \argmax\limits_{A \in \mathcal{V}}C^d_{out}\left(A\right)$. The network out-degree centrality is defined as:
-    \begin{equation*}
-      C^d_{out} = \sum\limits_{A \in \mathcal{V}}\left(C^d_{out}\left(A^*\right) - C^d_{out}\left(A\right)\right) \mbox{
+    \begin{align*}
+      C^d_{out}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{A \rightarrow B}\footnotemark && \mbox{
+      (Node out-degree centrality)}
+    \end{align*}
+    Let $A^* = \argmax\limits_{A \in \mathcal{V}}C^d_{out}\left(A\right)$. The network out-degree centrality is:
+    \begin{align*}
+      C^d_{out} = \sum\limits_{A \in \mathcal{V}}\left(C^d_{out}\left(A^*\right) - C^d_{out}\left(A\right)\right) && \mbox{
       (Network out-degree centrality)}
-    \end{equation*}
+    \end{align*}
 
     A problem of these centrality measures is that their unit is the currency used (i.e. Bitcoin) and thus may not always have
     an intuitive meaning. We would thus like to have a measure of \textit{centralization} that has no units and can take
@@ -38,8 +39,8 @@
     star). A centralization measure that achieves this target is proposed in \cite{freeman}. Here we use the following
     modified form. For a graph $\mathcal{G}$, the in- and out-centralization are defined as:
     \begin{align*}
-      Cn^d_{in} &= \frac{C^d_{in}}{\max C^d_{in}} \mbox{ (in-degree centralization)} \\
-      Cn^d_{out} &= \frac{C^d_{out}}{\max C^d_{out}} \mbox{ (out-degree centralization)} \enspace,
+      Cn^d_{in} &= \frac{C^d_{in}}{\max C^d_{in}} && \mbox{ (in-degree centralization)} \\
+      Cn^d_{out} &= \frac{C^d_{out}}{\max C^d_{out}} && \mbox{ (out-degree centralization)} \enspace,
     \end{align*}
     where $\max C^d_{in}$ is defined as the maximum in-degree centrality over all networks with the same number of nodes for
     which the maximum direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is equal to the
@@ -50,23 +51,20 @@
     An alternative measure of centrality for a player $A \in \mathcal{V}$ of a network $\mathcal{G}$ can be defined as the
     impact that the removal of $A$ would have on the indirect trust between the rest of the players. More specifically, let
     $\mathcal{G}' = \mathcal{G} \setminus \{A\}$. Then it is:
-    \begin{equation*}
+    \begin{align*}
       C^{mF}\left(A\right) = \sum\limits_{B,C \in \mathcal{V}'}\left(Tr_{\mathcal{G}, B \rightarrow C} - Tr_{\mathcal{G}', B
-      \rightarrow C}\right) \mbox{ (Node maxFlow centrality)} \enspace.
-    \end{equation*}
-    \begin{equation*}
-      A^* = \argmax\limits_{A \in \mathcal{V}}C^{mF}\left(A\right) \enspace.
-    \end{equation*}
-    Then the network maxFlow centrality is defined as follows:
-    \begin{equation*}
-      C^{mF} = \sum\limits_{A \in \mathcal{V}}\left(C^{mF}\left(A^*\right) - C^{mF}\left(A\right)\right)
-    \end{equation*}
+      \rightarrow C}\right) && \mbox{ (Node maxFlow centrality)} \enspace.
+    \end{align*}
     We can now follow the same steps as previously for the relevant network definitions. Let $A^* = \argmax\limits_{A \in
     \mathcal{V}}C^{mF}\left(A\right)$. Then the network maxFlow centrality is:
+    \begin{align*}
+      C^{mF} = \sum\limits_{A \in \mathcal{V}}\left(C^{mF}\left(A^*\right) - C^{mF}\left(A\right)\right) && \mbox{ (Network
+      maxFlow centrality)}
+    \end{align*}
     and the centralization:
-    \begin{equation*}
-      Cn^{mF} = \frac{C^{mF}}{\max C^{mF}} \mbox{ (Network maxFlow centralization)} \enspace,
-    \end{equation*}
+    \begin{align*}
+      Cn^{mF} = \frac{C^{mF}}{\max C^{mF}} && \mbox{ (Network maxFlow centralization)} \enspace,
+    \end{align*}
     where $\max C^{mF}$ is the maximum centrality over all networks with the same number of nodes for which the maximum
     direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is equal to the maximum
     \addtocounter{footnote}{-1} direct\footnotemark \ trust of $\mathcal{G}$.
