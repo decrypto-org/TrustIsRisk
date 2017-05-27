@@ -1,7 +1,8 @@
-\section{Centrality}
+\subsection{Centrality}
   Another important measure is the network centrality. We propose here some different measures to that end.
   
-  \subsection{Degree Centrality}
+  \subsubsection{Degree Centrality} \ \\
+
     One possible approach is the degree centrality [Freeman citation], that can be broken down as in-degree and out-degree
     centrality. We first define the node in-degree centrality.
     \begin{equation*}
@@ -39,7 +40,8 @@
     the maximum direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is equal to the maximum
     \addtocounter{footnote}{-1} direct\footnotemark \ trust of $\mathcal{G}$; $\max C^d_{out}$ is defined equivalently.
 
-  \subsection{maxFlow Centrality}
+  \subsubsection{maxFlow Centrality} \ \\
+
     An alternative measure of centrality for a player $A \in \mathcal{V}$ of a network $\mathcal{G}$ can be defined as the
     impact that the removal of $A$ would have on the indirect trust between the rest of the players. More specifically, let
     $\mathcal{G}' = \mathcal{G} \setminus \{A\}$. Then it is:
