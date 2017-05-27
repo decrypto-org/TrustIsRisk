@@ -25,7 +25,7 @@ thesisgr.pdf: thesisgr/* common/*
 	pdflatex thesisgr.tex; \
 	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot
 
-may31deliverable.pdf: may31deliverable/* common/*
+may31deliverable.pdf: may31deliverable/* common/* may31deliverable/gametheory/* may31deliverable/networkhealth/*
 	export TEXINPUTS=.:./may31deliverable//:./common//:; \
 	pdflatex may31deliverable.tex; \
 	pdflatex may31deliverable.tex; \
