@@ -19,10 +19,11 @@
   where every player has a random direct trust towards every other player, as well as a random capital. These values may be
   uniformly distributed in an interval or may follow another distribution such as the exponential, or may have a high
   probability of being zero. The exact distribution however is not determined at this point, as it is not yet needed. This
-  distribution will be common knowledge to the players. Further constraints may be applied to each game separately.
-  Transaction fees are not considered.
+  distribution will be common knowledge to the players. All capitals and direct trusts are publicly viewable. Further
+  constraints may be applied to each game separately.  Transaction fees are not considered.
   
-  The players play simultaneously in each round and can do any of the known actions. If two actions conflict (e.g. $A$ reduces
+  The game consists of $R$ rounds (blocks in bitcoin terms), the number of which is common knowledge for the players. The
+  players play simultaneously in each round and can do any of the known actions. If two actions conflict (e.g. $A$ reduces
   $DTr_{A \rightarrow B}$ and $B$ steals from $DTr_{A \rightarrow B}$ as well), then one of the two actions is chosen with
   equal probability ($50\%$). To better model a player's actions and the aforementioned conflict resolution, we demand that
   each fund reallocation explicitly mentions the source and the destination of the funds for each of her actions. Player $A$
