@@ -6,13 +6,13 @@
 
   \subsubsection{Buyers} \ \\
 
-    Buyers initially are provided only with outgoing direct trust towards sellers and middlemen, no Capital or incoming direct
+    Buyers initially are provided only with outgoing direct trust towards sellers and middlemen, no capital or incoming direct
     trust. They cannot reallocate their outgoing direct trust, only complete purchases of the product from sellers that are
     trustworthy enough.
     
     Buyers always want to buy the cheapest products provided. To pay for a product, they use the linear program defined in
     thesis.pdf to aquire the funds needed and directly entrust the necessary part of these funds to the seller. The rest of
-    the funds are kept as Capital. Sellers are supposed to complete their part of the exchange within a constant amount of
+    the funds are kept as capital. Sellers are supposed to complete their part of the exchange within a constant amount of
     rounds, $r$. If the product has arrived after $r$ rounds, during the turn following the arrival of the product the
     remaining funds are reallocated to the players from whom they were taken in proportional fashion. The way they are
     reallocated ensures that
@@ -40,7 +40,7 @@
 
   \subsubsection{Sellers} \ \\
 
-    Sellers initially are provided only with incoming direct trust from buyers and middlemen, no Capital or outgoing direct
+    Sellers initially are provided only with incoming direct trust from buyers and middlemen, no capital or outgoing direct
     trust. They also possess a limited supply of products; the quantity of the products each seller initially has is decided
     randomly by the environment, much like the direct trusts. These products are useless to the sellers, they only want to
     sell them. The amount of products each seller has is common knowledge.
@@ -49,19 +49,19 @@
     available for purchase during the next round. Obviously a seller cannot offer more products than she owns. Furthermore, if
     a buyer initiated a transaction during the previous round, the buyer must ship the product (reducing the amount of owned
     products by one). The seller may choose to convert any amount of incoming direct trust that she obtained through selling
-    products into Capital. The seller is not allowed to convert into Capital any incoming direct trust that did not stem from
+    products into capital. The seller is not allowed to convert into capital any incoming direct trust that did not stem from
     a successful exchange.
 
-    A seller's utility is the total amount of incoming direct trust and Capital at the end of the game that stems solely from
+    A seller's utility is the total amount of incoming direct trust and capital at the end of the game that stems solely from
     successfully completed purchases.
 
   \subsubsection{Middlemen} \ \\
 
     Middlemen initially have incoming direct trust from buyers and other middlemen, outgoing direct trust to sellers and other
-    middlemen and some Capital. They do not own or desire any products, they simply want to maximize the amount of Capital
+    middlemen and some capital. They do not own or desire any products, they simply want to maximize the amount of capital
     they own at the end of the game.
 
     Middlemen have a very permissive strategy: They are allowed any combination of moves that do not violate the basic
     constraints described in the first section.
 
-    The utility of a middleman is simply the Capital the middleman possesses at the end of the game.
+    The utility of a middleman is simply the capital the middleman possesses at the end of the game.
