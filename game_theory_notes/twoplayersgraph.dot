@@ -1,8 +1,0 @@
-digraph G {
-  graph [bgcolor=transparent]
-  rankdir=LR
-  A -> B [label="DTr(A,B)"]
-  B -> A [label="DTr(B,A)"]
-  A -> A [label="Cap(A)"]
-  B -> B [label="Cap(B)"]
-}
