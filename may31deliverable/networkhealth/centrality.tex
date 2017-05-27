@@ -54,8 +54,6 @@
       C^{mF}\left(A\right) = \sum\limits_{B,C \in \mathcal{V}'}\left(Tr_{\mathcal{G}, B \rightarrow C} - Tr_{\mathcal{G}', B
       \rightarrow C}\right) \mbox{ (Node maxFlow centrality)} \enspace.
     \end{equation*}
-    We can now follow the same steps as previously for the relevant network definitions. Let $A^*$ be the player with the
-    maximum maxFlow centrality:
     \begin{equation*}
       A^* = \argmax\limits_{A \in \mathcal{V}}C^{mF}\left(A\right) \enspace.
     \end{equation*}
@@ -63,6 +61,8 @@
     \begin{equation*}
       C^{mF} = \sum\limits_{A \in \mathcal{V}}\left(C^{mF}\left(A^*\right) - C^{mF}\left(A\right)\right)
     \end{equation*}
+    We can now follow the same steps as previously for the relevant network definitions. Let $A^* = \argmax\limits_{A \in
+    \mathcal{V}}C^{mF}\left(A\right)$. Then the network maxFlow centrality is:
     and the centralization:
     \begin{equation*}
       Cn^{mF} = \frac{C^{mF}}{\max C^{mF}} \mbox{ (Network maxFlow centralization)} \enspace,
