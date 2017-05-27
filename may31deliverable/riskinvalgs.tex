@@ -1,7 +1,16 @@
 \section{Trust Redistribution Algorithms} \label{riskinvalgs}
-  We will now concentrate on finding a capacity configuration $C'$ such that $F' = F - V$ and that minimizes
-  $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
-  problem. Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and
+  In order to make use of the Risk Invariance Theorem in \cite{trustisrisk}, we have to find an algorithm that, given a
+  network $\mathcal{G}$, a source $A \in \mathcal{V}$, a sink $B \in \mathcal{V}$ and a desired reduction $V$ to be applied
+  upon the indirect trust $Tr_{\mathcal{G}, A \rightarrow B}$, it will return a network $\mathcal{G}'$ with modified outgoing
+  direct trusts from $A$, such that $Tr_{\mathcal{G}', A \rightarrow B} = Tr_{\mathcal{G}, A \rightarrow B} - V$. We denote
+  the $n$ outgoing direct trusts from $A$ with $c_i$ for $\mathcal{G}$ and $c'_i$ for $\mathcal{G}', i \in \left[n\right]$. We
+  refer to the direct trusts as capacities because of the flow-related ambience. $C$ is the capacity configruation of
+  $\mathcal{G}$ and $C'$ that of $\mathcal{G}'$. Likewise $X$ and $X'$ represent possible maximum flow configurations for the
+  respective networks. Finally let $F = Tr_{\mathcal{G}, A \rightarrow B}$ and $F' = Tr_{\mathcal{G}', A \rightarrow B}$.
+
+  There exist several different approaches for such an algorithm. Here we describe a linear program that achieves the desired
+  reduction in $Tr_{A \rightarrow B}$ and minimizes the norm $||\delta_i||_1 = \sum\limits_{i=1}^{n}\left(c_i-c'_i\right)$ as
+  well. Next we see the formulation of the problem in linear program form, along with a breakdown of each relevant matrix and
   vector.
   \subimport{common/lp/}{lpprimal.tex}
   We would like to find a solution that, except for maximizing the flow, also minimizes $||\delta_i||_1$ at the same time.
