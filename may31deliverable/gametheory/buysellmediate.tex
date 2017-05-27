@@ -11,11 +11,11 @@
     trustworthy enough.
     
     Buyers always want to buy the cheapest products provided. To pay for a product, they use the linear program defined in
-    section~\ref{riskinvalgs} to aquire the funds needed and directly entrust the necessary part of these funds to the seller.
-    The rest of the funds are kept as capital. Sellers are supposed to complete their part of the exchange within a constant
-    amount of rounds, $r$. If the product has arrived after $r$ rounds, during the turn following the arrival of the product
-    the remaining funds are reallocated to the players from whom they were taken in proportional fashion. The way they are
-    reallocated ensures that
+    section~\ref{riskinvalgs} to acquire the funds needed and directly entrust funds equal to the cost of the product to the
+    seller. The rest of the funds are kept as capital. Sellers are supposed to complete their part of the exchange within a
+    constant amount of rounds, $r$. If the product has arrived after $r$ rounds, during the turn following the arrival of the
+    product the remaining funds are reallocated to the players from whom they were taken in proportional fashion. The way they
+    are reallocated ensures that
     \begin{equation*}
       \forall B \in \mathcal{S}_1, \frac{DTr_{Buyer \rightarrow B, i}}{\sum\limits_{C \in \mathcal{S}_1}DTr_{Buyer \rightarrow
       C, i}} = \frac{DTr_{Buyer \rightarrow B, i + r}}{\sum\limits_{C \in \mathcal{S}_1}DTr_{Buyer \rightarrow C, i + r}}
@@ -45,12 +45,12 @@
     randomly by the environment, much like the direct trusts. These products are useless to the sellers, they only want to
     sell them. The amount of products each seller has is common knowledge.
     
-    During each round, each seller decides how many products and for what price (common for all products) she will make
-    available for purchase during the next round. Obviously a seller cannot offer more products than she owns. Furthermore, if
-    a buyer initiated a transaction during the previous round, the buyer must ship the product (reducing the amount of owned
-    products by one). The seller may choose to convert any amount of incoming direct trust that she obtained through selling
-    products into capital. The seller is not allowed to convert into capital any incoming direct trust that did not stem from
-    a successful exchange.
+    During each round, each seller decides how many products she will make available for purchase during the next round. She
+    also sets the price, which is common for all products. Obviously a seller cannot offer more products than she owns.
+    Furthermore, if a buyer initiated a transaction during the previous round, the buyer must ship the product (reducing the
+    amount of owned products by one). The seller may choose to convert any amount of incoming direct trust that she obtained
+    through selling products into capital. The seller is not allowed to convert into capital any incoming direct trust that
+    did not stem from a successful exchange.
 
     A seller's utility is the total amount of incoming direct trust and capital at the end of the game that stems solely from
     successfully completed purchases.
