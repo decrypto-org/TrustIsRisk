@@ -56,7 +56,7 @@ Let $n = |\mathcal{V}|$, $A$ represented by 1 and $B$ by $n$. The constraints ar
 \begin{alignedat}{4}
   \forall j \in \left[n\right], && c'_{1j} &\leq c_{1j} &&\mbox{ ($n$ constraints)} \\
   \forall j \in \left[n\right], &\:& f'_{1j} - c'_{1j} &\leq 0 &&\mbox{ ($n$ constraints)} \\
-  \forall i \in \left[n\right] \setminus \left\{1\right\}, \forall j \in \left[n\right], && f_{ij} &\leq c_{ij}
+  \forall i \in \left[n\right] \setminus \left\{1\right\}, \forall j \in \left[n\right], && f'_{ij} &\leq c_{ij}
     &&\mbox{ ($n^2 - n$ constraints)} \\
   \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && \sum\limits_{j \in \left[n\right]}f'_{ij} &=
     \sum\limits_{j \in \left[n\right]}f'_{ji} &&\mbox{ ($n-2$ constraints)} \\

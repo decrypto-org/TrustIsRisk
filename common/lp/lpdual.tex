@@ -24,7 +24,7 @@ Note that $Y$ has one element for each constraint of the primal problem. The con
 \begin{equation}
 \label{lp:dual:constraints}
 \begin{alignedat}{4}
-  \forall j \in \left[n\right], && y_{c1j} - y_{fc1i} &\geq 0 &&\mbox{ ($n$ constraints)} \\
+  \forall j \in \left[n\right], && y_{c1j} - y_{fc1j} &\geq 0 &&\mbox{ ($n$ constraints)} \\
   && y_{fc11} + y_F &\geq 1 &&\mbox{ (1 constraint)} \\
   \forall j \in \left[n\right] \setminus \left\{1, n\right\}, &\:& y_{fc1j} - y_{fj} + y_F &\geq 1 &&
     \mbox{ ($n - 2$ constraints)} \\
