@@ -22,12 +22,12 @@
   distribution will be common knowledge to the players. All capitals and direct trusts are publicly viewable. Further
   constraints may be applied to each game separately.  Transaction fees are not considered.
   
-  The game consists of $R$ rounds (blocks in bitcoin terms), the number of which is common knowledge for the players. The
-  players play simultaneously in each round and can do any of the known actions. If two actions conflict (e.g. $A$ reduces
-  $DTr_{A \rightarrow B}$ and $B$ steals from $DTr_{A \rightarrow B}$ as well), then one of the two actions is chosen with
-  equal probability ($50\%$). To better model a player's actions and the aforementioned conflict resolution, we demand that
-  each fund reallocation explicitly mentions the source and the destination of the funds for each of her actions. Player $A$
-  decides on the values of all the following variables. This constitutes a concrete round for $A$.
+  The game consists of $R$ rounds, the number of which is common knowledge for the players. The players play simultaneously in
+  each round and can do any of the known actions. If two actions conflict (e.g. $A$ reduces $DTr_{A \rightarrow B}$ and $B$
+  steals from $DTr_{A \rightarrow B}$ as well), then one of the two actions is chosen with equal probability ($50\%$). To
+  better model a player's actions and the aforementioned conflict resolution, we demand that each fund reallocation explicitly
+  mentions the source and the destination of the funds for each of her actions. Player $A$ decides on the values of all the
+  following variables. This constitutes a concrete round for $A$.
   
   \begin{gather*}
     \forall B, C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \in \mathbb{R^+} \\
@@ -38,10 +38,7 @@
   the $Steal\left(\right)$ actions.
   
   To clarify a detail, for any $B \in \mathcal{V}$ (including $A$), $A$ is not allowed to set $move\left(A, \left(A, B\right),
-  \left(A, B\right) \right)$ to any value different than 0. This choice is made to facilitate the analysis and because in the
-  real-world setting this kind of behaviour has a totally different result, effectively dragging $B$ into an arms race for the
-  higher fee. In the real world case, the exact same reasoning goes for $move\left(A, \left(B, A\right), \left(B, A\right)
-  \right)$. In our case however, the latter move is already not permitted.
+  \left(A, B\right) \right)$ to any value different than 0. This choice is made to facilitate the analysis.
   
   There are some constraints for player's $A$ move:
   \begin{itemize}
