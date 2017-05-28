@@ -30,11 +30,12 @@
   decides on the values of all the following variables. This constitutes a concrete round for $A$.
   
   \begin{gather*}
-    \forall B, C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) = \: ? \\
-    \forall B, C \in \mathcal{V}, B \neq A, move\left(A, \left(B, A\right), \left(A, C\right) \right) = \: ?
+    \forall B, C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \in \mathbb{R^+} \\
+    \forall B, C \in \mathcal{V}, B \neq A, move\left(A, \left(B, A\right), \left(A, C\right) \right) \in \mathbb{R^+}
   \end{gather*}
   The first argument is the player who decides, the second argument is from which direct trust to take the funds and the third
-  is to which direct trust to deposit the funds.
+  is to which direct trust to deposit the funds. The first type of moves corresponds to $Add\left(\right)$ and the second to
+  the $Steal\left(\right)$ actions.
   
   To clarify a detail, for any $B \in \mathcal{V}$ (including $A$), $A$ is not allowed to set $move\left(A, \left(A, B\right),
   \left(A, B\right) \right)$ to any value different than 0. This choice is made to facilitate the analysis and because in the
@@ -84,8 +85,8 @@ resolveAllConflicts() :
     resolveConflict((*@$B$@*), (*@$A$@*))
   \end{lstlisting}
 
-  \noindent \texttt{resolveAllConflicts()} is executed after all players choose their moves for a round. Fig.~\ref{fig:game}
-  depicts the evolution of a two-player game.
+  \noindent \texttt{resolveAllConflicts()} is executed after all players choose their moves for a round. In case of an
+  adversary, the random choice is resolved in their favor. Fig.~\ref{fig:game} depicts the evolution of a two-player game.
 
   \begin{figure}[h]
   \label{fig:game}
