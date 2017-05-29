@@ -1,16 +1,110 @@
-\section{Trust Redistribution Algorithms} \label{riskinvalgs}
-  In order to make use of the Risk Invariance Theorem in \cite{trustisrisk}, we have to find an algorithm that, given a
-  network $\mathcal{G}$, a source $A \in \mathcal{V}$, a sink $B \in \mathcal{V}$ and a desired reduction $V$ to be applied
-  upon the indirect trust $Tr_{\mathcal{G}, A \rightarrow B}$, it will return a network $\mathcal{G}'$ with modified outgoing
-  direct trusts from $A$, such that $Tr_{\mathcal{G}', A \rightarrow B} = Tr_{\mathcal{G}, A \rightarrow B} - V$. We denote
-  the $n$ outgoing direct trusts from $A$ with $c_i$ for $\mathcal{G}$ and $c'_i$ for $\mathcal{G}', i \in \left[n\right]$. We
-  refer to the direct trusts as capacities because of the flow-related ambience. $C$ is the capacity configruation of
-  $\mathcal{G}$ and $C'$ that of $\mathcal{G}'$. Likewise $X$ and $X'$ represent possible maximum flow configurations for the
-  respective networks. Finally let $F = Tr_{\mathcal{G}, A \rightarrow B}$ and $F' = Tr_{\mathcal{G}', A \rightarrow B}$.
+\section{Risk Invariance Algorithms}
+  \subimport{may31deliverable/}{riskinvalgsintro.tex}
+  \subimport{common/definitions/}{trustreduction.tex}
 
-  There exist several different approaches for such an algorithm. Here we describe a linear program that achieves the desired
-  reduction in $Tr_{A \rightarrow B}$ and minimizes the norm $||\delta_i||_1 = \sum\limits_{i=1}^{n}\left(c_i-c'_i\right)$ as
-  well. Next we see the formulation of the problem in linear program form, along with a breakdown of each relevant matrix and
+  \subimport{common/theorems/}{saturationtheorem.tex}
+  \subimport{common/proofsketches/}{saturationproofsketch.tex}
+
+  \subimport{common/corollaries/}{trusttransfercorollary.tex}
+  \subimport{common/proofs/}{trusttransferproof.tex}
+
+  \subimport{thesis/definitions/}{restrictedflow.tex}
+
+  \subimport{thesis/lemmas/}{flowlimitlemma.tex}
+  \subimport{thesis/proofs/}{flowlimitproof.tex}
+
+  \subimport{thesis/theorems/}{trustsavingtheorem.tex}
+  \subimport{thesis/proofs/}{trustsavingproof.tex}
+
+  \subimport{common/theorems/}{invtrustrednaivetheorem.tex}
+  \subimport{common/proofs/}{invtrustrednaiveproof.tex}
+
+  Until now $MaxFlow$ has been viewed purely as an algorithm. This algorithm is not guaranteed to always return the same
+  flow when executed muliple times on the same graph. However, the corresponding flow value, $maxFlow$, is always the same.
+  Thus $maxFlow$ can be also viewed as a function from a matrix of capacities to a non-negative real number. Under this
+  perspective, we prove the following theorem. Let $\mathcal{C}$ be the family of all capacity matrices
+  $C = [c_{vw}]_{V\left(\mathcal{G}\right) \times V\left(\mathcal{G}\right)}$.
+  \subimport{common/theorems/}{maxflowcontinuitytheorem.tex}
+  \subimport{common/proofsketches/}{maxflowcontinuityproofsketch.tex}
+
+  Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
+  a trusted party. Let $F = \sum\limits_{i=1}^{n}x_i$. To prove the correctness of the algorithms, it suffices to prove that
+  \begin{equation}
+  \label{naive:req1}
+     \forall i \in [n], c'_i \leq x_i \mbox{ and}
+  \end{equation}
+  \begin{equation}
+  \label{naive:req2}
+     \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
+  \end{equation}
+  Proofs of correctness and complexity can be found in the Appendix.
+  \subimport{common/algorithms/}{fcfscode.tex}
+  This algorithm simply chooses to nullify all outgoing trust to one player after another in the order they are given at the
+  input, until the desired indirect trust is achieved. The complexity of this algorithm is $O\left(n\right)$.
+  \newpage
+  \subimport{common/algorithms/}{abscode.tex}
+
+  This algorithm finds a \texttt{reduction} value such that the configuration
+  $\forall i \in \left[n\right], c'_i = \max{\left(0, x_i - \mbox{\texttt{reduction}}\right)}$ achieves the desired flow.
+
+  The function \texttt{preprocess(}$x_i$\texttt{)} returns a data structure \texttt{X} containing the set of flows
+  $\left(x_i\right)$, such that the corresponding function \texttt{popMin(X)} is able to repeatedly return a tuple
+  consisiting of the index of the minimum element and a new data structure missing exactly the minimum element.
+  Examples of such pairs of functions are:
+  \begin{equation*}
+  \begin{gathered}
+    \begin{cases}
+      \texttt{preprocess = quickSort} \\
+      \texttt{popMin = (}x_1\texttt{, X}\setminus x_1\texttt{)}
+    \end{cases}
+    \mbox{ and} \\
+    \begin{cases}
+      \texttt{preprocess = FibonacciHeap} \\
+      \texttt{popMin = (find-min(X),delete-min(X))}
+    \end{cases} \enspace.
+  \end{gathered}
+  \end{equation*}
+  In the general case, the complexity of the algorithm \texttt{abs} is proven to be
+  $O\left(preprocess\right) + O\left(n\right)O\left(popMin\right)$. In both specific cases, the complexity is
+  $O\left(n\log{n}\right)$. This algorithm also minimizes the $||\Delta_i||_\infty$ norm for the specific set of old flows
+  $x_i$ given as input. A proof of this fact can be found in the Appendix.
+
+  \subimport{common/algorithms/}{propcode.tex}
+  We can see that this algorithm is simpler than the previous two. It simply reduces all outgoing direct trust proportionally
+  in such a way that the desired flow is agieved. The complexity of this algorithm is proven to be $O\left(n\right)$.
+
+  Naive algorithms result in $c'_i \leq x_i$, thus according to the Invariability Theorem (\ref{invariability}),
+  $||\delta_i||_1$ is invariable for any of the possible results $C'$ of these algorithms and the resulting norm is not
+  necessarily the minimum. The following algorithms concentrate on finding a configuration $C'$ that achieves $F' = F - V$
+  while minimizing two $\delta_i$ norms, $||\delta_i||_\infty$ and $||\delta_i||_1$. We start with the
+  $||\delta_i||_\infty$ minimizer.
+
+  \subimport{common/algorithms/}{dinfmincode.tex}
+  Since trust should be considered as a continuous unit and binary search bisects the interval containing the solution
+  on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
+  complete in a finite number of steps.
+  \subimport{common/algorithms/}{dinfbinsearchcode.tex}
+  Let $\delta \in \left[0, \max\limits_{1 \leq i \leq n}{\{c_i\}}\right]$. Furthermore, let $C'$ such that
+  $\forall i \in \left[n\right], c'_i = \max{\left(0, c_i - \delta\right)}$. We define $maxFlow\left(\delta\right) =
+  maxFlow\left(A, B, C'\right) = F'$ and $MaxFlow\left(\delta\right) = X'$. Conventions similar to $F$, $X$ and $C$ hold
+  for $F'$, $X'$ and $\delta$ as far as subscripts are concerned.
+  \subimport{common/lemmas/}{maxflowmonotonicitylemma.tex}
+  \subimport{common/proofsketches/}{maxflowmonotonicityproofsketch.tex}
+  From the previous lemma we deduce that, given a $V \in \left(0, F\right)$, if we determine a $\delta$ such that
+  $maxFlow\left(\delta\right) = F - V$, this $\delta$ is unique. Furthermore, it is
+  \begin{equation*}
+    ||\delta_i||_\infty = \max\limits_{1 \leq i \leq n}{\delta_i} = \max\limits_{1 \leq i \leq n}{\left(c_i - c'_i\right)} =
+    \max\limits_{1 \leq i \leq n}{\left(c_i - \max{\left(0, c_i - \delta\right)}\right)} = \delta \enspace.
+  \end{equation*}
+  It is proven that the two algorithms work as expected, that is an invocation of \texttt{dinfmin} with valid inputs returns
+  a capacity $C'$ that yields the desired $maxFlow$ and minimizes $||\delta_i||_\infty$. The complexity of \texttt{BinSearch}
+  is $O\left(\left(maxFlow + n\right)\log_2\left(\frac{top - bot}{\epsilon_1 + \epsilon_2}\right)\right)$ and the complexity
+  of \texttt{dinfmin} is
+  $O\left(\left(maxFlow + n\right)\log_2\left(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}\right)\right)$.
+
+  We will now concentrate on finding a capacity configuration $C'$ such that $F' = F - V$ and that minimizes
+  $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
+  problem. Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and
   vector.
   \subimport{common/lp/}{lpprimal.tex}
   We would like to find a solution that, except for maximizing the flow, also minimizes $||\delta_i||_1$ at the same time.
@@ -30,9 +124,9 @@
 
   We will now describe the dual problem in detail.
   \subimport{common/lp/}{lpdual.tex}
-  Everything is now in place to define the linear problem whose solution $C'$ yields the desired indirect trust and minimizes
-  $||\delta_i||_1$. The constraints are (\ref{lp:primal:constraints}) and (\ref{lp:dual:constraints}) supplemented with a
-  constraint that equates the two problems' optimality functions:
+  Everything is now in place to define the linear problem whose solution $C'$ yields $maxFlow\left(C'\right) = F - V$ and
+  minimizes $||\delta_i||_1$. The constraints are (\ref{lp:primal:constraints}) and (\ref{lp:dual:constraints}) supplemented
+  with a constraint that equates the two problems' optimality functions:
   \begin{equation*}
     \sum\limits_{j \in \left[n\right]}f'_{1j} = \sum\limits_{j \in \left[n\right]}c_{1j}y_{c1j} +
     \sum\limits_{i \in \left[n\right]}\sum\limits_{j \in \left[n\right]}c_{ij}y_{fcij} + \left(F - V\right)y_F \enspace.
