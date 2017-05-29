@@ -1,7 +1,14 @@
 In matrix form, the maximum flow problem can be seen as:
 \begin{equation*}
 \begin{gathered}
-  AX \leq B \\
+  \left[AX\right]_{1..\left(n^2 + n\right)} \leq \left[B\right]_{1..\left(n^2 + n\right)} \\
+  \left[AX\right]_{\left(n^2 + n + 1\right)..\left(n^2 + 2n - 1\right)} = \left[B\right]_{\left(n^2 + n +
+  1\right)..\left(n^2 + 2n - 1\right)} \\
+  AX
+  \begin{cases}
+    \leq B, \forall i \in \{1, ..., n^2 + n\} \\
+    = B, \forall i \in \{n^2 + n + 1, ..., n^2 + 2n - 1\}
+  \end{cases} \\
   \max{CX}
 \end{gathered}
 \end{equation*}
@@ -46,11 +53,11 @@ Where:
   C : 1 \times \left(n^2 + n\right)
 \end{equation*}
 
-$A$ is implied by the following constraints.
+The matrix $A$ is implied by the following constraints.
 \begin{equation*}
   A : \left(n^2 + 2n - 1\right) \times \left(n^2 + n\right)
 \end{equation*}
-Let $n = |\mathcal{V}|$, $A$ represented by 1 and $B$ by $n$. The constraints are:
+Let $n = |\mathcal{V}|$. Also, let the source correspond to 1 and the sink to $n$. The constraints are:
 \begin{equation}
 \label{lp:primal:constraints}
 \begin{alignedat}{4}
@@ -63,7 +70,8 @@ Let $n = |\mathcal{V}|$, $A$ represented by 1 and $B$ by $n$. The constraints ar
   && \sum\limits_{j \in \left[n\right]}f'_{1j} &= F - V &&\mbox{ (1 constraint)}
 \end{alignedat}
 \end{equation}
-The constraints are $n^2 + 2n - 1$ in total. The special constraints are:
+Note that the matrix $A$ is comprised only of 0's, 1's and -1's. The constraints are $n^2 + 2n - 1$ in total. The special
+constraints are:
 \begin{alignat*}{4}
   \forall j \in \left[n\right], &\:& c'_{1j} &\geq 0 \\
   \forall i, j \in \left[n\right], &\:& f'_{ij} &\geq 0
