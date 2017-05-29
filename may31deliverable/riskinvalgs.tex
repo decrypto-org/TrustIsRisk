@@ -1,51 +1,7 @@
 \section{Risk Invariance Algorithms}
   \subimport{may31deliverable/riskinvalgs/}{riskinvalgsintro.tex}
   \subimport{may31deliverable/riskinvalgs/}{preliminaries.tex}
-  Here we show three naive algorithms for calculating the new capacities that make use of the Trust Transfer
-  corollary~(\ref{trusttransfer}). To prove the correctness of the algorithms, it suffices to prove that
-  \begin{equation}
-  \label{naive:req1}
-     \forall i \in [n], c'_i \leq x_i \mbox{ and}
-  \end{equation}
-  \begin{equation}
-  \label{naive:req2}
-     \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
-  \end{equation}
-  Due to the nature of these algorithms, the only inputs necessary are the initial flows $x_i$, the number $n$ and the desired
-  flow reduction $V$. Proofs of correctness and complexity can be found in the Appendix.
-  \subimport{common/algorithms/}{fcfscode.tex}
-  This algorithm simply chooses to nullify all outgoing trust to one player after another in the order they are given at the
-  input, until the desired indirect trust is achieved. The complexity of this algorithm is $O\left(n\right)$.
-  \subimport{common/algorithms/}{abscode.tex}
-
-  This algorithm finds a \texttt{reduction} value such that the configuration
-  $\forall i \in \left[n\right], c'_i = \max{\left(0, x_i - \mbox{\texttt{reduction}}\right)}$ achieves the desired flow.
-
-  The function \texttt{preprocess(}$x_i$\texttt{)} returns a data structure \texttt{X} containing the set of flows
-  $\left(x_i\right)$, such that the corresponding function \texttt{popMin(X)} is able to repeatedly return a tuple
-  consisiting of the index of the minimum element and a new data structure missing exactly the minimum element.
-  Examples of such pairs of functions are:
-  \begin{equation*}
-  \begin{gathered}
-    \begin{cases}
-      \texttt{preprocess = quickSort} \\
-      \texttt{popMin = (}x_1\texttt{, X}\setminus x_1\texttt{)}
-    \end{cases}
-    \mbox{ and} \\
-    \begin{cases}
-      \texttt{preprocess = FibonacciHeap} \\
-      \texttt{popMin = (find-min(X),delete-min(X))}
-    \end{cases} \enspace.
-  \end{gathered}
-  \end{equation*}
-  In the general case, the complexity of the algorithm \texttt{abs} is proven to be
-  $O\left(preprocess\right) + O\left(n\right)O\left(popMin\right)$. In both specific cases, the complexity is
-  $O\left(n\log{n}\right)$. This algorithm also minimizes the $||\Delta_i||_\infty$ norm for the specific set of old flows
-  $x_i$ given as input. A proof of this fact can be found in the Appendix.
-
-  \subimport{common/algorithms/}{propcode.tex}
-  We can see that this algorithm is simpler than the previous two. It simply reduces all outgoing direct trust proportionally
-  in such a way that the desired flow is agieved. The complexity of this algorithm is proven to be $O\left(n\right)$.
+  \subimport{may31deliverable/riskinvalgs/}{naive.tex}
 
   Naive algorithms result in $c'_i \leq x_i$, thus according to the Invariability Theorem (\ref{invariability}),
   $||\delta_i||_1$ is invariable for any of the possible results $C'$ of these algorithms and the resulting norm is not
