@@ -1,12 +1,12 @@
 \section{Risk Invariance Algorithms}
   \subimport{thesis/}{riskinvalgsintro.tex}
-  \subimport{thesis/definitions/}{trustreduction.tex}
+  \subimport{common/definitions/}{trustreduction.tex}
 
-  \subimport{thesis/theorems/}{saturationtheorem.tex}
-  \subimport{thesis/proofsketches/}{saturationproofsketch.tex}
+  \subimport{common/theorems/}{saturationtheorem.tex}
+  \subimport{common/proofsketches/}{saturationproofsketch.tex}
 
-  \subimport{thesis/theorems/}{trusttransfertheorem.tex}
-  \subimport{thesis/proofs/}{trusttransferproof.tex}
+  \subimport{common/corollaries/}{trusttransfercorollary.tex}
+  \subimport{common/proofs/}{trusttransferproof.tex}
 
   \subimport{thesis/definitions/}{restrictedflow.tex}
 
@@ -16,16 +16,16 @@
   \subimport{thesis/theorems/}{trustsavingtheorem.tex}
   \subimport{thesis/proofs/}{trustsavingproof.tex}
 
-  \subimport{thesis/theorems/}{invtrustrednaivetheorem.tex}
-  \subimport{thesis/proofs/}{invtrustrednaiveproof.tex}
+  \subimport{common/theorems/}{invtrustrednaivetheorem.tex}
+  \subimport{common/proofs/}{invtrustrednaiveproof.tex}
 
   Until now $MaxFlow$ has been viewed purely as an algorithm. This algorithm is not guaranteed to always return the same
   flow when executed muliple times on the same graph. However, the corresponding flow value, $maxFlow$, is always the same.
   Thus $maxFlow$ can be also viewed as a function from a matrix of capacities to a non-negative real number. Under this
   perspective, we prove the following theorem. Let $\mathcal{C}$ be the family of all capacity matrices
   $C = [c_{vw}]_{V\left(\mathcal{G}\right) \times V\left(\mathcal{G}\right)}$.
-  \subimport{thesis/theorems/}{maxflowcontinuitytheorem.tex}
-  \subimport{thesis/proofsketches/}{maxflowcontinuityproofsketch.tex}
+  \subimport{common/theorems/}{maxflowcontinuitytheorem.tex}
+  \subimport{common/proofsketches/}{maxflowcontinuityproofsketch.tex}
 
   Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
   a trusted party. Let $F = \sum\limits_{i=1}^{n}x_i$. To prove the correctness of the algorithms, it suffices to prove that
@@ -88,8 +88,8 @@
   $\forall i \in \left[n\right], c'_i = \max{\left(0, c_i - \delta\right)}$. We define $maxFlow\left(\delta\right) =
   maxFlow\left(A, B, C'\right) = F'$ and $MaxFlow\left(\delta\right) = X'$. Conventions similar to $F$, $X$ and $C$ hold
   for $F'$, $X'$ and $\delta$ as far as subscripts are concerned.
-  \subimport{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
-  \subimport{thesis/proofsketched/}{maxflowmonotonicityproofsketch.tex}
+  \subimport{common/lemmas/}{maxflowmonotonicitylemma.tex}
+  \subimport{common/proofsketches/}{maxflowmonotonicityproofsketch.tex}
   From the previous lemma we deduce that, given a $V \in \left(0, F\right)$, if we determine a $\delta$ such that
   $maxFlow\left(\delta\right) = F - V$, this $\delta$ is unique. Furthermore, it is
   \begin{equation*}
