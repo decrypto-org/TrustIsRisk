@@ -38,11 +38,11 @@
      \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
   \end{equation}
   Proofs of correctness and complexity can be found in the Appendix.
-  \subimport{thesis/algorithms/}{fcfscode.tex}
+  \subimport{common/algorithms/}{fcfscode.tex}
   This algorithm simply chooses to nullify all outgoing trust to one player after another in the order they are given at the
   input, until the desired indirect trust is achieved. The complexity of this algorithm is $O\left(n\right)$.
   \newpage
-  \subimport{thesis/algorithms/}{abscode.tex}
+  \subimport{common/algorithms/}{abscode.tex}
 
   This algorithm finds a \texttt{reduction} value such that the configuration
   $\forall i \in \left[n\right], c'_i = \max{\left(0, x_i - \mbox{\texttt{reduction}}\right)}$ achieves the desired flow.
@@ -69,7 +69,7 @@
   $O\left(n\log{n}\right)$. This algorithm also minimizes the $||\Delta_i||_\infty$ norm for the specific set of old flows
   $x_i$ given as input. A proof of this fact can be found in the Appendix.
 
-  \subimport{thesis/algorithms/}{propcode.tex}
+  \subimport{common/algorithms/}{propcode.tex}
   We can see that this algorithm is simpler than the previous two. It simply reduces all outgoing direct trust proportionally
   in such a way that the desired flow is agieved. The complexity of this algorithm is proven to be $O\left(n\right)$.
 
@@ -79,11 +79,11 @@
   while minimizing two $\delta_i$ norms, $||\delta_i||_\infty$ and $||\delta_i||_1$. We start with the
   $||\delta_i||_\infty$ minimizer.
 
-  \subimport{thesis/algorithms/}{dinfmincode.tex}
+  \subimport{common/algorithms/}{dinfmincode.tex}
   Since trust should be considered as a continuous unit and binary search bisects the interval containing the solution
   on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
   complete in a finite number of steps.
-  \subimport{thesis/algorithms/}{dinfbinsearchcode.tex}
+  \subimport{common/algorithms/}{dinfbinsearchcode.tex}
   Let $\delta \in \left[0, \max\limits_{1 \leq i \leq n}{\{c_i\}}\right]$. Furthermore, let $C'$ such that
   $\forall i \in \left[n\right], c'_i = \max{\left(0, c_i - \delta\right)}$. We define $maxFlow\left(\delta\right) =
   maxFlow\left(A, B, C'\right) = F'$ and $MaxFlow\left(\delta\right) = X'$. Conventions similar to $F$, $X$ and $C$ hold
