@@ -2,35 +2,7 @@
   \subimport{may31deliverable/riskinvalgs/}{riskinvalgsintro.tex}
   \subimport{may31deliverable/riskinvalgs/}{preliminaries.tex}
   \subimport{may31deliverable/riskinvalgs/}{naive.tex}
-
-  Naive algorithms result in $c'_i \leq x_i$, thus according to the Invariability Theorem (\ref{invariability}),
-  $||\delta_i||_1$ is invariable for any of the possible results $C'$ of these algorithms and the resulting norm is not
-  necessarily the minimum. The following algorithms concentrate on finding a configuration $C'$ that achieves $F' = F - V$
-  while minimizing two $\delta_i$ norms, $||\delta_i||_\infty$ and $||\delta_i||_1$. We start with the
-  $||\delta_i||_\infty$ minimizer.
-
-  \subimport{common/algorithms/}{dinfmincode.tex}
-  Since trust should be considered as a continuous unit and binary search bisects the interval containing the solution
-  on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
-  complete in a finite number of steps.
-  \subimport{common/algorithms/}{dinfbinsearchcode.tex}
-  Let $\delta \in \left[0, \max\limits_{1 \leq i \leq n}{\{c_i\}}\right]$. Furthermore, let $C'$ such that
-  $\forall i \in \left[n\right], c'_i = \max{\left(0, c_i - \delta\right)}$. We define $maxFlow\left(\delta\right) =
-  maxFlow\left(A, B, C'\right) = F'$ and $MaxFlow\left(\delta\right) = X'$. Conventions similar to $F$, $X$ and $C$ hold
-  for $F'$, $X'$ and $\delta$ as far as subscripts are concerned.
-  \subimport{common/lemmas/}{maxflowmonotonicitylemma.tex}
-  \subimport{common/proofsketches/}{maxflowmonotonicityproofsketch.tex}
-  From the previous lemma we deduce that, given a $V \in \left(0, F\right)$, if we determine a $\delta$ such that
-  $maxFlow\left(\delta\right) = F - V$, this $\delta$ is unique. Furthermore, it is
-  \begin{equation*}
-    ||\delta_i||_\infty = \max\limits_{1 \leq i \leq n}{\delta_i} = \max\limits_{1 \leq i \leq n}{\left(c_i - c'_i\right)} =
-    \max\limits_{1 \leq i \leq n}{\left(c_i - \max{\left(0, c_i - \delta\right)}\right)} = \delta \enspace.
-  \end{equation*}
-  It is proven that the two algorithms work as expected, that is an invocation of \texttt{dinfmin} with valid inputs returns
-  a capacity $C'$ that yields the desired $maxFlow$ and minimizes $||\delta_i||_\infty$. The complexity of \texttt{BinSearch}
-  is $O\left(\left(maxFlow + n\right)\log_2\left(\frac{top - bot}{\epsilon_1 + \epsilon_2}\right)\right)$ and the complexity
-  of \texttt{dinfmin} is
-  $O\left(\left(maxFlow + n\right)\log_2\left(\frac{\delta_{max}}{\epsilon_1 + \epsilon_2}\right)\right)$.
+  \subimport{may31deliverable/riskinvalgs/}{dinfminimizer.tex}
 
   We will now concentrate on finding a capacity configuration $C'$ such that $F' = F - V$ and that minimizes
   $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
