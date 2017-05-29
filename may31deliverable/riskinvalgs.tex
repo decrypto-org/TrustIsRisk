@@ -11,11 +11,11 @@
   \label{naive:req2}
      \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
   \end{equation}
-  Proofs of correctness and complexity can be found in the Appendix.
+  Due to the nature of these algorithms, the only inputs necessary are the initial flows $x_i$, the number $n$ and the desired
+  flow reduction $V$. Proofs of correctness and complexity can be found in the Appendix.
   \subimport{common/algorithms/}{fcfscode.tex}
   This algorithm simply chooses to nullify all outgoing trust to one player after another in the order they are given at the
   input, until the desired indirect trust is achieved. The complexity of this algorithm is $O\left(n\right)$.
-  \newpage
   \subimport{common/algorithms/}{abscode.tex}
 
   This algorithm finds a \texttt{reduction} value such that the configuration
