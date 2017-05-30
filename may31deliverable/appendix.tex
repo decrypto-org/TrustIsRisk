@@ -1,0 +1,41 @@
+\section*{Appendix}
+  Let source $A \in \mathcal{V}$, sink $B \in \mathcal{V}$, capacity configuration $C$ and a candidate flow $X$. For $X$ to be
+  valid with respect to $C$ the following two conditions must hold:
+  \begin{align}
+  \label{flow1}
+    \forall (v, w) \in \mathcal{E}&, x_{vw} \leq c_{vw} \\
+  \label{flow2}
+    \forall v \in \mathcal{V} \setminus \{A,B\}&, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
+  \end{align}
+  
+  \subimport{common/sepproofs/}{saturationsepproof.tex}
+
+  \subimport{common/sepproofs/}{maxflowcontinuitysepproof.tex}
+
+  \subimport{common/sepproofs/}{fcfscorrectness.tex}
+
+  \subimport{common/sepproofs/}{fcfscomplexity.tex}
+
+  \subimport{common/sepproofs/}{abscorrectness.tex}
+
+  \subimport{common/sepproofs/}{abscomplexity.tex}
+
+  \subimport{common/sepproofs/}{absDinfnormminproof.tex}
+
+  \subimport{common/sepproofs/}{propcorrectness.tex}
+
+  \subimport{common/sepproofs/}{propcomplexity.tex}
+
+  \subimport{common/sepproofs/}{maxflowmonotonicitysepproof.tex}
+
+  We will now prove that \texttt{BinSearch} returns the desired $\delta^*$ when we provide it with an appropriate interval as
+  input.
+
+  \ \\
+  \subimport{common/sepproofs/}{dinfbinsearchcorrectness.tex}
+
+  \subimport{common/sepproofs/}{dinfbinsearchcomplexity.tex}
+
+  \subimport{common/sepproofs/}{dinfmincorrectness.tex}
+
+  \subimport{common/sepproofs/}{dinfmincomplexity.tex}
