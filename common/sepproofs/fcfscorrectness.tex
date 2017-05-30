@@ -17,7 +17,7 @@
   \texttt{while} loop (line~\ref{fcfs:loop}) breaks after calculating $F_{cur,i}$. Else
   \begin{equation*}
     F_{cur,i+1} = F_{cur,i} - \min{\left(x_{i+1}, F_{cur,i} - F + V\right)} \enspace.
-    \mbox{ (lines~\ref{fcfs:setreduce}-~\ref{fcfs:setfcur})}
+    \mbox{ (lines~\ref{fcfs:setreduce} -~\ref{fcfs:setfcur})}
   \end{equation*}
   If $\nexists i \in [n]: \min{\left(x_i, F_{cur, i-1} - \left(F - V\right)\right)} = F_{cur,i-1} - \left(F - V\right)$,
   then $\forall i \in [n], \min{\left(x_i, F_{cur, i} - \left(F - V\right)\right)} = x_i$, thus from line~\ref{fcfs:setcap}
