@@ -83,8 +83,8 @@ resolveAllConflicts() :
   \end{lstlisting}
 
   \noindent \texttt{resolveAllConflicts()} is executed after all players choose their moves for a round. In case of an
-  adversary, the random choice is resolved in their favor. Fig.~\ref{fig:game} depicts the evolution of a two-player game.
-
+  adversary, the random choice is resolved in their favor.
+  
   \begin{figure}[p]
   \label{fig:game}
     \centering
@@ -92,4 +92,19 @@ resolveAllConflicts() :
     \caption{The general form of the game \cite{sgtm}}
   \end{figure}
   
-  \noindent We now move on to describe the individual games.
+  Fig.~\ref{fig:game} depicts the evolution of a two-player game. The players' choices for the first round are represented by
+  the solitary table at the top of the figure. More concretely, each distinct choice that player $A$ can make is depicted as a
+  row and likewise $B$'s choices are represented by columns. At each intersection of choices lies a subgame. The lines
+  departing from these intersections lead to the conflict resolution stage, which is decided by Nature. Depending on the
+  result of the conflict resolution, a new round begins where players can choose a new course of action. All the possible
+  states that players can be found in at the beginning of round 2 are depicted by the series of tables at the 2nd level. The
+  game evolves in a similar fashion with alternation between players' choices and Nature's conflict resolution, until players
+  can make their $R$-th choice. The keen observer can note that, instead of new departing lines, each cell of the tables of
+  the last round ($R$) contains a pair of numbers which represent the players' utilities for that outcome.
+  
+  Note that a concrete player's strategy consists of all the choices that she would make in every possible state that she can
+  find herself in. Thus, even though only $R$ choices will be made by each player, a strategy is comprised of exponentially
+  many choices. Furthermore, if we had to consider a three-player game, we would have to replace all tables with 3-dimensional
+  cubes and so on for more players.
+
+  We now move on to describe the individual games.
