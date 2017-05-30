@@ -1,18 +1,13 @@
-\subsection{Proofs, Lemmas and Theorems}
-  \subimport{common/lemmas/}{losseqdamagelemma.tex}
-  \subimport{common/proofs/}{losseqdamageproof.tex}
-
-  \subimport{common/sepproofs/}{convergencesepproof.tex}
-
-  \subimport{common/sepproofs/}{flowgamesepproof.tex}
-
-  \subimport{common/sepproofs/}{gameflowsepproof.tex}
-
-  \subimport{common/theorems/}{consworldtheorem.tex}
-  \subimport{common/proofs/}{consworldproof.tex}
-
-  \subimport{common/sepproofs/}{sybilressepproof.tex}
-
+\section*{Appendix}
+  Let source $A \in \mathcal{V}$, sink $B \in \mathcal{V}$, capacity configuration $C$ and a candidate flow $X$. For $X$ to be
+  valid with respect to $C$ the following two conditions must hold:
+  \begin{align}
+  \label{flow1}
+    \forall (v, w) \in \mathcal{E}&, x_{vw} \leq c_{vw} \\
+  \label{flow2}
+    \forall v \in \mathcal{V} \setminus \{A,B\}&, \sum\limits_{w \in N^{+}(v)}x_{wv} = \sum\limits_{w \in N^{-}(v)}x_{vw}
+  \end{align}
+  
   \subimport{common/sepproofs/}{saturationsepproof.tex}
 
   \subimport{common/sepproofs/}{maxflowcontinuitysepproof.tex}
@@ -37,7 +32,6 @@
   input.
 
   \ \\
-
   \subimport{common/sepproofs/}{dinfbinsearchcorrectness.tex}
 
   \subimport{common/sepproofs/}{dinfbinsearchcomplexity.tex}

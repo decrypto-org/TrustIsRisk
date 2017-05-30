@@ -1,4 +1,4 @@
-all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf
+all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf may31deliverable.pdf
 
 #.ONESHELL:
 fc17.pdf: fc17/* common/* splncs.bst
@@ -32,6 +32,12 @@ thesisgr.pdf: thesisgr/* common/* splncs.bst
 	pdflatex thesisgr.tex; \
 	pdflatex thesisgr.tex; \
 	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot thesisgr.bbl thesisgr.blg
+
+may31deliverable.pdf: may31deliverable/* common/* may31deliverable/gametheory/* may31deliverable/networkhealth/*
+	export TEXINPUTS=.:./may31deliverable//:./common//:; \
+	pdflatex may31deliverable.tex; \
+	pdflatex may31deliverable.tex; \
+	rm -rf may31deliverable.aux may31deliverable.log may31deliverable.out may31deliverable.toc may31deliverable.lof may31deliverable.lot
 
 clean:
 	rm -rf *.aux *.log *.out *.toc *.lof *.lot *.bbl *.blg *.pdf

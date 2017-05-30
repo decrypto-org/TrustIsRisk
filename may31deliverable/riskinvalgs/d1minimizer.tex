@@ -1,0 +1,39 @@
+\subsection{$||\delta_i||_1$ minimizer} \label{d1minimizer}
+  We will now concentrate on finding a capacity configuration $C'$ such that $F' = F - V$ and that minimizes
+  $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
+  problem. Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and
+  vector.
+
+  \subimport{common/lp/}{lpprimal.tex}
+
+  We would like to find a solution that, except for maximizing the flow, also minimizes $||\delta_i||_1$ at the same time.
+  More precisely, we would like to optimize
+  \begin{equation*}
+    \min{\sum\limits_{v \in \mathcal{V}}\left(c_{Av} - c'_{Av}\right)}
+  \end{equation*}
+  as well. Since we wish to optimize with regards to two objective functions, we approach the problem as follows: Initially,
+  we ignore the minimization and derive the dual of the previous problem with respect to the maximisation. We then substitute
+  the two problems' optimisations with an additional constraint that equates the two objective functions. Due to the Strong
+  Duality theorem of linear programming \cite{amo}, this equality can be achieved only by the common optimal solution of the
+  two problems. Next we treat the combination of constraints and variables of the primal and the dual problem, along with the
+  newly introduced constraint and the previously ignored $||\delta_i||_1$ minimisation as a new linear problem. For every $j
+  \in \left[n\right]$, the solution to this problem contains a $c'_{1j}$. These capacities will comprise the new configuration
+  that player $A$ requires.
+
+  We will now describe the dual problem in detail.
+  \subimport{common/lp/}{lpdual.tex}
+  Everything is now in place to define the linear problem whose solution $C'$ yields $maxFlow\left(C'\right) = F - V$ and
+  minimizes $||\delta_i||_1$. The constraints are (\ref{lp:primal:constraints}) and (\ref{lp:dual:constraints}) supplemented
+  with a constraint that equates the two problems' optimality functions:
+  \begin{equation*}
+    \sum\limits_{j \in \left[n\right]}f'_{1j} = \sum\limits_{j \in \left[n\right]}c_{1j}y_{c1j} +
+    \sum\limits_{i \in \left[n\right]}\sum\limits_{j \in \left[n\right]}c_{ij}y_{fcij} + \left(F - V\right)y_F \enspace.
+  \end{equation*}
+  The desired optimisation is
+  \begin{equation*}
+    \min{\sum\limits_{j \in \left[n\right]}\left(c_{1j} - c'_{1j}\right)} \enspace.
+  \end{equation*}
+  The final linear program consists of $2n^2 + 2n - 1$ variables and $2n^2 + 2n$ constraints. There exist a variety of
+  algorithms that solve linear programs, such as simplex and ellipsoid algorithm. The ellipsoid algorithm requires polynomial
+  time in the worst-case scenario, but for practical purposes algorithms of the simplex category seem to exhibit better
+  behavior \cite{it}.

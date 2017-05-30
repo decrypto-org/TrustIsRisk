@@ -1,0 +1,17 @@
+\phantomsection
+\addcontentsline{lot}{section}{Saturated Flow Creation}
+\Suppressnumber
+\begin{lstlisting}[label=saturationcode, style=numbers]
+Saturated Flow Creation
+Input : flow (*@$X$@*), capacity (*@$C'$@*), source (*@$A$@*), sink (*@$B$@*), length n
+Output : (*@$Y$ \Reactivatenumber@*)
+saturate((*@$X$@*), (*@$C'$@*), (*@$A$@*), (*@$B$@*)) :
+  (*@$Y$@*) = (*@$X$ \label{saturation:copyx}@*)
+  for (i = 1 to n) (*@\label{saturation:externalloop}@*)
+    while ((*@$y_i$@*) > (*@$c'_i$@*)) (*@\label{saturation:loop}@*)
+      (path, pathFlow) = findPath((*@$Y$@*), (*@$v_i$@*), (*@$B$@*)) (*@\label{saturation:findpath}@*)
+      reduction = min(pathFlow, (*@$y_i$@*) - (*@$c'_i$@*)) (*@\label{saturation:reduction}@*)
+      for ((*@$e$@*) in path) (*@\label{saturation:reducepathfor}@*)
+        (*@$y_e$@*) = (*@$y_e$@*) - reduction (*@\label{saturation:reducepath}@*)
+      (*@$y_i$@*) = (*@$y_i$@*) - reduction (*@\label{saturation:reducehead}@*)
+\end{lstlisting}

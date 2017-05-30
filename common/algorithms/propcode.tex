@@ -1,0 +1,15 @@
+\phantomsection
+\addcontentsline{lot}{section}{Proportional Equality Trust Transfer}
+\Suppressnumber
+\begin{lstlisting}[label=prop, style=numbers]
+Proportional Equality Trust Transfer
+Input : old flows (*@$x_i$@*), value V, length n
+Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
+prop((*@$\left(x_i\right)$@*), V) :
+  F = (*@$\sum\limits_{i=1}^nx_i$ \label{prop:finit}@*)
+  if (F < V) (*@\label{prop:ifinputvalid}@*)
+    return((*@$\bot$@*)) (*@\label{prop:inputinvalid}@*)
+  for (i = 1 to n) (*@\label{prop:loop}@*)
+    (*@$c'_i$@*) = (*@$x_i$@*) - (*@$\frac{\mbox{V}}{\mbox{F}}$@*)*(*@$x_i$ \label{prop:setcap}@*)
+  return((*@$\bigcup\limits_{i=1}^n\{c'_i\}$@*)) (*@\label{prop:return}@*)
+\end{lstlisting}

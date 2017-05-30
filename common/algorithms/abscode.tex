@@ -1,0 +1,31 @@
+\phantomsection
+\addcontentsline{lot}{section}{Absolute Equality Trust Transfer}
+\Suppressnumber
+\begin{lstlisting}[label=abs, style=numbers]
+Absolute Equality Trust Transfer ( (*@$||\Delta_i||_{\infty}$@*) minimizer)
+Input : old flows (*@$x_i$@*), value V, length n
+Output : new capacities (*@$c'_i$ \Reactivatenumber@*)
+abs((*@$\left(x_i\right)$@*), V) :
+  F(*@$_{cur}$@*) = F = (*@$\sum\limits_{i=1}^nx_i$ \label{abs:finit}@*)
+  if (F < V) (*@\label{abs:ifinputvalid}@*)
+    return((*@$\bot$@*)) (*@\label{abs:inputinvalid}@*)
+  X = preprocess((*@$x_i$@*)) (*@\label{abs:preprocess}@*)
+  empty = 0 (*@\label{abs:emptyinit}@*)
+  reduction = 0 (*@\label{abs:reductioninit}@*)
+  while (F(*@$_{cur}$@*) > F - V) (*@\label{abs:loop}@*)
+    ((*@$i$@*), X) = popMin(X) (*@\label{abs:popmin}@*)
+    F(*@$_{prov}$@*) = F(*@$_{cur}$@*) - (n - empty)*((*@$x_i$@*) - reduction) (*@\label{abs:setfprov}@*)
+    if (F(*@$_{prov}$@*) > F - V) (*@\label{abs:iffprovbig}@*)
+      reduction = (*@$x_i$ \label{abs:setreduction}@*)
+      empty += 1 (*@\label{abs:setempty}@*)
+      F(*@$_{cur}$@*) = F(*@$_{prov}$ \label{abs:setfcur}@*)
+    else (*@\label{abs:elsefprovsmall}@*)
+      aux = reduction (*@\label{abs:saveprevreduction}@*)
+      reduction += (*@$\frac{\mbox{F}_{cur}\mbox{ - (F - V)}}{\mbox{n - empty}}$ \label{abs:setlastreduction}@*)
+      F(*@$_{cur}$@*) -= (n - empty)*(reduction - aux) (*@\label{abs:setlastfcur}@*)
+      #lines(*@~\ref{abs:saveprevreduction}@*) &(*@~\ref{abs:setlastfcur}@*) can be replaced by break. In this
+      #case, the loop (line(*@~\ref{abs:loop}@*)) can become while (TRUE).
+  for ((*@$i$@*) = 1 to n) (*@\label{abs:forsetcap}@*)
+    (*@$c'_i$@*) = max(0, (*@$x_i$@*) - reduction) (*@\label{abs:setcap}@*)
+  return((*@$\bigcup\limits_{i=1}^n\{c'_i\}$@*)) (*@\label{abs:return}@*)
+\end{lstlisting}
