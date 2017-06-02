@@ -1,0 +1,17 @@
+graph G {
+  bgcolor=transparent
+  fontcolor=white
+  node [color=white,fontcolor=white]
+  edge [color=white,fontcolor=white]
+  rankdir=LR
+  labelloc="b"
+  label="Centrality:\ 0\n Connectedness:\ 0"
+  {A B C rank=min}
+  A -- H [style=invisible]
+  B -- H [style=invisible]
+  C -- H [style=invisible]
+  H -- D [style=invisible]
+  H -- E [style=invisible]
+  H -- F [style=invisible]
+  {D E F rank=max}
+}
