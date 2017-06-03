@@ -1,17 +1,18 @@
 digraph G {
-  bgcolor="transparent"
-  fontcolor=white
+  bgcolor=transparent;
+  fontcolor=white;
   node [color=white,fontcolor=white]
   edge [color=white,fontcolor=white]
-  rankdir=LR
-  labelloc="b"
-  label="Centrality:\ 1\n Connectedness:\ large"
-  {A B C rank=min}
-  A -> H [dir=both,label="10"]
-  B -> H [dir=both,label="10"]
-  C -> H [dir=both,label="10"]
-  D -> H [dir=both,label="10"]
-  E -> H [dir=both,label="10"]
-  F -> H [dir=both,label="10"]
-  {D E F rank=max}
+  rankdir=LR;
+  compound=true;
+  labelloc = "b";
+  label = "good balance";
+  A -> C [label="5"];
+  A -> D [label="6"];
+  C -> B [label="3"];
+  C -> E [label="10"];
+  D -> B [label="1"];
+  D -> C [label="4"];
+  E -> A [label="3"];
+  {D C rank=same;}
 }
