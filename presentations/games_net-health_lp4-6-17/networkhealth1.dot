@@ -1,8 +1,9 @@
 digraph G {
   bgcolor=transparent
   fontcolor=white
-  node [color=white,fontcolor=white]
-  edge [color=white,fontcolor=white]
+  fontname="montserrat"
+  node [fontname="montserrat",color=white,fontcolor=white]
+  edge [fontname="montserrat",color=white,fontcolor=white]
   rankdir=LR
   labelloc="b"
   label="Centrality:\ 1\n Connectedness:\ large"
