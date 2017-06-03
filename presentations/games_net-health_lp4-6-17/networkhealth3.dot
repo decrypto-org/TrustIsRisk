@@ -1,17 +1,17 @@
 digraph G {
-  bgcolor="transparent"
+  bgcolor=transparent
   fontcolor=white
   node [color=white,fontcolor=white]
   edge [color=white,fontcolor=white]
   rankdir=LR
   labelloc="b"
-  label="Centrality:\ 1\n Connectedness:\ large"
-  {A B C rank=min}
-  A -> H [dir=both,label="10"]
-  B -> H [dir=both,label="10"]
-  C -> H [dir=both,label="10"]
-  D -> H [dir=both,label="10"]
-  E -> H [dir=both,label="10"]
-  F -> H [dir=both,label="10"]
-  {D E F rank=max}
+  label="Centrality:\ 0\n Connectedness:\ large"
+  {A B rank=same}
+  A -> B [dir=both,label="10"]
+  A -> C [dir=both,label="10"]
+  A -> D [dir=both,label="10"]
+  B -> C [dir=both,label="10"]
+  B -> D [dir=both,label="10"]
+  C -> D [dir=both,label="10"]
+  {C D rank=same}
 }
