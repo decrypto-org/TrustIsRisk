@@ -1,9 +1,9 @@
 digraph G {
   bgcolor=transparent;
   fontcolor=white;
-  fontname="montserrat"
-  node [fontname="montserrat",color=white,fontcolor=white]
-  edge [fontname="montserrat",color=white,fontcolor=white]
+  fontname="Ubuntu"
+  node [fontname="Ubuntu",color=white,fontcolor=white]
+  edge [fontname="Ubuntu",color=white,fontcolor=white]
   rankdir=LR;
   compound=true;
   labelloc = "b";
