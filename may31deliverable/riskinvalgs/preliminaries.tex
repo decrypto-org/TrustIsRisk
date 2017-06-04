@@ -1,0 +1,21 @@
+\subsection{Preliminaries}
+  We now move on to some preliminary definitions and results.
+  \subimport{common/definitions/}{trustreduction.tex}
+
+  \subimport{common/theorems/}{saturationtheorem.tex}
+  \subimport{common/proofsketches/}{saturationproofsketch.tex}
+
+  \subimport{common/corollaries/}{trusttransfercorollary.tex}
+  \subimport{common/proofs/}{trusttransferproof.tex}
+
+  \subimport{common/theorems/}{invtrustrednaivetheorem.tex}
+  \subimport{common/proofs/}{invtrustrednaiveproof.tex}
+
+  Until now $MaxFlow$ has been viewed purely as an algorithm. This algorithm is not guaranteed to always return the same
+  flow configuration when executed muliple times on the same graph. However, the corresponding flow value, $maxFlow$, is
+  always the same. Thus $maxFlow$ can be also viewed as a function from a matrix of capacities to a non-negative real number.
+  Under this perspective, we prove the following theorem. Let $\mathcal{C}$ be the family of all capacity matrices
+  $C = [c_{vw}]_{\mathcal{V} \times \mathcal{V}}$.
+  \subimport{common/theorems/}{maxflowcontinuitytheorem.tex}
+  \subimport{common/proofsketches/}{maxflowcontinuityproofsketch.tex}
+

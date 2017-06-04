@@ -1,0 +1,55 @@
+In matrix form, the dual problem can be seen as:
+\begin{equation*}
+\begin{gathered}
+  A^\intercal Y \geq C^\intercal \\
+  \min{B^\intercal Y}
+\end{gathered}
+\end{equation*}
+Where $A^\intercal, B^\intercal$ and $C^\intercal$ are known and
+\begin{align*}
+  Y = &[\underbrace{y_{c11} \dots y_{c1j} \dots y_{c1n}}_{n} \\
+    &\begin{rcases}
+      \underbrace{y_{fc11} \dots y_{fc1j} \dots y_{fc1n}}_{n} \\
+      \vdots \\
+      y_{fci1} \dots y_{fcij} \dots y_{fcin} \\
+      \vdots \\
+      y_{fcn1} \dots y_{fcnj} \dots y_{fcnn}
+    \end{rcases} n \\
+    &\underbrace{y_{f2} \dots y_{fi} \dots y_{f\left(n-1\right)}}_{n-2} y_F ]^\intercal
+\end{align*}
+\begin{equation*}
+  Y : \left(n^2 + 2n - 1\right) \times 1
+\end{equation*}
+Note that $Y$ has one element for each constraint of the primal problem. The constraints of the dual problem are:
+\begin{equation}
+\label{lp:dual:constraints}
+\begin{alignedat}{4}
+  \forall j \in \left[n\right], && y_{c1j} - y_{fc1j} &\geq 0 &&\mbox{ ($n$ constraints)} \\
+  && y_{fc11} + y_F &\geq 1 &&\mbox{ (1 constraint)} \\
+  \forall j \in \left[n\right] \setminus \left\{1, n\right\}, &\:& y_{fc1j} - y_{fj} + y_F &\geq 1 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  && y_{fc1n} + y_F &\geq 1 &&\mbox{ (1 constraint)} \\
+  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fci1} + y_{fi} &\geq 0 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  \forall i, j \in \left[n\right] \setminus \left\{1, n\right\}, &\:& y_{fcij} + y_{fi} - y_{fj} &\geq 0 &&
+    \mbox{ ($n^2 - 4n + 4$ constraints)} \\
+  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fcin} + y_{fi} &\geq 0 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  && y_{fcn1} &\geq 0 &&\mbox{ (1 constraint)} \\
+  \forall j \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fcnj} - y_{fj} &\geq 0 &&
+    \mbox{ ($n - 2$ constraints)} \\
+  && y_{fcnn} &\geq 0 &&\mbox{ (1 constraint)} \\
+\end{alignedat}
+\end{equation}
+The constraints are $n^2 + n$ in total. The special constraints are:
+\begin{alignat*}{4}
+  \forall j \in \left[n\right], && y_{c1j} &\geq 0 \\
+  \forall i, j \in \left[n\right], &\:& y_{fcij} &\geq 0 \\
+  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && y_{fi} &\in \mathbb{R} \\
+  && y_F &\in \mathbb{R}
+\end{alignat*}
+The desired optimization is
+\begin{equation*}
+  \min{\left\{\sum\limits_{j \in \left[n\right]}c_{1j}y_{c1j} + \sum\limits_{i \in \left[n\right]}\sum\limits_{j \in
+       \left[n\right]}c_{ij}y_{fcij} + \left(F - V\right)y_F\right\}} \enspace.
+\end{equation*}

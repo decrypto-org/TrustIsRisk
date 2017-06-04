@@ -1,12 +1,12 @@
 \section{Risk Invariance Algorithms}
   \subimport{thesis/}{riskinvalgsintro.tex}
-  \subimport{thesis/definitions/}{trustreduction.tex}
+  \subimport{common/definitions/}{trustreduction.tex}
 
-  \subimport{thesis/theorems/}{saturationtheorem.tex}
-  \subimport{thesis/proofs/}{saturationproof.tex}
+  \subimport{common/theorems/}{saturationtheorem.tex}
+  \subimport{common/proofsketches/}{saturationproofsketch.tex}
 
-  \subimport{thesis/theorems/}{trusttransfertheorem.tex}
-  \subimport{thesis/proofs/}{trusttransferproof.tex}
+  \subimport{common/corollaries/}{trusttransfercorollary.tex}
+  \subimport{common/proofs/}{trusttransferproof.tex}
 
   \subimport{thesis/definitions/}{restrictedflow.tex}
 
@@ -16,16 +16,16 @@
   \subimport{thesis/theorems/}{trustsavingtheorem.tex}
   \subimport{thesis/proofs/}{trustsavingproof.tex}
 
-  \subimport{thesis/theorems/}{invtrustrednaivetheorem.tex}
-  \subimport{thesis/proofs/}{invtrustrednaiveproof.tex}
+  \subimport{common/theorems/}{invtrustrednaivetheorem.tex}
+  \subimport{common/proofs/}{invtrustrednaiveproof.tex}
 
   Until now $MaxFlow$ has been viewed purely as an algorithm. This algorithm is not guaranteed to always return the same
   flow when executed muliple times on the same graph. However, the corresponding flow value, $maxFlow$, is always the same.
   Thus $maxFlow$ can be also viewed as a function from a matrix of capacities to a non-negative real number. Under this
   perspective, we prove the following theorem. Let $\mathcal{C}$ be the family of all capacity matrices
   $C = [c_{vw}]_{V\left(\mathcal{G}\right) \times V\left(\mathcal{G}\right)}$.
-  \subimport{thesis/theorems/}{maxflowcontinuitytheorem.tex}
-  \subimport{thesis/proofsketches/}{maxflowcontinuityproofsketch.tex}
+  \subimport{common/theorems/}{maxflowcontinuitytheorem.tex}
+  \subimport{common/proofsketches/}{maxflowcontinuityproofsketch.tex}
 
   Here we show three naive algorithms for calculating new direct trusts so as to maintain invariable risk when paying
   a trusted party. Let $F = \sum\limits_{i=1}^{n}x_i$. To prove the correctness of the algorithms, it suffices to prove that
@@ -38,11 +38,11 @@
      \sum\limits_{i=1}^{n}c'_i = F - V \enspace.
   \end{equation}
   Proofs of correctness and complexity can be found in the Appendix.
-  \subimport{thesis/algorithms/}{fcfscode.tex}
+  \subimport{common/algorithms/}{fcfscode.tex}
   This algorithm simply chooses to nullify all outgoing trust to one player after another in the order they are given at the
   input, until the desired indirect trust is achieved. The complexity of this algorithm is $O\left(n\right)$.
   \newpage
-  \subimport{thesis/algorithms/}{abscode.tex}
+  \subimport{common/algorithms/}{abscode.tex}
 
   This algorithm finds a \texttt{reduction} value such that the configuration
   $\forall i \in \left[n\right], c'_i = \max{\left(0, x_i - \mbox{\texttt{reduction}}\right)}$ achieves the desired flow.
@@ -69,9 +69,9 @@
   $O\left(n\log{n}\right)$. This algorithm also minimizes the $||\Delta_i||_\infty$ norm for the specific set of old flows
   $x_i$ given as input. A proof of this fact can be found in the Appendix.
 
-  \subimport{thesis/algorithms/}{propcode.tex}
+  \subimport{common/algorithms/}{propcode.tex}
   We can see that this algorithm is simpler than the previous two. It simply reduces all outgoing direct trust proportionally
-  in such a way that the desired flow is agieved. The complexity of this algorithm is proven to be $O\left(n\right)$.
+  in such a way that the desired flow is achieved. The complexity of this algorithm is proven to be $O\left(n\right)$.
 
   Naive algorithms result in $c'_i \leq x_i$, thus according to the Invariability Theorem (\ref{invariability}),
   $||\delta_i||_1$ is invariable for any of the possible results $C'$ of these algorithms and the resulting norm is not
@@ -79,17 +79,17 @@
   while minimizing two $\delta_i$ norms, $||\delta_i||_\infty$ and $||\delta_i||_1$. We start with the
   $||\delta_i||_\infty$ minimizer.
 
-  \subimport{thesis/algorithms/}{dinfmincode.tex}
+  \subimport{common/algorithms/}{dinfmincode.tex}
   Since trust should be considered as a continuous unit and binary search bisects the interval containing the solution
   on each recursive call, inclusion of the $\epsilon$-parameters in \texttt{BinSearch} is necessary for the algorithm to
   complete in a finite number of steps.
-  \subimport{thesis/algorithms/}{dinfbinsearchcode.tex}
+  \subimport{common/algorithms/}{dinfbinsearchcode.tex}
   Let $\delta \in \left[0, \max\limits_{1 \leq i \leq n}{\{c_i\}}\right]$. Furthermore, let $C'$ such that
   $\forall i \in \left[n\right], c'_i = \max{\left(0, c_i - \delta\right)}$. We define $maxFlow\left(\delta\right) =
   maxFlow\left(A, B, C'\right) = F'$ and $MaxFlow\left(\delta\right) = X'$. Conventions similar to $F$, $X$ and $C$ hold
   for $F'$, $X'$ and $\delta$ as far as subscripts are concerned.
-  \subimport{thesis/lemmas/}{maxflowmonotonicitylemma.tex}
-  \subimport{thesis/proofsketched/}{maxflowmonotonicityproofsketch.tex}
+  \subimport{common/lemmas/}{maxflowmonotonicitylemma.tex}
+  \subimport{common/proofsketches/}{maxflowmonotonicityproofsketch.tex}
   From the previous lemma we deduce that, given a $V \in \left(0, F\right)$, if we determine a $\delta$ such that
   $maxFlow\left(\delta\right) = F - V$, this $\delta$ is unique. Furthermore, it is
   \begin{equation*}
@@ -106,7 +106,7 @@
   $\sum\limits_{i=1}^{n}\left(c_i-c'_i\right) = ||\delta_i||_1$ as well. We treat the flow problem as a linear programming
   problem. Next we see the formulation of the problem in this form, along with a breakdown of each relevant matrix and
   vector.
-  \subimport{thesis/lp/}{lpprimal.tex}
+  \subimport{common/lp/}{lpprimal.tex}
   We would like to find a solution that, except for maximizing the flow, also minimizes $||\delta_i||_1$ at the same time.
   More precisely, we would like to optimize
   \begin{equation*}
@@ -123,7 +123,7 @@
   configuration that player $A$ requires.
 
   We will now describe the dual problem in detail.
-  \subimport{thesis/lp/}{lpdual.tex}
+  \subimport{common/lp/}{lpdual.tex}
   Everything is now in place to define the linear problem whose solution $C'$ yields $maxFlow\left(C'\right) = F - V$ and
   minimizes $||\delta_i||_\infty$. The constraints are (\ref{lp:primal:constraints}) and (\ref{lp:dual:constraints})
   supplemented with a constraint that equates the two problems' optimality functions:

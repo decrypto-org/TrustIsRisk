@@ -1,0 +1,94 @@
+\begin{sepproof}{Proof of Theorem \ref{saturation}: Saturation} \ \\
+  We will show constructively that in turn $j-1$, there exists some valid flow $Y$ such that
+  \begin{equation}
+  \label{saturation:target}
+    \forall i \in [n], y_i = c'_i
+  \end{equation}
+  The algorithm that calculates the desired flow can be seen here.
+
+  \subimport{common/algorithms/}{saturationcode.tex}
+
+  The function \texttt{findPath()} is a DFS that starts from $v_i$ and ends at $B$, returning the edges comprising the path
+  followed and the minimum edge flow encountered on this path. Edges with flow equal to 0 are not traversed.
+
+  We have to prove that the algorithm terminates, that the resulting flow is valid for $\mathcal{G}_{j-1}$ and that $\forall i
+  \in [n], y_i = c'_i$. Before proving these properties, we acquire some intermediate results that we will need later.
+  
+  First of all, it is straightforward to see that \texttt{reduction} is always positive. This variable is set in
+  line~\ref{saturation:reduction} to be the minimum of $y_i - c'_i$ and \texttt{pathFlow}. The former is always positive
+  as can be seen in the condition of the \texttt{while} loop (line~\ref{saturation:loop}) and so is the latter, as the flow
+  value returned by \texttt{findPath()} in line~\ref{saturation:findpath} is always positive as explained previously. Thus
+  \begin{equation}
+  \label{reductionpos}
+    \texttt{reduction} > 0 \enspace.
+  \end{equation}
+  Furthermore, given how \texttt{pathFlow} (line~\ref{saturation:findpath}) and \texttt{reduction}
+  (line~\ref{saturation:reduction}) are set, we see that \texttt{reduction} is not greater than any of the flows on the
+  \texttt{path} during the execution of lines~\ref{saturation:reducepathfor} -~\ref{saturation:reducehead}:
+  \begin{equation}
+  \label{reductionsmalle}
+    \forall e \in \texttt{path}, \: \texttt{reduction} \leq y_e \enspace.
+  \end{equation}
+  Also from line~\ref{saturation:reduction}, we have that
+  \begin{equation}
+  \label{reductionsmalli}
+    \texttt{reduction} \leq y_i - c'_i \enspace
+  \end{equation}
+  during the execution of lines~\ref{saturation:reducepathfor} -~\ref{saturation:reducehead}.
+
+  $Y$ is initialized in line~\ref{saturation:copyx} to be equal to $X$, thus initially $Y$ is a valid flow for
+  $\mathcal{G}_{j-1}$. Subsequently, the lines~\ref{saturation:reducepathfor} -~\ref{saturation:reducehead} are the only ones
+  that modify $Y$. We will now see that the modification is such that the resulting flow is still valid for
+  $\mathcal{G}_{j-1}$. This holds because no flow is increased according to (\ref{reductionpos}) and thus no flow can surpass
+  its capacity, no flow is reduced to a negative value according to (\ref{reductionsmalle}) and (\ref{reductionsmalli}) and
+  finally the reduction of the incoming flow for every node on the \texttt{path} is equal to the reduction of the outgoing
+  flow and both equal to \texttt{reduction}, thus the necessary properties (\ref{flow1}) and (\ref{flow2}) for a flow to be
+  valid hold always after the execution of line~\ref{saturation:reducehead}.
+  
+  We can now prove that the function \texttt{findPath()} will always succeed in finding a $\left(v_i, ..., B\right)$
+  \texttt{path}. Suppose that this function is unable to find such a \texttt{path}. Then it is $y_i > c'_i$ (since the
+  execution is in the \texttt{while} loop), there exists no path from $v_i$ to $B$ and the flow is valid. These three
+  affirmations cannot hold simultaneously, thus the initial proposition holds.
+
+  We will subsequently prove that the \texttt{while} loop (line~\ref{saturation:loop}) eventually completes for every $i \in
+  [n]$ and that at the end of the execution the desired property (\ref{saturation:target}) holds. Since $Y$ is a DAG, the
+  function \texttt{findPath()} cannot return a \texttt{path} that contains an edge $\left(A, v_k\right)$ for any $k$, thus the
+  flow $y_k$ is modified only when $i = k$. Consequently it suffices to show that for every $i \in [n]$ the \texttt{while}
+  loop completes and at the end of its execution it is $y_i = c'_i$.
+
+  If \texttt{reduction} is set to $y_i - c'_i$ in line~\ref{saturation:reduction}, then $y_i$ will be subsequently set to
+  $c'_i$ in line~\ref{saturation:reducehead} and the \texttt{while} loop will be broken with $y_i$ having the desired value.
+  If, on the other hand, \texttt{reduction} is set to \texttt{pathFlow} in line~\ref{saturation:reduction}, then at least one
+  flow other than $y_i$ will be set to zero in line~\ref{saturation:reducepath}. Since \texttt{findPath()} cannot fail and the
+  number of edges in the graph $|\mathcal{E}|$ is finite, we deduce that the \texttt{while} loop cannot execute indefinitely,
+  thus the algorithm terminates.
+
+  Let $i \in [n]$ and $y_{i,old}$ the value the variable $y_i$ was set to before the last execution of
+  line~\ref{saturation:reducehead} of the relevant \texttt{while} loop. We are now ready to prove that at the end of the
+  execution of the \texttt{while} loop, it is $y_i = c'_i$. The condition of the loop (line~\ref{saturation:loop}) assures
+  that after line~\ref{saturation:reducehead}, $y_i \leq c'_i$. Suppose that $y_i < c'_i$. Then we can deduce that
+  \texttt{reduction} was set to \texttt{pathFlow} the last time line~\ref{saturation:reduction} was executed because,
+  according to the previous paragraph, if it had been set to $y_{i,old} - c'_i$, then it would have held that $y_i = c'_i$
+  after line~\ref{saturation:reducehead}. This means that
+  \begin{equation}
+  \label{saturation:contradiction1}
+    \texttt{pathFlow} \leq y_{i,old} - c'_i
+  \end{equation}
+  according to line~\ref{saturation:reduction} and
+  \begin{equation}
+  \label{saturation:contradiction2}
+    y_i = y_{i,old} - \texttt{pathFlow} \Rightarrow \texttt{pathFlow} = y_{i,old} - y_i
+  \end{equation}
+  after line~\ref{saturation:reducehead}.
+  (\ref{saturation:contradiction1}) and (\ref{saturation:contradiction2}) together give
+  \begin{equation*}
+    y_{i,old} - y_i \leq y_{i,old} - c'_i \Rightarrow y_i \geq c'_i \enspace,
+  \end{equation*}
+  which contradicts with the supposition. Thus at the end of the \texttt{while} loop, it is $y_i = c'_i$. We have proven that
+  the flow $Y$ that is output by the \texttt{saturate()} algorithm is a valid flow for $\mathcal{G}_{j-1}$ and that $\forall i
+  \in [n], y_i =c'_i$.
+
+  Since $Y$ is valid for $\mathcal{G}_{j-1}$ and all the flows outgoing from $A$ are compatible with the capacities of
+  $\mathcal{G}_j$, $Y$ is also a valid flow for $\mathcal{G}_j$. Furthermore, since all capacities $c'_i$ are saturated, there
+  can be no more outgoing flow from $A$, thus $Y$ is a maximum flow in $\mathcal{G}_j$, that is $Y = X'$.
+\end{sepproof}

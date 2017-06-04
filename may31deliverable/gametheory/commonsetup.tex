@@ -1,0 +1,110 @@
+\subsection{Common Setup}
+  We propose two different kinds of games, both finite (but possibly generalizable to the infinite setting). The first
+  consists of one sole strategy where the players do not initially know whether they will be buyers, sellers or nothing at
+  all, this being decided in the last moment. The second game consists of three strategies: buyers, sellers and middlemen.
+  Before delving into the details of each game, we first describe their common elements.
+  
+  The general approach taken is as follows: After a game is described in detail, each player is assigned a specific strategy and
+  a relevant utility function. All players are considered to follow their respective strategy without deviating from it, except
+  for one player that is allowed to follow any desired strategy; her utility function however remains unchanged. If that player
+  is proven to have an incentive to deviate from her appointed strategy, we can deduce that the given strategies and utility
+  functions do not constitute a Nash equilibrium. If on the other hand no player has an incentive to deviate, regardless of
+  her appointed strategy, then we will come to the conclusion that the given strategies and utility functions do constitute a
+  Nash equilibrium. This approach is common in game theoretic analyses, given that allowing for all players to be rational and
+  then searching for a Nash equilibrium constitutes a practically intractable problem \cite{nasheqcomp}. Another common
+  approach employed here is that of considering only a generic product that all buyers want and all sellers have, and not a
+  variety of different products.
+
+  A description of the structure that is common for both games follows. The game graph has a random initial configuration
+  where every player has a random direct trust towards every other player, as well as a random capital. These values may be
+  uniformly distributed in an interval or may follow another distribution such as the exponential, or may have a high
+  probability of being zero. The exact distribution however is not determined at this point, as it is not yet needed. This
+  distribution will be common knowledge to the players. All capitals and direct trusts are publicly viewable. Further
+  constraints may be applied to each game separately.  Transaction fees are not considered.
+  
+  The game consists of $R$ rounds, the number of which is common knowledge for the players. The players play simultaneously in
+  each round and can do any of the known actions. If two actions conflict (e.g. $A$ reduces $DTr_{A \rightarrow B}$ and $B$
+  steals from $DTr_{A \rightarrow B}$ as well), then one of the two actions is chosen with equal probability ($50\%$). To
+  better model a player's actions and the aforementioned conflict resolution, we demand that each fund reallocation explicitly
+  mentions the source and the destination of the funds for each of her actions. Player $A$ decides on the values of all the
+  following variables. This constitutes a concrete round for $A$.
+  
+  \begin{gather*}
+    \forall B, C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \in \mathbb{R^+} \\
+    \forall B, C \in \mathcal{V}, B \neq A, move\left(A, \left(B, A\right), \left(A, C\right) \right) \in \mathbb{R^+}
+  \end{gather*}
+  The first argument is the player who decides, the second argument is from which direct trust to take the funds and the third
+  is to which direct trust to deposit the funds. The first type of moves corresponds to $Add\left(\right)$ and the second to
+  the $Steal\left(\right)$ actions.
+  
+  To clarify a detail, for any $B \in \mathcal{V}$ (including $A$), $A$ is not allowed to set $move\left(A, \left(A, B\right),
+  \left(A, B\right) \right)$ to any value different than 0. This choice is made to facilitate the analysis.
+  
+  There are some constraints for player's $A$ move:
+  \begin{itemize}
+    \item There is no reason to be able to deposit to and withdraw from a specific direct trust in the same round.
+    Furthermore, such a possibility would allow for "chain reactions" in the conflict resolution phase that would add
+    unnecessary complications.  This constraint applies only to outgoing direct trusts, because incoming direct trusts cannot
+    be increased.
+    \begin{gather*}
+      \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \cdot move\left(A, \left(A,
+      D\right), \left(A, B\right) \right) = 0 \\
+      \mbox{and} \\
+      \forall B, C, D \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right) \cdot move\left(A, \left(D,
+      A\right), \left(A, B\right) \right) = 0
+    \end{gather*}
+  
+    \item One cannot use more funds than are available from a single direct trust.
+    \begin{gather*}
+      \forall B \in \mathcal{V}, \sum\limits_{C \in \mathcal{V}} move\left(A, \left(A, B\right), \left(A, C\right) \right)
+        \leq DTr_{A \rightarrow B} \\
+      \forall B \in \mathcal{V}, \sum\limits_{C \in \mathcal{V}} move\left(A, \left(B, A\right), \left(A, C\right) \right)
+        \leq DTr_{B \rightarrow A} \\
+    \end{gather*}
+  \end{itemize}
+  
+  If two players try to change the same direct trust, then set the relevant moves of one of the two players (chosen uniformly
+  at random) to 0.
+  \begin{lstlisting}[label=conflict, style=numbers]
+resolveConflict((*@$A$@*), (*@$B$@*)) :
+  sum1 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*)
+  sum2 = (*@$\sum\limits_{C \in \mathcal{V}}move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*)
+  if (sum1*sum2 != 0)
+    choice (*@$ \overset{\$}{\gets} \{A, B\}$@*)
+    if (choice == (*@$A$@*))
+      (*@$\forall C \in \mathcal{V}, move\left(A, \left(A, B\right), \left(A, C\right) \right)$@*) = 0
+    else # if (choice == (*@$B$@*))
+      (*@$\forall C \in \mathcal{V}, move\left(B, \left(A, B\right), \left(B, C\right) \right)$@*) = 0
+
+resolveAllConflicts() :
+  (*@$\forall A, B \in \mathcal{V}$@*)
+    resolveConflict((*@$A$@*), (*@$B$@*))
+    resolveConflict((*@$B$@*), (*@$A$@*))
+  \end{lstlisting}
+
+  \noindent \texttt{resolveAllConflicts()} is executed after all players choose their moves for a round. In case of an
+  adversary, the random choice is resolved in their favor.
+  
+  \begin{figure}[p]
+  \label{fig:game}
+    \centering
+    \makebox[\textwidth][c]{\includegraphics[width=1.55\textwidth,angle=90]{game}}
+    \caption{The general form of the game \cite{sgtm}}
+  \end{figure}
+  
+  Fig.~\ref{fig:game} depicts the evolution of a two-player game. The players' choices for the first round are represented by
+  the solitary table at the top of the figure. More concretely, each distinct choice that player $A$ can make is depicted as a
+  row and likewise $B$'s choices are represented by columns. At each intersection of choices lies a subgame. The lines
+  departing from these intersections lead to the conflict resolution stage, which is decided by Nature. Depending on the
+  result of the conflict resolution, a new round begins where players can choose a new course of action. All the possible
+  states that players can be found in at the beginning of round 2 are depicted by the series of tables at the 2nd level. The
+  game evolves in a similar fashion with alternation between players' choices and Nature's conflict resolution, until players
+  can make their $R$-th choice. The keen observer can note that, instead of new departing lines, each cell of the tables of
+  the last round ($R$) contains a pair of numbers which represent the players' utilities for that outcome.
+  
+  Note that a concrete player's strategy consists of all the choices that she would make in every possible state that she can
+  find herself in. Thus, even though only $R$ choices will be made by each player, a strategy is comprised of exponentially
+  many choices. Furthermore, if we had to consider a three-player game, we would have to replace all tables with 3-dimensional
+  cubes and so on for more players.
+
+  We now move on to describe the individual games.

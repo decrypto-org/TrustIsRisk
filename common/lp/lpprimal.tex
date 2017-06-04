@@ -1,0 +1,82 @@
+In matrix form, the maximum flow problem can be seen as:
+\begin{equation*}
+\begin{gathered}
+  \left[AX\right]_{1..\left(n^2 + n\right)} \leq \left[B\right]_{1..\left(n^2 + n\right)} \\
+  \left[AX\right]_{\left(n^2 + n + 1\right)..\left(n^2 + 2n - 1\right)} = \left[B\right]_{\left(n^2 + n +
+  1\right)..\left(n^2 + 2n - 1\right)} \\
+  AX
+  \begin{cases}
+    \leq B, \forall i \in \{1, ..., n^2 + n\} \\
+    = B, \forall i \in \{n^2 + n + 1, ..., n^2 + 2n - 1\}
+  \end{cases} \\
+  \max{CX}
+\end{gathered}
+\end{equation*}
+Where:
+\begin{align*}
+  X = &\underbrace{\left[c'_{11} \dots c'_{1j} \dots c'_{1n} \right.}_{n} \\
+    &\begin{rcases}
+      \underbrace{f'_{11} \dots f'_{1j} \dots f'_{1n}}_{n} \\
+      \vdots \\
+      f'_{i1} \dots f'_{ij} \dots f'_{in} \\
+      \vdots \\
+      \left. f'_{n1} \dots f'_{nj} \dots f'_{nn} \right]^\intercal
+    \end{rcases} n
+\end{align*}
+\begin{equation*}
+  X : \left(n^2 + n\right) \times 1
+\end{equation*}
+
+\begin{align*}
+  B = &[\underbrace{c_{11} \dots c_{1j} \dots c_{1n}}_{n} \\
+    &\begin{rcases}
+      \underbrace{0 \dots 0}_{n} \\
+      \underbrace{c_{21} \dots c_{2j} \dots c_{2n}}_{n} \\
+      \vdots \\
+      c_{i1} \dots c_{ij} \dots c_{in} \\
+      \vdots \\
+      c_{n1} \dots c_{nj} \dots c_{nn}
+    \end{rcases} n \\
+    &\underbrace{0 \dots 0}_{n-2} \\
+    &\left. F - V \right]^\intercal
+\end{align*}
+\begin{equation*}
+  B : \left(n^2 + 2n - 1\right) \times 1
+\end{equation*}
+
+\begin{equation*}
+  C = [\underbrace{0 \dots 0}_{n}
+      \underbrace{1 \dots 1}_{n}
+      \underbrace{0 \dots 0}_{n\left(n - 1\right)}]
+\end{equation*}
+\begin{equation*}
+  C : 1 \times \left(n^2 + n\right)
+\end{equation*}
+
+The matrix $A$ is implied by the following constraints.
+\begin{equation*}
+  A : \left(n^2 + 2n - 1\right) \times \left(n^2 + n\right)
+\end{equation*}
+Let $n = |\mathcal{V}|$. Also, let the source correspond to 1 and the sink to $n$. The constraints are:
+\begin{equation}
+\label{lp:primal:constraints}
+\begin{alignedat}{4}
+  \forall j \in \left[n\right], && c'_{1j} &\leq c_{1j} &&\mbox{ ($n$ constraints)} \\
+  \forall j \in \left[n\right], &\:& f'_{1j} - c'_{1j} &\leq 0 &&\mbox{ ($n$ constraints)} \\
+  \forall i \in \left[n\right] \setminus \left\{1\right\}, \forall j \in \left[n\right], && f'_{ij} &\leq c_{ij}
+    &&\mbox{ ($n^2 - n$ constraints)} \\
+  \forall i \in \left[n\right] \setminus \left\{1, n\right\}, && \sum\limits_{j \in \left[n\right]}f'_{ij} &=
+    \sum\limits_{j \in \left[n\right]}f'_{ji} &&\mbox{ ($n-2$ constraints)} \\
+  && \sum\limits_{j \in \left[n\right]}f'_{1j} &= F - V &&\mbox{ (1 constraint)}
+\end{alignedat}
+\end{equation}
+Note that the matrix $A$ is comprised only of 0's, 1's and -1's. The constraints are $n^2 + 2n - 1$ in total. The special
+constraints are:
+\begin{alignat*}{4}
+  \forall j \in \left[n\right], &\:& c'_{1j} &\geq 0 \\
+  \forall i, j \in \left[n\right], &\:& f'_{ij} &\geq 0
+\end{alignat*}
+The desired optimization is
+\begin{equation*}
+  \max{\sum\limits_{j \in \left[n\right]}f'_{1j}} \enspace.
+\end{equation*}

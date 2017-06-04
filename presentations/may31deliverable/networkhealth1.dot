@@ -1,0 +1,18 @@
+digraph G {
+  bgcolor=transparent
+  fontcolor=white
+  fontname="Ubuntu"
+  node [fontname="Ubuntu",color=white,fontcolor=white]
+  edge [fontname="Ubuntu",color=white,fontcolor=white]
+  rankdir=LR
+  labelloc="b"
+  label="Centrality:\ 1\n Connectedness:\ large"
+  {A B C rank=min}
+  A -> H [dir=both,label="10"]
+  B -> H [dir=both,label="10"]
+  C -> H [dir=both,label="10"]
+  D -> H [dir=both,label="10"]
+  E -> H [dir=both,label="10"]
+  F -> H [dir=both,label="10"]
+  {D E F rank=max}
+}

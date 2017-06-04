@@ -1,0 +1,18 @@
+digraph G {
+  bgcolor=transparent
+  fontcolor=white
+  fontname="Ubuntu"
+  node [fontname="Ubuntu",color=white,fontcolor=white]
+  edge [fontname="Ubuntu",color=white,fontcolor=white]
+  rankdir=LR
+  labelloc="b"
+  label="Centrality:\ 0\n Connectedness:\ large"
+  {A B rank=same}
+  A -> B [dir=both,label="10"]
+  A -> C [dir=both,label="10"]
+  A -> D [dir=both,label="10"]
+  B -> C [dir=both,label="10"]
+  B -> D [dir=both,label="10"]
+  C -> D [dir=both,label="10"]
+  {C D rank=same}
+}
