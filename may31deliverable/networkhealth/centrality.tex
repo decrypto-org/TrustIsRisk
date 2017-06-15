@@ -8,23 +8,23 @@
   \subsubsection{Degree Centrality} \ \\
 
     One possible approach is the degree centrality \cite{freeman}, that can be broken down as in-degree and out-degree
-    centrality. We first define the node in-degree centrality.
+    centrality. We first define the node in-degree centrality\footnote{Maybe indirect trust is more intuitive than direct
+    trust in the following definition.}.
     \begin{align*}
-      C^d_{in}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{B \rightarrow A}\footnotemark && \mbox{
-      (Node in-degree centrality)}
+      C^d_{in}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{B \rightarrow A} && \mbox{ (Node in-degree
+      centrality)}
     \end{align*}
-    \footnotetext{Maybe indirect trust is more intuitive here than direct trust.}
     Let $A^*$ be the player with the maximum centrality: $A^* = \argmax\limits_{A \in \mathcal{V}}C^d_{in}\left(A\right)$. The
     network in-degree centrality is defined as:
     \begin{align*}
       C^d_{in} = \sum\limits_{A \in \mathcal{V}}\left(C^d_{in}\left(A^*\right) - C^d_{in}\left(A\right)\right) && \mbox{
       (Network in-degree centrality)}
     \end{align*}
-    Similarly, for the out-degree centrality we have:
     \addtocounter{footnote}{-1}
+    Similarly, for the out-degree centrality we have\footnotemark:
     \begin{align*}
-      C^d_{out}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{A \rightarrow B}\footnotemark && \mbox{
-      (Node out-degree centrality)}
+      C^d_{out}\left(A\right) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}DTr_{A \rightarrow B} && \mbox{ (Node
+      out-degree centrality)}
     \end{align*}
     Let $A^* = \argmax\limits_{A \in \mathcal{V}}C^d_{out}\left(A\right)$. The network out-degree centrality is:
     \begin{align*}
