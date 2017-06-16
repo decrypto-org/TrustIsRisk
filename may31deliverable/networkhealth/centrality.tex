@@ -29,10 +29,10 @@
       (Node out-degree centrality)}
     \end{align*}
     Let $A^* = \argmax\limits_{A \in \mathcal{V}'}C^d_{\mathcal{G}', out}\left(A\right)$. The graph out-degree centrality is:
-    \begin{align*}
+    \begin{equation*}
       C^d_{\mathcal{G}', out} = \sum\limits_{A \in \mathcal{V}'}\left(C^d_{\mathcal{G}', out}\left(A^*\right) -
-      C^d_{\mathcal{G}', out}\left(A\right)\right) && \mbox{ (Graph out-degree centrality)}
-    \end{align*}
+      C^d_{\mathcal{G}', out}\left(A\right)\right) \mbox{ (Graph out-degree centrality)}
+    \end{equation*}
 
     A problem of these centrality measures is that their unit is the currency used (i.e. Bitcoin) and thus may not always have
     an intuitive meaning. We would thus like to have a measure of \textit{centralization} that has no units and can take
