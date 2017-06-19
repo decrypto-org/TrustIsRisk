@@ -46,10 +46,11 @@
       Cn^d_{\mathcal{G}', out} &= \frac{C^d_{\mathcal{G}', out}}{\max C^d_{\mathcal{G}', out}} && \mbox{ (out-degree
       centralization)} \enspace,
     \end{align*}
-    where $\max C^d_{\mathcal{G}', in}$ is defined as the maximum in-degree centrality over all graphs with the same number
-    of nodes for which the maximum direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is
-    equal to the maximum \addtocounter{footnote}{-1}direct\footnotemark \ trust of $\mathcal{G}'$; $\max C^d_{\mathcal{G}',
-    out}$ is defined equivalently.
+    where $\max C^d_{\mathcal{G}', in}$ is defined as the maximum in-degree centrality over all graphs with the same number of
+    nodes, for which the total incoming direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust
+    of each node is equal to the total incoming \addtocounter{footnote}{-1}direct\footnotemark \ trust of the corresponding
+    node in $\mathcal{G}'$. $\max C^d_{\mathcal{G}', out}$ is defined equivalently. Please note that the aforementioned graphs
+    are always well defined.
 
   \subsubsection{maxFlow Centrality} \ \\
 
@@ -72,6 +73,9 @@
       Cn^{mF}_{\mathcal{G}'} = \frac{C^{mF}_{\mathcal{G}'}}{\max C^{mF}_{\mathcal{G}'}} && \mbox{ (Graph maxFlow
       centralization)} \enspace,
     \end{align*}
-    where $\max C^{mF}_{\mathcal{G}'}$ is the maximum centrality over all graphs with the same number of nodes for which the
-    maximum direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trust is equal to the maximum
-    \addtocounter{footnote}{-1} direct\footnotemark \ trust of $\mathcal{G}'$.
+    where $\max C^{mF}_{\mathcal{G}'}$ is the maximum centrality over all graphs with the same number of nodes, for which the
+    total incoming and outgoing direct\footnote{Maybe indirect trust is more intuitive here than direct trust.} trusts of each
+    node are equal to the total incoming and outgoing \addtocounter{footnote}{-1} direct\footnotemark \ trusts of the
+    corresponding node $\mathcal{G}'$, except for $A^*$, which corresponds to the central node whose incoming and outgoing
+    direct trusts are defined by those of the rest of the nodes. Please note that the aforementioned graph is always well
+    defined.
