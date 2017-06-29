@@ -43,10 +43,10 @@ may31deliverable.pdf: may31deliverable/* common/* splncs.bst may31deliverable/ga
 
 generalizedMaxFlow.pdf: generalizedMaxFlow/* common/* splncs.bst
 	export TEXINPUTS=.:./generalizedMaxFlow//:./common//:; \
-	pdflatex generalizedMaxFlow.tex; \
+	pdflatex --shell-escape generalizedMaxFlow.tex; \
 	bibtex generalizedMaxFlow.aux; \
-	pdflatex generalizedMaxFlow.tex; \
-	pdflatex generalizedMaxFlow.tex; \
+	pdflatex --shell-escape generalizedMaxFlow.tex; \
+	pdflatex --shell-escape generalizedMaxFlow.tex; \
 	rm -rf generalizedMaxFlow.aux generalizedMaxFlow.log generalizedMaxFlow.out generalizedMaxFlow.toc generalizedMaxFlow.lof generalizedMaxFlow.lot generalizedMaxFlow.bbl generalizedMaxFlow.blg
 
 clean:
