@@ -3,19 +3,19 @@ which in our case will be a number in $\left[0, 1\right]$. Intuitively, the gain
 represents the ratio of "leakage" this edge causes. In our case, it represents the percentage of funds that $v$ will try to
 replenish when $w$ steals from her. For the sake of example, consider the following graph:
 
-%\begin{tikzpicture}[>=latex']
-%\begin{dot2tex}[dot,tikz]
-%digraph G {
-%  rankdir=LR
-%  labelloc="b"
-%  label="Fig.1:\\ Alice\\ trusts\\ Charlie\\ 10"
-%  Alice -> Bob [label="c=10, g=0.6"]
-%  Bob -> Charlie [label="c=20, g=0.4"]
-%}
-%\end{dot2tex}
-%\end{tikzpicture}
-
-\subimport{generalizedMaxFlow/figures/}{simpleexample.tikz}
+\begin{center}
+\begin{tikzpicture}[>=latex']
+\begin{dot2tex}[dot,tikz]
+digraph G {
+  rankdir=LR
+  labelloc="b"
+  label="Fig.1:\ Alice\ trusts\ Charlie\ 10"
+  Alice -> Bob [label="c=10"] // g=0.6
+  Bob -> Charlie [label="c=20"] // g=0.4
+}
+\end{dot2tex}
+\end{tikzpicture}
+\end{center}
 
 A gain factor of 0 means that $v$ will tolerate any amount of stolen funds by $w$ without trying to replenish them by stealing
 others that directly trust her, whereas a gain factor of 1 means that $v$ will try to replenish any amount of stolen funds by
