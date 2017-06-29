@@ -1,4 +1,4 @@
-all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf may31deliverable.pdf
+all: fc17.pdf fc17-proceedings.pdf thesis.pdf thesisgr.pdf may31deliverable.pdf generalized_max_flow.pdf
 
 #.ONESHELL:
 fc17.pdf: fc17/* common/* splncs.bst
@@ -40,6 +40,14 @@ may31deliverable.pdf: may31deliverable/* common/* splncs.bst may31deliverable/ga
 	pdflatex may31deliverable.tex; \
 	pdflatex may31deliverable.tex; \
 	rm -rf may31deliverable.aux may31deliverable.log may31deliverable.out may31deliverable.toc may31deliverable.lof may31deliverable.lot may31deliverable.bbl may31deliverable.blg
+
+generalized_max_flow.pdf: generalized_max_flow/* common/* splncs.bst
+	export TEXINPUTS=.:./generalizedMaxFlow//:./common//:; \
+	pdflatex generalizedMaxFlow.tex; \
+	bibtex generalizedMaxFlow.aux; \
+	pdflatex generalizedMaxFlow.tex; \
+	pdflatex generalizedMaxFlow.tex; \
+	rm -rf generalizedMaxFlow.aux generalizedMaxFlow.log generalizedMaxFlow.out generalizedMaxFlow.toc generalizedMaxFlow.lof generalizedMaxFlow.lot generalizedMaxFlow.bbl generalizedMaxFlow.blg
 
 clean:
 	rm -rf *.aux *.log *.out *.toc *.lof *.lot *.bbl *.blg *.pdf
