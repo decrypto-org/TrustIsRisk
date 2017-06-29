@@ -1,0 +1,10 @@
+digraph G {
+  rankdir=LR
+  labelloc="b"
+  label="Fig.1:\\ Alice\\ trusts\\ Charlie\\ 10"
+  Alice -> Bob [label="c=10, g=0.6"]
+  Bob -> Charlie [label="c=20, g=0.4"]
+  //Alice [label="Alice"]
+  //Bob [label="Bob"]
+  //Charlie [label="Charlie"]
+}
