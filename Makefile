@@ -33,7 +33,7 @@ thesisgr.pdf: thesisgr/* common/* splncs.bst
 	pdflatex thesisgr.tex; \
 	rm -rf thesisgr.aux thesisgr.log thesisgr.out thesisgr.toc thesisgr.lof thesisgr.lot thesisgr.bbl thesisgr.blg
 
-may31deliverable.pdf: may31deliverable/* common/* may31deliverable/gametheory/* may31deliverable/networkhealth/*
+may31deliverable.pdf: may31deliverable/* common/* splncs.bst may31deliverable/gametheory/* may31deliverable/networkhealth/*
 	export TEXINPUTS=.:./may31deliverable//:./common//:; \
 	pdflatex may31deliverable.tex; \
 	bibtex may31deliverable.aux; \
