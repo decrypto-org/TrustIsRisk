@@ -4,7 +4,7 @@
 \begin{scope}
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (157.29bp,11.5bp) node {Fig.~\figlabel{fig:generalizedbottleneck}: Alice trusts Charlie 10};
+  \draw (157.29bp,11.5bp) node {Fig.~\figlabel{fig:generalizedbottleneck}: Alice trusts Charlie 6};
 \end{scope}
   \node (Charlie) at (278.19bp,41.0bp) [draw,ellipse] {Charlie};
   \node (Bob) at (150.79bp,41.0bp) [draw,ellipse] {Bob};
@@ -14,7 +14,6 @@
   \draw (91.795bp,33.5bp) node {$\gamma=0.6$};
   \draw [->] (Bob) ..controls (193.52bp,41.0bp) and (213.47bp,41.0bp)  .. (Charlie);
   \draw (209.79bp,48.5bp) node {$c=20$};
-  \draw (209.79bp,33.5bp) node {$\gamma=0.4$};
 %
 \end{tikzpicture}
 \end{center}
