@@ -18,12 +18,8 @@
 \usepackage{pgfplots}
 \usetikzlibrary{shapes,arrows}
 \usepackage{color}
-\usepackage{blkarray}
 \usepackage{hyperref}
-\usepackage{cleveref}[2017/05/10]
 \usepackage{import}
-
-\crefformat{footnote}{#2\footnotemark[#1]#3}
 
 %code options with \lstlisting
 \lstset{frame=tb,
@@ -76,6 +72,9 @@
 %environment for proof sketch
 \newenvironment{proofsketch}{\noindent \textit{Proof Sketch.}}{\qed \smallskip \ \\}
 
+%eliminate section numbering from \subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
 %page style set to plain
 \pagestyle{plain}
 
@@ -91,10 +90,3 @@
 %custom figures counter
 \newcounter{figcount}
 \newcommand{\figlabel}[1]{\refstepcounter{figcount}\arabic{figcount}\label{#1}}
-
-%Add argmin and argmax commands
-\DeclareMathOperator*{\argmax}{argmax}
-\DeclareMathOperator*{\argmin}{argmin}
-
-%subsubsection headers activation
-\setcounter{secnumdepth}{3}% Number up to \subsubsection
