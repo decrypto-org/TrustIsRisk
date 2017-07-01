@@ -4,7 +4,7 @@
 \begin{scope}
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (157.29bp,11.5bp) node {Fig.~\figlabel{fig:generalizedbottleneck}: Alice trusts Charlie 6\bitcoin};
+  \draw (157.29bp,11.5bp) node {Fig.~\figlabel{fig:generalizedbottleneck2}: $Tr_{Alice \rightarrow Charlie} = 6\bitcoin$};
 \end{scope}
   \node (Charlie) at (278.19bp,41.0bp) [draw,ellipse] {Charlie};
   \node (Bob) at (150.79bp,41.0bp) [draw,ellipse] {Bob};
