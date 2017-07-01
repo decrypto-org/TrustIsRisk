@@ -1,0 +1,8 @@
+digraph G {
+      rankdir = LR
+      labelloc="b"
+      label="Fig. 1:\ Few\ hops"
+      A -> C [label="1"]
+      C -> B [label="1"]
+    }
+  
