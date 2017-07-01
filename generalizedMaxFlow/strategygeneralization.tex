@@ -1,16 +1,22 @@
 \section{Strategy Generalization}
-  More specifically, apart from the capacity $c_e$, each edge $e$ is assigned a gain factor $\gamma_e \in \left[0, 1\right]$.
+  More specifically, apart from the capacity $c_e$, each edge $e \in \mathcal{E}$ is assigned a gain factor $\gamma_e \in
+  \left[0, 1\right]$. 
+  
   [Definition of new conservative strategy]
-  The MaxFlow algorithm is substituted with the generalized MaxFlow algorithm [proof needed].
-  For the sake of example, consider the following two graphs:
+
+  The MaxFlow algorithm is substituted with the generalized MaxFlow algorithm [proof needed]. For the sake of example,
+  consider the following two graphs:
   
   \subimport{generalizedMaxFlow/figures/}{simple1.tikz}
 
   \subimport{generalizedMaxFlow/figures/}{simple2.tikz}
 
-  A gain factor of 0 means that $v$ will tolerate any amount of stolen funds by $w$ without trying to replenish them by stealing
-  others that directly trust her, whereas a gain factor of 1 means that $v$ will try to replenish any amount of stolen funds by
-  $w$. If the gain factor is 0 on edges $\left(v, w\right)$ for all $w \in \mathcal{V}$, then $v$ is following the Idle
-  strategy, whereas if the gain factor is 1 on edges $\left(v, w\right)$ for all $w \in \mathcal{V}$, then $v$ is following the
-  Conservative strategy. The incoming direct trusts to the Evil player should all have a gain factor equal to 1, since we
-  consider that she steals all her incoming direct trust.
+  We will now attempt to obtain some insight as to how players behave on the two ends of the spectrum of the loss factor
+  $\gamma$. Consider an edge $e = \left(Alice, Bob\right) \in \mathcal{E}$. If $\gamma_e = 0$, then $Bob$ will not steal any
+  funds from $Alice$, no matter how big a loss he has suffered. On the other hand, if $\gamma_e = 1$, then $Bob$ can replenish
+  any amount of stolen funds through stealing from $Alice$, given that she directly trusts him with sufficient funds.
+  
+  If $\forall v \in \mathcal{V}, \gamma_{\left(v, Alice\right)} = 0$, then $Alice$ is following the Idle strategy, whereas if
+  $\forall v \in \mathcal{V}, \gamma_{\left(v, Alice\right)} = 1$, then $Alice$ is following the Conservative strategy. [proof
+  needed] The incoming direct trusts to the Evil player should all have a gain factor equal to 1, since we consider that she
+  steals all her incoming direct trust.
