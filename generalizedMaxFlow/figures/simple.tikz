@@ -14,6 +14,7 @@
   \draw (91.795bp,33.5bp) node {$\gamma=0.6$};
   \draw [->] (Bob) ..controls (193.52bp,41.0bp) and (213.47bp,41.0bp)  .. (Charlie);
   \draw (209.79bp,48.5bp) node {$c=20$};
+  \draw (209.79bp,33.5bp) node {$\gamma=1$};
 %
 \end{tikzpicture}
 \end{center}
