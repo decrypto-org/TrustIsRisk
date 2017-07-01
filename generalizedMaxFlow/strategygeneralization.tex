@@ -1,13 +1,14 @@
-The generalized MaxFlow algorithm expects as input a graph with capacities as well as a \textit{gain factor} for each edge,
-which in our case will be a number in $\left[0, 1\right]$. Intuitively, the gain factor of an edge $\left(v, w\right)$
-represents the ratio of "leakage" this edge causes. In our case, it represents the percentage of funds that $v$ will try to
-replenish when $w$ steals from her. For the sake of example, consider the following graph:
-
-\subimport{generalizedMaxFlow/figures/}{simple.tikz}
-
-A gain factor of 0 means that $v$ will tolerate any amount of stolen funds by $w$ without trying to replenish them by stealing
-others that directly trust her, whereas a gain factor of 1 means that $v$ will try to replenish any amount of stolen funds by
-$w$. If the gain factor is 0 on edges $\left(v, w\right)$ for all $w \in \mathcal{V}$, then $v$ is following the Idle
-strategy, whereas if the gain factor is 1 on edges $\left(v, w\right)$ for all $w \in \mathcal{V}$, then $v$ is following the
-Conservative strategy. The incoming direct trusts to the Evil player should all have a gain factor equal to 1, since we
-consider that she steals all her incoming direct trust.
+\section{Strategy Generalization}
+  The generalized MaxFlow algorithm expects as input a graph with capacities as well as a \textit{gain factor} for each edge,
+  which in our case will be a number in $\left[0, 1\right]$. Intuitively, the gain factor of an edge $\left(v, w\right)$
+  represents the ratio of "leakage" this edge causes. In our case, it represents the percentage of funds that $v$ will try to
+  replenish when $w$ steals from her. For the sake of example, consider the following graph:
+  
+  \subimport{generalizedMaxFlow/figures/}{simple.tikz}
+  
+  A gain factor of 0 means that $v$ will tolerate any amount of stolen funds by $w$ without trying to replenish them by stealing
+  others that directly trust her, whereas a gain factor of 1 means that $v$ will try to replenish any amount of stolen funds by
+  $w$. If the gain factor is 0 on edges $\left(v, w\right)$ for all $w \in \mathcal{V}$, then $v$ is following the Idle
+  strategy, whereas if the gain factor is 1 on edges $\left(v, w\right)$ for all $w \in \mathcal{V}$, then $v$ is following the
+  Conservative strategy. The incoming direct trusts to the Evil player should all have a gain factor equal to 1, since we
+  consider that she steals all her incoming direct trust.
