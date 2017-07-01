@@ -1,9 +1,21 @@
 \section{Introduction}
-  In our previous work, we presented three distinct strategies for the players: the Idle, the Conservative and the Evil. The
-  process of determining the indirect trust from Alice to Bob involved assigning the Idle strategy to Alice, the Evil strategy
-  to Bob and the Conservative strategy to all other players. The indirect trust from Alice to Bob would then be the worst case
-  scenario for Alice when Bob initiates a "chain reaction" of steal actions. Consider however the two following cases:
+  In our previous work, we presented three distinct strategies for the players: the Idle, the Conservative and the Evil
+  strategy. The process of determining the indirect trust from Alice to Bob involved assigning the Idle strategy to Alice, the
+  Evil strategy to Bob and the Conservative strategy to all other players. The indirect trust from Alice to Bob would then be
+  the worst case scenario for Alice when Bob initiates a "chain reaction" of steal actions. This value was proven to be equal
+  to the maximum flow from Alice to Bob. Consider however the two following cases:
 
   \subimport{generalizedMaxFlow/figures/}{fewhops.tikz}
 
   \subimport{generalizedMaxFlow/figures/}{manyhops.tikz}
+
+  One could argue that intuitively it should be $Tr_{\mathcal{G}_1, A \rightarrow B} > Tr_{\mathcal{G}_2, A \rightarrow B}$,
+  since the longer chain of players connecting A and B in $\mathcal{G}_2$ introduces more uncertainty as to whether B is
+  trustworthy. Nevertheless, according to our prior approach, it is $Tr_{\mathcal{G}_1, A \rightarrow B} = Tr_{\mathcal{G}_2,
+  A \rightarrow B}$ since $maxFlow_{\mathcal{G}_1}\left(A, B\right) = maxFlow_{\mathcal{G}_2}\left(A, B\right)$.
+
+  To mitigate this problem, we introduce a generalization of the previous approach that can take care of this observation. The
+  mechanism that we propose is analogous to an attenuation factor that accounts for the number of hops, but is better suited
+  for the ambience of maximum flow. Each edge $\left(v, w\right)$ of the graph is enhanced with an additional number called
+  \textit{loss factor}, which intuitively represents the "leakage" ratio on this edge, or the percentage of the damage
+  incurred by $w$ that is carried over to $v$ through this edge, in case $w$ is stolen some funds.

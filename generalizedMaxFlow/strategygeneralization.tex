@@ -1,10 +1,8 @@
 \section{Strategy Generalization}
-  The generalized MaxFlow algorithm expects as input a graph with capacities as well as a \textit{gain factor} for each edge,
-  which in our case will be a number in $\left[0, 1\right]$. Intuitively, the gain factor of an edge $\left(v, w\right)$
-  represents the ratio of "leakage" this edge causes. In our case, it represents the percentage of funds that $v$ will try to
-  replenish when $w$ steals from her. For the sake of example, consider the following graph:
-  
-  \subimport{generalizedMaxFlow/figures/}{simple.tikz}
+  More specifically, apart from the capacity $c_e$, each edge $e$ is assigned a gain factor $\gamma_e \in \left[0, 1\right]$.
+  [Definition of new conservative strategy]
+  The MaxFlow algorithm is substituted with the generalized MaxFlow algorithm [proof needed].
+  For the sake of example, consider the following two graphs:
   
   \subimport{generalizedMaxFlow/figures/}{simple1.tikz}
 
