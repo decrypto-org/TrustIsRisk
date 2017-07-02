@@ -4,8 +4,10 @@
   
   \subimport{common/definitions/}{gammastrategy.tex}
 
-  The MaxFlow algorithm is substituted with the generalized MaxFlow algorithm [proof needed]. For the sake of example,
-  consider the following two graphs:
+  Given a graph with capacities, loss factors, a source $A$ and a sink $B$, the generalized MaxFlow algorithm yields a
+  generalized flow that corresponds to the steal actions in the worst case scenario for $A$, given that $A$ follows the Idle
+  strategy, $B$ follows the Evil strategy and all other players follow the Extended strategy [proof needed]. For the sake of
+  example, consider the following two graphs:
   
   \subimport{generalizedMaxFlow/figures/}{simple1.tikz}
 
