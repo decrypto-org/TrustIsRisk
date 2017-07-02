@@ -16,8 +16,8 @@
 
   To mitigate this problem, we introduce a generalization of the previous approach that can handle these cases more
   robustly. The mechanism that we propose is analogous to an attenuation factor that accounts for the number of hops, but is
-  better suited for the ambience of maximum flow. Each edge $\left(v, w\right) \in \mathcal{E}$ of the graph is supplemented
-  with an additional number called \textit{loss factor}, which intuitively represents the "leakage" ratio on this edge, or the
-  percentage of the damage incurred by $w$ that is carried over to $v$ through this edge, in case $w$ is stolen some funds.
-  The player who initiates the maxFlow calculation is the one that should specify the loss factors, according to her beliefs
-  about the other players.
+  better suited for the ambience of maximum flow. Each edge $e = \left(Alice, Bob\right) \in \mathcal{E}$ of the graph is
+  supplemented with an additional number called \textit{loss factor}, which intuitively represents the "leakage" ratio on this
+  edge, or the percentage of the damage incurred by $Bob$ that is carried over to $Alice$ through this edge, in case he is
+  stolen some funds. The player who initiates the maxFlow calculation is the one that should specify the loss factors,
+  according to her beliefs about the other players.
