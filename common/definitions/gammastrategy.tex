@@ -1,2 +1,8 @@
-\begin{definition}[$\gamma$-Strategy]
+\begin{definition}[Extended Strategy]
+  Player $A$ follows the Extended strategy if she partly replenishes the value $Dmg_A$ she lost since the previous turn by
+  stealing from each player $v \in N^{-}\left(A\right)_{j-1}$ value $y_v$\emph{\bitcoin} in a way which ensures that
+  \begin{equation*}
+    \sum\limits_{v \in N\left(A\right)_{j-1}}\frac{y_v}{\gamma_{\left(v, A\right)}} = \min{\left(Dmg_A, \sum\limits_{v \in
+    N\left(A\right)_{j-1}}\frac{DTr_{v \rightarrow A}}{\gamma_{\left(v, A\right)}}\right)} \enspace.
+  \end{equation*}
 \end{definition}
