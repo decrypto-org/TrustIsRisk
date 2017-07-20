@@ -24,6 +24,13 @@
   any amount of stolen funds through stealing from $Alice$, given that she directly trusts him with sufficient funds.
   
   If $\forall v \in \mathcal{V}, \gamma_{\left(v, Alice\right)} = 0$, then $Alice$ is following the Idle strategy, whereas if
-  $\forall v \in \mathcal{V}, \gamma_{\left(v, Alice\right)} = 1$, then $Alice$ is following the Conservative strategy. [proof
-  needed] The incoming direct trusts to the Evil player should all have a gain factor equal to 1, since we consider that she
-  steals all her incoming direct trust.
+  $\forall v \in \mathcal{V}, \gamma_{\left(v, Alice\right)} = 1$, then $Alice$ is following the Conservative strategy. We now
+  prove these two observations. 
+  
+  \subimport{generalizedMaxFlow/lemmas/}{idleextendedlemma.tex}
+  \subimport{generalizedMaxFlow/proofs/}{idleextendedproof.tex}
+  \subimport{generalizedMaxFlow/lemmas/}{conservativeextendedlemma.tex}
+  \subimport{generalizedMaxFlow/proofs/}{conservativeextendedproof.tex}
+
+  The incoming direct trusts to the Evil player should all have a gain factor equal to 1, since we consider that she steals all
+  her incoming direct trust.
