@@ -5,7 +5,7 @@
   same graphs with $\gamma' = \frac{1}{\gamma}$ have incoming flow to the sink in the corresponding maxFlow.
 
   More specifically, apart from the capacity $c_e$, each edge $e \in \mathcal{E}$ is assigned a gain factor $\gamma_e \in
-  \left[0, 1\right]$. 
+  \left(0, 1\right]$. 
   
   \subimport{common/definitions/}{extendedstrategy.tex}
 
@@ -19,9 +19,9 @@
   \subimport{generalizedMaxFlow/figures/}{simple2.tikz}
 
   We will now attempt to obtain some insight as to how players behave on the two ends of the spectrum of the loss factor
-  $\gamma$. Consider an edge $e = \left(Alice, Bob\right) \in \mathcal{E}$. If $\gamma_e = 0$, then $Bob$ will not steal any
-  funds from $Alice$, no matter how big a loss he has suffered. On the other hand, if $\gamma_e = 1$, then $Bob$ can replenish
-  any amount of stolen funds through stealing from $Alice$, given that she directly trusts him with sufficient funds.
+  $\gamma$. Consider an edge $e = \left(Alice, Bob\right) \in \mathcal{E}$. If $\gamma_e \rightarrow 0$, then $Bob$ will not
+  steal any funds from $Alice$, no matter how big a loss he has suffered. On the other hand, if $\gamma_e = 1$, then $Bob$ can
+  replenish any amount of stolen funds through stealing from $Alice$, given that she directly trusts him with sufficient funds.
   
   The following two lemmas show the relation of the Extended strategy with the Idle and the Conservative strategies.
   
