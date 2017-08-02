@@ -1,0 +1,18 @@
+\begin{center}
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (124.0bp,11.5bp) node {Fig.~\figlabel{fig:fewhops}: $\mathcal{G}_1$, Few hops};
+\end{scope}
+  \node (A) at (27.0bp,41.0bp) [draw,ellipse] {A};
+  \node (C) at (124.0bp,41.0bp) [draw,ellipse] {C};
+  \node (B) at (221.0bp,41.0bp) [draw,ellipse] {B};
+  \draw [->] (C) ..controls (161.28bp,41.0bp) and (172.96bp,41.0bp)  .. (B);
+  \draw (172.5bp,48.5bp) node {1\bitcoin};
+  \draw [->] (A) ..controls (64.283bp,41.0bp) and (75.965bp,41.0bp)  .. (C);
+  \draw (75.5bp,48.5bp) node {1\bitcoin};
+%
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,34 @@
+\section{Strategy Generalization}
+  TODO: Switch to $\gamma \geq 1$.
+
+  TODO: Prove (or disprove) that graphs with $\gamma \geq 1$ have the same outgoing flow from the source in the maxFlow as the
+  same graphs with $\gamma' = \frac{1}{\gamma}$ have incoming flow to the sink in the corresponding maxFlow.
+
+  More specifically, apart from the capacity $c_e$, each edge $e \in \mathcal{E}$ is assigned a gain factor $\gamma_e \in
+  \left(0, 1\right]$. 
+  
+  \subimport{common/definitions/}{extendedstrategy.tex}
+
+  Given a graph with capacities, loss factors, a source $A$ and a sink $B$, the generalized MaxFlow algorithm yields a
+  generalized flow that corresponds to the steal actions in the worst case scenario for $A$, given that $A$ follows the Idle
+  strategy, $B$ follows the Evil strategy and all other players follow the Extended strategy [proof needed]. For the sake of
+  example, consider the following two graphs:
+  
+  \subimport{generalizedMaxFlow/figures/}{simple1.tikz}
+
+  \subimport{generalizedMaxFlow/figures/}{simple2.tikz}
+
+  We will now attempt to obtain some insight as to how players behave on the two ends of the spectrum of the loss factor
+  $\gamma$. Consider an edge $e = \left(Alice, Bob\right) \in \mathcal{E}$. If $\gamma_e \rightarrow 0$, then $Bob$ will not
+  steal any funds from $Alice$, no matter how big a loss he has suffered. On the other hand, if $\gamma_e = 1$, then $Bob$ can
+  replenish any amount of stolen funds through stealing from $Alice$, given that she directly trusts him with sufficient funds.
+  
+  The following two lemmas show the relation of the Extended strategy with the Idle and the Conservative strategies.
+  
+  \subimport{generalizedMaxFlow/lemmas/}{idleextendedlemma.tex}
+  \subimport{generalizedMaxFlow/proofs/}{idleextendedproof.tex}
+  \subimport{generalizedMaxFlow/lemmas/}{conservativeextendedlemma.tex}
+  \subimport{generalizedMaxFlow/proofs/}{conservativeextendedproof.tex}
+
+  The incoming direct trusts to the Evil player should all have a gain factor equal to 1, since we consider that she steals all
+  her incoming direct trust.
