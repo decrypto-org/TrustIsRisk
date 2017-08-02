@@ -1,11 +1,17 @@
 \subsection{Degree of Connectedness}
   We would like to have a measure of how well connected is the graph. A network with a lot of disconnected cliques should
-  score lower than a loosely connected network. This measure can be expressed as the expected indirect trust, defined
-  incrementally as follows:
-  \begin{align*}
-    Tr(A) = \sum\limits_{B \in \mathcal{V} \setminus \{A\}}Tr_{A \rightarrow B} && \mbox{ (Total indirect trust for player
-    }A\mbox{)} \\
-    ETr\left(A\right) = \frac{Tr(A)}{|\mathcal{V} \setminus \{A\}|} = \frac{Tr(A)}{|\mathcal{V}| - 1} && \mbox{ (Expected
-    indirect trust for player }A\mbox{)} \\
-    ETr = \frac{1}{|\mathcal{V}|}\sum\limits_{A \in \mathcal{V}}ETr\left(A\right) && \mbox{ (Expected indirect trust)}
-  \end{align*}
+  score lower than a loosely connected network. This measure can be expressed as the expected indirect trust, defined as
+  follows:
+  \begin{gather*}
+    E\left[Tr_{A \rightarrow B}\right] \enspace, \\
+    \mbox{where } A, B \overset{\$}{\leftarrow} \mathcal{V} \enspace.
+  \end{gather*}
+  In cases where some players are irrelevant or Sybil, it may be useful to measure the expected indirect trust with respect to
+  a subset of the players, namely $\mathcal{V}' \subset \mathcal{V}$. We then define $\mathcal{G}'$ as the induced subgraph
+  $\mathcal{G} \setminus \left(\mathcal{V} \setminus \mathcal{V}'\right)$ and the expected indirect trust with respect to
+  $\mathcal{V}'$ as
+  \begin{gather*}
+    E\left[Tr_{\mathcal{G}', A \rightarrow B}\right] \enspace, \\
+    \mbox{where } A, B \overset{\$}{\leftarrow} \mathcal{V}' \enspace.
+  \end{gather*}
+
